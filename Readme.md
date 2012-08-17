@@ -21,3 +21,18 @@ $config = array(
 Included under directory: "db" is the DDL used for the system; if there are updates to the structure this can be documented using the following command:
 
 `mysqldump -d --skip-add-drop-table --skip-add-locks --skip-disable-keys --skip-set-charset --skip-comments --compact -u<user> -p<pass> <dbname>`
+
+
+Note this project uses [composer](http://getcomposer.org/) to manage dependencies.
+
+Quick start:
+
+```
+git clone ...
+composer.phar install
+```
+
+
+### Attribution
+
+*  https://github.com/christianchristensen/AllPlayers-OAuth
