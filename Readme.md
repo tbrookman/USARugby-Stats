@@ -15,6 +15,7 @@ $config = array(
   'username' => 'user',
   'password' => 'pass',
   'database' => 'db',
+  'server'   => '127.0.0.1',
 );
 ```
 
