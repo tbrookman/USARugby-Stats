@@ -24,6 +24,8 @@ Included under directory: "db" is the DDL used for the system; if there are upda
 `mysqldump -d --skip-add-drop-table --skip-add-locks --skip-disable-keys --skip-set-charset --skip-comments --compact -u<user> -p<pass> <dbname>`
 
 
+### Composer
+
 Note this project uses [composer](http://getcomposer.org/) to manage dependencies.
 
 Quick start:
@@ -36,4 +38,5 @@ composer.phar install
 
 ### Attribution
 
+*  [Matt Trenary](https://github.com/matttrenary)
 *  https://github.com/christianchristensen/AllPlayers-OAuth
