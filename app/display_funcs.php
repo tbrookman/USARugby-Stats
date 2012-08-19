@@ -99,7 +99,7 @@ return ($output);
 
 
 function editCheck($pagelvl = 2, $team_id = -2){
-if ($_SESSION['access']<=$pagelvl || $_SESSION['teamid']==$team_id){
+if ((isset($_SESSION['access']) && $_SESSION['access']<=$pagelvl) || (isset($_SESSION['teamid']) && $_SESSION['teamid']==$team_id)){
 return true;
 }
 else

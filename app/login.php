@@ -1,8 +1,8 @@
-<?php 
+<?php
 //Start session
 include_once ('./session.php');
 
-$user=$_SESSION['user'];
+$user=isset($_SESSION['user']) ? $_SESSION['user'] : NULL;
 
 echo $_SESSION['warning'];
 $_SESSION['warning']='';
