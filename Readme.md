@@ -16,6 +16,9 @@ $config = array(
   'password' => 'pass',
   'database' => 'db',
   'server'   => '127.0.0.1',
+  'consumer_key'    => 'DEADBEEF',
+  'consumer_secret' => 'BEEFDEAD',
+  'auth_domain'     => 'https://www.allplayers.com', // Optional
 );
 ```
 
@@ -35,6 +38,9 @@ git clone ...
 composer.phar install
 ```
 
+### OAuth
+
+Generate a token for this app: http://develop.allplayers.com/oauth.html
 
 ### Attribution
 
