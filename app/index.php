@@ -1,6 +1,7 @@
 <?php
 use Symfony\Component\HttpFoundation\Tests\RequestContentProxy;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Guzzle\Http\Client;
 use Guzzle\Http\Plugin\OauthPlugin;
 
@@ -50,12 +51,14 @@ $app->get('/', function() use($app) {
     $temp_secret = $app['session']->get('access_secret');
     $secret = $app['session']->get('auth_secret');
 
-    // Pass session info to the legacy app
-
     // HACK perform access check on Matts app
+    include_once './session.php';
     if(!(isset($_SESSION['user']) && $_SESSION['user'])) {
-      return $app->redirect('/login.php');
+      // Error something happened with login...
+      // TODO clear all session info
+      return new Response('An error occured during login.', 500);
     }
+    // Originally "index.php"
     include_once ('./include.php');
     echo "<h1>Welcome to USA Rugby's National Championship Series!</h1>";
 
@@ -144,6 +147,52 @@ $app->get('/auth', function() use ($app) {
   parse_str($response->getBody(TRUE), $oauth_tokens);
   $app['session']->set('auth_token', $oauth_tokens['oauth_token']);
   $app['session']->set('auth_secret', $oauth_tokens['oauth_token_secret']);
+  $token = $oauth_tokens['oauth_token'];
+  $secret = $oauth_tokens['oauth_token_secret'];
+
+  // Originally "check.php"
+  //Start session and get DB info and start DB connection
+  include_once './session.php';
+  include_once './db.php';
+  //Look for any users with our login and md5'ed password
+  if(!empty($token) && !empty($secret)) {
+    $client = new Client($app['session']->get('domain') . '/api/v1/rest', array(
+        'curl.CURLOPT_SSL_VERIFYPEER' => TRUE,
+        'curl.CURLOPT_CAINFO' => 'assets/mozilla.pem',
+        'curl.CURLOPT_FOLLOWLOCATION' => FALSE,
+    ));
+    $oauth = new OauthPlugin(array(
+        'consumer_key' => $app['session']->get('consumer_key'),
+        'consumer_secret' => $app['session']->get('consumer_secret'),
+        'token' => $token,
+        'token_secret' => $secret,
+    ));
+    $client->addSubscriber($oauth);
+
+    $response = $client->get('users/current.json')->send();
+    // Note: getLocation returns full URL info, but seems to work as a request in Guzzle
+    $response = $client->get($response->getLocation())->send();
+    $user = json_decode($response->getBody(TRUE));
+
+    $query = "SELECT * FROM `users` WHERE (uuid='$user->uuid')";
+    $result = mysql_query($query);
+    $numrows=mysql_num_rows($result);
+
+    //if we have a user match give them a session user and let them in
+    if($numrows > 0){
+      // Pass session info to the legacy app
+      while ($row = mysql_fetch_assoc($result)){
+        $_SESSION['user'] = $row['login'];
+        $_SESSION['teamid'] = $row['team'];
+        $_SESSION['access'] = $row['access'];
+      }
+    }
+
+    // TODO User management if user is authenticating for the first time insert
+    //  them, otherwise update their token records.
+    $query = "UPDATE `users` SET token = '$token', secret='$secret' WHERE uuid = '$user->uuid'";
+    $result = mysql_query($query);
+  }
   return $app->redirect('/');
 });
 

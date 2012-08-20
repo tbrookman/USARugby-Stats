@@ -122,10 +122,13 @@ CREATE TABLE `teams` (
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `login` varchar(25) NOT NULL,
+  `login` varchar(64) DEFAULT NULL,
   `password` varchar(160) NOT NULL,
   `team` int(6) NOT NULL,
   `access` int(2) NOT NULL,
+  `uuid` char(36) DEFAULT NULL,
+  `token` char(40) DEFAULT NULL,
+  `secret` char(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=216 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
