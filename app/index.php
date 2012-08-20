@@ -42,9 +42,9 @@ $app->before(function (Request $request) use($app) {
 
 $app->get('/', function() use($app) {
   $app['session']->start();
-  $info = '<br /> Context: ' . $app['session']->get('domain');
+  // twig/template this section
   if (($token = $app['session']->get('auth_token')) == null) {
-    return 'Welcome Guest. <a href="/login">Login</a>' . $info;
+    return '<a href="/login"><img src="/assets/ap_btn_b.png" alt="Login with AllPlayers.com" /></a>';
   } else {
     $temp_token = $app['session']->get('access_token');
     $temp_secret = $app['session']->get('access_secret');
@@ -52,7 +52,6 @@ $app->get('/', function() use($app) {
 
     // Pass session info to the legacy app
 
-    // twig/template this section
     // HACK perform access check on Matts app
     if(!(isset($_SESSION['user']) && $_SESSION['user'])) {
       return $app->redirect('/login.php');
