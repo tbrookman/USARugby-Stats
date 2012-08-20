@@ -7,4 +7,5 @@
 
 *  login.php
 *  check.php
+*  logout.php
 
