@@ -1,7 +1,7 @@
 <?php
 include_once ('./include_mini.php');
 
-if(!$comp_id){$comp_id=$_GET['id'];}
+if(!isset($comp_id) || !$comp_id){$comp_id=$_GET['id'];}
 
 echo "<table><tr>";
 
@@ -14,7 +14,7 @@ while ($row=mysql_fetch_assoc($result)){
   while ($row2=mysql_fetch_assoc($result2)){
 
   echo "<td><a href='team.php?id={$row2['id']}'>{$row2['short']}<a/></td>";
-  
+
   if (editCheck(1))
 {
 echo "<td><form style='margin: 0; padding: 0' name='dTeam{$row2['id']}' id='dTeam{$row2['id']}'>";
@@ -25,12 +25,12 @@ echo "<input type='hidden' name='trefresh' id='trefresh' value='comp_teams.php?i
 
 echo "</form></td>\r";
 }
-  
+
   echo "</tr>";
 
   }
 
-  }  
-  
+  }
+
   echo "</table>";
 ?>

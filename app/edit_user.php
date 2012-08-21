@@ -1,7 +1,7 @@
 <?php
 include_once ('./include_mini.php');
 
-if(!$user_id){$user_id=$_GET['id'];}
+if(!isset($user_id) || !$user_id){$user_id=$_GET['id'];}
 
 //get info for the user with id in url
 $query = "SELECT * FROM `users` WHERE id = $user_id";

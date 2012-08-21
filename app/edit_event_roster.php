@@ -1,7 +1,7 @@
 <?php
 include_once ('./include_mini.php');
 
-if(!$roster_id){$roster_id=$_GET['id'];}
+if(!isset($roster_id) || !$roster_id){$roster_id=$_GET['id'];}
 
 //get our team id and list of current rostered players
 $query = "SELECT team_id,player_ids,comp_id FROM `event_rosters` WHERE id = $roster_id";

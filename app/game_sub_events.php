@@ -1,7 +1,7 @@
 <?php
 include_once ('./include_mini.php');
 
-if(!$game_id){$game_id=$_GET['game_id'];}
+if(!isset($game_id) || !$game_id){$game_id=$_GET['game_id'];}
 
 echo "<table>";
 

@@ -48,7 +48,7 @@ if(isset($awayfrs[$i]) && $awayfrs[$i]==1){$frout='FR';}else{$frout='';}
 echo "<td>$frout</td>\r";
 echo "<td>&nbsp;</td>\r";
 echo "<td>{$homens[$i]}</td>\r";
-echo "<td>".playerName($homeps[$i])."</td>\r";
+echo "<td>". (isset($homeps[$i]) ? playerName($homeps[$i]) : '') ."</td>\r";
 if(isset($homefrs[$i]) && $homefrs[$i]==1){$frout='FR';}else{$frout='';}
 echo "<td>$frout</td>\r";
 echo "</tr>\r";

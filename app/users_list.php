@@ -15,7 +15,7 @@ echo "<tr>";
 echo "<td>{$row['login']}</td>\n";
 
 //for all team users, output that instead of nothing
-if(!$row['team']){$tout='All Teams';}
+if(!isset($row['team']) || !$row['team']){$tout='All Teams';}
 else
 {
 $tout = teamName($row['team']);

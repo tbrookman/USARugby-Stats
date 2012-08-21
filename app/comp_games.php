@@ -1,7 +1,7 @@
 <?php
 include_once ('./include_mini.php');
 
-if(!$comp_id){$comp_id=$_GET['id'];}
+if(!isset($comp_id) || !$comp_id){$comp_id=$_GET['id'];}
 
 echo "<table class='normal'>\n";
 echo "<tr><td>Game</td><td>Kickoff</td><td>Home</td><td>&nbsp;</td>\n";

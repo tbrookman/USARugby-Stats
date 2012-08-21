@@ -14,7 +14,7 @@ $pwq = '';
 
 $user_id = $_POST['user_id'];
 $access = $_POST['access'];
-if(!$access){$access=4;}
+if(!isset($access) || !$access){$access=4;}
 $team = $_POST['team'];
 
 $query = "UPDATE `users` SET login='$login',$pwq team='$team', access='$access' WHERE id='$user_id'";

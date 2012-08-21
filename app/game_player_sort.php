@@ -1,8 +1,8 @@
 <?php
 include_once ('./include_mini.php');
 
-if(!$game_id){$game_id=$_GET['gid'];}
-if(!$team_id){$team_id=$_GET['tid'];}
+if(!isset($game_id) || !$game_id){$game_id=$_GET['gid'];}
+if(!isset($team_id) || !$team_id){$team_id=$_GET['tid'];}
 
 $outputs = array();
 

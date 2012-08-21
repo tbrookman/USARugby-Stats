@@ -7,7 +7,7 @@ while ($row=mysql_fetch_assoc($result)){
 
 $output = "<a href='team.php?id={$row['id']}'>{$row['short']}</a>";
 }
-return ($output);
+return (isset($output) && $output) ? $output : '';
 }
 
 function teamNameF($id){
@@ -37,7 +37,7 @@ while ($row=mysql_fetch_assoc($result)){
 
 $output = "<a href='comp.php?id={$row['id']}'>{$row['name']}</a>";
 }
-return ($output);
+return (isset($output) && $output) ? $output : '';
 }
 
 

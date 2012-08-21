@@ -1,8 +1,8 @@
 <?php
 include_once ('./include_mini.php');
 
-if(!$game_id){$game_id=$_GET['gid'];}
-if(!$team_id){$team_id=$_GET['tid'];}
+if(!isset($game_id) || !$game_id){$game_id=$_GET['gid'];}
+if(!isset($team_id) || !$team_id){$team_id=$_GET['tid'];}
 
 //get our team id and list of current rostered players
 $query = "SELECT * FROM `game_rosters` WHERE game_id = $game_id AND team_id = $team_id";
@@ -41,7 +41,7 @@ $comp_type = $row['type'];
 }
 
 //if this is not the first game, show button to fill with previous game's roster
-$query = "SELECT * FROM `games` WHERE comp_id = $comp_id AND 
+$query = "SELECT * FROM `games` WHERE comp_id = $comp_id AND
 (home_id = $team_id OR away_id = $team_id) ORDER BY kickoff LIMIT 1";
 $result = mysql_query($query);
 while ($row=mysql_fetch_assoc($result)){
@@ -137,7 +137,7 @@ echo "<option value=''></option>\n";
 
 $i=1;
 foreach ($options as $option => $name){
-if($option==$cplayers[$j-1]){$s='selected';}else{$s='';}
+if(isset($cplayers[$j-1]) && $option==$cplayers[$j-1]){$s='selected';}else{$s='';}
 echo "<option value=\"$option\" $s>$name</option>\n";
 $i++;
 }

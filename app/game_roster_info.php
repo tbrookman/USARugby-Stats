@@ -1,7 +1,7 @@
 <?php
-include_once ('./include_mini.php'); 
+include_once ('./include_mini.php');
 
-if(!$game_id){$game_id=$_GET['gid'];}
+if(!isset($game_id) || !$game_id){$game_id=$_GET['gid'];}
 
 //get info for the game with id in url
 $query = "SELECT * FROM `games` WHERE id = $game_id";
