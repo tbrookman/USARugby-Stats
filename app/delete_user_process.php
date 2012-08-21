@@ -1,4 +1,4 @@
-<?
+<?php
 include_once ('./include_mini.php');
 
 $id = $_POST['user_id'];

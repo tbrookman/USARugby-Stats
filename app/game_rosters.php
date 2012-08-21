@@ -44,12 +44,12 @@ echo "<tr><td colspan='3'>".teamName($away_id)."</td><td>@</td><td colspan='3'>"
 for ($i=1;$i<=$max;$i++){
 echo "<tr><td>{$awayns[$i]}</td>\r";
 echo "<td>".playerName($awayps[$i])."</td>\r";
-if($awayfrs[$i]==1){$frout='FR';}else{$frout='';}
+if(isset($awayfrs[$i]) && $awayfrs[$i]==1){$frout='FR';}else{$frout='';}
 echo "<td>$frout</td>\r";
 echo "<td>&nbsp;</td>\r";
 echo "<td>{$homens[$i]}</td>\r";
 echo "<td>".playerName($homeps[$i])."</td>\r";
-if($homefrs[$i]==1){$frout='FR';}else{$frout='';}
+if(isset($homefrs[$i]) && $homefrs[$i]==1){$frout='FR';}else{$frout='';}
 echo "<td>$frout</td>\r";
 echo "</tr>\r";
 }

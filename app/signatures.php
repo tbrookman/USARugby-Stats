@@ -1,7 +1,7 @@
 <?php
 include_once ('./include_mini.php');
 
-if(!$game_id){$game_id=$_GET['id'];}
+if(!isset($game_id) || !$game_id){$game_id=$_GET['id'];}
 
 echo "<h2>Acceptance of Results</h2>";
 

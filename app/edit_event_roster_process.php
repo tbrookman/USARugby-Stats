@@ -1,4 +1,4 @@
-<?
+<?php
 include_once ('./include_mini.php');
 
 $roster_id = $_POST['roster_id'];

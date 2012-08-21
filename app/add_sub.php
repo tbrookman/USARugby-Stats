@@ -50,7 +50,7 @@ echo "<option value='$homep'>".playerName($homep)."</option>";
 </select>
 <label class="error" for="player_off" id="player_off_error">This field is required.</label>
 
-<input type='hidden' name='subrefresh' id='subrefresh' value='<?php echo "http://$_SERVER['HTTP_HOST']/game_sub_events.php?game_id=$game_id"; ?>'>
+<input type='hidden' name='subrefresh' id='subrefresh' value='<?php $host = $_SERVER['HTTP_HOST']; echo "http://$host/game_sub_events.php?game_id=$game_id"; ?>'>
 <input type='hidden' name='sub_game_id' id='sub_game_id' value=<?php echo "$game_id"; ?>>
 <input type='submit' name='submit' class='button' id='add_sub' value='Add Sub'>
 </form>

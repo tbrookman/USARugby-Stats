@@ -1,7 +1,7 @@
 <?php
 include_once ('./include_mini.php');
 
-if(!$game_id){$game_id=$_GET['id'];}
+if(!isset($game_id) || !$game_id){$game_id=$_GET['id'];}
 
 //get info for the game with id in url
 $query = "SELECT * FROM `games` WHERE id = $game_id";
@@ -101,7 +101,7 @@ $kom = date('i',strtotime($row['kickoff']));
 <label class="error" for="kom" id="kom_error">This field is required.</label>
 <br/>
 
-<?
+<?php
 
 echo "Field: <input id='field' name='field' type='text' size='1' value='{$row['field_num']}'>";
 echo "<br/>";

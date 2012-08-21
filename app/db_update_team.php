@@ -25,7 +25,7 @@ echo "<p>Insert the club's full FSI name and USA Rugby ID number.</p>\n";
 <input class="button" type="submit" id="teamadd" name="teamadd" value="Add Club" />
 </form>
 
-<?
+<?php
 
 echo "<h2>Clubs Currently in Database</h2>";
 echo "<div id='clublist'>";

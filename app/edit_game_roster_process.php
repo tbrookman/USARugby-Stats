@@ -1,4 +1,4 @@
-<?
+<?php
 include_once ('./include_mini.php');
 
 //Get team_id to prevent direct URL access from another team

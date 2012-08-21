@@ -1,4 +1,4 @@
-<?
+<?php
 include_once ('./include_mini.php');
 
 $ref= $_POST['ref'];

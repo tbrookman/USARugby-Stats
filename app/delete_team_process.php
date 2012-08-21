@@ -1,4 +1,4 @@
-<?
+<?php
 include_once ('./include_mini.php');
 
 $team_id = $_POST['team_id'];

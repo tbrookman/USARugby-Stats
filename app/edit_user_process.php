@@ -1,4 +1,4 @@
-<?
+<?php
 include_once ('./include_mini.php');
 
 $login = mysql_real_escape_string($_POST['login']);

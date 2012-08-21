@@ -36,7 +36,7 @@ echo "<option value='$homep'>".playerName($homep)."</option>";
 </select>
 <label class="error" for="player" id="player_error">This field is required.</label>
 
-<input type='hidden' name='refresh' id='refresh' value='<?php echo "http://$_SERVER['HTTP_HOST']/game_score_events.php?id=$game_id"; ?>'>
+<input type='hidden' name='refresh' id='refresh' value='<?php $host = $_SERVER['HTTP_HOST']; echo "http://$host/game_score_events.php?id=$game_id"; ?>'>
 <input type='hidden' name='game_id' id='game_id' value='<?php echo "$game_id"; ?>'>
 <input type='submit' name='submit' class='button' id='add_score' value='Add Score'>
 </form>

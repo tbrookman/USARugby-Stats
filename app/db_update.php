@@ -31,7 +31,7 @@ echo "The fourth column is the player's last name.<br/><br/>";
 <input type="submit" name="submit" value="Update Database" />
 </form>
 
-<?
+<?php
 }
 include_once ('./footer.php');
 mysql_close();
