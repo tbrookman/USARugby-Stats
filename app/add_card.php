@@ -3,8 +3,8 @@
 <label for="cardmin" id="cardmin_label">Min.</label>
 <?php
 echo "<select id='cardmin'>\n";
-for($k=1;$k<121;$k++){
-echo "<option value='$k'>$k</option>\n";
+for ($k=1;$k<121;$k++) {
+    echo "<option value='$k'>$k</option>\n";
 }
 echo "</select>";
 ?>
@@ -22,12 +22,12 @@ echo "</select>";
 <select name='cardplayer' id='cardplayer'>
 <?php
 echo "<option value=''>--".teamName($away_id)."--</option>";
-foreach ($awayps as $awayp){
-echo "<option value='$awayp'>".playerName($awayp)."</option>";
+foreach ($awayps as $awayp) {
+    echo "<option value='$awayp'>".playerName($awayp)."</option>";
 }
 echo "<option value=''>--".teamName($home_id)."--</option>";
-foreach ($homeps as $homep){
-echo "<option value='$homep'>".playerName($homep)."</option>";
+foreach ($homeps as $homep) {
+    echo "<option value='$homep'>".playerName($homep)."</option>";
 }
 ?>
 </select>

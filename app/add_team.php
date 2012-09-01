@@ -1,10 +1,10 @@
 <?php
-include_once ('./include_mini.php');
+include_once './include_mini.php';
 
 //verify we can edit.  1 is usarugby only.  Redirect if not?
-if(editCheck(1)){
+if (editCheck(1)) {
 
-$comp_id = $_GET['id'];
+    $comp_id = $_GET['id'];
 ?>
 
 <h4>Add a Team</h4>
@@ -16,18 +16,18 @@ $comp_id = $_GET['id'];
 <option value=''></option>
 <?php
 
-//give a list of every team to choose from
-$query = "SELECT team_id FROM ct_pairs WHERE comp_id=$comp_id";
-$result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)){
-$andsort = $andsort."AND id != '{$row['team_id']}' ";
-}
+    //give a list of every team to choose from
+    $query = "SELECT team_id FROM ct_pairs WHERE comp_id=$comp_id";
+    $result = mysql_query($query);
+    while ($row=mysql_fetch_assoc($result)) {
+        $andsort = $andsort."AND id != '{$row['team_id']}' ";
+    }
 
-$query = "SELECT * FROM `teams` WHERE 1 $andsort";
-$result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)){
-echo "<option value='{$row['id']}'>{$row['name']}</option>";
-}
+    $query = "SELECT * FROM `teams` WHERE 1 $andsort";
+    $result = mysql_query($query);
+    while ($row=mysql_fetch_assoc($result)) {
+        echo "<option value='{$row['id']}'>{$row['name']}</option>";
+    }
 ?>
 
 </select>
@@ -42,4 +42,3 @@ echo "<option value='{$row['id']}'>{$row['name']}</option>";
 
 <?php
 }
-?>

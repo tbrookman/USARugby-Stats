@@ -1,5 +1,5 @@
 <?php
-include_once ('./header.php');
+include_once './header.php';
 ?>
 
 <h1>Create a Competition</h1>
@@ -95,5 +95,4 @@ include_once ('./header.php');
 </form>
 
 <?php
-include_once ('./footer.php');
-?>
+include_once './footer.php';

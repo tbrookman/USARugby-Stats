@@ -1,5 +1,5 @@
 <?php
-include_once ('./include.php'); 
+include_once './include.php';
 ?>
 
 <h1>Help</h1>
@@ -10,7 +10,7 @@ include_once ('./include.php');
 
 <h2>How do I...</h2>
 <h3>Update My Rosters</h3>
-<p>Click on 'My Rosters' at the top of the page.  
+<p>Click on 'My Rosters' at the top of the page.
 This will bring you to your team's roster page where you can edit your Game Rosters.<br/>
 The Event Roster will be filled at check-in by USA Rugby.<br/>
 Once the Event Roster is filled for a specific event, you can fill your Game Rosters using players you selected in your Event Roster.</p>
@@ -19,17 +19,16 @@ For Game Rosters, please provide accurate jersey numbers for all players.</p>
 
 <h3>View Game Score/Sub/Card Info</h3>
 <p>Click on Competitions at the top of the page.
-From this main Competitions page, select the competition you are looking for.  
+From this main Competitions page, select the competition you are looking for.
 This will bring you to that competition's page where all games in the competition will be listed.
 Simply click on the score of any game to view the game information.</p>
 
 <h3>View Other Rosters</h3>
 <p>Click on Competitions at the top of the page.
-From this main Competitions page, select the competition you are looking for.  
+From this main Competitions page, select the competition you are looking for.
 This will bring you to that competition's page where all teams in the competition will be listed.
 Simply click on any team name to go to that team's page.
 From here you can look at the team's Event Roster or Game Rosters.</p>
 
 <?php
-include_once ('./footer.php'); 
-?>
+include_once './footer.php';
