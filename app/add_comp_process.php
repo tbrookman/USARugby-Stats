@@ -1,5 +1,5 @@
 <?php
-include_once ('./include_mini.php');
+include_once './include_mini.php';
 
 $name = mysql_real_escape_string($_POST['name']);
 $type = mysql_real_escape_string($_POST['type']);
@@ -12,5 +12,3 @@ $query = "INSERT INTO `comps` VALUES ('','{$_SESSION['user']}','$name','$start_d
 $result = mysql_query($query);
 
 header("Location: http://" . $_SERVER['HTTP_HOST']);
-
-?>

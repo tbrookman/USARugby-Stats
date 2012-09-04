@@ -1,5 +1,5 @@
 <?php
-include_once ('./include_mini.php');
+include_once './include_mini.php';
 
 $player_on_id = $_POST['player_on'];
 $player_off_id = $_POST['player_off'];
@@ -14,5 +14,3 @@ $result = mysql_query($query);
 
 $query1 = "INSERT INTO `game_events` VALUES ('','{$_SESSION['user']}','$game_id','$team_id','$player_on_id','$typeplus','$minute')";
 $result1 = mysql_query($query1);
-
-?>

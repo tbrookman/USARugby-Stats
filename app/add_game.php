@@ -1,5 +1,5 @@
 <?php
-include_once ('./include_mini.php');
+include_once './include_mini.php';
 
 $comp_id = $_GET['id'];
 ?>
@@ -26,18 +26,18 @@ $comp_id = $_GET['id'];
 //start date to end date using date and strtotime
 $query = "SELECT * FROM `comps` WHERE id = $comp_id";
 $result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)){
-$sdate = $row['start_date'];
-$edate = $row['end_date'];
+while ($row=mysql_fetch_assoc($result)) {
+    $sdate = $row['start_date'];
+    $edate = $row['end_date'];
 }
 
 $stime = strtotime($sdate);
 $etime = strtotime($edate);
 
-while ($stime <= $etime){
-$output = date('F j, Y', $stime);
-echo "<option value='$stime'>$output</option>";
-$stime = $stime+60*60*24;
+while ($stime <= $etime) {
+    $output = date('F j, Y', $stime);
+    echo "<option value='$stime'>$output</option>";
+    $stime = $stime+60*60*24;
 }
 ?>
 
@@ -95,13 +95,13 @@ $stime = $stime+60*60*24;
 <?php
 $query = "SELECT * FROM `ct_pairs` WHERE comp_id = $comp_id";
 $result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)){
+while ($row=mysql_fetch_assoc($result)) {
 
-$query1 = "SELECT * FROM `teams` WHERE id = {$row['team_id']}";
-$result1 = mysql_query($query1);
-while ($row1=mysql_fetch_assoc($result1)){
-echo "<option value='{$row1['id']}'>{$row1['name']}</option>";
-}
+    $query1 = "SELECT * FROM `teams` WHERE id = {$row['team_id']}";
+    $result1 = mysql_query($query1);
+    while ($row1=mysql_fetch_assoc($result1)) {
+        echo "<option value='{$row1['id']}'>{$row1['name']}</option>";
+    }
 }
 ?>
 
@@ -116,13 +116,13 @@ echo "<option value='{$row1['id']}'>{$row1['name']}</option>";
 <?php
 $query = "SELECT * FROM `ct_pairs` WHERE comp_id = $comp_id";
 $result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)){
+while ($row=mysql_fetch_assoc($result)) {
 
-$query1 = "SELECT * FROM `teams` WHERE id = {$row['team_id']}";
-$result1 = mysql_query($query1);
-while ($row1=mysql_fetch_assoc($result1)){
-echo "<option value='{$row1['id']}'>{$row1['name']}</option>";
-}
+    $query1 = "SELECT * FROM `teams` WHERE id = {$row['team_id']}";
+    $result1 = mysql_query($query1);
+    while ($row1=mysql_fetch_assoc($result1)) {
+        echo "<option value='{$row1['id']}'>{$row1['name']}</option>";
+    }
 }
 ?>
 
@@ -139,5 +139,4 @@ echo "<option value='{$row1['id']}'>{$row1['name']}</option>";
 <script type='text/javascript'>$('.error').hide();</script>
 
 <?php
-include_once ('./footer.php');
-?>
+include_once './footer.php';

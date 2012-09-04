@@ -3,8 +3,8 @@
 <label for="submin" id="submin_label">Min.</label>
 <?php
 echo "<select id='submin'>\n";
-for($k=1;$k<121;$k++){
-echo "<option value='$k'>$k</option>\n";
+for ($k=1;$k<121;$k++) {
+    echo "<option value='$k'>$k</option>\n";
 }
 echo "</select>";
 ?>
@@ -24,12 +24,12 @@ echo "</select>";
 <select name='player_on' id='player_on'>
 <?php
 echo "<option value=''>--".teamName($away_id)."--</option>";
-foreach ($awayps as $awayp){
-echo "<option value='$awayp'>".playerName($awayp)."</option>";
+foreach ($awayps as $awayp) {
+    echo "<option value='$awayp'>".playerName($awayp)."</option>";
 }
 echo "<option value=''>--".teamName($home_id)."--</option>";
-foreach ($homeps as $homep){
-echo "<option value='$homep'>".playerName($homep)."</option>";
+foreach ($homeps as $homep) {
+    echo "<option value='$homep'>".playerName($homep)."</option>";
 }
 ?>
 </select>
@@ -39,12 +39,12 @@ echo "<option value='$homep'>".playerName($homep)."</option>";
 <select name='player_off' id='player_off'>
 <?php
 echo "<option value=''>--".teamName($away_id)."--</option>";
-foreach ($awayps as $awayp){
-echo "<option value='$awayp'>".playerName($awayp)."</option>";
+foreach ($awayps as $awayp) {
+    echo "<option value='$awayp'>".playerName($awayp)."</option>";
 }
 echo "<option value=''>--".teamName($home_id)."--</option>";
-foreach ($homeps as $homep){
-echo "<option value='$homep'>".playerName($homep)."</option>";
+foreach ($homeps as $homep) {
+    echo "<option value='$homep'>".playerName($homep)."</option>";
 }
 ?>
 </select>

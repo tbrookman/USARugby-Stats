@@ -1,5 +1,5 @@
 <?php
-include_once ('./include_mini.php');
+include_once './include_mini.php';
 
 $field = $_POST['field'];
 $game_num = $_POST['gnum'];
@@ -10,7 +10,7 @@ $home = $_POST['home'];
 $away = $_POST['away'];
 $comp_id = $_POST['comp_id'];
 
-$kod = date('Y-m-d',$kod);
+$kod = date('Y-m-d', $kod);
 $kfull = $kod.' '.$koh.':'.$kom.':00';
 
 $query = "INSERT INTO `games` VALUES ('','{$_SESSION['user']}','$comp_id','$game_num','$home','$away','$kfull','$field','0','0','0','0','0','0','0')";
@@ -27,5 +27,3 @@ $result = mysql_query($query);
 
 $query = "INSERT INTO `game_rosters` VALUES ('','{$_SESSION['user']}','$now','$comp_id','$game_id','$away','','$numbers','$frontrows')";
 $result = mysql_query($query);
-
-?>

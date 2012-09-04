@@ -3,8 +3,8 @@
 <label for="minute" id="minute_label">Min.</label>
 <?php
 echo "<select id='minute'>\n";
-for($k=1;$k<121;$k++){
-echo "<option value='$k'>$k</option>\n";
+for ($k=1;$k<121;$k++) {
+    echo "<option value='$k'>$k</option>\n";
 }
 echo "</select>";
 ?>
@@ -25,12 +25,12 @@ echo "</select>";
 <select name='player' id='player'>
 <?php
 echo "<option value='team$away_id'>--".teamName($away_id)."--</option>";
-foreach ($awayps as $awayp){
-echo "<option value='$awayp'>".playerName($awayp)."</option>";
+foreach ($awayps as $awayp) {
+    echo "<option value='$awayp'>".playerName($awayp)."</option>";
 }
 echo "<option value='team$home_id'>--".teamName($home_id)."--</option>";
-foreach ($homeps as $homep){
-echo "<option value='$homep'>".playerName($homep)."</option>";
+foreach ($homeps as $homep) {
+    echo "<option value='$homep'>".playerName($homep)."</option>";
 }
 ?>
 </select>

@@ -1,14 +1,13 @@
 <?php
-include_once ('./header.php');
+include_once './header.php';
 
 //verify we can edit.  1 is usarugby only.  Redirect if not?
-if(editCheck(1)){
+if (editCheck(1)) {
 
-echo "<h1>Add Club to Database</h1>\n";
-echo "<p>Insert the club's full FSI name and USA Rugby ID number.</p>\n";
+    echo "<h1>Add Club to Database</h1>\n";
+    echo "<p>Insert the club's full FSI name and USA Rugby ID number.</p>\n";
 
 ?>
-
 
 <form name="teamaddform" id="teamaddform" method="POST" action="">
 <label for="name">Full FSI Club Name:</label>
@@ -27,12 +26,11 @@ echo "<p>Insert the club's full FSI name and USA Rugby ID number.</p>\n";
 
 <?php
 
-echo "<h2>Clubs Currently in Database</h2>";
-echo "<div id='clublist'>";
-include_once ('./db_update_team_list.php');
-echo "</div>";
+    echo "<h2>Clubs Currently in Database</h2>";
+    echo "<div id='clublist'>";
+    include_once './db_update_team_list.php';
+    echo "</div>";
 
 }
-include_once ('./footer.php');
+include_once './footer.php';
 mysql_close();
-?>

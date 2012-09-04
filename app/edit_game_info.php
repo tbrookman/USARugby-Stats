@@ -1,61 +1,58 @@
 <?php
-include_once ('./include_mini.php');
+include_once './include_mini.php';
 
-if(!isset($game_id) || !$game_id){$game_id=$_GET['id'];}
+if (!isset($game_id) || !$game_id) {$game_id=$_GET['id'];}
 
 //get info for the game with id in url
 $query = "SELECT * FROM `games` WHERE id = $game_id";
 $result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)){
-$ko = date('F j, Y',strtotime($row['kickoff']));
+while ($row=mysql_fetch_assoc($result)) {
+    $ko = date('F j, Y', strtotime($row['kickoff']));
 
-echo compName($row['comp_id'])."<br/>";
+    echo compName($row['comp_id'])."<br/>";
 
-echo "<label for='gnum' id='gnum_label'>Competition Game Number</label>";
-echo "<input id='gnum' name='gnum' type='text' size='1' value='{$row['comp_game_id']}'>";
-echo "<label class='error' for='gnum' id='gnum_error'>This field is required.</label><br/>";
+    echo "<label for='gnum' id='gnum_label'>Competition Game Number</label>";
+    echo "<input id='gnum' name='gnum' type='text' size='1' value='{$row['comp_game_id']}'>";
+    echo "<label class='error' for='gnum' id='gnum_error'>This field is required.</label><br/>";
 
+    echo teamName($row['away_id'])." @ ".teamName($row['home_id'])."<br/>";
 
-echo teamName($row['away_id'])." @ ".teamName($row['home_id'])."<br/>";
+    echo "<label for='kdate' id='kdate_label'>Game Date</label>";
+    echo "<select name='kdate' id='kdate'>";
+    echo "<option value=''></option>";
 
-echo "<label for='kdate' id='kdate_label'>Game Date</label>";
-echo "<select name='kdate' id='kdate'>";
-echo "<option value=''></option>";
+    //find the start date and list an option for all days from
+    //start date to end date using date and strtotime
+    $query2 = "SELECT * FROM `comps` WHERE id = {$row['comp_id']}";
+    $result2 = mysql_query($query2);
+    while ($row2=mysql_fetch_assoc($result2)) {
+        $sdate = $row2['start_date'];
+        $edate = $row2['end_date'];
+    }
 
-//find the start date and list an option for all days from
-//start date to end date using date and strtotime
-$query2 = "SELECT * FROM `comps` WHERE id = {$row['comp_id']}";
-$result2 = mysql_query($query2);
-while ($row2=mysql_fetch_assoc($result2)){
-$sdate = $row2['start_date'];
-$edate = $row2['end_date'];
-}
+    $stime = strtotime($sdate);
+    $etime = strtotime($edate);
 
-$stime = strtotime($sdate);
-$etime = strtotime($edate);
+    while ($stime <= $etime) {
+        $output = date('F j, Y', $stime);
+        if ($output==$ko) {
+            $selected = 'selected';
+        } else {
+            $selected = '';
+        }
 
-while ($stime <= $etime){
-$output = date('F j, Y', $stime);
-if ($output==$ko){
-$selected = 'selected';
-}
-else
-{
-$selected = '';
-}
+        echo "<option value='$stime' $selected>$output</option>";
+        $stime = $stime+60*60*24;
+    }
 
-echo "<option value='$stime' $selected>$output</option>";
-$stime = $stime+60*60*24;
-}
+    echo "</select>";
+    echo "<label class='error' for='kdate' id='kdate_error'>This field is required.</label>";
+    echo "<label class='error' for='kdate' id='kdate_derror'>Incorrect date format.</label>";
+    echo "<br/>";
 
-echo "</select>";
-echo "<label class='error' for='kdate' id='kdate_error'>This field is required.</label>";
-echo "<label class='error' for='kdate' id='kdate_derror'>Incorrect date format.</label>";
-echo "<br/>";
-
-//get our current kickoff hour and minute to auto select in drop down later
-$koh = date('G',strtotime($row['kickoff']));
-$kom = date('i',strtotime($row['kickoff']));
+    //get our current kickoff hour and minute to auto select in drop down later
+    $koh = date('G', strtotime($row['kickoff']));
+    $kom = date('i', strtotime($row['kickoff']));
 
 ?>
 
@@ -103,16 +100,14 @@ $kom = date('i',strtotime($row['kickoff']));
 
 <?php
 
-echo "Field: <input id='field' name='field' type='text' size='1' value='{$row['field_num']}'>";
-echo "<br/>";
+    echo "Field: <input id='field' name='field' type='text' size='1' value='{$row['field_num']}'>";
+    echo "<br/>";
 }
 
-if (editCheck()){
-echo "<input type='button' class='edit' id='eGame' name='eGame' value='Submit Edits' />";
-echo "<input type='hidden' id='game_id' value='$game_id' />";
+if (editCheck()) {
+    echo "<input type='button' class='edit' id='eGame' name='eGame' value='Submit Edits' />";
+    echo "<input type='hidden' id='game_id' value='$game_id' />";
 }
-
-
 
 echo "<script type='text/javascript'>";
 //to hide errors on load
@@ -121,5 +116,3 @@ echo "$('.error').hide();";
 echo "$('#koh option[value=\"$koh\"]').attr('selected', 'selected');";
 echo "$('#kom option[value=\"$kom\"]').attr('selected', 'selected');";
 echo "</script>";
-
-?>
