@@ -77,7 +77,7 @@ if (!empty($game_id)) {
     }
   }
   else {
-    $game = get_game($game_id);
+    $game = DataSource::getGame($game_id);
     $home_id = $game['home_id'];
     $away_id = $game['away_id'];
     echo "<h2>Rosters</h2> ";

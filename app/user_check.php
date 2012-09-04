@@ -11,4 +11,7 @@ if (!(isset($_SESSION['user']) && $_SESSION['user'])) {
         header('Location: http://' . $_SERVER['HTTP_HOST'] . '/login.php');
       }
     }
+    else {
+      header('Location: http://' . $_SERVER['HTTP_HOST'] . '/login.php');
+    }
 }
