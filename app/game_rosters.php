@@ -34,7 +34,8 @@ if (count($homeps) > count($awayps)) {
 }
 
 echo "<table>";
-echo "<tr><td colspan='3'>".teamName($away_id)."</td><td>@</td><td colspan='3'>".teamName($home_id)."</td></tr>\r";
+$link = empty($iframe);
+echo "<tr><td colspan='3'>".teamName($away_id, $link)."</td><td>@</td><td colspan='3'>".teamName($home_id, $link)."</td></tr>\r";
 
 //0 element has been filtered above so start at 1
 //displaying number, name, FR capable

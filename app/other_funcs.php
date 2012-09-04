@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Retrieve game info from database
+ */
+function get_game($game_id) {
+  $query = "SELECT * FROM `games` WHERE id = $game_id";
+  $result = mysql_query($query);
+  $game = mysql_fetch_assoc($result);
+  return $game;
+}
 /**
  * used to get a players team in a game for adding a scoring event
  * we look for the player id in the players list

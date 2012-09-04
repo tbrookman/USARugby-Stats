@@ -1,4 +1,5 @@
 <?php
+include_once './prepare_request.php';
 include_once './session.php';
 include_once './user_check.php';
 include_once './db.php';
