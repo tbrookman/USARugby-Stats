@@ -1,7 +1,13 @@
 {
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@github.com:AllPlayers/AllPlayers-PHP.git"
+        }
+    ],
     "require": {
         "silex/silex": "1.0.*",
-        "guzzle/guzzle": "dev-master"
+        "allplayers/allplayers-php": "dev-guzzle-allplayers"
     },
     "minimum-stability": "dev"
 }
