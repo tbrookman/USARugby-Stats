@@ -1,11 +1,17 @@
 {
-    "hash": "b2cb9ae353feb350ccf7588afb30acf4",
+    "hash": "9df48766f2fd0835ee94a9c17d4d570f",
     "packages": [
+        {
+            "package": "allplayers/allplayers-php",
+            "version": "dev-guzzle-allplayers",
+            "source-reference": "eab596622c08021eb12b66779bac1d7c71837c79",
+            "commit-date": "1346796876"
+        },
         {
             "package": "guzzle/guzzle",
             "version": "dev-master",
-            "source-reference": "494649fb6b3ec06e9ef5899dfa452476af5b8348",
-            "commit-date": "1345184230"
+            "source-reference": "01eb20051d346a429f10b8b434c8e1ed9e29676c",
+            "commit-date": "1346733055"
         },
         {
             "package": "pimple/pimple",
@@ -28,8 +34,8 @@
         {
             "package": "silex/silex",
             "version": "dev-master",
-            "source-reference": "6d7cf048c704c0c58276b01eccfacab4dd11d013",
-            "commit-date": "1344453846"
+            "source-reference": "73b18ef69f74d878465dba0836ad96affc6c820c",
+            "commit-date": "1346766167"
         },
         {
             "package": "symfony/event-dispatcher",
@@ -40,8 +46,8 @@
         {
             "package": "symfony/event-dispatcher",
             "version": "dev-master",
-            "source-reference": "v2.1.0-BETA4",
-            "commit-date": "1342739894"
+            "source-reference": "v2.1.0-RC2",
+            "commit-date": "1345643321"
         },
         {
             "package": "symfony/http-foundation",
@@ -52,8 +58,8 @@
         {
             "package": "symfony/http-foundation",
             "version": "dev-master",
-            "source-reference": "8d5e7f909fa519853e71bcfc57a1da8c637ebcbb",
-            "commit-date": "1345191498"
+            "source-reference": "c72ddd57edfa6f98b10902fbb545fcab0e78baf8",
+            "commit-date": "1346761482"
         },
         {
             "package": "symfony/http-kernel",
@@ -64,8 +70,8 @@
         {
             "package": "symfony/http-kernel",
             "version": "dev-master",
-            "source-reference": "0d0ee371ab0425f3399dba9e25d7ad98ca5c0d62",
-            "commit-date": "1344074675"
+            "source-reference": "aeffdc93a69b65dad2f61c917f73c84b8e387ba4",
+            "commit-date": "1346143430"
         },
         {
             "package": "symfony/routing",
@@ -76,8 +82,8 @@
         {
             "package": "symfony/routing",
             "version": "dev-master",
-            "source-reference": "v2.1.0-RC1",
-            "commit-date": "1343744077"
+            "source-reference": "475c0550543c882a7e31b9aca7a5dc0615f59547",
+            "commit-date": "1346394981"
         }
     ],
     "packages-dev": null,
@@ -86,6 +92,6 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "guzzle/guzzle": 20
+        "allplayers/allplayers-php": 20
     }
 }
