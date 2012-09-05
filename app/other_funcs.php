@@ -1,4 +1,5 @@
 <?php
+
 /**
  * used to get a players team in a game for adding a scoring event
  * we look for the player id in the players list

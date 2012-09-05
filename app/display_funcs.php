@@ -7,13 +7,17 @@
  * @return unknown
  */
 
-function teamName($id)
+function teamName($id, $link = TRUE)
 {
     $query = "SELECT id, short FROM `teams` WHERE id = $id";
     $result = mysql_query($query);
-    while ($row=mysql_fetch_assoc($result)) {
-
-        $output = "<a href='team.php?id={$row['id']}'>{$row['short']}</a>";
+    while ($row = mysql_fetch_assoc($result)) {
+        if (!empty($link)) {
+          $output = "<a href='team.php?id={$row['id']}'>{$row['short']}</a>";
+        }
+        else {
+          $output = $row['short'];
+        }
     }
 
     return (isset($output) && $output) ? $output : '';
