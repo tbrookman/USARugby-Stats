@@ -16,6 +16,12 @@ class DataSource {
     return $game;
   }
 
+  /**
+   * Retrieve a serial id by uuid.
+   * @param string $table_name
+   * @param string $uuid
+   * @return string $id.
+   */
   public static function getSerialIDByUUID($table_name, $uuid) {
     $query = "SELECT id FROM `$table_name` WHERE uuid='$uuid'";
     $result = mysql_query($query);
@@ -23,6 +29,12 @@ class DataSource {
     return $serial_id['id'];
   }
 
+  /**
+   * Retrieve a uuid by serial id.
+   * @param string $table_name
+   * @param string $serial_id
+   * @return string $uuid.
+   */
   public static function getUUIDBySerialID($table_name, $serial_id) {
     $query = "SELECT id FROM `$table_name` WHERE id='$serial_id'";
     $result = mysql_query($query);
