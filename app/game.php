@@ -1,14 +1,14 @@
 <?php
 include_once './prepare_request.php';
 
-$game_id = $request->get('id');
 $iframe = $request->get('iframe');
-$uuid = $request->get('uuid');
-if (empty($iframe)) {
-  include_once './include.php';
-}
-else {
-  include_once './include_mini.php';
+$include_file = empty($iframe) ? './include.php' : './include_mini.php';
+include_once $include_file;
+
+// If a game_id is given, let that take over.
+if (!$game_id = $request->get('id')) {
+  $game_uuid = $request->get('uuid');
+  $game_id = DataSource::getSerialIDByUUID('games', $game_uuid);
 }
 
 if (!empty($game_id)) {
