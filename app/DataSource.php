@@ -3,6 +3,19 @@
 class DataSource {
 
   /**
+   * Initialize database connection.
+   */
+  public static function connect() {
+    include './config.php';
+    $username = $config['username'];
+    $password = $config['password'];
+    $database = $config['database'];
+    $server   = $config['server'] ? $config['server'] : 'localhost';
+
+    mysql_connect($server, $username, $password);
+    @mysql_select_db($database) or die( "Unable to select database");
+  }
+  /**
    * Retrieve game by serial id or uuid.
    *
    * @param mixed $id
