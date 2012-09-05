@@ -1,21 +1,19 @@
 <?php
 include_once './include_mini.php';
 
-if (!isset($game_id) || !$game_id) {$game_id=$_GET['id'];}
 
-//get info for the game with id in url
-$query = "SELECT * FROM `games` WHERE id = $game_id";
-$result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)) {
-
-    echo compName($row['comp_id'])."<br/>";
-    echo "Game Number: ".$row['comp_game_id']."<br/>";
-    echo teamName($row['away_id'])." @ ".teamName($row['home_id'])."<br/>";
-    echo date('F j, Y', strtotime($row['kickoff']))."<br/>";
-    echo "Kickoff: ".date('g:i', strtotime($row['kickoff']))."<br/>";
-    echo "Field: ".$row['field_num']."<br/>";
-
+if (empty($game)) {
+  $game_id = empty($game_id) ? $request->get('id') : $game_id;
+  $game = $db->getGame($game_id);
 }
+
+echo compName($game['comp_id'])."<br/>";
+echo "Game Number: ".$game['comp_game_id']."<br/>";
+echo teamName($game['away_id'])." @ ".teamName($game['home_id'])."<br/>";
+echo date('F j, Y', strtotime($game['kickoff']))."<br/>";
+echo "Kickoff: ".date('g:i', strtotime($game['kickoff']))."<br/>";
+echo "Field: ".$game['field_num']."<br/>";
+
 
 if (editCheck()) {
     echo "<input type='button' class='edit' id='eShow' name='eShow' value='Edit Game Info' />";

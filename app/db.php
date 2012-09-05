@@ -1,2 +1,6 @@
 <?php
-$db = new DataSource();
+if (empty($db)) {
+  $db = new DataSource();
+}
+
+

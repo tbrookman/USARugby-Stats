@@ -55,6 +55,12 @@ class DataSource {
     return $uuid['uuid'];
   }
 
+  public function getRoster($game_id, $team_id) {
+    $query = "SELECT * FROM `game_rosters` WHERE game_id = $game_id AND team_id = $team_id";
+    $result = mysql_query($query);
+    $roster = mysql_fetch_assoc($result);
+    return $roster;
+  }
   /**
    * Verify the validity of a uuid.
    * @param string $uuid
