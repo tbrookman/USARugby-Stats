@@ -8,7 +8,7 @@ include_once $include_file;
 // If a game_id is given, let that take over.
 if (!$game_id = $request->get('id')) {
   $game_uuid = $request->get('uuid');
-  $game_id = DataSource::getSerialIDByUUID('games', $game_uuid);
+  $game_id = $db->getSerialIDByUUID('games', $game_uuid);
 }
 
 if (!empty($game_id)) {
@@ -77,7 +77,7 @@ if (!empty($game_id)) {
     }
   }
   else {
-    $game = DataSource::getGame($game_id);
+    $game = $db->getGame($game_id);
     $home_id = $game['home_id'];
     $away_id = $game['away_id'];
     echo "<h2>Rosters</h2> ";

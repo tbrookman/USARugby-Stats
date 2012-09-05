@@ -1,2 +1,2 @@
 <?php
-DataSource::connect();
+$db = new DataSource();
