@@ -15,6 +15,7 @@ class DataSource {
     mysql_connect($server, $username, $password);
     @mysql_select_db($database) or die( "Unable to select database");
   }
+
   /**
    * Retrieve game by serial id or uuid.
    *
