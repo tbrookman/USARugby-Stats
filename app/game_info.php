@@ -7,15 +7,15 @@ if (empty($game)) {
   $game = $db->getGame($game_id);
 }
 
-echo compName($game['comp_id'])."<br/>";
+echo compName($game['comp_id'], !$iframe)."<br/>";
 echo "Game Number: ".$game['comp_game_id']."<br/>";
-echo teamName($game['away_id'])." @ ".teamName($game['home_id'])."<br/>";
+echo teamName($game['away_id'], !$iframe)." @ ".teamName($game['home_id'], !$iframe)."<br/>";
 echo date('F j, Y', strtotime($game['kickoff']))."<br/>";
 echo "Kickoff: ".date('g:i', strtotime($game['kickoff']))."<br/>";
 echo "Field: ".$game['field_num']."<br/>";
 
 
-if (editCheck()) {
+if (editCheck() && !$iframe) {
     echo "<input type='button' class='edit' id='eShow' name='eShow' value='Edit Game Info' />";
     echo "<input type='hidden' id='game_id' value='$game_id' />";
 }

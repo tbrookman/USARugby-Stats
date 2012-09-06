@@ -65,13 +65,17 @@ function teamNameNL($id)
  * @param unknown $id
  * @return unknown
  */
-function compName($id)
+function compName($id, $link = TRUE)
 {
     $query = "SELECT id, name FROM `comps` WHERE id = $id";
     $result = mysql_query($query);
     while ($row=mysql_fetch_assoc($result)) {
-
+      if ($link) {
         $output = "<a href='comp.php?id={$row['id']}'>{$row['name']}</a>";
+      }
+      else {
+        $output = $row['name'];
+      }
     }
 
     return (isset($output) && $output) ? $output : '';
