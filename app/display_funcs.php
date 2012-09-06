@@ -185,3 +185,22 @@ function editCheck($pagelvl = 2, $team_id = -2)
         return false;
     }
 }
+
+
+function get_header_string($op) {
+  switch ($op) {
+    case 'game_events':
+      $headers = array(
+        'minute',
+        'type',
+        'team',
+        'player'
+      );
+  }
+  $header_string = '<tr>';
+  foreach ($headers as $header) {
+    $header_string .= '<th>' . ucfirst($header) . '</th>';
+  }
+  $header_string .= '</tr>';
+  return $header_string;
+}

@@ -6,6 +6,9 @@ $game_id ?: $request->get('id');
 echo "<table>";
 
 $game_score_events = $db->getGameScoreEvents($game_id);
+if ($iframe) {
+  echo get_header_string('game_events');
+}
 foreach ($game_score_events as $game_score_event) {
     echo "<tr><td>{$game_score_event['minute']}'</td>\r";
     echo "<td>".eType($game_score_event['type'])."</td>\r";
