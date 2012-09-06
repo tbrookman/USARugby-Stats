@@ -2,7 +2,6 @@
 
 include './include_micro.php';
 //get the home players and numbers
-//$query = "SELECT * FROM `game_rosters` WHERE game_id = $game_id AND team_id = $home_id";
 $home_roster = $db->getRoster($game_id, $home_id);
 $home_plyrs = $home_roster['player_ids'];
 $home_nums = $home_roster['numbers'];
@@ -11,7 +10,6 @@ $home_frs = $home_roster['frontrows'];
 
 //get the away players and numbers
 $away_roster = $db->getRoster($game_id, $away_id);
-//$query = "SELECT * FROM `game_rosters` WHERE game_id = $game_id AND team_id = $away_id";
 $away_plyrs = $away_roster['player_ids'];
 $away_nums = $away_roster['numbers'];
 $away_frs = $away_roster['frontrows'];
