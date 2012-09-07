@@ -10,8 +10,8 @@
         {
             "package": "guzzle/guzzle",
             "version": "dev-master",
-            "source-reference": "60a7cbfd08726d1a186c6298d8b87f225ec7eeb9",
-            "commit-date": "1346888392"
+            "source-reference": "03184125383caa148e13748f10886c1501661e39",
+            "commit-date": "1346986930"
         },
         {
             "package": "pimple/pimple",
