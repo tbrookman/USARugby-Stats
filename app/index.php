@@ -164,8 +164,7 @@ $app->get('/auth', function() use ($app) {
         // Originally "check.php"
         //Start session and get DB info and start DB connection
         include_once './session.php';
-        include_once './include_mini.php';
-        include_once './db.php';
+        include_once './include_micro.php';
         //Look for any users with our login and md5'ed password
         if (!empty($token) && !empty($secret)) {
             $client = AllPlayersClient::factory(array(
