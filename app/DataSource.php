@@ -22,8 +22,8 @@ class DataSource {
    *  UUID or ID of the game.
    */
   public function getGame($id) {
-    $search_id_key = DataSource::uuidIsValid($id) ? 'uuid' : 'id';
-    $query = "SELECT * FROM `games` WHERE $search_id_key='$id'";
+    $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('games', $id) : $id;
+    $query = "SELECT * FROM `games` WHERE id=$search_id";
     $result = mysql_query($query);
     $game = mysql_fetch_assoc($result);
     return $game;
@@ -55,6 +55,52 @@ class DataSource {
     return $uuid['uuid'];
   }
 
+  public function getRoster($game_id, $team_id) {
+    $query = "SELECT * FROM `game_rosters` WHERE game_id = $game_id AND team_id = $team_id";
+    $result = mysql_query($query);
+    $roster = mysql_fetch_assoc($result);
+    return $roster;
+  }
+
+  public function getCompetition($comp_id) {
+    $query = "SELECT * FROM `comps` WHERE id = $comp_id";
+    $result = mysql_query($query);
+    $competition = mysql_fetch_assoc($result);
+    return $competition;
+  }
+
+  public function getGameScoreEvents($id) {
+    $game_score_events = array();
+    $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('games', $id) : $id;
+    $query = "SELECT * FROM `game_events` WHERE game_id = $search_id AND type < 10 ORDER BY minute, type";
+    $result = mysql_query($query);
+    while ($row = mysql_fetch_assoc($result)) {
+      $game_score_events[] = $row;
+    }
+    return $game_score_events;
+  }
+
+  public function getGameSubEvents($id) {
+    $game_sub_events = array();
+    $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('games', $id) : $id;
+    $query = "SELECT * FROM `game_events` WHERE game_id = $search_id AND type > 10 AND type < 20 ORDER BY minute, team_id, type";
+    $result = mysql_query($query);
+    while ($row = mysql_fetch_assoc($result)) {
+      $game_sub_events[] = $row;
+    }
+    return $game_sub_events;
+  }
+
+  public function getGameCardEvents($id) {
+    $game_card_events = array();
+    $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('games', $id) : $id;
+    $query = "SELECT * FROM `game_events` WHERE game_id = $search_id AND type > 20 ORDER BY minute, type, team_id";
+    $result = mysql_query($query);
+    while ($row = mysql_fetch_assoc($result)) {
+      $game_sub_events[] = $row;
+    }
+    return $game_card_events;
+  }
   /**
    * Verify the validity of a uuid.
    * @param string $uuid
