@@ -1,7 +1,7 @@
 <?php
 include_once './include_mini.php';
 
-echo "<table><tr>";
+echo "<table class='table'><tr>";
 $query = "SELECT * FROM `comps` WHERE hidden=0";
 
 $result = mysql_query($query);

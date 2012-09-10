@@ -4,7 +4,7 @@ include_once './include_mini.php';
 //verify we can edit.  1 is usarugby only.  Redirect if not?
 if (editCheck(1)) {
 
-    echo "<table>\n";
+    echo "<table class='table'>\n";
     echo "<tr><td>Login</td><td>Team</td><td>Access</td><td>&nbsp;</td><td>&nbsp;</td></tr>\n";
 
     $query = "SELECT * FROM `users` WHERE 1";
@@ -23,7 +23,7 @@ if (editCheck(1)) {
         echo "<td>".accessName($row['access'])."</td>\n";
         echo "<td><input name='eUser{$row['id']}' class='eUser' id='eUser{$row['id']}' type='button' value='Edit User' /></td>\n";
         echo "<input name='eId{$row['id']}' class='eId' id='eId{$row['id']}' type='hidden' value='{$row['id']}' />\n";
-        echo "<td><input name='dUser{$row['id']}' class='dUser' id='dUser{$row['id']}' type='button' value='Delete User' /></td>\n";
+        echo "<td><input name='dUser{$row['id']}' class='dUser btn btn-danger' id='dUser{$row['id']}' type='button' value='Delete User' /></td>\n";
         echo "<input name='dId{$row['id']}' class='dId' id='dId{$row['id']}' type='hidden' value='{$row['id']}' />\n";
         echo "</tr>\n";
 

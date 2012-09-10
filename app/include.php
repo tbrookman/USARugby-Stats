@@ -19,16 +19,15 @@ echo "<title>USA Rugby National Championship Series</title>";
   <meta name="author" content="">
 
   <!-- Styles -->
-  <link href="/assets/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-  <link href="/assets/vendor/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
 
 <?php
 include_once './display_funcs.php';
 include_once './other_funcs.php';
 ?>
 
-  <script src='/assets/vendor/jquery.min.js'></script>
-  <script src='/assets/vendor/bootstrap/js/bootstrap.js'></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
   <script src='jquery_funcs.js'></script>
 
 </head>

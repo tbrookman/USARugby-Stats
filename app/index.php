@@ -66,7 +66,7 @@ $app->get('/', function() use ($app) {
             echo "<h1>Welcome to USA Rugby's National Championship Series!</h1>";
 
             if (editCheck(1)) {
-                echo "<a href='add_comp.php'>Add New Competition</a><br/>\r";
+                echo "<a class='btn btn-info' href='add_comp.php'>Add New Competition</a><br/>\r";
             }
 
             //List our comps
