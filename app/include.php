@@ -9,10 +9,6 @@ include_once './db.php';
 <html lang="en">
 <head>
 
-<?php
-echo "<title>USA Rugby National Championship Series</title>";
-?>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
@@ -20,6 +16,7 @@ echo "<title>USA Rugby National Championship Series</title>";
 
   <!-- Styles -->
   <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
+  <link href="/assets/css/app.css" rel="stylesheet" type="text/css">
 
 <?php
 include_once './display_funcs.php';
@@ -35,3 +32,6 @@ include_once './other_funcs.php';
 
 <?php
 include_once './header.php';
+
+echo "<title>USA Rugby National Championship Series</title>";
+
