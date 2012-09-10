@@ -3,7 +3,7 @@ include_once './include_mini.php';
 
 if (!isset($comp_id) || !$comp_id) {$comp_id=$_GET['id'];}
 
-echo "<table class='normal'>\n";
+echo "<table class='normal table'>\n";
 echo "<tr><td>Game</td><td>Kickoff</td><td>Home</td><td>&nbsp;</td>\n";
 echo "<td>Away</td><td>Field</td></tr>\n";
 
@@ -22,7 +22,7 @@ while ($row=mysql_fetch_assoc($result)) {
 
     if (editCheck(1)) {
         echo "<td><form style='margin: 0; padding: 0' name='dGame{$row['id']}' id='dGame{$row['id']}'>\n";
-        echo "<input name='dGame{$row['id']}' class='dGame' id='dGame{$row['id']}' type='button' value='Delete Game' />\n";
+        echo "<input name='dGame{$row['id']}' class='dGame btn btn-danger' id='dGame{$row['id']}' type='button' value='Delete Game' />\n";
         echo "<input type='hidden' class='dId' name='game_id' id='game_id' value='{$row['id']}' />\n";
         echo "<input type='hidden' name='grefresh' id='grefresh' value='comp_games.php?id=$comp_id' />\n";
 
