@@ -39,7 +39,7 @@ class DataSource {
     $query = "SELECT id FROM `$table_name` WHERE uuid='$uuid'";
     $result = mysql_query($query);
     $serial_id = mysql_fetch_assoc($result);
-    return $serial_id['id'];
+    return empty($serial_id['id']) ? FALSE : $serial_id['id'];
   }
 
   /**
@@ -52,7 +52,7 @@ class DataSource {
     $query = "SELECT id FROM `$table_name` WHERE id='$serial_id'";
     $result = mysql_query($query);
     $uuid = mysql_fetch_assoc($result);
-    return $uuid['uuid'];
+    return empty($uuid['uuid']) ? FALSE : $uuid['uuid'];
   }
 
   public function getRoster($game_id, $team_id) {
@@ -100,6 +100,30 @@ class DataSource {
       $game_card_events[] = $row;
     }
     return $game_card_events;
+  }
+
+  public function deleteNonAdminUsers() {
+    $query = "DELETE * FROM `users` where id != 1";
+    $result = mysql_query($query);
+  }
+
+  public function getUser($id) {
+    $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('users', $id) : $id;
+    if ($search_id) {
+      $query = "SELECT * FROM `users` WHERE id=$search_id";
+      $result = mysql_query($query);
+      $user = mysql_fetch_assoc($result);
+      return $user;
+    }
+    return FALSE;
+  }
+
+  public function addUser($user_info) {
+    $user_info['login'] = mysql_real_escape_string($user_info['login']);
+    $user_info['pass'] = md5(mysql_real_escape_string($user_info['pass']));
+    $query = "INSERT INTO `users` VALUES ('', '" . implode("', '", $user_info) . "', NULL, NULL)";
+    $result = mysql_query($query);
+    return $result;
   }
   /**
    * Verify the validity of a uuid.
