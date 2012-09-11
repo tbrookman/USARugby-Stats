@@ -99,8 +99,8 @@ CREATE TABLE `players` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_create` varchar(25) NOT NULL,
   `last_update` datetime NOT NULL,
-  `fsi_id` int(7) NOT NULL,
-  `team_fsi_id` int(7) NOT NULL,
+  `uuid` char(36) DEFAULT NULL,
+  `team_uuid` char(36) DEFAULT NULL,
   `firstname` varchar(25) NOT NULL,
   `lastname` varchar(35) NOT NULL,
   PRIMARY KEY (`id`)
@@ -112,7 +112,7 @@ CREATE TABLE `teams` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `hidden` int(1) NOT NULL,
   `user_create` varchar(25) NOT NULL,
-  `fsi_id` int(7) NOT NULL,
+  `uuid` char(36) DEFAULT NULL,
   `name` varchar(60) NOT NULL,
   `short` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)

@@ -81,7 +81,7 @@ function updateScore($game_id)
  */
 function pExists($id)
 {
-    $query = "SELECT id FROM `players` WHERE fsi_id = $id";
+    $query = "SELECT id FROM `players` WHERE uuid = $id";
     $result = mysql_query($query);
     while ($row=mysql_fetch_assoc($result)) {
         if ($row['id']) {return true;} else {return false;}
@@ -97,7 +97,7 @@ function pExists($id)
  */
 function tExists($id)
 {
-    $query = "SELECT id FROM `teams` WHERE fsi_id = $id";
+    $query = "SELECT id FROM `teams` WHERE uuid = $id";
     $result = mysql_query($query);
     while ($row=mysql_fetch_assoc($result)) {
         if ($row['id']) {return true;} else {return false;}

@@ -7,7 +7,7 @@ if (editCheck(1)) {
     $num = mysql_real_escape_string($_POST['num']);
 
     //check if team exists with number
-    $query = "SELECT * FROM `teams` WHERE fsi_id='$num'";
+    $query = "SELECT * FROM `teams` WHERE uuid='$num'";
     $result = mysql_query($query);
     if (mysql_num_rows($result)) {
         echo "A club with that ID number is already in database.\n";

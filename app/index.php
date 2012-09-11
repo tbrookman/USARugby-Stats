@@ -186,6 +186,7 @@ $app->get('/auth', function() use ($app) {
             $response = $client->get($response->getLocation())->send();
             $user = json_decode($response->getBody(TRUE));
 
+            $app['session']->set('user_uuid', $user->uuid);
             $query = "SELECT * FROM `users` WHERE (uuid='$user->uuid')";
             $result = mysql_query($query);
             $numrows=mysql_num_rows($result);

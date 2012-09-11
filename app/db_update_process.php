@@ -29,7 +29,7 @@ if (editCheck(1)) {
 
                         if (pExists($data[0])) {
                             echo "Player Exists, updating.<br/>";
-                            $query = "UPDATE `players` SET user_create='{$_SESSION['user']}',last_update='$now',team_fsi_id='{$data[1]}',firstname='$fn',lastname='$ln' WHERE fsi_id='{$data[0]}'";
+                            $query = "UPDATE `players` SET user_create='{$_SESSION['user']}',last_update='$now',team_uuid='{$data[1]}',firstname='$fn',lastname='$ln' WHERE uuid='{$data[0]}'";
                             $result = mysql_query($query);
                             //echo "$query<br/>";
                         } else {
