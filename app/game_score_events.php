@@ -1,7 +1,8 @@
 <?php
 include_once './include_mini.php';
 
-$game_id ?: $request->get('id');
+$game_id = $game_id ?: $request->get('id');
+$game_id = $game_id ?: $request->get('game_id');
 
 echo "<table class='table'>";
 
