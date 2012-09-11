@@ -11,15 +11,15 @@ if (editCheck(1)) {
   foreach ($members as $member) {
     $user = $db->getUser($member['uuid']);
     if (!$user) {
-      $user = array(
-        'login' => $member['fname'] . $member['lname'],
-        'pass' => '123Testing',
+      $user = $APSource->getUserByUUID($member['uuid']);
+      $user_info = array(
+        'email' => $user->email,
         'team' => 0,
         'access' => 1,
         'uuid' => $member['uuid'],
       );
 
-      if ($db->addUser($user)) {
+      if ($db->addUser($user_info)) {
         $added ++;
       }
     }
