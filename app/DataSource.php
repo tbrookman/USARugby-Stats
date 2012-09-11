@@ -30,6 +30,38 @@ class DataSource {
   }
 
   /**
+   * Retrieve all teams.
+   *
+   * @param string $uuid.
+   *  UUID of the team
+   * @param string $params.
+   *  Set of params (WHERE, ORDER, etc)
+   */
+  public function getAllTeams($params = "") {
+      $query = "SELECT * from `teams`" . $params;
+      $result = mysql_query($query);
+      $teams = mysql_fetch_assoc($result);
+      return $teams;
+
+  }
+
+  /**
+   * Retrieve team by uuid.
+   *
+   * @param string $uuid.
+   *  UUID of the team
+   * @param string $params.
+   *  Set of params (WHERE, ORDER, etc)
+   */
+  public function getTeam($uuid, $params = "") {
+      $query = "SELECT * from `teams` WHERE uuid=$uuid" . $params;
+      $result = mysql_query($query);
+      $team = mysql_fetch_assoc($result);
+      return $team;
+
+  }
+
+  /**
    * Retrieve a serial id by uuid.
    * @param string $table_name
    * @param string $uuid
