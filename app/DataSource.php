@@ -107,21 +107,40 @@ class DataSource {
     $result = mysql_query($query);
   }
 
-  public function getUser($id) {
-    $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('users', $id) : $id;
-    if ($search_id) {
-      $query = "SELECT * FROM `users` WHERE id=$search_id";
-      $result = mysql_query($query);
-      $user = mysql_fetch_assoc($result);
-      return $user;
+
+  public function getUser($id = NULL, $email = NULL) {
+    if (!empty($id)) {
+      $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('users', $id) : $id;
+      if (empty($search_id)) {
+        return FALSE;
+      }
+      $query = $query = "SELECT * FROM `users` WHERE id=$search_id";
     }
-    return FALSE;
+    elseif (!empty($email)) {
+      $query = "SELECT * FROM `users` WHERE login=$email";
+    }
+    else {
+      return FALSE;
+    }
+    $result = mysql_query($query);
+    $user = mysql_fetch_assoc($result);
+    return $user;
   }
 
+
   public function addUser($user_info) {
-    $user_info['login'] = mysql_real_escape_string($user_info['login']);
-    $user_info['pass'] = md5(mysql_real_escape_string($user_info['pass']));
+    $user_info['email'] = mysql_real_escape_string($user_info['email']);
     $query = "INSERT INTO `users` VALUES ('', '" . implode("', '", $user_info) . "', NULL, NULL)";
+    $result = mysql_query($query);
+    return $result;
+  }
+
+  public function updateUser($id, $user_info) {
+    $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('users', $id) : $id;
+    $email = $user_info['email'];
+    $team = $user_info['team'];
+    $access = $user_info['access'];
+    $query = "UPDATE `users` SET login='$email', team='$team', access='$access' WHERE id='$search_id'";
     $result = mysql_query($query);
     return $result;
   }

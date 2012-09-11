@@ -28,4 +28,19 @@ class APSource {
     $members = $command->execute();
     return $members;
   }
+
+  public function getUserByEmail($email) {
+    $this->request = $this->client->get(array('users{?params*}', array(
+            'params' => array('email' => $email),
+        )));
+    $users = $this->request->send();
+    $users = json_decode($users->getBody(TRUE));
+    return $users;
+  }
+
+  public function getUserByUUID($uuid) {
+    $command = $this->client->getCommand('GetUser', array('uuid' => $uuid));
+    $user = $command->execute();
+    return $user;
+  }
 }
