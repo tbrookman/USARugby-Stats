@@ -97,7 +97,7 @@ class DataSource {
     $query = "SELECT * FROM `game_events` WHERE game_id = $search_id AND type > 20 ORDER BY minute, type, team_id";
     $result = mysql_query($query);
     while ($row = mysql_fetch_assoc($result)) {
-      $game_sub_events[] = $row;
+      $game_card_events[] = $row;
     }
     return $game_card_events;
   }
