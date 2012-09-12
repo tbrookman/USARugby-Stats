@@ -30,7 +30,7 @@ if (count($homeps) > count($awayps)) {
     $max = count($awayps);
 }
 
-echo "<table>";
+echo "<table class='table'>";
 $link = empty($iframe);
 echo "<tr><td colspan='3'>".teamName($away_id, $link)."</td><td>@</td><td colspan='3'>".teamName($home_id, $link)."</td></tr>\r";
 

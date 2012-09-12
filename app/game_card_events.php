@@ -1,9 +1,10 @@
 <?php
 include_once './include_mini.php';
 
-$game_id ?: $request->get('id');
+$game_id = $game_id ?: $request->get('id');
+$game_id = $game_id ?: $request->get('game_id');
 
-echo "<table>";
+echo "<table class='table'>";
 
 $game_card_events = $db->getGameCardEvents($game_id);
 if ($iframe) {
@@ -17,7 +18,7 @@ foreach ($game_card_events as $game_card_event) {
 
     if (editCheck() && !$iframe) {
         echo "<td><form style='margin: 0; padding: 0' name='dForm{$game_card_event['id']}' id='dForm{$game_card_event['id']}'>";
-        echo "<input name='dCard{$game_card_event['id']}' class='dCard' id='dCard{$game_card_event['id']}' type='button' value='Delete Card' />";
+        echo "<input name='dCard{$game_card_event['id']}' class='dCard btn btn-danger' id='dCard{$game_card_event['id']}' type='button' value='Delete Card' />";
         echo "<input type='hidden' class='dId' name='event_id' id='event_id' value='{$game_card_event['id']}' />";
         echo "<input type='hidden' name='refresh' id='refresh' value='game_card_events.php?game_id=$game_id' />";
 

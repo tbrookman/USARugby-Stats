@@ -115,7 +115,7 @@ $cplayers = array();
 $cplayers = explode('-', substr($player_ids, 1, (strlen($player_ids)-2)));
 
 //header for columns
-echo "<table>\n";
+echo "<table class='table'>\n";
 if ($comp_type==1) {$frhead = '<th>FR</th>';}
 echo "<tr><th>Num.</th><th>Name</th>$frhead</tr>\n";
 
