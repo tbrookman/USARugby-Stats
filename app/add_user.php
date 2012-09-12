@@ -4,7 +4,6 @@ if (editCheck(1)) {
 
     echo "<label for='login' id='login_label'>User Email</label>";
     echo "<input id='login' name='login' type='text' value='{$row['login']}'>";
-    //echo "<input id='login' name='login' type='text' value=''>";
     echo "<label class='error' for='login' id='login_error'>This field is required.</label><br/>";
 
     echo "<label for='team' id='team_label'>Team</label>";
