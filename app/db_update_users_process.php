@@ -5,7 +5,6 @@ if (editCheck(1)) {
   include './config.php';
   $APSource = APSource::factory();
   $members = $APSource->getGroupMembers($config['admin_group_uuid']);
-  //$db->deleteNonAdminUsers();
   $added = 0;
   foreach ($members as $member) {
     $user = $db->getUser($member['uuid']);

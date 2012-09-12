@@ -142,11 +142,6 @@ class DataSource {
         return $game_card_events;
     }
 
-    public function deleteNonAdminUsers() {
-        $query = "DELETE * FROM `users` where id != 1";
-        $result = mysql_query($query);
-    }
-
     public function getUser($id = NULL, $email = NULL) {
         if (!empty($id)) {
             $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('users', $id) : $id;
