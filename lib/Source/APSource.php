@@ -5,6 +5,7 @@ namespace Source;
 use AllPlayers\AllPlayersClient;
 use Guzzle\Service\Inspector;
 use Guzzle\Http\Plugin\OauthPlugin;
+use Guzzle\Service\Resource\ResourceIteratorClassFactory;
 
 class APSource extends AllPlayersClient {
 
@@ -29,6 +30,7 @@ class APSource extends AllPlayersClient {
         $auth = new OauthPlugin($config->get('oauth'));
         $client = new self($config->get('base_url'), $auth);
         $client->setDefaultHeaders(array('Accept' => 'application/json'));
+        $client->resourceIteratorFactory = new ResourceIteratorClassFactory('AllPlayers\\Model');
         $client->setConfig($config);
         return $client;
     }
