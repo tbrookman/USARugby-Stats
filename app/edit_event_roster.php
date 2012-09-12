@@ -3,6 +3,8 @@ include_once './include_mini.php';
 
 if (!isset($roster_id) || !$roster_id) {$roster_id=$_GET['id'];}
 
+// @TODO: Move queries to use DataSource or remove completely.
+
 //get our team id and list of current rostered players
 $query = "SELECT team_id,player_ids,comp_id FROM `event_rosters` WHERE id = $roster_id";
 $result = mysql_query($query);

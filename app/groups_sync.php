@@ -3,23 +3,19 @@ include_once './include_mini.php';
 use Source\APSource;
 
 if (editCheck(1)) {
-    $query = "SELECT * FROM `teams` WHERE 1 ORDER BY name";
-    $result = mysql_query($query);
-    while ($row=mysql_fetch_assoc($result)) {
-        $existing_groups[] = $row['uuid'];
-    }
+    $existing_teams = $db->getAllTeams();
     $attributes = $_SESSION['_sf2_attributes'];
     $client = APSource::factory();
     $command = $client->getCommand('GetUserGroups', array('uuid' => $attributes['user_uuid']));
-    $groups = $client->getIterator($command);
-    foreach ($groups as $group) {
-        if (!in_array($group['uuid'], $existing_groups)) {
+    $teams = $client->getIterator($command);
+    foreach ($teams as $team) {
+        if (!$existing_teams || !key_exists($team['uuid'], $existing_teams)) {
             $team_info = array(
                 'hidden' => 0,
                 'user_create' => $_SESSION['user'],
-                'uuid' => $group['uuid'],
-                'name' => $group['title'],
-                'short' => $group['title']
+                'uuid' => $team['uuid'],
+                'name' => $team['title'],
+                'short' => $team['title']
             );
             $db->addTeam($team_info);
         }
