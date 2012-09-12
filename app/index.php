@@ -209,6 +209,7 @@ $app->get('/auth', function() use ($app) {
                 // TODO User management if user is authenticating for the first time insert
                 //  them, otherwise update their token records.
             }
+            // @TODO figure out a better way to fail authentication.
         }
 
         return $app->redirect('/');
