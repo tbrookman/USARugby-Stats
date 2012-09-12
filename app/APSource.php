@@ -29,7 +29,7 @@ class APSource {
     return $members;
   }
 
-  public function getUserByEmail($email) {
+  public function getUsersByEmail($email) {
     $this->request = $this->client->get(array('users{?params*}', array(
             'params' => array('email' => $email),
         )));

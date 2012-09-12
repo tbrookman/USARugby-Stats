@@ -13,7 +13,7 @@ if (editCheck(1)) {
     if (!$user) {
       $user = $APSource->getUserByUUID($member['uuid']);
       $user_info = array(
-        'email' => $user->email,
+        'email' => $user['email'],
         'team' => 0,
         'access' => 1,
         'uuid' => $member['uuid'],

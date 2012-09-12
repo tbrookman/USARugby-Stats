@@ -22,7 +22,7 @@ if (editCheck(1)) {
         echo "That email is already taken.  User not added.";
     } else {
       $APSource = new APSource();
-      $users = $APSource->getUserByEmail($email);
+      $users = $APSource->getUsersByEmail($email);
       if (count($users) == 1) {
         $matching_user = current($users);
         $user_info = array(

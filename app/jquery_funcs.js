@@ -864,7 +864,7 @@ $(document).ready(function() {
             var user_id = $("#user_id").val();
 
         $.post('/edit_user_process.php',
-        {login: login, pw: pw, team: team, access: access, user_id: user_id},
+        {login: login, team: team, access: access, user_id: user_id},
         function(){
                  $('#users').fadeOut('slow', function(){
                      $('#users').html('Please wait...');
