@@ -5,3 +5,7 @@ ALTER TABLE users ADD secret char(40);
 ALTER TABLE games ADD uuid char(36);
 ALTER TABLE games ADD UNIQUE (uuid);
 ALTER TABLE users DROP password;
+ALTER TABLE players CHANGE team_fsi_id team_uuid char(36);
+ALTER TABLE players CHANGE fsi_id uuid char(36);
+ALTER TABLE teams CHANGE fsi_id uuid char(36);
+ALTER TABLE teams ADD UNIQUE (uuid);

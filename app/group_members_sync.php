@@ -1,22 +1,9 @@
 <?php
 include_once './include_mini.php';
-use AllPlayers\AllPlayersClient;
+include_once './APSource.php';
 
 $teams = array();
-$attributes = $_SESSION['_sf2_attributes'];
-$client = AllPlayersClient::factory(array(
-    'auth' => 'oauth',
-    'oauth' => array(
-        'consumer_key' => $attributes['consumer_key'],
-        'consumer_secret' => $attributes['consumer_secret'],
-        'token' => $attributes['auth_token'],
-        'token_secret' => $attributes['auth_secret']
-    ),
-    'host' => parse_url($attributes['domain'], PHP_URL_HOST),
-    'curl.CURLOPT_SSL_VERIFYPEER' => TRUE,
-    'curl.CURLOPT_CAINFO' => 'assets/mozilla.pem',
-    'curl.CURLOPT_FOLLOWLOCATION' => FALSE
-));
+$client = APSource::factory();
 
 //echo out a list of all clubs
 $query = "SELECT * FROM `teams` WHERE 1 ORDER BY name";
@@ -43,15 +30,15 @@ $result = mysql_query($query);
 foreach ($_POST as $name => $value) {
     if ($name == 'sync_all' && $value == 'on') {
         foreach ($teams as $key => $team) {
-            sync_group_members($team['uuid'], $client);
+            sync_group_members($team['uuid'], $client, $db);
         }
         exit;
     }
     if ($uuid = split('_', $name)) {
-        sync_group_members($uuid[1], $client);
+        sync_group_members($uuid[1], $client, $db);
     }
 }
-function sync_group_members($group_uuid, $client) {
+function sync_group_members($group_uuid, $client, $db) {
     $existing_players = array();
     $query = "SELECT * FROM `players` WHERE team_uuid='$group_uuid'";
     $result = mysql_query($query);
@@ -67,8 +54,15 @@ function sync_group_members($group_uuid, $client) {
         $member = (array) $member;
         if (!in_array($member['uuid'], $existing_players)) {
             $now = date('Y-m-d H:i:s');
-            $query = "INSERT INTO `players` VALUES ('','{$_SESSION['user']}','$now','{$member['uuid']}','{$group_uuid}','{$member['fname']}','{$member['lname']}')";
-            $result = mysql_query($query);
+            $player_info = array(
+                'user_create' => $_SESSION['user'],
+                'last_update' => $now,
+                'uuid' => $member['uuid'],
+                'team_uuid' => $group_uuid,
+                'firstname' => $member['fname'],
+                'lastname' => $member['lname']
+            );
+            $db->addPlayer($player_info);
         }
     }
     echo 'Groups members updated for ' . $group_uuid . '.<br />';
