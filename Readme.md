@@ -19,7 +19,7 @@ $config = array(
   'consumer_key'    => 'DEADBEEF',
   'consumer_secret' => 'BEEFDEAD',
   'auth_domain'     => 'https://www.allplayers.com', // Optional
-  'admin_group_uuid' => '537c2620-f611-11e0-a44b-12313d04fc0f',
+  'admin_group_uuid' => 'ffc1b780-cc4c-11e1-9e39-12313d2a2278',
 );
 ```
 
