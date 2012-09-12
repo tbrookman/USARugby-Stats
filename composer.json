@@ -9,5 +9,8 @@
         "silex/silex": "1.0.*",
         "allplayers/allplayers-php": "dev-guzzle-allplayers"
     },
+    "autoload": {
+        "psr-0": { "Source": "lib/" }
+    },
     "minimum-stability": "dev"
 }

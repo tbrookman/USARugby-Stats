@@ -1,6 +1,7 @@
 <?php
 include_once './include_mini.php';
-include_once './APSource.php';
+//include_once './APSource.php';
+use Source\APSource;
 
 if (editCheck(1)) {
     $email = mysql_real_escape_string($request->get('login'));
@@ -13,9 +14,7 @@ if (editCheck(1)) {
         $team = $request->get('team');
     }
 
-    /*$query = "SELECT login FROM `users` WHERE login='$login'";
-    $result = mysql_query($query);
-    $numrows = mysql_numrows($result);*/
+
     $users_with_email = $db->getUser(NULL, $email);
 
     if (!empty($users_with_email)) {

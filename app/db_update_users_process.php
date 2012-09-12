@@ -1,8 +1,7 @@
 <?php
 include_once './include.php';
-use AllPlayers\AllPlayersClient;
+use Source\APSource;
 if (editCheck(1)) {
-  include_once './APSource.php';
   include './config.php';
   $APSource = new APSource();
   $members = $APSource->getGroupMembers($config['admin_group_uuid']);

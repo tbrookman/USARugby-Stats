@@ -1,11 +1,11 @@
 {
-    "hash": "2047dc51ace2cc7c089324a71fe15f9b",
+    "hash": "750f057b69e17e43534865c5819f694e",
     "packages": [
         {
             "package": "allplayers/allplayers-php",
             "version": "dev-guzzle-allplayers",
-            "source-reference": "48f1a67beee02c683ac8eb05ed8c83b0a0873895",
-            "commit-date": "1347334541"
+            "source-reference": "3066c29ec101056eff75a5769cd80d198ec62399",
+            "commit-date": "1347459044"
         },
         {
             "package": "guzzle/guzzle",

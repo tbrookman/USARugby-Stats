@@ -1,4 +1,5 @@
 <?php
+namespace Source;
 use AllPlayers\AllPlayersClient;
 class APSource {
   /**
