@@ -29,11 +29,13 @@ if (editCheck(1)) {
 
                         if (pExists($data[0])) {
                             echo "Player Exists, updating.<br/>";
+                            // @TODO: Move to use DataSource or remove completely.
                             $query = "UPDATE `players` SET user_create='{$_SESSION['user']}',last_update='$now',team_uuid='{$data[1]}',firstname='$fn',lastname='$ln' WHERE uuid='{$data[0]}'";
                             $result = mysql_query($query);
                             //echo "$query<br/>";
                         } else {
                             echo "Player does not exist, inserting.<br/>";
+                            // @TODO: Move to use DataSource or remove completely.
                             $query = "INSERT INTO `players` VALUES ('','{$_SESSION['user']}','$now','{$data[0]}','{$data[1]}','$fn','$ln')";
                             $result = mysql_query($query);
                             //echo $query."<br/>";
