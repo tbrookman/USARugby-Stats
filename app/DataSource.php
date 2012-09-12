@@ -114,7 +114,7 @@ class DataSource {
       if (empty($search_id)) {
         return FALSE;
       }
-      $query = $query = "SELECT * FROM `users` WHERE id=$search_id";
+      $query = "SELECT * FROM `users` WHERE id=$search_id";
     }
     elseif (!empty($email)) {
       $query = "SELECT * FROM `users` WHERE login=$email";
@@ -123,8 +123,7 @@ class DataSource {
       return FALSE;
     }
     $result = mysql_query($query);
-    $user = mysql_fetch_assoc($result);
-    return $user;
+    return empty($result) ? $result : mysql_fetch_assoc($result);
   }
 
 

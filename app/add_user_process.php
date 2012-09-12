@@ -16,7 +16,7 @@ if (editCheck(1)) {
     /*$query = "SELECT login FROM `users` WHERE login='$login'";
     $result = mysql_query($query);
     $numrows = mysql_numrows($result);*/
-    $users_with_email = $db->getUserByEmail($email);
+    $users_with_email = $db->getUser(NULL, $email);
 
     if (!empty($users_with_email)) {
         echo "That email is already taken.  User not added.";
@@ -39,6 +39,4 @@ if (editCheck(1)) {
 
 
     }
-
-    mysql_close();
 }
