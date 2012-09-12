@@ -199,12 +199,15 @@ $app->get('/auth', function() use ($app) {
                     $_SESSION['teamid'] = $row['team'];
                     $_SESSION['access'] = $row['access'];
                 }
+                // TODO User management if user is authenticating for the first time insert
+                //  them, otherwise update their token records.
+                $query = "UPDATE `users` SET token = '$token', secret='$secret' WHERE uuid = '$user->uuid'";
+                $result = mysql_query($query);
+            }
+            else {
+              echo "out";
             }
 
-            // TODO User management if user is authenticating for the first time insert
-            //  them, otherwise update their token records.
-            $query = "UPDATE `users` SET token = '$token', secret='$secret' WHERE uuid = '$user->uuid'";
-            $result = mysql_query($query);
         }
 
         return $app->redirect('/');

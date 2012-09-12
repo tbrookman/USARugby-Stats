@@ -71,7 +71,7 @@ class DataSource {
     $query = "SELECT id FROM `$table_name` WHERE uuid='$uuid'";
     $result = mysql_query($query);
     $serial_id = mysql_fetch_assoc($result);
-    return $serial_id['id'];
+    return empty($serial_id['id']) ? FALSE : $serial_id['id'];
   }
 
   /**
@@ -84,7 +84,7 @@ class DataSource {
     $query = "SELECT id FROM `$table_name` WHERE id='$serial_id'";
     $result = mysql_query($query);
     $uuid = mysql_fetch_assoc($result);
-    return $uuid['uuid'];
+    return empty($uuid['uuid']) ? FALSE : $uuid['uuid'];
   }
 
   public function getRoster($game_id, $team_id) {
@@ -132,6 +132,48 @@ class DataSource {
       $game_card_events[] = $row;
     }
     return $game_card_events;
+  }
+
+  public function deleteNonAdminUsers() {
+    $query = "DELETE * FROM `users` where id != 1";
+    $result = mysql_query($query);
+  }
+
+
+  public function getUser($id = NULL, $email = NULL) {
+    if (!empty($id)) {
+      $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('users', $id) : $id;
+      if (empty($search_id)) {
+        return FALSE;
+      }
+      $query = "SELECT * FROM `users` WHERE id=$search_id";
+    }
+    elseif (!empty($email)) {
+      $query = "SELECT * FROM `users` WHERE login=$email";
+    }
+    else {
+      return FALSE;
+    }
+    $result = mysql_query($query);
+    return empty($result) ? $result : mysql_fetch_assoc($result);
+  }
+
+
+  public function addUser($user_info) {
+    $user_info['email'] = mysql_real_escape_string($user_info['email']);
+    $query = "INSERT INTO `users` VALUES ('', '" . implode("', '", $user_info) . "', NULL, NULL)";
+    $result = mysql_query($query);
+    return $result;
+  }
+
+  public function updateUser($id, $user_info) {
+    $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('users', $id) : $id;
+    $email = $user_info['email'];
+    $team = $user_info['team'];
+    $access = $user_info['access'];
+    $query = "UPDATE `users` SET login='$email', team='$team', access='$access' WHERE id='$search_id'";
+    $result = mysql_query($query);
+    return $result;
   }
   /**
    * Verify the validity of a uuid.

@@ -852,8 +852,6 @@ $(document).ready(function() {
               return false;
             }
 
-        var pw = $('#pw').val();
-
         var team = $('#team').val();
 
         var access = $('#access').val();
@@ -887,19 +885,21 @@ $(document).ready(function() {
         $('.error').hide();
 
           var login = $("input#login").val();
-        if (login== "") {
+          var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+        if (login== "" || !pattern.test(login)) {
               $("label#login_error").show();
               $("input#login").focus();
               return false;
             }
 
-        var pw = $('#pw').val();
-        if (pw== "") {
-              $("label#pw_error").show();
-              $("input#pw").focus();
-              return false;
-            }
-
+        /*var uuid = $('#uuid').val();
+        if (uuid != "") {
+        	var uuid_test_pattern = new RegExp(/^[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$/i);
+        	if (!uuid_test_pattern.test(uuid)) {
+        		$("label#uuid_error").show();
+                $("input#uuid").focus();
+        	}
+        }*/
         var team = $('#team').val();
 
         var access = $('#access').val();
@@ -910,7 +910,7 @@ $(document).ready(function() {
             }
 
         $.post('/add_user_process.php',
-        {login: login, pw: pw, team: team, access: access},
+        {login: login, team: team, access: access},
         function(data){
         if(data) alert(data);
                  $('#users').fadeOut('slow', function(){
