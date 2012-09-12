@@ -1,6 +1,6 @@
 <?php
 include_once './include_mini.php';
-use AllPlayers\AllPlayersClient;
+use Source\APSource;
 
 if (editCheck(1)) {
     $query = "SELECT * FROM `teams` WHERE 1 ORDER BY name";
@@ -9,25 +9,19 @@ if (editCheck(1)) {
         $existing_groups[] = $row['uuid'];
     }
     $attributes = $_SESSION['_sf2_attributes'];
-    $client = AllPlayersClient::factory(array(
-        'auth' => 'oauth',
-        'oauth' => array(
-            'consumer_key' => $attributes['consumer_key'],
-            'consumer_secret' => $attributes['consumer_secret'],
-            'token' => $attributes['auth_token'],
-            'token_secret' => $attributes['auth_secret']
-        ),
-        'host' => parse_url($attributes['domain'], PHP_URL_HOST),
-        'curl.CURLOPT_SSL_VERIFYPEER' => TRUE,
-        'curl.CURLOPT_CAINFO' => 'assets/mozilla.pem',
-        'curl.CURLOPT_FOLLOWLOCATION' => FALSE
-    ));
+    $client = APSource::factory();
     $command = $client->getCommand('GetUserGroups', array('uuid' => $attributes['user_uuid']));
     $groups = $client->getIterator($command);
     foreach ($groups as $group) {
         if (!in_array($group['uuid'], $existing_groups)) {
-            $query = "INSERT INTO `teams` VALUES ('','0','{$_SESSION['user']}','{$group['uuid']}','{$group['title']}','{$group['title']}')";
-            $result = mysql_query($query);
+            $team_info = array(
+                'hidden' => 0,
+                'user_create' => $_SESSION['user'],
+                'uuid' => $group['uuid'],
+                'name' => $group['title'],
+                'short' => $group['title']
+            );
+            $db->addTeam($team_info);
         }
     }
     echo 'Groups updated.<br /><br />';

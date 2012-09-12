@@ -33,8 +33,6 @@ class DataSource {
   /**
    * Retrieve all teams.
    *
-   * @param string $uuid.
-   *  UUID of the team
    * @param string $params.
    *  Set of params (WHERE, ORDER, etc)
    */
@@ -47,19 +45,26 @@ class DataSource {
   }
 
   /**
-   * Retrieve team by uuid.
+   * Retrieve team by id or uuid.
    *
-   * @param string $uuid.
-   *  UUID of the team
+   * @param mixed $id
+   *  UUID or ID of the team.
    * @param string $params.
    *  Set of params (WHERE, ORDER, etc)
    */
   public function getTeam($uuid, $params = "") {
-      $query = "SELECT * from `teams` WHERE uuid=$uuid" . $params;
+      $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('teams', $id) : $id;
+      $query = "SELECT * from `teams` WHERE id=$search_id" . $params;
       $result = mysql_query($query);
       $team = mysql_fetch_assoc($result);
       return $team;
 
+  }
+
+  public function addTeam($team_info) {
+    $query = "INSERT INTO `teams` VALUES ('', '" . implode("', '", $team_info) . "')";
+    $result = mysql_query($query);
+    return $result;
   }
 
   /**
@@ -176,6 +181,36 @@ class DataSource {
     $result = mysql_query($query);
     return $result;
   }
+
+  public function addPlayer($player_info) {
+    $query = "INSERT INTO `players` VALUES ('', '" . implode("', '", $player_info) . "')";
+    $result = mysql_query($query);
+    return $result;
+  }
+
+  public function updatePlayer($id, $player_info) {
+    $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('players', $id) : $id;
+    $now = date('Y-m-d H:i:s');
+    $team_uuid = $user_info['team_uuid'];
+    $player_uuid = $user_info['player_uuid'];
+    $first_name = $user_info['first_name'];
+    $last_name = $user_info['last_name'];
+    $user_create = $_SESSION['user'];
+    $query = "UPDATE `players` SET user_create='$user_create',last_update='$now',team_uuid='$team_uuid',firstname='$first_name',lastname='$last_name' WHERE id='$search_id'";
+    $result = mysql_query($query);
+    return $result;
+  }
+
+  public function getPlayer($id) {
+    $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('players', $id) : $id;
+    if (empty($search_id)) {
+      return FALSE;
+    }
+    $query = "SELECT * FROM `players` WHERE id=$search_id";
+    $result = mysql_query($query);
+    return empty($result) ? $result : mysql_fetch_assoc($result);
+  }
+
   /**
    * Verify the validity of a uuid.
    * @param string $uuid
