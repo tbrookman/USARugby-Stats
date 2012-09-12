@@ -3,6 +3,8 @@ include_once './include_mini.php';
 
 if (!isset($roster_id) || !$roster_id) {$roster_id=$_GET['id'];}
 
+// @TODO: Move queries to use DataSource or remove completely.
+
 //get our team id and list of current rostered players
 $query = "SELECT team_id,player_ids,comp_id FROM `event_rosters` WHERE id = $roster_id";
 $result = mysql_query($query);
@@ -12,16 +14,16 @@ while ($row=mysql_fetch_assoc($result)) {
     $player_ids = $row['player_ids'];
 }
 
-//get the team's FSI ID to match against players Team FSI ID
-$query = "SELECT fsi_id FROM `teams` WHERE id = $team_id";
+//get the team's UUID to match against players Team FSI ID
+$query = "SELECT uuid FROM `teams` WHERE id = $team_id";
 $result = mysql_query($query);
 while ($row=mysql_fetch_assoc($result)) {
-    $fsi_id=$row['fsi_id'];
+    $uuid=$row['uuid'];
 }
 
 //Get the players that have a Team FSI ID that matches our team's FSI ID
 $players = array();
-$query = "SELECT id FROM `players` WHERE team_fsi_id = $fsi_id";
+$query = "SELECT id FROM `players` WHERE team_uuid = $uuid";
 $result = mysql_query($query);
 while ($row=mysql_fetch_assoc($result)) {
     $players[]=$row['id'];

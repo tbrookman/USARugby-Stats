@@ -5,5 +5,5 @@ include_once './include_mini.php';
 $query = "SELECT * FROM `teams` WHERE 1 ORDER BY name";
 $result = mysql_query($query);
 while ($row=mysql_fetch_assoc($result)) {
-    echo "{$row['fsi_id']} - {$row['short']} - {$row['name']}<br/>";
+    echo "{$row['uuid']} - {$row['short']} - {$row['name']}<br/>";
 }

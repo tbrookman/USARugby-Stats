@@ -56,7 +56,7 @@ $app->get('/', function() use ($app) {
 
             // HACK perform access check on Matts app
             include_once './session.php';
-            if (!isset($_SESSION['user']) && !$_SESSION['user']) {
+            if (empty($_SESSION['user'])) {
                 // Error something happened with login...
                 // TODO clear all session info
                 return new Response('An error occured during login.', 500);
@@ -186,24 +186,30 @@ $app->get('/auth', function() use ($app) {
             $response = $client->get($response->getLocation())->send();
             $user = json_decode($response->getBody(TRUE));
 
-            $query = "SELECT * FROM `users` WHERE (uuid='$user->uuid')";
-            $result = mysql_query($query);
-            $numrows=mysql_num_rows($result);
-
-            //if we have a user match give them a session user and let them in
-            if ($numrows > 0) {
-                // Pass session info to the legacy app
-                while ($row = mysql_fetch_assoc($result)) {
-                    $_SESSION['user'] = $row['login'];
-                    $_SESSION['teamid'] = $row['team'];
-                    $_SESSION['access'] = $row['access'];
-                }
+            $app['session']->set('user_uuid', $user->uuid);
+            $db = new Source\DataSource();
+            $local_user = $db->getUser($user->uuid);
+            if (empty($local_user)) {
+                $local_user = $db->getUser(NULL, $user->email);
             }
 
-            // TODO User management if user is authenticating for the first time insert
-            //  them, otherwise update their token records.
-            $query = "UPDATE `users` SET token = '$token', secret='$secret' WHERE uuid = '$user->uuid'";
-            $result = mysql_query($query);
+            //if we have a user match give them a session user and let them in
+            if (!empty($local_user)) {
+                // Pass session info to the legacy app
+                $_SESSION['user'] = $local_user['login'];
+                $_SESSION['teamid'] = $local_user['team'];
+                $_SESSION['access'] = $local_user['access'];
+                // Update uuid if needed.
+                $local_user['uuid'] = empty($local_user['uuid']) ? $user->uuid : $local_user['uuid'];
+                // Update token and secret.
+                $local_user['token'] = $token;
+                $local_user['secret'] = $secret;
+                $db->updateUser($local_user['id'], $local_user);
+
+                // TODO User management if user is authenticating for the first time insert
+                //  them, otherwise update their token records.
+            }
+            // @TODO figure out a better way to fail authentication.
         }
 
         return $app->redirect('/');

@@ -2,13 +2,9 @@
 include_once './include_mini.php';
 if (editCheck(1)) {
 
-    echo "<label for='login' id='login_label'>User Name</label>";
+    echo "<label for='login' id='login_label'>User Email</label>";
     echo "<input id='login' name='login' type='text' value='{$row['login']}'>";
     echo "<label class='error' for='login' id='login_error'>This field is required.</label><br/>";
-
-    echo "<label for='pw' id='pw_label'>Password</label>";
-    echo "<input id='pw' name='pw' type='text' value=''>";
-    echo "<label class='error' for='pw' id='pw_error'>This field is required.</label><br/>";
 
     echo "<label for='team' id='team_label'>Team</label>";
     echo "<select name='team' id='team'>";

@@ -14,9 +14,6 @@ while ($row=mysql_fetch_assoc($result)) {
     echo "<input id='login' name='login' type='text' value='{$row['login']}'>";
     echo "<label class='error' for='login' id='login_error'>This field is required.</label><br/>";
 
-    echo "Password<input id='pw' name='pw' type='text' value=''>";
-    echo "<br/>";
-
     echo "Team<select name='team' id='team'>";
     echo "<option value=''></option>";
     $query2 = "SELECT id, name FROM `teams` WHERE hidden=0";

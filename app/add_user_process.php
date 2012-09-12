@@ -2,28 +2,29 @@
 include_once './include_mini.php';
 
 if (editCheck(1)) {
-
-    $login = mysql_real_escape_string($_POST['login']);
-    $pw = md5(mysql_real_escape_string($_POST['pw']));
-    $access = $_POST['access'];
+    $email = mysql_real_escape_string($request->get('login'));
+    $access = $request->get('access');
     if (!isset($access) || !$access) {$access=4;}
 
     if ($access==4) {
         $team=-1;
     } else {
-        $team = $_POST['team'];
+        $team = $request->get('team');
     }
 
-    $query = "SELECT login FROM `users` WHERE login='$login'";
-    $result = mysql_query($query);
-    $numrows = mysql_numrows($result);
 
-    if ($numrows) {
-        echo "That login is already taken.  User not added.";
-    } else {
-        $query = "INSERT INTO `users` VALUES ('','$login','$pw','$team','$access', NULL, NULL, NULL)";
-        $result = mysql_query($query);
+    $users_with_email = $db->getUser(NULL, $email);
+
+    if (!empty($users_with_email)) {
+        echo "That email is already taken.  User not added.";
     }
-
-    mysql_close();
+    else {
+        $user_info = array(
+          'login' => $email,
+          'team' => $team,
+          'access' => $access,
+          'uuid' => NULL,
+        );
+        $db->addUser($user_info);
+      }
 }
