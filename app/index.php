@@ -56,7 +56,7 @@ $app->get('/', function() use ($app) {
 
             // HACK perform access check on Matts app
             include_once './session.php';
-            if (!isset($_SESSION['user']) && !$_SESSION['user']) {
+            if (empty($_SESSION['user'])) {
                 // Error something happened with login...
                 // TODO clear all session info
                 return new Response('An error occured during login.', 500);
