@@ -150,7 +150,7 @@ class DataSource {
             }
             $query = "SELECT * FROM `users` WHERE id=$search_id";
         } elseif (!empty($email)) {
-            $query = "SELECT * FROM `users` WHERE login=$email";
+            $query = "SELECT * FROM `users` WHERE login='$email'";
         } else {
             return FALSE;
         }
@@ -159,7 +159,7 @@ class DataSource {
     }
 
     public function addUser($user_info) {
-        $user_info['email'] = mysql_real_escape_string($user_info['email']);
+        $user_info['login'] = mysql_real_escape_string($user_info['email']);
         $query = "INSERT INTO `users` VALUES ('', '" . implode("', '", $user_info) . "', NULL, NULL)";
         $result = mysql_query($query);
         return $result;
@@ -167,10 +167,15 @@ class DataSource {
 
     public function updateUser($id, $user_info) {
         $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('users', $id) : $id;
-        $email = $user_info['email'];
+        $original_user = $this->getUser($search_id);
+        $user_info = array_merge($original_user, $user_info);
+        $login = $user_info['login'];
         $team = $user_info['team'];
         $access = $user_info['access'];
-        $query = "UPDATE `users` SET login='$email', team='$team', access='$access' WHERE id='$search_id'";
+        $uuid = $user_info['uuid'];
+        $token = $user_info['token'];
+        $secret = $user_info['secret'];
+        $query = "UPDATE `users` SET login='$login', team='$team', access='$access', uuid='$uuid', token = '$token', secret='$secret' WHERE id='$search_id'";
         $result = mysql_query($query);
         return $result;
     }

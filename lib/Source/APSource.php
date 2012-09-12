@@ -43,15 +43,6 @@ class APSource extends AllPlayersClient {
         return $members;
     }
 
-    public function getUsersByEmail($email) {
-        $this->request = $this->get(array('users{?params*}', array(
-                'params' => array('email' => $email),
-                )));
-        $users = $this->request->send();
-        $users = json_decode($users->getBody(TRUE));
-        return $users;
-    }
-
     public function getUserByUUID($uuid) {
         $command = $this->getCommand('GetUser', array('uuid' => $uuid));
         $user = $command->execute();

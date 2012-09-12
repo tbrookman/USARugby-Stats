@@ -7,10 +7,6 @@ if (editCheck(1)) {
     //echo "<input id='login' name='login' type='text' value=''>";
     echo "<label class='error' for='login' id='login_error'>This field is required.</label><br/>";
 
-    /*echo "<label for='uuid' id='uuid_label'>User UUID</label>";
-    echo "<input id='uuid' name='uuid' type='text' value=''>";
-    echo "<label class='error' for='uuid' id='uuid_error'>This uuid is invalid.</label><br/>";*/
-
     echo "<label for='team' id='team_label'>Team</label>";
     echo "<select name='team' id='team'>";
     echo "<option value=''>No team (for Admin and Ref only)</option>";

@@ -9,3 +9,4 @@ ALTER TABLE players CHANGE team_fsi_id team_uuid char(36);
 ALTER TABLE players CHANGE fsi_id uuid char(36);
 ALTER TABLE teams CHANGE fsi_id uuid char(36);
 ALTER TABLE teams ADD UNIQUE (uuid);
+ALTER TABLE users CHANGE login login VARCHAR(64)  NOT NULL  DEFAULT '';
