@@ -159,7 +159,7 @@ class DataSource {
     }
 
     public function addUser($user_info) {
-        $user_info['login'] = mysql_real_escape_string($user_info['email']);
+        $user_info['login'] = mysql_real_escape_string($user_info['login']);
         $query = "INSERT INTO `users` VALUES ('', '" . implode("', '", $user_info) . "', NULL, NULL)";
         $result = mysql_query($query);
         return $result;
