@@ -1,6 +1,6 @@
 <?php
 include_once './include_mini.php';
-include_once './APSource.php';
+//include_once './APSource.php';
 
 $teams = array();
 $client = APSource::factory();
@@ -45,7 +45,7 @@ function sync_group_members($group_uuid, $client, $db) {
     while ($row = mysql_fetch_assoc($result)) {
         $existing_players[] = $row['uuid'];
     }
-    
+
     $command = $client->getCommand('GetGroupMembers', array('uuid' => $group_uuid));
     $command->setLimit(0);
     $client->execute($command);

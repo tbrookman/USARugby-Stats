@@ -3,7 +3,7 @@ include_once './include.php';
 use Source\APSource;
 if (editCheck(1)) {
   include './config.php';
-  $APSource = new APSource();
+  $APSource = APSource::factory();
   $members = $APSource->getGroupMembers($config['admin_group_uuid']);
   //$db->deleteNonAdminUsers();
   $added = 0;

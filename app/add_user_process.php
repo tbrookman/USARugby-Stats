@@ -20,7 +20,7 @@ if (editCheck(1)) {
     if (!empty($users_with_email)) {
         echo "That email is already taken.  User not added.";
     } else {
-      $APSource = new APSource();
+      $APSource = APSource::factory();
       $users = $APSource->getUsersByEmail($email);
       if (count($users) == 1) {
         $matching_user = current($users);
