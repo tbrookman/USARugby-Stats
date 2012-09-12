@@ -1,6 +1,5 @@
 <?php
 include_once './include_mini.php';
-//include_once './APSource.php';
 use Source\APSource;
 
 if (editCheck(1)) {
