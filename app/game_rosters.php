@@ -38,7 +38,8 @@ echo "<tr><td colspan='3'>".teamName($away_id, $link)."</td><td>@</td><td colspa
 //displaying number, name, FR capable
 for ($i=1;$i<=$max;$i++) {
     echo "<tr><td>{$awayns[$i]}</td>\r";
-    echo "<td>".playerName($awayps[$i])."</td>\r";
+    $away_player_name_string = empty($awayps[$i]) ? "<td>&nbsp;</td>\r" : "<td>".playerName($awayps[$i])."</td>\r";
+    echo $away_player_name_string;
     if (isset($awayfrs[$i]) && $awayfrs[$i]==1) {$frout='FR';} else {$frout='';}
     echo "<td>$frout</td>\r";
     echo "<td>&nbsp;</td>\r";
