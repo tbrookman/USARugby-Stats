@@ -38,7 +38,6 @@ class APSource extends AllPlayersClient {
     public function getGroupMembers($group_uuid) {
         $command = $this->getCommand('GetGroupMembers', array('uuid' => $group_uuid));
         $command->setLimit(0);
-        $command->setAdminsOnly(TRUE);
         $members = $command->execute();
         return $members;
     }
