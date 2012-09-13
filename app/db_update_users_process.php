@@ -10,7 +10,7 @@ if (editCheck(1)) {
     $user = $db->getUser($member['uuid']);
     if (!$user) {
       $user_info = array(
-        'login' => $user['email'],
+        'login' => '',
         'team' => 0,
         'access' => 1,
         'uuid' => $member['uuid'],
