@@ -6,7 +6,7 @@ include_once './include.php';
   <div class="navbar-inner">
     <div class="container">
       <a class="brand" href="/"><img src="/assets/USA_Rugby_bw.png"/></a>
-      <ul class="nav pull-right">
+      <ul class="nav pull-left">
         <li><a href='/'>Competitions</a></li>
         <li><a href='/help.php'>Help</a></li>
 
@@ -34,6 +34,14 @@ if (editCheck(1)) {
 ?>
 
       </ul>
+
+      <?php
+      if (!empty($_SESSION['user'])) {
+          echo '<ul class = "nav pull-right">';
+          echo "<li class= 'welcome_user'>Welcome, " . $_SESSION['user'] . "<li>";
+          echo '</ul>';
+      }
+      ?>
     </div>
   </div>
 </div>
