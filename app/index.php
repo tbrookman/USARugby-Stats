@@ -187,27 +187,29 @@ $app->get('/auth', function() use ($app) {
             $user = json_decode($response->getBody(TRUE));
 
             $app['session']->set('user_uuid', $user->uuid);
-            $query = "SELECT * FROM `users` WHERE (uuid='$user->uuid')";
-            $result = mysql_query($query);
-            $numrows=mysql_num_rows($result);
+            $db = new Source\DataSource();
+            $local_user = $db->getUser($user->uuid);
+            if (empty($local_user)) {
+                $local_user = $db->getUser(NULL, $user->email);
+            }
 
             //if we have a user match give them a session user and let them in
-            if ($numrows > 0) {
+            if (!empty($local_user)) {
                 // Pass session info to the legacy app
-                while ($row = mysql_fetch_assoc($result)) {
-                    $_SESSION['user'] = $row['login'];
-                    $_SESSION['teamid'] = $row['team'];
-                    $_SESSION['access'] = $row['access'];
-                }
+                $_SESSION['user'] = $local_user['login'];
+                $_SESSION['teamid'] = $local_user['team'];
+                $_SESSION['access'] = $local_user['access'];
+                // Update uuid if needed.
+                $local_user['uuid'] = empty($local_user['uuid']) ? $user->uuid : $local_user['uuid'];
+                // Update token and secret.
+                $local_user['token'] = $token;
+                $local_user['secret'] = $secret;
+                $db->updateUser($local_user['id'], $local_user);
+
                 // TODO User management if user is authenticating for the first time insert
                 //  them, otherwise update their token records.
-                $query = "UPDATE `users` SET token = '$token', secret='$secret' WHERE uuid = '$user->uuid'";
-                $result = mysql_query($query);
             }
-            else {
-              echo "out";
-            }
-
+            // @TODO figure out a better way to fail authentication.
         }
 
         return $app->redirect('/');

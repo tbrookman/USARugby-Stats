@@ -5,14 +5,13 @@ if (editCheck(1)) {
   include './config.php';
   $APSource = APSource::factory();
   $members = $APSource->getGroupMembers($config['admin_group_uuid']);
-  //$db->deleteNonAdminUsers();
   $added = 0;
   foreach ($members as $member) {
     $user = $db->getUser($member['uuid']);
     if (!$user) {
       $user = $APSource->getUserByUUID($member['uuid']);
       $user_info = array(
-        'email' => $user['email'],
+        'login' => $user['email'],
         'team' => 0,
         'access' => 1,
         'uuid' => $member['uuid'],

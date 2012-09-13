@@ -9,7 +9,7 @@ if (!isset($access) || !$access) {$access=4;}
 $team = $request->get('team');
 
 $user_info = array(
-  'email' => $email,
+  'login' => $email,
   'access' => $access,
   'team' => $team,
 );

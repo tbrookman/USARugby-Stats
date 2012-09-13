@@ -892,14 +892,6 @@ $(document).ready(function() {
               return false;
             }
 
-        /*var uuid = $('#uuid').val();
-        if (uuid != "") {
-        	var uuid_test_pattern = new RegExp(/^[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$/i);
-        	if (!uuid_test_pattern.test(uuid)) {
-        		$("label#uuid_error").show();
-                $("input#uuid").focus();
-        	}
-        }*/
         var team = $('#team').val();
 
         var access = $('#access').val();
