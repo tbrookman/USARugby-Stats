@@ -47,3 +47,30 @@ Generate a token for this app: http://develop.allplayers.com/oauth.html
 
 *  [Matt Trenary](https://github.com/matttrenary)
 *  https://github.com/christianchristensen/AllPlayers-OAuth
+
+
+### Iframe Usage
+
+Currently games support iframeable elements.
+There are several parameters you can pass in the [GET] request to `/game.php` in order to properly retrieve iframes.
+
+*  `?iframe=TRUE`
+	*  Must be passed for all iframe requests
+*  `?id=`
+	*  This can either be a uuid of a game or an id.
+*  `?uuid=`
+	*  Either the `id` or `uuid` may be included in the request, but the `id` take priority.
+*  `?ops=`
+	*  An array of parts of the page you want to receive in the iframe.
+	*  Possible options:
+		*  `game_info`
+		*  `game_score`
+		*  `game_rosters`
+		*  `game_score_events`
+		*  `game_sub_events`
+		*  `game_card_events`
+
+
+###### Examples
+*  `https://usarugbystats.pdup.allplayers.com/game.php?id=123&iframe=TRUE&ops[0]=game_info`
+*  `https://usarugbystats.pdup.allplayers.com/game.php?id=123&iframe=TRUE&ops[0]=game_info&ops[1]=game_rosters&ops[2]=game_sub_events`
