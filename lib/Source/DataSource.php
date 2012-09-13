@@ -160,7 +160,17 @@ class DataSource {
 
     public function addUser($user_info) {
         $user_info['login'] = mysql_real_escape_string($user_info['login']);
-        $query = "INSERT INTO `users` VALUES ('', '" . implode("', '", $user_info) . "', NULL, NULL)";
+        $columns = array();
+        foreach ($user_info as $key_name => $user_info_piece) {
+            if (isset($user_info_piece)) {
+                $columns[] = $key_name;
+            }
+        }
+        $values = array();
+        foreach ($columns as $col_name) {
+            $values[] = $user_info[$col_name];
+        }
+        $query = "INSERT INTO `users` (" . implode(',', $columns) . ") VALUES ('" . implode("', '", $values) . "')";
         $result = mysql_query($query);
         return $result;
     }
