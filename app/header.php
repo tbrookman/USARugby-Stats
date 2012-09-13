@@ -26,6 +26,5 @@ if (editCheck(1)) {
     </div>
   </div>
 </div>
-
-<br/>
+<div id="maincontent">
 
