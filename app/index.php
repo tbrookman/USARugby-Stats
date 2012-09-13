@@ -195,15 +195,18 @@ $app->get('/auth', function() use ($app) {
 
             //if we have a user match give them a session user and let them in
             if (!empty($local_user)) {
-                // Pass session info to the legacy app
-                $_SESSION['user'] = $local_user['login'];
-                $_SESSION['teamid'] = $local_user['team'];
-                $_SESSION['access'] = $local_user['access'];
                 // Update uuid if needed.
                 $local_user['uuid'] = empty($local_user['uuid']) ? $user->uuid : $local_user['uuid'];
+                // Update email if needed.
+                $local_user['login'] = empty($local_user['login']) ? $user->email : $local_user['login'];
                 // Update token and secret.
                 $local_user['token'] = $token;
                 $local_user['secret'] = $secret;
+                // Pass session info to the legacy app.
+                $_SESSION['user'] = $local_user['login'];
+                $_SESSION['teamid'] = $local_user['team'];
+                $_SESSION['access'] = $local_user['access'];
+
                 $db->updateUser($local_user['id'], $local_user);
 
                 // TODO User management if user is authenticating for the first time insert

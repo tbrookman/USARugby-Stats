@@ -9,7 +9,6 @@ if (editCheck(1)) {
   foreach ($members as $member) {
     $user = $db->getUser($member['uuid']);
     if (!$user) {
-      $user = $APSource->getUserByUUID($member['uuid']);
       $user_info = array(
         'login' => $user['email'],
         'team' => 0,
