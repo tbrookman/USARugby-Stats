@@ -1,3 +1,7 @@
 a.brand {
   padding: 0px !important;
 }
+
+div#maincontent {
+    margin-left: 30px;
+}
