@@ -18,7 +18,18 @@ if ($_SESSION['teamid'] > 0) {
 
 //only display Admin Options to admins
 if (editCheck(1)) {
-    echo "<li><a href='/admin.php'>Admin Options</a></li>";
+    ?>
+    <li class = "dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Options <b class = "caret"></b></a>
+        <ul class = "dropdown-menu">
+            <li><a href='db_update.php'>Update Player Database</a></li>
+            <li><a href='db_update_team.php'>Add Club to Club Database</a></li>
+            <li><a href='users.php'>User Management</a></li>
+            <li><a href='groups_sync.php'>Pull in Groups from AllPlayers</a></li>
+            <li><a href='group_members_sync.php'>Pull in Players from a group</a></li>
+        </ul>
+    </li>
+    <?php
 }
 ?>
 
