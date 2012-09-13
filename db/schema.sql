@@ -123,7 +123,6 @@ CREATE TABLE `teams` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(64) DEFAULT NULL,
-  `password` varchar(160) NOT NULL,
   `team` int(6) NOT NULL,
   `access` int(2) NOT NULL,
   `uuid` char(36) DEFAULT NULL,
