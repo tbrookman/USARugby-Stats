@@ -202,7 +202,7 @@ $app->get('/auth', function() use ($app) {
                 // Update token and secret.
                 $local_user['token'] = $token;
                 $local_user['secret'] = $secret;
-                // Pass session info to the legacy app
+                // Pass session info to the legacy app.
                 $_SESSION['user'] = $local_user['login'];
                 $_SESSION['teamid'] = $local_user['team'];
                 $_SESSION['access'] = $local_user['access'];
