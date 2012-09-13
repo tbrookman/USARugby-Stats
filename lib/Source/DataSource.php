@@ -96,7 +96,9 @@ class DataSource {
     }
 
     public function getRoster($game_id, $team_id) {
-        $query = "SELECT * FROM `game_rosters` WHERE game_id = $game_id AND team_id = $team_id";
+        $game_search_id = DataSource::uuidIsValid($game_id) ? $this->getSerialIDByUUID('games', $game_id) : $game_id;
+        $team_search_id = DataSource::uuidIsValid($team_id) ? $this->getSerialIDByUUID('teams', $team_id) : $team_id;
+        $query = "SELECT * FROM `game_rosters` WHERE game_id = $game_search_id AND team_id = $team_search_id";
         $result = mysql_query($query);
         $roster = mysql_fetch_assoc($result);
         return $roster;
