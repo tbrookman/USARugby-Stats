@@ -116,7 +116,7 @@ $cplayers = explode('-', substr($player_ids, 1, (strlen($player_ids)-2)));
 
 //header for columns
 echo "<table class='table'>\n";
-if ($comp_type==1) {$frhead = '<th>FR</th>';}
+$frhead = ($comp_type == 1) ? '<th>FR</th>' : '';
 echo "<tr><th>Num.</th><th>Name</th>$frhead</tr>\n";
 
 //Create select for each roster spot and provide an option for each player for team
