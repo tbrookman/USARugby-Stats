@@ -7,15 +7,12 @@ $comp_id = $_GET['id'];
 <h4>Add a Game</h4>
 
 <form name='addgame' id='addgame' method='POST' action='' class="form-inline">
-<div class="alert error alert-error" id="add_game_error">
+<div class="alert error alert-error" id="form-validation-error">
   <button type="button" class="close" data-dismiss="alert">×</button>
-  <strong>Warning!</strong> Best check yo self, you're not looking too good.
+  <div class="error-message"></div>
 </div>
 <i class="icon-plus-sign"></i><input id='field' name='field' type='text' size='1' class="input-medium" placeholder="Field #">
-
 <input id='gnum' name='gnum' type='text' size='1' class="input-medium required" placeholder="Competition Game #">
-<!--<label class="error" for="gnum" id="gnum_error">This field is required.</label>-->
-
 <?php
 // Determine date stard and end.
 $comp = $db->getCompetition($comp_id);

@@ -21,8 +21,9 @@ $(document).ready(function() {
   });
 
   var getFormData = function(formElementName, errorElementName) {
+    var errorElementName = errorElementName || '#form-validation-error';
     var formData = {validated : true};
-    $(formElementName + ' input[type!="hidden"][type!="submit"], #addgame select').each(function(index){
+    $(formElementName + ' input[type!="hidden"][type!="submit"], ' + formElementName + ' select').each(function(index){
       // Get value
       var val = "";
       if ($(this).hasClass('time-entry')) {
@@ -33,7 +34,7 @@ $(document).ready(function() {
       }
       if($(this).hasClass('required') && ($(this).val() == "" || $(this).val() == null)) {
         var missing = $(this).prop('placeholder') || "Missing Fields";
-        $(errorElementName).text('Please Enter ' + missing);
+        $(errorElementName + ' .error-message').text('Please Enter ' + missing);
         $(errorElementName).show();
         //$(this).focus();
         formData.validated = false;
@@ -298,40 +299,14 @@ $(document).ready(function() {
 
     //add a competition
     $("#addcomp").live('submit', function() {
-
-        // validate and process form
-        // first hide any error messages
-            $('.error').hide();
-
-          var name = $("input#name").val();
-        if (name == "") {
-              $("label#name_error").show();
-              $("input#name").focus();
-              return false;
-            }
-
-        var type = $('#type').val();
-        if (type == "") {
-              $("label#type_error").show();
-              $("input#type").focus();
-              return false;
-            }
-
-        var max_event = $('#max_event').val();
-        if (max_event == "") {
-              $("label#max_event_error").show();
-              $("input#max_event").focus();
-              return false;
-            }
-
-            var max_match = $('#max_match').val();
-        if (max_match == "") {
-              $("label#max_match_error").show();
-              $("input#max_match").focus();
-              return false;
-            }
-
+      $('.error').hide();
+      var formData = getFormData('#addcomp', '#form-validation-error');
+      if (!formData || formData.validated == false) {
+        return false;
+      }
+      else {
         return true;
+      }
     });
 
 
@@ -362,7 +337,7 @@ $(document).ready(function() {
     //adding a game
     $("#addgame").live('submit', function() {
         $('.error').hide();
-        var formData = getFormData('#addgame', '#add_game_error');
+        var formData = getFormData('#addgame', '#form-validation-error');
 
         if (!formData || formData.validated == false) {
           return false;
