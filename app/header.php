@@ -47,3 +47,10 @@ if (editCheck(1)) {
 </div>
 <div id="maincontent">
 
+<?php
+if (isset($_SESSION['groups_synched'])) {
+    unset($_SESSION['groups_synched']);
+    echo '<div class="alert alert-success">Groups updated</div>';
+}
+?>
+

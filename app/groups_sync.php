@@ -1,5 +1,5 @@
 <?php
-include_once './include_mini.php';
+include_once './include.php';
 use Source\APSource;
 
 if (editCheck(1)) {
@@ -20,6 +20,6 @@ if (editCheck(1)) {
             $db->addTeam($team_info);
         }
     }
-    echo 'Groups updated.<br /><br />';
-    echo "<a href='admin.php'>Back to admin area</a>";
+    $_SESSION['groups_synched'] = TRUE;
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
