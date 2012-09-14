@@ -11,6 +11,9 @@ $app = new Silex\Application();
 
 // register the session extension
 $app->register(new Silex\Provider\SessionServiceProvider());
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
+    'twig.path' => __DIR__.'/views',
+));
 
 /**
  * Setup app default settings
@@ -48,7 +51,7 @@ $app->get('/', function() use ($app) {
         $app['session']->start();
         // twig/template this section
         if (($token = $app['session']->get('auth_token')) == null) {
-            return '<a href="/login"><img src="/assets/ap_btn_b.png" alt="Login with AllPlayers.com" /></a>';
+            return $app['twig']->render('index.twig', array());
         } else {
             $temp_token = $app['session']->get('access_token');
             $temp_secret = $app['session']->get('access_secret');
@@ -61,6 +64,7 @@ $app->get('/', function() use ($app) {
                 // TODO clear all session info
                 return new Response('An error occured during login.', 500);
             }
+            // @TODO: Change this to use a twig template.
             // Originally "index.php"
             include_once './include.php';
             echo "<h1>Welcome to USA Rugby's National Championship Series!</h1>";
