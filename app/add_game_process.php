@@ -10,10 +10,10 @@ $home = $_POST['home'];
 $away = $_POST['away'];
 $comp_id = $_POST['comp_id'];
 
-$kod = date('Y-m-d', $kod);
-$kfull = $kod.' '.$koh.':'.$kom.':00';
+$date_time = new DateTime($kod . 'T' . $koh . ':' . $kom);
+$kfull = $date_time->format('Y-m-d H:i:\0\0');
 
-$query = "INSERT INTO `games` VALUES ('','{$_SESSION['user']}','$comp_id','$game_num','$home','$away','$kfull','$field','0','0','0','0','0','0','0')";
+$query = "INSERT INTO `games` VALUES ('','{$_SESSION['user']}','$comp_id','$game_num','$home','$away','$kfull','$field','0','0','0','0','0','0','0', NULL)";
 $result = mysql_query($query);
 
 $now = date('Y-m-d H:i:s');
