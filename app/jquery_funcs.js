@@ -8,6 +8,18 @@ $(document).ready(function() {
     $(this).css({backgroundColor:"#FFFFFF"});
   });
 
+
+  $('.date_select').datepicker({
+    format: 'yyyy-mm-dd',
+    //startDate: new Date(),
+    autoclose: true
+  });
+
+  $('.time-entry').timeEntry({
+    spinnerImage: '',
+    spinnerBigImage: ''
+  });
+
  //adding a score event for a game
  $("#addscore").live('submit', function() {
 
@@ -346,20 +358,14 @@ $(document).ready(function() {
               $("input#kdate").focus();
               return false;
             }
-
-        var koh = $('#koh').val();
-        if (koh == "") {
-              $("label#koh_error").show();
-              $("input#koh").focus();
+        var ko_time = $('#ko_time').timeEntry('getTime');
+        if (ko_time == "" || ko_time == null) {
+          $("label#ko_time_error").show();
+              $("input#ko_time").focus();
               return false;
-            }
-
-            var kom = $('#kom').val();
-        if (kom == "") {
-              $("label#kom_error").show();
-              $("input#kom").focus();
-              return false;
-            }
+        }
+        var koh = ko_time.getHours();
+        var kom = ko_time.getMinutes();
 
         var home = $('#home').val();
         if (home == "") {

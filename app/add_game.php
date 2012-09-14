@@ -16,77 +16,19 @@ $comp_id = $_GET['id'];
 <input id='gnum' name='gnum' type='text' size='1'>
 <label class="error" for="gnum" id="gnum_error">This field is required.</label>
 <br/>
-
 <label for="kdate" id="kdate_label">Game Date</label>
-<select name='kdate' id='kdate'>
-<option value=''></option>
-
 <?php
-//find the start date and list an option for all days from
-//start date to end date using date and strtotime
-$query = "SELECT * FROM `comps` WHERE id = $comp_id";
-$result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)) {
-    $sdate = $row['start_date'];
-    $edate = $row['end_date'];
-}
-
-$stime = strtotime($sdate);
-$etime = strtotime($edate);
-
-while ($stime <= $etime) {
-    $output = date('F j, Y', $stime);
-    echo "<option value='$stime'>$output</option>";
-    $stime = $stime+60*60*24;
-}
+// Determine date stard and end.
+$comp = $db->getCompetition($comp_id);
+$game_earliest = $comp['start_date'];
+$game_latest = $comp['end_date'];
+echo "<input id='kdate' name='kdate' type='text' size='10' class='date_select input-small' data-date-startdate='$game_earliest' data-date-enddate='$game_latest'>"
 ?>
-
-</select>
-<label class="error" for="kdate" id="kdate_error">This field is required.</label>
-<label class="error" for="kdate" id="kdate_derror">Incorrect date format.</label>
+<input name="ko_time" id="ko_time" type="text" size="2" class="input-small time-entry">
+<label class="error" for="ko_time" id="ko_time_error">This field is required.</label>
 <br/>
 
-<label for="koh" id="koh_label">Kickoff Hour</label>
-<select name='koh' id='koh'>
-<option value=''></option>
-<option value='07'>7am</option>
-<option value='08'>8am</option>
-<option value='09'>9am</option>
-<option value='10'>10am</option>
-<option value='11'>11am</option>
-<option value='12'>12pm</option>
-<option value='13'>1pm</option>
-<option value='14'>2pm</option>
-<option value='15'>3pm</option>
-<option value='16'>4pm</option>
-<option value='17'>5pm</option>
-<option value='18'>6pm</option>
-<option value='19'>7pm</option>
-<option value='20'>8pm</option>
-<option value='21'>9pm</option>
-<option value='22'>10pm</option>
-<option value='23'>11pm</option>
-</select>
-<label class="error" for="koh" id="koh_error">This field is required.</label>
 
-<label for="kom" id="kom_label">Kickoff Minute</label>
-<select name='kom' id='kom'>
-<option value=''></option>
-<option value='00'>:00</option>
-<option value='05'>:05</option>
-<option value='10'>:10</option>
-<option value='15'>:15</option>
-<option value='20'>:20</option>
-<option value='25'>:25</option>
-<option value='30'>:30</option>
-<option value='35'>:35</option>
-<option value='40'>:40</option>
-<option value='45'>:45</option>
-<option value='50'>:50</option>
-<option value='55'>:55</option>
-</select>
-<label class="error" for="kom" id="kom_error">This field is required.</label>
-<br/>
 
 <label for="home" id="home_label">Home Team</label>
 <select name='home' id='home'>

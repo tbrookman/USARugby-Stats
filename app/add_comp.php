@@ -21,12 +21,12 @@ include_once './header.php';
 <br/>
 
 <label for="start_date" id="start_date_label">Start Date (YYYY-MM-DD)</label>
-<input id='start_date' name='start_date' type='text' size='10'>
+<input id='start_date' name='start_date' type='text' size='10' class="date_select">
 <label class="error" for="start_date" id="start_date_error">This field is required.</label>
 <br/>
 
 <label for="end_date" id="end_date_label">End Date (YYYY-MM-DD)</label>
-<input id='end_date' name='end_date' type='text' size='10'>
+<input id='end_date' name='end_date' type='text' size='10' class = "date_select">
 <label class="error" for="end_date" id="end_date_error">This field is required.</label>
 <br/>
 
