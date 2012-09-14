@@ -53,33 +53,17 @@ $(document).ready(function() {
         // validate and process form
         // first hide any error messages
     $('.error').hide();
-
-          var minute = $("#minute").val();
-        if (minute == "") {
-      $("label#minute_error").show();
-      $("input#minute").focus();
-      return false;
-    }
-        var type = $('#type').val();
-        if (type == "") {
-      $("label#type_error").show();
-      $("input#type").focus();
+    var formData = getFormData('#addscore', '#form-validation-error');
+    if (!formData || formData.validated == false) {
       return false;
     }
 
-        var player = $('#player').val();
-        if (player == "" && type!=5) {
-      $("label#player_error").show();
-      $("input#player").focus();
-      return false;
-    }
-
-            var refresh = $("#refresh").val();
-            var game_id = $("#game_id").val();
-            var game_score = '/game_score.php?id=' + game_id;
+    var refresh = $("#refresh").val();
+    var game_id = $("#game_id").val();
+    var game_score = '/game_score.php?id=' + game_id;
 
         $.post('/add_score_process.php',
-        {minute: minute, type: type, player: player, game_id: game_id},
+        {minute: formData.minute, type: formData.type, player: formData.player, game_id: game_id},
         function(){
 
                  $('#scores').fadeOut('slow', function(){
