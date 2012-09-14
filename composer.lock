@@ -1,5 +1,5 @@
 {
-    "hash": "fa929ca4fbe13580f9ba3c39a87aa9f6",
+    "hash": "f51e795e8bfb780273ab6ec0afe05405",
     "packages": [
         {
             "package": "allplayers/allplayers-php",
@@ -9,9 +9,7 @@
         },
         {
             "package": "guzzle/guzzle",
-            "version": "dev-master",
-            "source-reference": "2fa1b69eac76bece11906d1721b9e126a80390be",
-            "commit-date": "1347559371"
+            "version": "v2.8.6"
         },
         {
             "package": "pimple/pimple",
@@ -74,12 +72,122 @@
             "commit-date": "1347542132"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+        {
+            "package": "behat/behat",
+            "version": "v2.4.0"
+        },
+        {
+            "package": "behat/gherkin",
+            "version": "v2.2.4"
+        },
+        {
+            "package": "behat/mink",
+            "version": "v1.4.0"
+        },
+        {
+            "package": "behat/mink-browserkit-driver",
+            "version": "dev-master",
+            "source-reference": "97fa7d67ab5afb13d74515c15ef5c0cab12c0bc0",
+            "commit-date": "1341477260"
+        },
+        {
+            "package": "behat/mink-extension",
+            "version": "dev-master",
+            "source-reference": "43b36e2d6682a4b257cb2b0f994a0b45faf033ee",
+            "commit-date": "1347458052"
+        },
+        {
+            "package": "behat/mink-goutte-driver",
+            "version": "dev-master",
+            "source-reference": "703a365a0f6c15f91f35c1cc30531b9de7f23a6d",
+            "commit-date": "1345633817"
+        },
+        {
+            "package": "behat/mink-selenium2-driver",
+            "version": "dev-master",
+            "source-reference": "11fd094d7b5809b265cd336316d7e4ce7e4f5fe6",
+            "commit-date": "1347022643"
+        },
+        {
+            "package": "fabpot/goutte",
+            "version": "dev-master",
+            "source-reference": "1d72f22b21b37a8d38ea48e17b34c3afc73dfc46",
+            "commit-date": "1346234818"
+        },
+        {
+            "package": "instaclick/php-webdriver",
+            "version": "dev-master",
+            "source-reference": "v1.0.6",
+            "commit-date": "1345642676"
+        },
+        {
+            "package": "symfony/browser-kit",
+            "version": "2.1.x-dev",
+            "source-reference": "v2.1.1",
+            "commit-date": "1347274422"
+        },
+        {
+            "package": "symfony/config",
+            "version": "2.1.x-dev",
+            "source-reference": "v2.1.0-RC2",
+            "commit-date": "1345643321"
+        },
+        {
+            "package": "symfony/console",
+            "version": "2.1.x-dev",
+            "source-reference": "v2.1.1",
+            "commit-date": "1345643321"
+        },
+        {
+            "package": "symfony/css-selector",
+            "version": "2.1.x-dev",
+            "source-reference": "v2.1.0-RC2",
+            "commit-date": "1345643321"
+        },
+        {
+            "package": "symfony/dependency-injection",
+            "version": "2.1.x-dev",
+            "source-reference": "v2.1.1",
+            "commit-date": "1347274422"
+        },
+        {
+            "package": "symfony/dom-crawler",
+            "version": "2.1.x-dev",
+            "source-reference": "v2.1.1",
+            "commit-date": "1347274422"
+        },
+        {
+            "package": "symfony/finder",
+            "version": "2.1.x-dev",
+            "source-reference": "v2.1.0-RC2",
+            "commit-date": "1345643321"
+        },
+        {
+            "package": "symfony/process",
+            "version": "2.1.x-dev",
+            "source-reference": "v2.1.1",
+            "commit-date": "1346330945"
+        },
+        {
+            "package": "symfony/translation",
+            "version": "2.1.x-dev",
+            "source-reference": "v2.1.1",
+            "commit-date": "1347274422"
+        },
+        {
+            "package": "symfony/yaml",
+            "version": "2.1.x-dev",
+            "source-reference": "v2.1.0-RC2",
+            "commit-date": "1345643321"
+        }
+    ],
     "aliases": [
 
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "allplayers/allplayers-php": 20
+        "allplayers/allplayers-php": 20,
+        "behat/behat": 0
     }
 }
