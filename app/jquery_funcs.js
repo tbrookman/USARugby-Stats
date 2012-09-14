@@ -379,19 +379,15 @@ $(document).ready(function() {
         // validate and process form
         // first hide any error messages
             $('.error').hide();
-
-          var team = $("#team").val();
-        if (team == "") {
-              $("label#team_error").show();
-              $("input#team").focus();
+          var formData = getFormData('#addteam', '#form-validation-error');
+           if (!formData || formData.validated == false) {
               return false;
             }
-
             var trefresh = $("#trefresh").val();
             var lrefresh = $("#lrefresh").val();
             var comp_id = $("#comp_id").val();
         $.post('/add_team_process.php',
-        {team: team, comp_id: comp_id},
+        {team: formData.team, comp_id: comp_id},
         function(){
                  $('#teams').fadeOut('slow', function(){
                      $('#teams').html('Please wait...');

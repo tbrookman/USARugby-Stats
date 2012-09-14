@@ -58,7 +58,6 @@ while ($row=mysql_fetch_assoc($result)) {
 ?>
 
 </select>
-<br/>
 
 <input type='hidden' name='grefresh' id='grefresh' value='<?php echo "comp_games.php?id=$comp_id"; ?>'>
 <input type='hidden' name='comp_id' id='comp_id' value='<?php echo $comp_id; ?>'>

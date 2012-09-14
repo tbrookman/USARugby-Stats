@@ -10,10 +10,12 @@ if (editCheck(1)) {
 <h4>Add a Team</h4>
 
 <form name='addteam' id='addteam' method='POST' action=''>
-
-<label for="team" id="team_label">Team</label>
-<select name='team' id='team'>
-<option value=''></option>
+<div class="alert error alert-error" id="form-validation-error">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <div class="error-message"></div>
+</div>
+<i class="icon-plus-sign"></i><select name='team' id='team' class="required">
+<option value=''>Team</option>
 <?php
 
     //give a list of every team to choose from
@@ -31,8 +33,6 @@ if (editCheck(1)) {
 ?>
 
 </select>
-<label class="error" for="team" id="team_error">This field is required.</label>
-<br/>
 
 <input type='hidden' name='trefresh' id='trefresh' value='<?php echo "comp_teams.php?id=$comp_id"; ?>'>
 <input type='hidden' name='lrefresh' id='lrefresh' value='<?php echo "add_team.php?id=$comp_id"; ?>'>
