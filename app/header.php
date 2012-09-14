@@ -37,8 +37,8 @@ if (editCheck(1)) {
 
       <?php
       if (!empty($_SESSION['user'])) {
-          echo '<ul class = "nav pull-right">';
-          echo "<li class= 'welcome_user'>Welcome, " . $_SESSION['user'] . "<li>";
+          echo '<ul class="nav pull-right">';
+          echo "<li class='welcome_user'>Welcome, " . $_SESSION['user'] . "<li>";
           echo '</ul>';
       }
       ?>
