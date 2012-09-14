@@ -61,8 +61,8 @@ $app->get('/', function() use ($app) {
             include_once './session.php';
             if (empty($_SESSION['user'])) {
                 // Error something happened with login...
-                // TODO clear all session info
-                return new Response('An error occured during login.', 500);
+                session_destroy();
+                return $app->redirect('/');
             }
             // @TODO: Change this to use a twig template.
             // Originally "index.php"
