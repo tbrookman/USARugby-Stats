@@ -20,6 +20,31 @@ $(document).ready(function() {
     spinnerBigImage: ''
   });
 
+  var getFormData = function(formElementName, errorElementName) {
+    var formData = {validated : true};
+    $(formElementName + ' input[type!="hidden"][type!="submit"], #addgame select').each(function(index){
+      // Get value
+      var val = "";
+      if ($(this).hasClass('time-entry')) {
+        val = $(this).timeEntry('getTime');
+      }
+      else {
+        val = $(this).val();
+      }
+      if($(this).hasClass('required') && ($(this).val() == "" || $(this).val() == null)) {
+        var missing = $(this).prop('placeholder') || "Missing Fields";
+        $(errorElementName).text('Please Enter ' + missing);
+        $(errorElementName).show();
+        //$(this).focus();
+        formData.validated = false;
+        return false;
+      }
+      formData[$(this).prop('id')] = val;
+
+    });
+    return formData;
+  }
+
  //adding a score event for a game
  $("#addscore").live('submit', function() {
 
@@ -336,61 +361,31 @@ $(document).ready(function() {
 
     //adding a game
     $("#addgame").live('submit', function() {
+        $('.error').hide();
+        var formData = getFormData('#addgame', '#add_game_error');
 
-    //event.preventDefault();
-
-        // validate and process form
-        // first hide any error messages
-            $('.error').hide();
-
-          var field = $("input#field").val();
-
-          var gnum = $("input#gnum").val();
-        if (gnum == "") {
-              $("label#gnum_error").show();
-              $("input#gnum").focus();
-              return false;
-            }
-
-        var kdate = $('#kdate').val();
-        if (kdate == "") {
-              $("label#kdate_error").show();
-              $("input#kdate").focus();
-              return false;
-            }
-        var ko_time = $('#ko_time').timeEntry('getTime');
-        if (ko_time == "" || ko_time == null) {
-          $("label#ko_time_error").show();
-              $("input#ko_time").focus();
-              return false;
+        if (!formData || formData.validated == false) {
+          return false;
         }
-        var koh = ko_time.getHours();
-        var kom = ko_time.getMinutes();
+        formData.koh = formData.ko_time.getHours();
+        formData.kom = formData.ko_time.getMinutes();
+        formData.grefresh = $("#grefresh").val();
+        formData.comp_id = $("#comp_id").val();
 
-        var home = $('#home').val();
-        if (home == "") {
-              $("label#home_error").show();
-              $("input#home").focus();
-              return false;
-            }
-
-            var away = $('#away').val();
-        if (away == "") {
-              $("label#away_error").show();
-              $("input#away").focus();
-              return false;
-            }
-
-            var grefresh = $("#grefresh").val();
-            var comp_id = $("#comp_id").val();
-
-        $.post('/add_game_process.php',
-        {field: field, gnum: gnum, kdate: kdate, koh: koh, kom: kom, home: home, away: away, comp_id: comp_id},
-        function(){
+        $.post('/add_game_process.php', {
+          field: formData.field,
+          gnum: formData.gnum,
+          kdate: formData.kdate,
+          koh: formData.koh,
+          kom: formData.kom,
+          home: formData.home,
+          away: formData.away,
+          comp_id: formData.comp_id
+        }, function(){
                  $('#games').fadeOut('slow', function(){
                      $('#games').html('Please wait...');
                      $('#games').fadeIn('fast');
-                       $('#games').load(grefresh, function(){
+                       $('#games').load(formData.grefresh, function(){
                      $('#games').fadeIn('slow');
                      });
                  });
