@@ -91,6 +91,7 @@ function playerName($id)
 {
     $query = "SELECT id,firstname,lastname FROM `players` WHERE id = $id";
     $result = mysql_query($query);
+    $output = '';
     while ($row=mysql_fetch_assoc($result)) {
 
         $output = "{$row['firstname']} {$row['lastname']}";

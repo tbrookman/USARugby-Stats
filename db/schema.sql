@@ -90,6 +90,7 @@ CREATE TABLE `games` (
   `4_sign` int(1) NOT NULL,
   `home_sign` int(1) NOT NULL,
   `away_sign` int(1) NOT NULL,
+  `uuid` char(36) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=395 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -123,7 +124,6 @@ CREATE TABLE `teams` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(64) DEFAULT NULL,
-  `password` varchar(160) NOT NULL,
   `team` int(6) NOT NULL,
   `access` int(2) NOT NULL,
   `uuid` char(36) DEFAULT NULL,

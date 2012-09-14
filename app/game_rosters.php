@@ -50,7 +50,7 @@ for ($i=1;$i<=$max;$i++) {
     echo "</tr>\r";
 }
 
-if (editCheck() && !$iframe) {
+if (editCheck() && empty($iframe)) {
     echo "<td colspan='2'><a href='game_roster.php?gid=$game_id&tid=$away_id'>Edit Roster</a></td>\n";
     echo "<td>&nbsp;</td>";
     echo "<td colspan='2'><a href='game_roster.php?gid=$game_id&tid=$home_id'>Edit Roster</a></td>\n";

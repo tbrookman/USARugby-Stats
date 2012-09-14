@@ -6,7 +6,7 @@ include_once './include.php';
   <div class="navbar-inner">
     <div class="container">
       <a class="brand" href="/"><img src="/assets/USA_Rugby_bw.png"/></a>
-      <ul class="nav pull-right">
+      <ul class="nav pull-left">
         <li><a href='/'>Competitions</a></li>
         <li><a href='/help.php'>Help</a></li>
 
@@ -18,11 +18,30 @@ if ($_SESSION['teamid'] > 0) {
 
 //only display Admin Options to admins
 if (editCheck(1)) {
-    echo "<li><a href='/admin.php'>Admin Options</a></li>";
+    ?>
+    <li class = "dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Options <b class = "caret"></b></a>
+        <ul class = "dropdown-menu">
+            <li><a href='db_update.php'>Update Player Database</a></li>
+            <li><a href='db_update_team.php'>Add Club to Club Database</a></li>
+            <li><a href='users.php'>User Management</a></li>
+            <li><a href='groups_sync.php'>Pull in Groups from AllPlayers</a></li>
+            <li><a href='group_members_sync.php'>Pull in Players from a group</a></li>
+        </ul>
+    </li>
+    <?php
 }
 ?>
 
       </ul>
+
+      <?php
+      if (!empty($_SESSION['user'])) {
+          echo '<ul class="nav pull-right">';
+          echo "<li class='welcome_user'>Welcome, " . $_SESSION['user'] . "<li>";
+          echo '</ul>';
+      }
+      ?>
     </div>
   </div>
 </div>

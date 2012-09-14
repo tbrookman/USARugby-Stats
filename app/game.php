@@ -25,7 +25,7 @@ if ((!$ops = $request->get('ops')) || empty($iframe)) {
     $game = $db->getGame($game_id);
     // Game Information.
     if (in_array('game_info', $ops)) {
-      if (!$iframe) {
+      if (empty($iframe)) {
         echo "<h1>Game Info</h1>";
       }
       echo "<div id='info'>\r";
@@ -36,7 +36,7 @@ if ((!$ops = $request->get('ops')) || empty($iframe)) {
 
     // Overall Game Score.
     if (in_array('game_score', $ops)) {
-      if (!$iframe) {
+      if (empty($iframe)) {
         echo "<h2>Score</h2>";
       }
       echo "<div id='score'>\r";
@@ -47,7 +47,7 @@ if ((!$ops = $request->get('ops')) || empty($iframe)) {
 
     // Rosters
     if (in_array('game_rosters', $ops)) {
-      if (!$iframe) {
+      if (empty($iframe)) {
         echo "<h2>Rosters</h2> ";
       }
       $home_id = $game['home_id'];
@@ -58,7 +58,7 @@ if ((!$ops = $request->get('ops')) || empty($iframe)) {
 
     // Player Scores - Individual
     if (in_array('game_score_events', $ops)) {
-      if (!$iframe) {
+      if (empty($iframe)) {
         echo "<h2>Scores</h2>\r";
       }
       echo "<div id='scores'>";
@@ -66,7 +66,7 @@ if ((!$ops = $request->get('ops')) || empty($iframe)) {
       include_once './game_score_events.php';
       echo "</div>";
       // If we can edit/add, show the necessary form info.
-      if (editCheck() && !$iframe) {
+      if (editCheck() && empty($iframe)) {
         echo "<div id='score_submit'>";
         include './add_score.php';
         echo "</div>";
@@ -75,7 +75,7 @@ if ((!$ops = $request->get('ops')) || empty($iframe)) {
 
     // Subs.
     if (in_array('game_sub_events', $ops)) {
-      if (!$iframe) {
+      if (empty($iframe)) {
         echo "<h2>Subs</h2>";
       }
        echo "<div id='subs'>";
@@ -83,7 +83,7 @@ if ((!$ops = $request->get('ops')) || empty($iframe)) {
       include_once './game_sub_events.php';
       echo "</div>";
       // If we can edit/add, show the necessary form info.
-      if (editCheck() && !$iframe) {
+      if (editCheck() && empty($iframe)) {
         echo "<div id='sub_submit'>";
         include './add_sub.php';
         echo "</div>";
@@ -92,7 +92,7 @@ if ((!$ops = $request->get('ops')) || empty($iframe)) {
 
     // Cards.
     if (in_array('game_card_events', $ops)) {
-      if (!$iframe) {
+      if (empty($iframe)) {
         echo "<h2>Cards</h2>";
       }
       echo "<div id='cards'>";
@@ -101,13 +101,13 @@ if ((!$ops = $request->get('ops')) || empty($iframe)) {
       echo "</div>";
 
       // If we can edit/add, show the necessary form info.
-      if (editCheck() && !$iframe) {
+      if (editCheck() && empty($iframe)) {
           echo "<div id='card_submit'>";
           include './add_card.php';
           echo "</div>";
       }
     }
-    if (!$iframe && editCheck()) {
+    if (empty($iframe) && editCheck()) {
       echo "<div id='signoff'>";
       // Get the ref, coaches, and #4's signoffs.
       include_once './signatures.php';

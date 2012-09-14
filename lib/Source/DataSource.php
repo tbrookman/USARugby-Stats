@@ -96,7 +96,9 @@ class DataSource {
     }
 
     public function getRoster($game_id, $team_id) {
-        $query = "SELECT * FROM `game_rosters` WHERE game_id = $game_id AND team_id = $team_id";
+        $game_search_id = DataSource::uuidIsValid($game_id) ? $this->getSerialIDByUUID('games', $game_id) : $game_id;
+        $team_search_id = DataSource::uuidIsValid($team_id) ? $this->getSerialIDByUUID('teams', $team_id) : $team_id;
+        $query = "SELECT * FROM `game_rosters` WHERE game_id = $game_search_id AND team_id = $team_search_id";
         $result = mysql_query($query);
         $roster = mysql_fetch_assoc($result);
         return $roster;
@@ -160,7 +162,17 @@ class DataSource {
 
     public function addUser($user_info) {
         $user_info['login'] = mysql_real_escape_string($user_info['login']);
-        $query = "INSERT INTO `users` VALUES ('', '" . implode("', '", $user_info) . "', NULL, NULL)";
+        $columns = array();
+        foreach ($user_info as $key_name => $user_info_piece) {
+            if (isset($user_info_piece)) {
+                $columns[] = $key_name;
+            }
+        }
+        $values = array();
+        foreach ($columns as $col_name) {
+            $values[] = $user_info[$col_name];
+        }
+        $query = "INSERT INTO `users` (" . implode(',', $columns) . ") VALUES ('" . implode("', '", $values) . "')";
         $result = mysql_query($query);
         return $result;
     }
