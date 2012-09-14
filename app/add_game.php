@@ -16,15 +16,16 @@ $comp_id = $_GET['id'];
 <input id='gnum' name='gnum' type='text' size='1'>
 <label class="error" for="gnum" id="gnum_error">This field is required.</label>
 <br/>
-<label for="kdate" id="kdate_label">Game Date</label>
+<label for="kdate" id="kdate_label">Game Date And Time</label>
 <?php
 // Determine date stard and end.
 $comp = $db->getCompetition($comp_id);
 $game_earliest = $comp['start_date'];
 $game_latest = $comp['end_date'];
-echo "<input id='kdate' name='kdate' type='text' size='10' class='date_select input-small' data-date-startdate='$game_earliest' data-date-enddate='$game_latest'>"
+echo "<input id='kdate' name='kdate' type='text' size='10' class='date_select input-small' data-date-startdate='$game_earliest' data-date-enddate='$game_latest'> @ "
 ?>
 <input name="ko_time" id="ko_time" type="text" size="2" class="input-small time-entry">
+<label class="error" for="kdate" id="kdate_error">This field is required.</label>
 <label class="error" for="ko_time" id="ko_time_error">This field is required.</label>
 <br/>
 
