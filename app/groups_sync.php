@@ -10,16 +10,19 @@ if (editCheck(1)) {
     $teams = $client->getIterator($command);
     $added = 0;
     foreach ($teams as $team) {
-        if (!$existing_teams || !key_exists($team['uuid'], $existing_teams)) {
-            $team_info = array(
-                'hidden' => 0,
-                'user_create' => $_SESSION['user'],
-                'uuid' => $team['uuid'],
-                'name' => $team['title'],
-                'short' => $team['title']
-            );
-            $db->addTeam($team_info);
-            $added++;
+        if (is_array($team)) {
+	        if (!$existing_teams || !key_exists($team['uuid'], $existing_teams)) {
+	            $team_info = array(
+	                'hidden' => 0,
+	                'user_create' => $_SESSION['user'],
+	                'uuid' => $team['uuid'],
+	                'name' => $team['title'],
+	                'short' => $team['title']
+	            );
+	            $db->addTeam($team_info);
+	            $existing_teams = $db->getAllTeams();
+	            $added++;
+	        }
         }
     }
 
