@@ -26,26 +26,26 @@ $teams = $db->getAllTeams();
 <?php
 
 if (isset($_POST['submit'])) {
+    $added = 0;
     unset($_POST['submit']);
     foreach ($_POST as $name => $value) {
         if ($name == 'sync_all' && $value == 'on') {
             foreach ($teams as $uuid => $team) {
-                sync_group_members($uuid, $client, $db);
+                $added += sync_group_members($uuid, $client, $db);
             }
-            exit;
         }
-        if ($uuid = split('_', $name)) {
-            sync_group_members($uuid[1], $client, $db);
+        elseif ($uuid = split('_', $name)) {
+            $added += sync_group_members($uuid[1], $client, $db);
         }
     }
-    echo '<div class="alert alert-success">Groups updated</div>';
+    echo '<div class="alert alert-success">' . $added . ' Players added</div>';
 }
 
 
 
 function sync_group_members($group_uuid, $client, $db) {
     $existing_players = $db->getTeamPlayers($group_uuid);
-
+    $added = 0;
     $command = $client->getCommand('GetGroupMembers', array('uuid' => $group_uuid));
     $command->setLimit(0);
     $client->execute($command);
@@ -63,8 +63,10 @@ function sync_group_members($group_uuid, $client, $db) {
                 'lastname' => $member['lname']
             );
             $db->addPlayer($player_info);
+            $added++;
         }
     }
+    return $added;
 }
 
 ?>
