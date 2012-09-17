@@ -26,6 +26,6 @@ if (editCheck(1)) {
         }
     }
 
-    $_SESSION['alert_message'] = $added . " groups updated.";
+    $_SESSION['alert_message'] = $added . " groups added.";
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
