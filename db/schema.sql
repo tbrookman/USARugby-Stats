@@ -2,7 +2,7 @@
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comps` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_create` varchar(25) NOT NULL,
+  `user_create` varchar(64) NOT NULL,
   `name` varchar(80) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE `ct_pairs` (
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `event_rosters` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_create` varchar(25) NOT NULL,
+  `user_create` varchar(64) NOT NULL,
   `last_edit` datetime NOT NULL,
   `comp_id` int(5) NOT NULL,
   `team_id` int(6) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE `event_types` (
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `game_events` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_create` varchar(25) NOT NULL,
+  `user_create` varchar(64) NOT NULL,
   `game_id` int(7) NOT NULL,
   `team_id` int(6) NOT NULL,
   `player_id` int(7) NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE `game_events` (
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `game_rosters` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_create` varchar(25) NOT NULL,
+  `user_create` varchar(64) NOT NULL,
   `last_edit` datetime NOT NULL,
   `comp_id` int(5) NOT NULL,
   `game_id` int(6) NOT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE `game_rosters` (
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `games` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_create` varchar(25) NOT NULL,
+  `user_create` varchar(64) NOT NULL,
   `comp_id` int(5) NOT NULL,
   `comp_game_id` int(3) NOT NULL,
   `home_id` int(7) NOT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE `games` (
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `players` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_create` varchar(25) NOT NULL,
+  `user_create` varchar(64) NOT NULL,
   `last_update` datetime NOT NULL,
   `uuid` char(36) DEFAULT NULL,
   `team_uuid` char(36) DEFAULT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE `players` (
 CREATE TABLE `teams` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `hidden` int(1) NOT NULL,
-  `user_create` varchar(25) NOT NULL,
+  `user_create` varchar(64) NOT NULL,
   `uuid` char(36) DEFAULT NULL,
   `name` varchar(60) NOT NULL,
   `short` varchar(30) NOT NULL,
