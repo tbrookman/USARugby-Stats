@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('.error').hide();
+  $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
   $('input.text-input').css({backgroundColor:"#FFFFFF"});
   $('input.text-input').focus(function(){
     $(this).css({backgroundColor:"#FFDDAA"});
@@ -36,15 +36,33 @@ $(document).ready(function() {
       else {
         val = $(this).val();
       }
-      if($(this).hasClass('required') && (val == "" || val == null)) {
+      /*if($(this).hasClass('required') && (val == "" || val == null)) {
         var missing = $(this).prop('placeholder') || "Missing Fields";
         $(errorElementName + ' .error-message').text('Please Enter ' + missing);
         $(errorElementName).show();
         $(this).parents('.control-group').addClass('error');
         formData.validated = false;
         return false;
+      }*/
+
+      //formData[$(this).prop('id')] = val;
+
+      if ($(this).hasClass('required')) {
+        if (val == "" || val == null) {
+          var missing = $(this).prop('placeholder') || "Missing Fields";
+          $(errorElementName + ' .error-message').text('Please Enter ' + missing);
+          $(errorElementName).show();
+          $(this).parents('.control-group').addClass('error');
+          formData.validated = false;
+          return false;
+        }
+        else {
+          $(this).parents('.control-group').removeClass('error');
+        }
       }
+
       formData[$(this).prop('id')] = val;
+
 
     });
     return formData;
@@ -56,7 +74,7 @@ $(document).ready(function() {
         //alert('in button');
         // validate and process form
         // first hide any error messages
-    $('.error').hide();
+    $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
     var formData = getFormData('#addscore', '#form-validation-error');
     if (!formData || formData.validated == false) {
       return false;
@@ -98,7 +116,7 @@ $(document).ready(function() {
 
 
 
-      $('.error').hide();
+      $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
       var formData = getFormData('#addsub', '#form-validation-error');
       if (!formData || formData.validated == false) {
         return false;
@@ -130,7 +148,7 @@ $(document).ready(function() {
 
     //adding a card event to a game
      $("#addcard").live('submit', function() {
-      $('.error').hide();
+      $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
         var formData = getFormData('#addcard', '#form-validation-error');
         if (!formData || formData.validated == false) {
           return false;
@@ -251,7 +269,7 @@ $(document).ready(function() {
 
     //add a competition
     $("#addcomp").live('submit', function() {
-      $('.error').hide();
+      $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
       var formData = getFormData('#addcomp', '#form-validation-error');
       if (!formData || formData.validated == false) {
         return false;
@@ -288,7 +306,7 @@ $(document).ready(function() {
 
     //adding a game
     $("#addgame").live('submit', function() {
-        $('.error').hide();
+        $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
         var formData = getFormData('#addgame', '#form-validation-error');
 
         if (!formData || formData.validated == false) {
@@ -330,7 +348,7 @@ $(document).ready(function() {
 
         // validate and process form
         // first hide any error messages
-            $('.error').hide();
+            $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
           var formData = getFormData('#addteam', '#form-validation-error');
            if (!formData || formData.validated == false) {
               return false;
@@ -476,7 +494,7 @@ $(document).ready(function() {
     //submit game edit info
     $("#eGame").live('click', function() {
     if(!confirm('Update game info as shown?')){return false;}
-       $('.error').hide();
+       $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
         var formData = getFormData('#editgame', '#form-validation-error');
 
         if (!formData || formData.validated == false) {
@@ -509,7 +527,7 @@ $(document).ready(function() {
         return false;
         });
 
-        /*$('.error').hide();
+        /*$('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
           var field = $("input#field").val();
 
@@ -566,7 +584,7 @@ $(document).ready(function() {
     $("#ersubmit").live('click', function() {
     if(!confirm('Update roster?')){return false;}
 
-        $('.error').hide();
+        $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
           var max = $("input#max").val();
 
@@ -603,7 +621,7 @@ $(document).ready(function() {
     $("#grsubmit").live('click', function() {
     if(!confirm('Update roster?')){return false;}
 
-        $('.error').hide();
+        $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
           var max = $("input#max").val();
 
@@ -673,7 +691,7 @@ $(document).ready(function() {
     $("#presubmit").live('click', function() {
     if(!confirm('Update roster?')){return false;}
 
-        $('.error').hide();
+        $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
             var comp_id = $("#comp_id").val();
             var game_id = $("#game_id").val();
@@ -703,7 +721,7 @@ $(document).ready(function() {
     $("#teamadd").live('click', function() {
     if(!confirm('Add club to database?')){return false;}
 
-        $('.error').hide();
+        $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
           var name = $("#name").val();
         if (name == "") {
@@ -800,7 +818,7 @@ $(document).ready(function() {
     $("#eUserSubmit").live('click', function() {
     if(!confirm('Update user info as shown?')){return false;}
 
-        $('.error').hide();
+        $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
           var login = $("input#login").val();
         if (login== "") {
@@ -839,7 +857,7 @@ $(document).ready(function() {
 
     //add new user
     $("#addUser").live('click', function() {
-        $('.error').hide();
+        $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
           var login = $("input#login").val();
           var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);

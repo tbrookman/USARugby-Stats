@@ -102,5 +102,5 @@ echo "<script type='text/javascript'>";
 //to hide errors on load
 //echo "con"
 //echo "$('#ko_time').timeEntry('setTime', ($('#ko_time').timeEntry('getTime')))";
-echo "$('.error').hide();";
+echo "$('.error').not(function(index){return $(this).hasClass('control-group');}).hide();";
 echo "</script>";

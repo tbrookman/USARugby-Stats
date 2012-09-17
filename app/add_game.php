@@ -124,7 +124,7 @@ $comp_id = $_GET['id'];
 </div>
 
 <!--this is to hide the errors after a jquery refresh upon adding a new team to the comp-->
-<script type='text/javascript'>$('.error').hide();</script>
+<script type='text/javascript'>$('.error').not(function(index){return $(this).hasClass('control-group');}).hide();</script>
 
 <?php
 include_once './footer.php';

@@ -1,11 +1,11 @@
 $(document).ready(function() {
-  $('.error').hide();
+  $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
  $("#add_score").click(function() {
  //alert('in button');
         // validate and process form
         // first hide any error messages
-    $('.error').hide();
+    $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
           var minute = $("input#minute").val();
         if (minute == "") {
