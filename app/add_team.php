@@ -9,11 +9,11 @@ if (editCheck(1)) {
 <div id="wrapper" class="container-fluid">
   <div class="row-fluid">
     <form name='addteam' id='addteam' method='POST' action=''>
-    <div class="alert error alert-error" id="form-validation-error">
-      <button type="button" class="close" data-dismiss="alert">×</button>
-      <div class="error-message"></div>
-    </div>
-    <div class="row-fluid">
+        <div class="alert error alert-error" id="form-validation-error">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <div class="error-message"></div>
+        </div>
+        <div class="row-fluid">
         <div id="team-wrapper" class="span2">
           <div class="control-group">
             <label for="team" id="team_label" class="control-label">Team</label>
@@ -40,9 +40,9 @@ if (editCheck(1)) {
             </div>
           </div>
         </div>
-        <input type='hidden' name='trefresh' id='trefresh' value='<?php echo "comp_teams.php?id=$comp_id"; ?>'>
-        <input type='hidden' name='lrefresh' id='lrefresh' value='<?php echo "add_team.php?id=$comp_id"; ?>'>
-        <input type='hidden' name='comp_id' id='comp_id' value='<?php echo $comp_id; ?>'>
+        <input type='hidden' name='trefresh' id='trefresh' value=<?php echo '"' .  "comp_teams.php?id=$comp_id" . '"'; ?>>
+        <input type='hidden' name='lrefresh' id='lrefresh' value=<?php echo '"' . "add_team.php?id=$comp_id" . '"'; ?>>
+        <input type='hidden' name='comp_id' id='comp_id' value=<?php echo '"' . $comp_id . '"'; ?>>
         <div id="submit-wrapper" class="span1">
           <div class="control-group">
             <label for="submit" id="submit_label" class="control-label">&nbsp;</label>
@@ -52,11 +52,10 @@ if (editCheck(1)) {
           </div>
         </div>
     </div>
-
-
-
-
     </form>
-
+</div>
+</div>
+<script type='text/javascript'>$('.error').not(function(index){return $(this).hasClass('control-group');}).hide();</script>
 <?php
 }
+?>
