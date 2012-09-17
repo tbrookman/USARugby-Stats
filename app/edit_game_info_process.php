@@ -8,8 +8,8 @@ $kod = $_POST['kdate'];
 $koh = $_POST['koh'];
 $kom = $_POST['kom'];
 
-$kod = date('Y-m-d', $kod);
-$kfull = $kod.' '.$koh.':'.$kom.':00';
+$date_time = new DateTime($kod . 'T' . $koh . ':' . $kom);
+$kfull = $date_time->format('Y-m-d H:i:\0\0');
 
 $query = "UPDATE `games` SET user_create='{$_SESSION['user']}', comp_game_id='$game_num', kickoff='$kfull', field_num='$field' WHERE id='$game_id'";
 $result = mysql_query($query);

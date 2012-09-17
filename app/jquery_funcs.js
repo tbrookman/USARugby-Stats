@@ -9,21 +9,25 @@ $(document).ready(function() {
   });
 
 
-  $('.date_select').datepicker({
-    format: 'yyyy-mm-dd',
-    //startDate: new Date(),
-    autoclose: true
-  });
+  var initDateTime = function() {
+    $('.date_select').datepicker({
+      format: 'yyyy-mm-dd',
+      //startDate: new Date(),
+      autoclose: true
+    });
 
-  $('.time-entry').timeEntry({
-    spinnerImage: '',
-    spinnerBigImage: ''
-  });
+    $('.time-entry').timeEntry({
+      spinnerImage: '',
+      spinnerBigImage: ''
+    });
+  };
 
+  initDateTime();
   var getFormData = function(formElementName, errorElementName) {
     var errorElementName = errorElementName || '#form-validation-error';
+    errorElementName = formElementName + ' ' + errorElementName;
     var formData = {validated : true};
-    $(formElementName + ' input[type!="hidden"][type!="submit"], ' + formElementName + ' select').each(function(index){
+    $(formElementName + ' input[type!="submit"], ' + formElementName + ' select').each(function(index){
       // Get value
       var val = "";
       if ($(this).hasClass('time-entry')) {
@@ -32,11 +36,11 @@ $(document).ready(function() {
       else {
         val = $(this).val();
       }
-      if($(this).hasClass('required') && ($(this).val() == "" || $(this).val() == null)) {
+      if($(this).hasClass('required') && (val == "" || val == null)) {
         var missing = $(this).prop('placeholder') || "Missing Fields";
         $(errorElementName + ' .error-message').text('Please Enter ' + missing);
         $(errorElementName).show();
-        //$(this).focus();
+        $(this).parents('.control-group').addClass('error');
         formData.validated = false;
         return false;
       }
@@ -92,54 +96,32 @@ $(document).ready(function() {
     //adding a sub event to a game
     $("#addsub").live('submit', function() {
 
-    //event.preventDefault();
 
-        // validate and process form
-        // first hide any error messages
-            $('.error').hide();
 
-          var submin = $("#submin").val();
-        if (submin == "") {
-              $("label#submin_error").show();
-              $("input#submin").focus();
-              return false;
-            }
+      $('.error').hide();
+      var formData = getFormData('#addsub', '#form-validation-error');
+      if (!formData || formData.validated == false) {
+        return false;
+      }
+      formData.subrefresh = $("#subrefresh").val();
+      formData.game_id = $("#game_id").val();
 
-        var subtype = $('#subtype').val();
-        if (subtype == "") {
-              $("label#subtype_error").show();
-              $("input#subtype").focus();
-              return false;
-            }
-
-        var player_on = $('#player_on').val();
-        if (player_on == "") {
-              $("label#player_on_error").show();
-              $("input#player_on").focus();
-              return false;
-            }
-
-            var player_off = $('#player_off').val();
-        if (player_off == "") {
-              $("label#player_off_error").show();
-              $("input#player_off").focus();
-              return false;
-            }
-
-            var subrefresh = $("#subrefresh").val();
-            var game_id = $("#game_id").val();
-
-        $.post('/add_sub_process.php',
-        {submin: submin, subtype: subtype, player_on: player_on, player_off: player_off, game_id: game_id},
-        function(){
-                 $('#subs').fadeOut('slow', function(){
-                     $('#subs').html('Please wait...');
-                     $('#subs').fadeIn('fast');
-                       $('#subs').load(subrefresh, function(){
-                     $('#subs').fadeIn('slow');
-                     });
-                 });
-        });
+      $.post('/add_sub_process.php', {
+        submin: formData.submin,
+        subtype: formData.subtype,
+        player_on: formData.player_on,
+        player_off: formData.player_off,
+        game_id: formData.game_id
+      },
+      function(){
+               $('#subs').fadeOut('slow', function(){
+                   $('#subs').html('Please wait...');
+                   $('#subs').fadeIn('fast');
+                     $('#subs').load(formData.subrefresh, function(){
+                   $('#subs').fadeIn('slow');
+                   });
+               });
+      });
 
         return false;
     });
@@ -148,46 +130,32 @@ $(document).ready(function() {
 
     //adding a card event to a game
      $("#addcard").live('submit', function() {
+      $('.error').hide();
+        var formData = getFormData('#addcard', '#form-validation-error');
+        if (!formData || formData.validated == false) {
+          return false;
+        }
 
-        // validate and process form
-        // first hide any error messages
-    $('.error').hide();
+        formData.cardrefresh = $("#cardrefresh").val();
+        formData.card_game_id = $("#card_game_id").val();
 
-          var cardmin = $("#cardmin").val();
-        if (cardmin == "") {
-      $("label#cardmin_error").show();
-      $("input#cardmin").focus();
-      return false;
-    }
-        var cardtype = $('#cardtype').val();
-        if (cardtype == "") {
-      $("label#cardtype_error").show();
-      $("input#cardtype").focus();
-      return false;
-    }
+          $.post('/add_card_process.php', {
+            cardmin: formData.cardmin,
+            cardtype: formData.cardtype,
+            cardplayer: formData.cardplayer,
+            card_game_id: formData.card_game_id
+          },
+          function(){
 
-        var cardplayer = $('#cardplayer').val();
-        if (cardplayer == "") {
-      $("label#cardplayer_error").show();
-      $("input#cardplayer").focus();
-      return false;
-    }
-            var cardrefresh = $("#cardrefresh").val();
-            var card_game_id = $("#card_game_id").val();
+                   $('#cards').fadeOut('slow', function(){
+                       $('#cards').html('Please wait...');
+                       $('#cards').fadeIn('fast');
+                         $('#cards').load(formData.cardrefresh, function(){
+                       $('#cards').fadeIn('slow');
+                       });
+                   });
 
-        $.post('/add_card_process.php',
-        {cardmin: cardmin, cardtype: cardtype, cardplayer: cardplayer, card_game_id: card_game_id},
-        function(){
-
-                 $('#cards').fadeOut('slow', function(){
-                     $('#cards').html('Please wait...');
-                     $('#cards').fadeIn('fast');
-                       $('#cards').load(cardrefresh, function(){
-                     $('#cards').fadeIn('slow');
-                     });
-                 });
-
-        });
+          });
 
 
 
@@ -498,6 +466,7 @@ $(document).ready(function() {
         $('#info').fadeIn('fast');
                $('#info').load('/edit_game_info.php?id='+game_id, function(){
              $('#info').fadeIn('slow');
+             initDateTime();
              });
 
     return false;
@@ -507,8 +476,40 @@ $(document).ready(function() {
     //submit game edit info
     $("#eGame").live('click', function() {
     if(!confirm('Update game info as shown?')){return false;}
+       $('.error').hide();
+        var formData = getFormData('#editgame', '#form-validation-error');
 
-        $('.error').hide();
+        if (!formData || formData.validated == false) {
+          return false;
+        }
+        formData.koh = formData.ko_time.getHours();
+        formData.kom = formData.ko_time.getMinutes();
+        //formData.grefresh = $("#grefresh").val();
+        formData.comp_id = $("#comp_id").val();
+        var refresh = '/game_info.php?id='+formData.game_id;
+        $.post('/edit_game_info_process.php', {
+          field: formData.field,
+          gnum: formData.gnum,
+          kdate: formData.kdate,
+          koh: formData.koh,
+          kom: formData.kom,
+          game_id: formData.game_id
+        },
+        function(){
+                 $('#info').fadeOut('slow', function(){
+                     $('#info').html('Please wait...');
+                     $('#info').fadeIn('fast');
+                       $('#info').load(refresh, function(){
+                     $('#info').fadeIn('slow');
+                     });
+                 });
+         });
+
+
+        return false;
+        });
+
+        /*$('.error').hide();
 
           var field = $("input#field").val();
 
@@ -557,8 +558,8 @@ $(document).ready(function() {
 
         });
 
-    return false;
-    });
+    return false;*/
+    //});
 
 
     //submit event roster edit info

@@ -16,6 +16,6 @@ echo "Field: ".$game['field_num']."<br/>";
 
 
 if (editCheck() && empty($iframe)) {
-    echo "<input type='button' class='edit' id='eShow' name='eShow' value='Edit Game Info' />";
+    echo "<input type='button' class='edit btn btn-primary' id='eShow' name='eShow' value='Edit Game Info' />";
     echo "<input type='hidden' id='game_id' value='$game_id' />";
 }
