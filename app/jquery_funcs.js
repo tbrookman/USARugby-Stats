@@ -472,7 +472,6 @@ $(document).ready(function() {
         }
         formData.koh = formData.ko_time.getHours();
         formData.kom = formData.ko_time.getMinutes();
-        //formData.grefresh = $("#grefresh").val();
         formData.comp_id = $("#comp_id").val();
         var refresh = '/game_info.php?id='+formData.game_id;
         $.post('/edit_game_info_process.php', {
