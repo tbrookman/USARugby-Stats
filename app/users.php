@@ -14,13 +14,4 @@ echo "<div id='useradd'>";
 include_once './add_user.php';
 echo "</div>";
 
-echo "<h2>Update Users</h2>";
-echo "<div id='users_update'>";
-?>
-<form action="db_update_users_process.php" method="post" enctype="multipart/form-data">
-<input type="submit" name="submit" value="Sync Users" />
-</form>
-<?php
-echo "</div>";
-
 include_once './footer.php';
