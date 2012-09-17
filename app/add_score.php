@@ -73,7 +73,7 @@
 	          </div>
 	        </div>
 	</div>
-		<input type='hidden' name='refresh' id='refresh' value='<?php $host = $_SERVER['HTTP_HOST']; echo "http://$host/game_score_events.php?id=$game_id"; ?>'>
+		<input type='hidden' name='refresh' id='refresh' value='<?php echo $request->getScheme() . '://' . $request->getHost() . "/game_score_events.php?id=$game_id"; ?>'>
 		<input type='hidden' name='game_id' id='game_id' value='<?php echo "$game_id"; ?>'>
 
 		</form>

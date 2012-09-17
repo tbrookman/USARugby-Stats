@@ -58,7 +58,7 @@
 
 
 
-		<input type='hidden' name='cardrefresh' id='cardrefresh' value='<?php $host = $_SERVER['HTTP_HOST']; echo "http://$host/game_card_events.php?game_id=$game_id"; ?>'>
+		<input type='hidden' name='cardrefresh' id='cardrefresh' value='<?php echo $request->getScheme() . '://' . $request->getHost() . "/game_card_events.php?game_id=$game_id"; ?>'>
 		<input type='hidden' name='card_game_id' id='card_game_id' value='<?php echo "$game_id"; ?>'>
 
 	        <div id="submit-wrapper" class="span1">
@@ -73,3 +73,4 @@
 		</form>
 	</div>
 </div>
+

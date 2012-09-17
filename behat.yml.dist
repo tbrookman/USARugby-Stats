@@ -1,0 +1,8 @@
+default:
+  context:
+    class:  'FeatureContext'
+  extensions:
+    Behat\MinkExtension\Extension:
+      base_url:  'http://rugby.allplayers'
+      goutte:    ~
+      selenium2: ~

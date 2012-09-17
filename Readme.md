@@ -74,3 +74,33 @@ There are several parameters you can pass in the [GET] request to `/game.php` in
 ###### Examples
 *  `https://usarugbystats.pdup.allplayers.com/game.php?id=123&iframe=TRUE&ops[0]=game_info`
 *  `https://usarugbystats.pdup.allplayers.com/game.php?id=123&iframe=TRUE&ops[0]=game_info&ops[1]=game_rosters&ops[2]=game_sub_events`
+
+
+### Mink/Behat Testing
+
+In order to start using the testing framework, you first have to install mink/behat from composer dev so run:
+```
+compose update --dev
+```
+Next step is to modify your behat.yml.dist file and change your host:
+```
+default:
+  context:
+    class:  'FeatureContext'
+  extensions:
+    Behat\MinkExtension\Extension:
+      base_url:  '<BASE_URL_YOU_WANT_TO_TEST>'
+      goutte:    ~
+      selenium2: ~
+```
+And finally, run the tests by running:
+```
+bin/behat
+```
+
+To look at mink extensions available that you can use in your tests,
+*   https://github.com/Behat/MinkExtension/blob/master/src/Behat/MinkExtension/Context/MinkContext.php
+
+To create your own,
+*   https://github.com/AllPlayers/USARugby-Stats/blob/master/features/bootstrap/FeatureContext.php#L8
+

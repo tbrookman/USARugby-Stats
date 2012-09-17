@@ -80,7 +80,7 @@
 
 
 
-		<input type='hidden' name='subrefresh' id='subrefresh' value='<?php $host = $_SERVER['HTTP_HOST']; echo "http://$host/game_sub_events.php?game_id=$game_id"; ?>'>
+		<input type='hidden' name='subrefresh' id='subrefresh' value='<?php echo $request->getScheme() . '://' . $request->getHost() . "/game_sub_events.php?game_id=$game_id"; ?>'>
 		<input type='hidden' name='sub_game_id' id='sub_game_id' value=<?php echo "$game_id"; ?>>
 
 			 <div id="submit-wrapper" class="span1">
