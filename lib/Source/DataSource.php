@@ -8,7 +8,7 @@ class DataSource {
      * Initialize database connection.
      */
     function __construct() {
-        include './config.php';
+        include __DIR__ . '/../../app/config.php';
         $username = $config['username'];
         $password = $config['password'];
         $database = $config['database'];
@@ -174,6 +174,22 @@ class DataSource {
         }
         $query = "INSERT INTO `users` (" . implode(',', $columns) . ") VALUES ('" . implode("', '", $values) . "')";
         $result = mysql_query($query);
+        return $result;
+    }
+
+    public function removeUsers($users) {
+        foreach ($users as $key => $user) {
+            if (isset($user['email'])) {
+                $query = "DELETE FROM `users` WHERE login = '{$user['email']}'";
+            }
+            elseif (isset($user['id'])) {
+                $query = "DELETE FROM `users` WHERE id = '{$user['id']}'";
+            }
+            elseif (isset($user['uuid'])) {
+                $query = "DELETE FROM `users` WHERE uuid = '{$user['uuid']}'";
+            }
+            $result[$key] = mysql_query($query);
+        }
         return $result;
     }
 
