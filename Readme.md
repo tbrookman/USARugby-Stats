@@ -20,6 +20,7 @@ $config = array(
   'consumer_secret' => 'BEEFDEAD',
   'auth_domain'     => 'https://www.allplayers.com', // Optional
   'admin_group_uuid' => 'ffc1b780-cc4c-11e1-9e39-12313d2a2278',
+  'verify_peer' => TRUE // FALSE if you're connecting to sandbox where HTTPS is invalid.
 );
 ```
 
