@@ -10,3 +10,11 @@ ALTER TABLE players CHANGE fsi_id uuid char(36);
 ALTER TABLE teams CHANGE fsi_id uuid char(36);
 ALTER TABLE teams ADD UNIQUE (uuid);
 ALTER TABLE users CHANGE login login VARCHAR(64)  NOT NULL  DEFAULT '';
+ALTER TABLE comps CHANGE user_create user_create varchar(64) NOT NULL;
+ALTER TABLE event_rosters CHANGE user_create user_create varchar(64) NOT NULL;
+ALTER TABLE game_events CHANGE user_create user_create varchar(64) NOT NULL;
+ALTER TABLE game_rosters CHANGE user_create user_create varchar(64) NOT NULL;
+ALTER TABLE games CHANGE user_create user_create varchar(64) NOT NULL;
+ALTER TABLE players CHANGE user_create user_create varchar(64) NOT NULL;
+ALTER TABLE teams CHANGE user_create user_create varchar(64) NOT NULL;
+
