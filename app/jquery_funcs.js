@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('.error').hide();
+  $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
   $('input.text-input').css({backgroundColor:"#FFFFFF"});
   $('input.text-input').focus(function(){
     $(this).css({backgroundColor:"#FFDDAA"});
@@ -8,169 +8,150 @@ $(document).ready(function() {
     $(this).css({backgroundColor:"#FFFFFF"});
   });
 
- //adding a score event for a game
- $("#addscore").live('submit', function() {
 
-        //alert('in button');
-        // validate and process form
-        // first hide any error messages
-    $('.error').hide();
+  var initDateTime = function() {
+    $('.date_select').datepicker({
+      format: 'yyyy-mm-dd',
+      //startDate: new Date(),
+      autoclose: true
+    });
 
-          var minute = $("#minute").val();
-        if (minute == "") {
-      $("label#minute_error").show();
-      $("input#minute").focus();
+    $('.time-entry').timeEntry({
+      spinnerImage: '',
+      spinnerBigImage: ''
+    });
+  };
+
+  initDateTime();
+  var getFormData = function(formElementName, errorElementName) {
+    var errorElementName = errorElementName || '#form-validation-error';
+    errorElementName = formElementName + ' ' + errorElementName;
+    var formData = {validated : true};
+    $(formElementName + ' input[type!="submit"], ' + formElementName + ' select').each(function(index){
+      // Get value
+      var val = "";
+      if ($(this).hasClass('time-entry')) {
+        val = $(this).timeEntry('getTime');
+      }
+      else {
+        val = $(this).val();
+      }
+
+      if ($(this).hasClass('required')) {
+        if (val == "" || val == null) {
+          var missing = $(this).prop('placeholder') || "Missing Fields";
+          $(errorElementName + ' .error-message').text('Please Enter ' + missing);
+          $(errorElementName).show();
+          $(this).parents('.control-group').addClass('error');
+          formData.validated = false;
+          return false;
+        }
+        else {
+          $(this).parents('.control-group').removeClass('error');
+        }
+      }
+      formData[$(this).prop('id')] = val;
+    });
+    return formData;
+  }
+
+  //adding a score event for a game
+  $("#addscore").live('submit', function() {
+    // validate and process form
+    // first hide any error messages
+    $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
+    var formData = getFormData('#addscore', '#form-validation-error');
+    if (!formData || formData.validated == false) {
       return false;
     }
-        var type = $('#type').val();
-        if (type == "") {
-      $("label#type_error").show();
-      $("input#type").focus();
-      return false;
-    }
 
-        var player = $('#player').val();
-        if (player == "" && type!=5) {
-      $("label#player_error").show();
-      $("input#player").focus();
-      return false;
-    }
+    var refresh = $("#refresh").val();
+    var game_id = $("#game_id").val();
+    var game_score = '/game_score.php?id=' + game_id;
 
-            var refresh = $("#refresh").val();
-            var game_id = $("#game_id").val();
-            var game_score = '/game_score.php?id=' + game_id;
-
-        $.post('/add_score_process.php',
-        {minute: minute, type: type, player: player, game_id: game_id},
-        function(){
-
-                 $('#scores').fadeOut('slow', function(){
-                     $('#scores').html('Please wait...');
-                     $('#scores').fadeIn('fast');
-                       $('#scores').load(refresh, function(){
-                     $('#scores').fadeIn('slow');
-                     });
-                 });
-                 $('#score').fadeOut('slow', function(){
-                     $('#score').html('Please wait...');
-                     $('#score').fadeIn('fast');
-                     $('#score').load(game_score, function(){
-                     $('#score').fadeIn('slow');
-                     });
-                 });
-
+    $.post('/add_score_process.php', {
+      minute: formData.minute,
+      type: formData.type,
+      player: formData.player,
+      game_id: game_id
+    }, function(){
+        $('#scores').fadeOut('slow', function(){
+          $('#scores').html('Please wait...');
+          $('#scores').fadeIn('fast');
+          $('#scores').load(refresh, function(){
+            $('#scores').fadeIn('slow');
+          });
         });
 
+        $('#score').fadeOut('slow', function(){
+          $('#score').html('Please wait...');
+          $('#score').fadeIn('fast');
+          $('#score').load(game_score, function(){
+            $('#score').fadeIn('slow');
+          });
+        });
+      });
+    return false;
+  });
 
+
+  //adding a sub event to a game
+  $("#addsub").live('submit', function() {
+    $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
+    var formData = getFormData('#addsub', '#form-validation-error');
+    if (!formData || formData.validated == false) {
+      return false;
+    }
+    formData.subrefresh = $("#subrefresh").val();
+    formData.game_id = $("#game_id").val();
+    $.post('/add_sub_process.php', {
+      submin: formData.submin,
+      subtype: formData.subtype,
+      player_on: formData.player_on,
+      player_off: formData.player_off,
+      game_id: formData.game_id
+    }, function(){
+      $('#subs').fadeOut('slow', function(){
+         $('#subs').html('Please wait...');
+         $('#subs').fadeIn('fast');
+         $('#subs').load(formData.subrefresh, function(){
+          $('#subs').fadeIn('slow');
+         });
+      });
+    });
 
     return false;
-    });
+  });
 
 
-    //adding a sub event to a game
-    $("#addsub").live('submit', function() {
 
-    //event.preventDefault();
+  //adding a card event to a game
+  $("#addcard").live('submit', function() {
+    $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
+    var formData = getFormData('#addcard', '#form-validation-error');
+    if (!formData || formData.validated == false) {
+      return false;
+    }
 
-        // validate and process form
-        // first hide any error messages
-            $('.error').hide();
+    formData.cardrefresh = $("#cardrefresh").val();
+    formData.card_game_id = $("#card_game_id").val();
 
-          var submin = $("#submin").val();
-        if (submin == "") {
-              $("label#submin_error").show();
-              $("input#submin").focus();
-              return false;
-            }
-
-        var subtype = $('#subtype').val();
-        if (subtype == "") {
-              $("label#subtype_error").show();
-              $("input#subtype").focus();
-              return false;
-            }
-
-        var player_on = $('#player_on').val();
-        if (player_on == "") {
-              $("label#player_on_error").show();
-              $("input#player_on").focus();
-              return false;
-            }
-
-            var player_off = $('#player_off').val();
-        if (player_off == "") {
-              $("label#player_off_error").show();
-              $("input#player_off").focus();
-              return false;
-            }
-
-            var subrefresh = $("#subrefresh").val();
-            var game_id = $("#game_id").val();
-
-        $.post('/add_sub_process.php',
-        {submin: submin, subtype: subtype, player_on: player_on, player_off: player_off, game_id: game_id},
-        function(){
-                 $('#subs').fadeOut('slow', function(){
-                     $('#subs').html('Please wait...');
-                     $('#subs').fadeIn('fast');
-                       $('#subs').load(subrefresh, function(){
-                     $('#subs').fadeIn('slow');
-                     });
-                 });
+    $.post('/add_card_process.php', {
+      cardmin: formData.cardmin,
+      cardtype: formData.cardtype,
+      cardplayer: formData.cardplayer,
+      card_game_id: formData.card_game_id
+    }, function(){
+      $('#cards').fadeOut('slow', function(){
+        $('#cards').html('Please wait...');
+        $('#cards').fadeIn('fast');
+        $('#cards').load(formData.cardrefresh, function(){
+          $('#cards').fadeIn('slow');
         });
-
-        return false;
+      });
     });
-
-
-
-    //adding a card event to a game
-     $("#addcard").live('submit', function() {
-
-        // validate and process form
-        // first hide any error messages
-    $('.error').hide();
-
-          var cardmin = $("#cardmin").val();
-        if (cardmin == "") {
-      $("label#cardmin_error").show();
-      $("input#cardmin").focus();
-      return false;
-    }
-        var cardtype = $('#cardtype').val();
-        if (cardtype == "") {
-      $("label#cardtype_error").show();
-      $("input#cardtype").focus();
-      return false;
-    }
-
-        var cardplayer = $('#cardplayer').val();
-        if (cardplayer == "") {
-      $("label#cardplayer_error").show();
-      $("input#cardplayer").focus();
-      return false;
-    }
-            var cardrefresh = $("#cardrefresh").val();
-            var card_game_id = $("#card_game_id").val();
-
-        $.post('/add_card_process.php',
-        {cardmin: cardmin, cardtype: cardtype, cardplayer: cardplayer, card_game_id: card_game_id},
-        function(){
-
-                 $('#cards').fadeOut('slow', function(){
-                     $('#cards').html('Please wait...');
-                     $('#cards').fadeIn('fast');
-                       $('#cards').load(cardrefresh, function(){
-                     $('#cards').fadeIn('slow');
-                     });
-                 });
-
-        });
-
-
-
     return false;
-    });
+  });
 
 
 
@@ -261,40 +242,14 @@ $(document).ready(function() {
 
     //add a competition
     $("#addcomp").live('submit', function() {
-
-        // validate and process form
-        // first hide any error messages
-            $('.error').hide();
-
-          var name = $("input#name").val();
-        if (name == "") {
-              $("label#name_error").show();
-              $("input#name").focus();
-              return false;
-            }
-
-        var type = $('#type').val();
-        if (type == "") {
-              $("label#type_error").show();
-              $("input#type").focus();
-              return false;
-            }
-
-        var max_event = $('#max_event').val();
-        if (max_event == "") {
-              $("label#max_event_error").show();
-              $("input#max_event").focus();
-              return false;
-            }
-
-            var max_match = $('#max_match').val();
-        if (max_match == "") {
-              $("label#max_match_error").show();
-              $("input#max_match").focus();
-              return false;
-            }
-
+      $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
+      var formData = getFormData('#addcomp', '#form-validation-error');
+      if (!formData || formData.validated == false) {
+        return false;
+      }
+      else {
         return true;
+      }
     });
 
 
@@ -324,72 +279,35 @@ $(document).ready(function() {
 
     //adding a game
     $("#addgame").live('submit', function() {
+        $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
+        var formData = getFormData('#addgame', '#form-validation-error');
 
-    //event.preventDefault();
+        if (!formData || formData.validated == false) {
+          return false;
+        }
+        formData.koh = formData.ko_time.getHours();
+        formData.kom = formData.ko_time.getMinutes();
+        formData.grefresh = $("#grefresh").val();
+        formData.comp_id = $("#comp_id").val();
 
-        // validate and process form
-        // first hide any error messages
-            $('.error').hide();
-
-          var field = $("input#field").val();
-
-          var gnum = $("input#gnum").val();
-        if (gnum == "") {
-              $("label#gnum_error").show();
-              $("input#gnum").focus();
-              return false;
-            }
-
-        var kdate = $('#kdate').val();
-        if (kdate == "") {
-              $("label#kdate_error").show();
-              $("input#kdate").focus();
-              return false;
-            }
-
-        var koh = $('#koh').val();
-        if (koh == "") {
-              $("label#koh_error").show();
-              $("input#koh").focus();
-              return false;
-            }
-
-            var kom = $('#kom').val();
-        if (kom == "") {
-              $("label#kom_error").show();
-              $("input#kom").focus();
-              return false;
-            }
-
-        var home = $('#home').val();
-        if (home == "") {
-              $("label#home_error").show();
-              $("input#home").focus();
-              return false;
-            }
-
-            var away = $('#away').val();
-        if (away == "") {
-              $("label#away_error").show();
-              $("input#away").focus();
-              return false;
-            }
-
-            var grefresh = $("#grefresh").val();
-            var comp_id = $("#comp_id").val();
-
-        $.post('/add_game_process.php',
-        {field: field, gnum: gnum, kdate: kdate, koh: koh, kom: kom, home: home, away: away, comp_id: comp_id},
-        function(){
-                 $('#games').fadeOut('slow', function(){
-                     $('#games').html('Please wait...');
-                     $('#games').fadeIn('fast');
-                       $('#games').load(grefresh, function(){
-                     $('#games').fadeIn('slow');
-                     });
-                 });
+        $.post('/add_game_process.php', {
+          field: formData.field,
+          gnum: formData.gnum,
+          kdate: formData.kdate,
+          koh: formData.koh,
+          kom: formData.kom,
+          home: formData.home,
+          away: formData.away,
+          comp_id: formData.comp_id
+        }, function(){
+            $('#games').fadeOut('slow', function(){
+              $('#games').html('Please wait...');
+              $('#games').fadeIn('fast');
+              $('#games').load(formData.grefresh, function(){
+                $('#games').fadeIn('slow');
+              });
+            });
         });
-
         return false;
     });
 
@@ -398,48 +316,42 @@ $(document).ready(function() {
     //adding a team to a comp
     $("#addteam").live('submit', function() {
 
-    //event.preventDefault();
-
         // validate and process form
         // first hide any error messages
-            $('.error').hide();
-
-          var team = $("#team").val();
-        if (team == "") {
-              $("label#team_error").show();
-              $("input#team").focus();
-              return false;
-            }
-
-            var trefresh = $("#trefresh").val();
-            var lrefresh = $("#lrefresh").val();
-            var comp_id = $("#comp_id").val();
-        $.post('/add_team_process.php',
-        {team: team, comp_id: comp_id},
-        function(){
-                 $('#teams').fadeOut('slow', function(){
-                     $('#teams').html('Please wait...');
-                     $('#teams').fadeIn('fast');
-                       $('#teams').load(trefresh, function(){
-                     $('#teams').fadeIn('slow');
-                     });
-                 });
-                 $('#addteamdiv').fadeOut('slow', function(){
-                     $('#addteamdiv').html('Please wait...');
-                     $('#addteamdiv').fadeIn('fast');
-                       $('#addteamdiv').load(lrefresh, function(){
-                     $('#addteamdiv').fadeIn('slow');
-                     });
-                 });
-                 $('#addgamediv').fadeOut('slow', function(){
-                     $('#addgamediv').html('Please wait...');
-                     $('#addgamediv').fadeIn('fast');
-                       $('#addgamediv').load('/add_game.php?id='+comp_id, function(){
-                     $('#addgamediv').fadeIn('slow');
-                     });
-                 });
+      $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
+      var formData = getFormData('#addteam', '#form-validation-error');
+     if (!formData || formData.validated == false) {
+        return false;
+      }
+      var trefresh = $("#trefresh").val();
+      var lrefresh = $("#lrefresh").val();
+      var comp_id = $("#comp_id").val();
+      $.post('/add_team_process.php', {
+        team: formData.team,
+        comp_id: comp_id
+      }, function(){
+           $('#teams').fadeOut('slow', function(){
+             $('#teams').html('Please wait...');
+             $('#teams').fadeIn('fast');
+             $('#teams').load(trefresh, function(){
+               $('#teams').fadeIn('slow');
+             });
+           });
+           $('#addteamdiv').fadeOut('slow', function(){
+             $('#addteamdiv').html('Please wait...');
+             $('#addteamdiv').fadeIn('fast');
+             $('#addteamdiv').load(lrefresh, function(){
+               $('#addteamdiv').fadeIn('slow');
+             });
+           });
+           $('#addgamediv').fadeOut('slow', function(){
+             $('#addgamediv').html('Please wait...');
+             $('#addgamediv').fadeIn('fast');
+             $('#addgamediv').load('/add_game.php?id='+comp_id, function(){
+               $('#addgamediv').fadeIn('slow');
+             });
+           });
         });
-
         return false;
     });
 
@@ -542,6 +454,7 @@ $(document).ready(function() {
         $('#info').fadeIn('fast');
                $('#info').load('/edit_game_info.php?id='+game_id, function(){
              $('#info').fadeIn('slow');
+             initDateTime();
              });
 
     return false;
@@ -551,65 +464,41 @@ $(document).ready(function() {
     //submit game edit info
     $("#eGame").live('click', function() {
     if(!confirm('Update game info as shown?')){return false;}
+       $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
+        var formData = getFormData('#editgame', '#form-validation-error');
 
-        $('.error').hide();
-
-          var field = $("input#field").val();
-
-          var gnum = $("input#gnum").val();
-        if (gnum == "") {
-              $("label#gnum_error").show();
-              $("input#gnum").focus();
-              return false;
-            }
-
-        var kdate = $('#kdate').val();
-        if (kdate == "") {
-              $("label#kdate_error").show();
-              $("input#kdate").focus();
-              return false;
-            }
-
-        var koh = $('#koh').val();
-        if (koh == "") {
-              $("label#koh_error").show();
-              $("input#koh").focus();
-              return false;
-            }
-
-            var kom = $('#kom').val();
-        if (kom == "") {
-              $("label#kom_error").show();
-              $("input#kom").focus();
-              return false;
-            }
-
-            var game_id = $("#game_id").val();
-
-            var refresh = '/game_info.php?id='+game_id;
-
-        $.post('/edit_game_info_process.php',
-        {field: field, gnum: gnum, kdate: kdate, koh: koh, kom: kom, game_id: game_id},
-        function(){
-                 $('#info').fadeOut('slow', function(){
-                     $('#info').html('Please wait...');
-                     $('#info').fadeIn('fast');
-                       $('#info').load(refresh, function(){
-                     $('#info').fadeIn('slow');
-                     });
-                 });
-
+        if (!formData || formData.validated == false) {
+          return false;
+        }
+        formData.koh = formData.ko_time.getHours();
+        formData.kom = formData.ko_time.getMinutes();
+        formData.comp_id = $("#comp_id").val();
+        var refresh = '/game_info.php?id='+formData.game_id;
+        $.post('/edit_game_info_process.php', {
+          field: formData.field,
+          gnum: formData.gnum,
+          kdate: formData.kdate,
+          koh: formData.koh,
+          kom: formData.kom,
+          game_id: formData.game_id
+        }, function(){
+            $('#info').fadeOut('slow', function(){
+              $('#info').html('Please wait...');
+              $('#info').fadeIn('fast');
+              $('#info').load(refresh, function(){
+                $('#info').fadeIn('slow');
+              });
+            });
+          });
+          return false;
         });
-
-    return false;
-    });
 
 
     //submit event roster edit info
     $("#ersubmit").live('click', function() {
     if(!confirm('Update roster?')){return false;}
 
-        $('.error').hide();
+        $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
           var max = $("input#max").val();
 
@@ -646,7 +535,7 @@ $(document).ready(function() {
     $("#grsubmit").live('click', function() {
     if(!confirm('Update roster?')){return false;}
 
-        $('.error').hide();
+        $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
           var max = $("input#max").val();
 
@@ -716,7 +605,7 @@ $(document).ready(function() {
     $("#presubmit").live('click', function() {
     if(!confirm('Update roster?')){return false;}
 
-        $('.error').hide();
+        $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
             var comp_id = $("#comp_id").val();
             var game_id = $("#game_id").val();
@@ -746,7 +635,7 @@ $(document).ready(function() {
     $("#teamadd").live('click', function() {
     if(!confirm('Add club to database?')){return false;}
 
-        $('.error').hide();
+        $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
           var name = $("#name").val();
         if (name == "") {
@@ -843,7 +732,7 @@ $(document).ready(function() {
     $("#eUserSubmit").live('click', function() {
     if(!confirm('Update user info as shown?')){return false;}
 
-        $('.error').hide();
+        $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
           var login = $("input#login").val();
         if (login== "") {
@@ -882,7 +771,7 @@ $(document).ready(function() {
 
     //add new user
     $("#addUser").live('click', function() {
-        $('.error').hide();
+        $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
           var login = $("input#login").val();
           var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);

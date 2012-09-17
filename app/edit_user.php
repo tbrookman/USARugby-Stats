@@ -44,7 +44,7 @@ if (editCheck(1)) {
 
 echo "<script type='text/javascript'>";
 //to hide errors on load
-echo "$('.error').hide();";
+echo "$('.error').not(function(index){return $(this).hasClass('control-group');}).hide();";
 //to select our team and access values in dropdowns
 echo "$('#team option[value=\"$team\"]').attr('selected', 'selected');";
 echo "$('#access option[value=\"$access\"]').attr('selected', 'selected');";

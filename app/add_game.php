@@ -3,140 +3,123 @@ include_once './include_mini.php';
 
 $comp_id = $_GET['id'];
 ?>
+<div id="wrapper" class="container-fluid">
+  <div class="row-fluid">
+    <form name='addgame' id='addgame' method='POST' action='' class="form-inline">
+      <div class="alert error alert-error" id="form-validation-error">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <div class="error-message"></div>
+      </div>
 
-<h4>Add a Game</h4>
+      <div class="row-fluid">
+        <div id="field-wrapper" class="span1">
+          <div class="control-group">
+            <label for="field" id="field_label" class="control-label">Field #</label>
+            <div class="controls">
+               <input id='field' name='field' type='text' size='1' class="input-small" placeholder="Field #">
+            </div>
+          </div>
+        </div>
 
-<form name='addgame' id='addgame' method='POST' action=''>
+        <div id="game-wrapper" class="span1">
+          <div class="control-group">
+            <label for="gnum" id="gnum_label" class="control-label">Game #</label>
+            <div class="controls">
+               <input id='gnum' name='gnum' type='text' size='1' class="input-small required" placeholder="Game #">
+            </div>
+          </div>
+        </div>
 
-<label for="field" id="field_label">Field Number</label>
-<input id='field' name='field' type='text' size='1'>
-<br/>
 
-<label for="gnum" id="gnum_label">Competition Game Number</label>
-<input id='gnum' name='gnum' type='text' size='1'>
-<label class="error" for="gnum" id="gnum_error">This field is required.</label>
-<br/>
+        <div id="date-wrapper" class="span1">
+          <div class="control-group">
+            <label for="kdate" id="kdate_label" class="control-label">Start Date</label>
+            <div class="controls">
+               <?php
+                // Determine date stard and end.
+                $comp = $db->getCompetition($comp_id);
+                $game_earliest = $comp['start_date'];
+                $game_latest = $comp['end_date'];
+                echo "<input id='kdate' name='kdate' type='text' size='10' class='date_select input-small required' data-date-startdate='$game_earliest' data-date-enddate='$game_latest' placeholder='Date'>"
+               ?>
+            </div>
+          </div>
+        </div>
 
-<label for="kdate" id="kdate_label">Game Date</label>
-<select name='kdate' id='kdate'>
-<option value=''></option>
+        <div id="time-wrapper" class="span1">
+          <div class="control-group">
+             <label for="ko_time" id="ko_time_label" class="control-label">Time</label>
+            <div class="controls">
+               <input name="ko_time" id="ko_time" type="text" size="2" class=" input-small time-entry required" placeholder='Time'>
+            </div>
+          </div>
+        </div>
 
-<?php
-//find the start date and list an option for all days from
-//start date to end date using date and strtotime
-$query = "SELECT * FROM `comps` WHERE id = $comp_id";
-$result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)) {
-    $sdate = $row['start_date'];
-    $edate = $row['end_date'];
-}
+        <div id="home-wrapper" class="span2">
+          <div class="control-group">
+            <label for="home" id="home_label" class="control-label">Home Team</label>
+            <div class="controls">
+             <select name='home' id='home' class="input-medium required" placeholder="Home Team">
+              <option value=''>Home Team</option>
+                <?php
+                $query = "SELECT * FROM `ct_pairs` WHERE comp_id = $comp_id";
+                $result = mysql_query($query);
+                while ($row=mysql_fetch_assoc($result)) {
 
-$stime = strtotime($sdate);
-$etime = strtotime($edate);
+                    $query1 = "SELECT * FROM `teams` WHERE id = {$row['team_id']}";
+                    $result1 = mysql_query($query1);
+                    while ($row1=mysql_fetch_assoc($result1)) {
+                        echo "<option value='{$row1['id']}'>{$row1['name']}</option>";
+                    }
+                }
+                ?>
+              </select>
+            </div>
+          </div>
+        </div>
 
-while ($stime <= $etime) {
-    $output = date('F j, Y', $stime);
-    echo "<option value='$stime'>$output</option>";
-    $stime = $stime+60*60*24;
-}
-?>
+        <div id="away-wrapper" class="span2">
+          <div class="control-group">
+            <label for="away" id="away_label" class="control-label">Away Team</label>
+            <div class="controls">
+               <select name='away' id='away' class="required input-medium" placeholder="Away Team">
+                  <option value=''>Away Team</option>
 
-</select>
-<label class="error" for="kdate" id="kdate_error">This field is required.</label>
-<label class="error" for="kdate" id="kdate_derror">Incorrect date format.</label>
-<br/>
+                  <?php
+                  $query = "SELECT * FROM `ct_pairs` WHERE comp_id = $comp_id";
+                  $result = mysql_query($query);
+                  while ($row=mysql_fetch_assoc($result)) {
 
-<label for="koh" id="koh_label">Kickoff Hour</label>
-<select name='koh' id='koh'>
-<option value=''></option>
-<option value='07'>7am</option>
-<option value='08'>8am</option>
-<option value='09'>9am</option>
-<option value='10'>10am</option>
-<option value='11'>11am</option>
-<option value='12'>12pm</option>
-<option value='13'>1pm</option>
-<option value='14'>2pm</option>
-<option value='15'>3pm</option>
-<option value='16'>4pm</option>
-<option value='17'>5pm</option>
-<option value='18'>6pm</option>
-<option value='19'>7pm</option>
-<option value='20'>8pm</option>
-<option value='21'>9pm</option>
-<option value='22'>10pm</option>
-<option value='23'>11pm</option>
-</select>
-<label class="error" for="koh" id="koh_error">This field is required.</label>
+                      $query1 = "SELECT * FROM `teams` WHERE id = {$row['team_id']}";
+                      $result1 = mysql_query($query1);
+                      while ($row1=mysql_fetch_assoc($result1)) {
+                          echo "<option value='{$row1['id']}'>{$row1['name']}</option>";
+                      }
+                  }
+                  ?>
 
-<label for="kom" id="kom_label">Kickoff Minute</label>
-<select name='kom' id='kom'>
-<option value=''></option>
-<option value='00'>:00</option>
-<option value='05'>:05</option>
-<option value='10'>:10</option>
-<option value='15'>:15</option>
-<option value='20'>:20</option>
-<option value='25'>:25</option>
-<option value='30'>:30</option>
-<option value='35'>:35</option>
-<option value='40'>:40</option>
-<option value='45'>:45</option>
-<option value='50'>:50</option>
-<option value='55'>:55</option>
-</select>
-<label class="error" for="kom" id="kom_error">This field is required.</label>
-<br/>
+              </select>
+            </div>
+          </div>
+        </div>
 
-<label for="home" id="home_label">Home Team</label>
-<select name='home' id='home'>
-<option value=''></option>
-
-<?php
-$query = "SELECT * FROM `ct_pairs` WHERE comp_id = $comp_id";
-$result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)) {
-
-    $query1 = "SELECT * FROM `teams` WHERE id = {$row['team_id']}";
-    $result1 = mysql_query($query1);
-    while ($row1=mysql_fetch_assoc($result1)) {
-        echo "<option value='{$row1['id']}'>{$row1['name']}</option>";
-    }
-}
-?>
-
-</select>
-<label class="error" for="home" id="home_error">This field is required.</label>
-<br/>
-
-<label for="away" id="away_label">Away Team</label>
-<select name='away' id='away'>
-<option value=''></option>
-
-<?php
-$query = "SELECT * FROM `ct_pairs` WHERE comp_id = $comp_id";
-$result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)) {
-
-    $query1 = "SELECT * FROM `teams` WHERE id = {$row['team_id']}";
-    $result1 = mysql_query($query1);
-    while ($row1=mysql_fetch_assoc($result1)) {
-        echo "<option value='{$row1['id']}'>{$row1['name']}</option>";
-    }
-}
-?>
-
-</select>
-<label class="error" for="away" id="away_error">This field is required.</label>
-<br/>
-
-<input type='hidden' name='grefresh' id='grefresh' value='<?php echo "comp_games.php?id=$comp_id"; ?>'>
-<input type='hidden' name='comp_id' id='comp_id' value='<?php echo $comp_id; ?>'>
-<input type='submit' name='submit' class='button' id='add_game' value='Add Game'>
-</form>
+        <div id="submit-wrapper" class="span1">
+          <div class="control-group">
+            <label for="submit" id="submit_label" class="control-label">&nbsp;</label>
+            <div class="controls">
+              <input type='hidden' name='grefresh' id='grefresh' value='<?php echo "comp_games.php?id=$comp_id"; ?>'>
+              <input type='hidden' name='comp_id' id='comp_id' value='<?php echo $comp_id; ?>'>
+              <input type='submit' name='submit' class='button btn btn-primary' id='add_game' value='Add Game'>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+</div>
+</div>
 
 <!--this is to hide the errors after a jquery refresh upon adding a new team to the comp-->
-<script type='text/javascript'>$('.error').hide();</script>
+<script type='text/javascript'>$('.error').not(function(index){return $(this).hasClass('control-group');}).hide();</script>
 
 <?php
 include_once './footer.php';

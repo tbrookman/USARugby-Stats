@@ -4,115 +4,105 @@ include_once './include_mini.php';
 if (!isset($game_id) || !$game_id) {$game_id=$_GET['id'];}
 
 //get info for the game with id in url
-$query = "SELECT * FROM `games` WHERE id = $game_id";
-$result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)) {
-    $ko = date('F j, Y', strtotime($row['kickoff']));
-
-    echo compName($row['comp_id'])."<br/>";
-
-    echo "<label for='gnum' id='gnum_label'>Competition Game Number</label>";
-    echo "<input id='gnum' name='gnum' type='text' size='1' value='{$row['comp_game_id']}'>";
-    echo "<label class='error' for='gnum' id='gnum_error'>This field is required.</label><br/>";
-
-    echo teamName($row['away_id'])." @ ".teamName($row['home_id'])."<br/>";
-
-    echo "<label for='kdate' id='kdate_label'>Game Date</label>";
-    echo "<select name='kdate' id='kdate'>";
-    echo "<option value=''></option>";
-
-    //find the start date and list an option for all days from
-    //start date to end date using date and strtotime
-    $query2 = "SELECT * FROM `comps` WHERE id = {$row['comp_id']}";
-    $result2 = mysql_query($query2);
-    while ($row2=mysql_fetch_assoc($result2)) {
-        $sdate = $row2['start_date'];
-        $edate = $row2['end_date'];
-    }
-
-    $stime = strtotime($sdate);
-    $etime = strtotime($edate);
-
-    while ($stime <= $etime) {
-        $output = date('F j, Y', $stime);
-        if ($output==$ko) {
-            $selected = 'selected';
-        } else {
-            $selected = '';
-        }
-
-        echo "<option value='$stime' $selected>$output</option>";
-        $stime = $stime+60*60*24;
-    }
-
-    echo "</select>";
-    echo "<label class='error' for='kdate' id='kdate_error'>This field is required.</label>";
-    echo "<label class='error' for='kdate' id='kdate_derror'>Incorrect date format.</label>";
-    echo "<br/>";
-
-    //get our current kickoff hour and minute to auto select in drop down later
-    $koh = date('G', strtotime($row['kickoff']));
-    $kom = date('i', strtotime($row['kickoff']));
+$game = $db->getGame($game_id);
+$comp = $db->getCompetition($game['comp_id']);
+$kickoff = new DateTime($game['kickoff']);
 
 ?>
+<div id="wrapper" class="container-fluid">
+  <div class="row-fluid">
+    <form name='editgame' id='editgame' method='POST' action='' class="form-inline">
+      <div class="alert error alert-error" id="form-validation-error">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <div class="error-message"></div>
+      </div>
+      <div class="row-fluid">
 
-<label for="koh" id="koh_label">Kickoff Hour</label>
-<select name='koh' id='koh'>
-<option value=''></option>
-<option value='07'>7am</option>
-<option value='08'>8am</option>
-<option value='09'>9am</option>
-<option value='10'>10am</option>
-<option value='11'>11am</option>
-<option value='12'>12pm</option>
-<option value='13'>1pm</option>
-<option value='14'>2pm</option>
-<option value='15'>3pm</option>
-<option value='16'>4pm</option>
-<option value='17'>5pm</option>
-<option value='18'>6pm</option>
-<option value='19'>7pm</option>
-<option value='20'>8pm</option>
-<option value='21'>9pm</option>
-<option value='22'>10pm</option>
-<option value='23'>11pm</option>
-</select>
-<label class="error" for="koh" id="koh_error">This field is required.</label>
+        <div id="comp-wrapper" class="span1">
+          <div class="control-group">
+            <label for="comp" id="comp_label" class="control-label">Comp</label>
+            <div class="controls">
+               <?php echo compName($game['comp_id']); ?>
+            </div>
+          </div>
+        </div>
 
-<label for="kom" id="kom_label">Kickoff Minute</label>
-<select name='kom' id='kom'>
-<option value=''></option>
-<option value='00'>:00</option>
-<option value='05'>:05</option>
-<option value='10'>:10</option>
-<option value='15'>:15</option>
-<option value='20'>:20</option>
-<option value='25'>:25</option>
-<option value='30'>:30</option>
-<option value='35'>:35</option>
-<option value='40'>:40</option>
-<option value='45'>:45</option>
-<option value='50'>:50</option>
-<option value='55'>:55</option>
-</select>
-<label class="error" for="kom" id="kom_error">This field is required.</label>
-<br/>
+        <div id="field-wrapper" class="span1">
+          <div class="control-group">
+            <label for="field" id="field_label" class="control-label">Field #</label>
+            <div class="controls">
+               <input id='field' name='field' type='text' size='1' value=<?php print '"' .  $game['field_num'] . '"'; ?> class="input-small" placeholder="Field #">
+            </div>
+          </div>
+        </div>
+
+        <div id="game-wrapper" class="span1">
+          <div class="control-group">
+            <label for="gnum" id="gnum_label" class="control-label">Game #</label>
+            <div class="controls">
+               <input id='gnum' name='gnum' value=<?php print '"' .  $game['comp_game_id'] . '"'; ?> type='text' size='1' class="input-small required" placeholder="Game #">
+            </div>
+          </div>
+        </div>
+
+        <div id="date-wrapper" class="span1">
+          <div class="control-group">
+            <label for="kdate" id="kdate_label" class="control-label">Start Date</label>
+            <div class="controls">
+               <?php
+                // Determine date start. and end.
+                $game_earliest = $comp['start_date'];
+                $game_latest = $comp['end_date'];
+                $value = $kickoff->format('Y-m-d');
+                echo "<input id='kdate' name='kdate' type='text' value='$value' size='10' class='date_select input-small required' data-date-startdate='$game_earliest' data-date-enddate='$game_latest' placeholder='Date'>"
+               ?>
+            </div>
+          </div>
+        </div>
+
+        <div id="time-wrapper" class="span1">
+          <div class="control-group">
+            <label for="ko_time" id="ko_time_label" class="control-label">Time</label>
+            <div class="controls">
+              <?php
+                  $value = $kickoff->format('h:iA');
+                  echo "<input name='ko_time' id='ko_time' value='$value' type='text' size='2' class='input-small time-entry required' placeholder='Time'>";
+              ?>
+            </div>
+          </div>
+        </div>
+
+        <div id="time-wrapper" class="span1">
+          <div class="control-group">
+            <label for="ko_time" id="ko_time_label" class="control-label">Game</label>
+            <div class="controls">
+              <?php
+                  echo teamName($game['away_id'])." @ ".teamName($game['home_id']);
+              ?>
+            </div>
+          </div>
+        </div>
+
+        <?php if (editCheck()) { ?>
+        <div id="submit-wrapper" class="span1">
+          <div class="control-group">
+            <label for="submit" id="submit_label" class="control-label">&nbsp;</label>
+            <div class="controls">
+               <input type='hidden' id='game_id' value=<?php print '"' . $game_id . '"' ?>>
+               <input type='button' class='edit btn btn-primary' id='eGame' name='eGame' value='Submit Edits' />
+            </div>
+          </div>
+        </div>
+
+        <?php } ?>
+
+      </div>
+    </form>
+  </div>
+</div>
+
 
 <?php
-
-    echo "Field: <input id='field' name='field' type='text' size='1' value='{$row['field_num']}'>";
-    echo "<br/>";
-}
-
-if (editCheck()) {
-    echo "<input type='button' class='edit' id='eGame' name='eGame' value='Submit Edits' />";
-    echo "<input type='hidden' id='game_id' value='$game_id' />";
-}
-
 echo "<script type='text/javascript'>";
-//to hide errors on load
-echo "$('.error').hide();";
-//to select our hour and minute in kickoff drop downs
-echo "$('#koh option[value=\"$koh\"]').attr('selected', 'selected');";
-echo "$('#kom option[value=\"$kom\"]').attr('selected', 'selected');";
+echo "$('.error').not(function(index){return $(this).hasClass('control-group');}).hide();";
 echo "</script>";
