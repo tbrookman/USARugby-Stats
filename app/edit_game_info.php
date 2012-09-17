@@ -8,8 +8,6 @@ $game = $db->getGame($game_id);
 $comp = $db->getCompetition($game['comp_id']);
 $kickoff = new DateTime($game['kickoff']);
 
-//$comp = db->getCompetition($game['comp_id']);
-
 ?>
 <div id="wrapper" class="container-fluid">
   <div class="row-fluid">
@@ -52,10 +50,9 @@ $kickoff = new DateTime($game['kickoff']);
             <label for="kdate" id="kdate_label" class="control-label">Start Date</label>
             <div class="controls">
                <?php
-                // Determine date stard and end.
+                // Determine date start. and end.
                 $game_earliest = $comp['start_date'];
                 $game_latest = $comp['end_date'];
-                //$value = substr($game['kickoff'], 0, 10);
                 $value = $kickoff->format('Y-m-d');
                 echo "<input id='kdate' name='kdate' type='text' value='$value' size='10' class='date_select input-small required' data-date-startdate='$game_earliest' data-date-enddate='$game_latest' placeholder='Date'>"
                ?>
@@ -68,7 +65,7 @@ $kickoff = new DateTime($game['kickoff']);
             <label for="ko_time" id="ko_time_label" class="control-label">Time</label>
             <div class="controls">
               <?php
-                  $value = $kickoff->format('h:iA'); // @todo make this work.
+                  $value = $kickoff->format('h:iA');
                   echo "<input name='ko_time' id='ko_time' value='$value' type='text' size='2' class='input-small time-entry required' placeholder='Time'>";
               ?>
             </div>
