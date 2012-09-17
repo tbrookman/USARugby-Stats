@@ -1,5 +1,5 @@
 <?php
-include_once './include_mini.php';
+include_once './include.php';
 use Source\APSource;
 
 $teams = array();
@@ -20,23 +20,28 @@ $teams = $db->getAllTeams();
         <?php
     }
     ?>
-    <input class="button" type="submit" value="Sync Team(s)" />
+    <input class="button" name="submit" type="submit" value="Sync Team(s)" />
 </form>
 
 <?php
-foreach ($_POST as $name => $value) {
-    if ($name == 'sync_all' && $value == 'on') {
-        foreach ($teams as $uuid => $team) {
-            sync_group_members($uuid, $client, $db);
+
+if (isset($_POST['submit'])) {
+    unset($_POST['submit']);
+    foreach ($_POST as $name => $value) {
+        if ($name == 'sync_all' && $value == 'on') {
+            foreach ($teams as $uuid => $team) {
+                sync_group_members($uuid, $client, $db);
+            }
+            exit;
         }
-        exit;
+        if ($uuid = split('_', $name)) {
+            sync_group_members($uuid[1], $client, $db);
+        }
     }
-    if ($uuid = split('_', $name)) {
-        sync_group_members($uuid[1], $client, $db);
-    }
+    echo '<div class="alert alert-success">Groups updated</div>';
 }
-echo 'Groups members updated.<br />';
-echo "<a href='admin.php'>Back to admin area</a>";
+
+
 
 function sync_group_members($group_uuid, $client, $db) {
     $existing_players = $db->getTeamPlayers($group_uuid);
@@ -62,3 +67,4 @@ function sync_group_members($group_uuid, $client, $db) {
     }
 }
 
+?>

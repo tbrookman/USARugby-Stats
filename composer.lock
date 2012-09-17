@@ -4,8 +4,8 @@
         {
             "package": "allplayers/allplayers-php",
             "version": "dev-guzzle-allplayers",
-            "source-reference": "3066c29ec101056eff75a5769cd80d198ec62399",
-            "commit-date": "1347459044"
+            "source-reference": "e1534f57c44898e970588efc866056287dfd7ac1",
+            "commit-date": "1347894823"
         },
         {
             "package": "guzzle/guzzle",
@@ -32,8 +32,8 @@
         {
             "package": "silex/silex",
             "version": "dev-master",
-            "source-reference": "a9e34f08ab00c4cc6c97e7ae8fdf7d0fc367e5f5",
-            "commit-date": "1347298149"
+            "source-reference": "97e418fcb0df2dd570732b208ce03e40e3dd2e0b",
+            "commit-date": "1347738639"
         },
         {
             "package": "symfony/event-dispatcher",
@@ -62,14 +62,14 @@
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "alias-pretty-version": "1.9.x-dev",
-            "alias-version": "1.9.9999999.9999999-dev"
+            "alias-pretty-version": "1.10.x-dev",
+            "alias-version": "1.10.9999999.9999999-dev"
         },
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "source-reference": "956a66e6da304ead2aa2632acc01118b360d19d3",
-            "commit-date": "1347542132"
+            "source-reference": "c38e06ff4134820f5acca2b5b0a163251b053d89",
+            "commit-date": "1347806324"
         }
     ],
     "packages-dev": [
@@ -94,8 +94,8 @@
         {
             "package": "behat/mink-extension",
             "version": "dev-master",
-            "source-reference": "43b36e2d6682a4b257cb2b0f994a0b45faf033ee",
-            "commit-date": "1347458052"
+            "source-reference": "bea43d65d6f4458a89d360feda556a823e3d567a",
+            "commit-date": "1347799082"
         },
         {
             "package": "behat/mink-goutte-driver",
@@ -106,8 +106,14 @@
         {
             "package": "behat/mink-selenium2-driver",
             "version": "dev-master",
-            "source-reference": "11fd094d7b5809b265cd336316d7e4ce7e4f5fe6",
-            "commit-date": "1347022643"
+            "source-reference": "baaf9c08bfa4c88b7179b3856197258a63e1b17e",
+            "commit-date": "1347895517"
+        },
+        {
+            "package": "fabpot/goutte",
+            "version": "dev-master",
+            "alias-pretty-version": "1.0.x-dev",
+            "alias-version": "1.0.9999999.9999999-dev"
         },
         {
             "package": "fabpot/goutte",
@@ -130,7 +136,7 @@
         {
             "package": "symfony/config",
             "version": "2.1.x-dev",
-            "source-reference": "v2.1.0-RC2",
+            "source-reference": "v2.1.1",
             "commit-date": "1345643321"
         },
         {
@@ -148,8 +154,8 @@
         {
             "package": "symfony/dependency-injection",
             "version": "2.1.x-dev",
-            "source-reference": "v2.1.1",
-            "commit-date": "1347274422"
+            "source-reference": "6d97523228158d5b75ea2fc18ff88ea39f818a18",
+            "commit-date": "1347521041"
         },
         {
             "package": "symfony/dom-crawler",

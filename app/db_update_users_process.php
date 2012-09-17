@@ -21,6 +21,7 @@ if (editCheck(1)) {
       }
     }
   }
-  echo "Created " . $added . " Users from Sync";
-  echo "<a href='users.php' title = 'Back'> Go Back </a>";
+
+  $_SESSION['alert_message'] = "Created " . $added . " users.";
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
 }

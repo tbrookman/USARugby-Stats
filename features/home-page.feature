@@ -3,6 +3,6 @@ Feature: Home Page
   I see an overview of the usa rugby application.
   
   Scenario: Visit the home page.
-    Given I am on "/"
+    Given I am on homepage
     Then I should see "USA Rugby Stats"
 
