@@ -1,4 +1,5 @@
 <?php
+header('Location: ' . $_SERVER['HTTP_REFERER']);
 include_once './include.php';
 use Source\APSource;
 
@@ -27,5 +28,4 @@ if (editCheck(1)) {
     }
 
     $_SESSION['alert_message'] = $added . " groups added.";
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
