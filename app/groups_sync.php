@@ -8,6 +8,7 @@ if (editCheck(1)) {
     $client = APSource::factory();
     $command = $client->getCommand('GetUserGroups', array('uuid' => $attributes['user_uuid']));
     $teams = $client->getIterator($command);
+    $added = 0;
     foreach ($teams as $team) {
         if (!$existing_teams || !key_exists($team['uuid'], $existing_teams)) {
             $team_info = array(
@@ -18,8 +19,10 @@ if (editCheck(1)) {
                 'short' => $team['title']
             );
             $db->addTeam($team_info);
+            $added++;
         }
     }
-    $_SESSION['groups_synched'] = TRUE;
+
+    $_SESSION['alert_message'] = $added . " groups updated.";
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }

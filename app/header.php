@@ -55,9 +55,11 @@ if (editCheck(1)) {
 <div id="maincontent">
 
 <?php
-if (isset($_SESSION['groups_synched'])) {
-    unset($_SESSION['groups_synched']);
-    echo '<div class="alert alert-success">Groups updated</div>';
+if (isset($_SESSION['alert_message'])) {
+	$alert = $_SESSION['alert_message'];
+    unset($_SESSION['alert_message']);
+    // @TODO: support alert types {info, success, error}.
+    echo '<div class="alert alert-info">' . $alert . '</div>';
 }
 ?>
 
