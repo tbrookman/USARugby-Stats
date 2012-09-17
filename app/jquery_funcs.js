@@ -300,15 +300,14 @@ $(document).ready(function() {
           away: formData.away,
           comp_id: formData.comp_id
         }, function(){
-                 $('#games').fadeOut('slow', function(){
-                     $('#games').html('Please wait...');
-                     $('#games').fadeIn('fast');
-                       $('#games').load(formData.grefresh, function(){
-                     $('#games').fadeIn('slow');
-                     });
-                 });
+            $('#games').fadeOut('slow', function(){
+              $('#games').html('Please wait...');
+              $('#games').fadeIn('fast');
+              $('#games').load(formData.grefresh, function(){
+                $('#games').fadeIn('slow');
+              });
+            });
         });
-
         return false;
     });
 
@@ -317,44 +316,42 @@ $(document).ready(function() {
     //adding a team to a comp
     $("#addteam").live('submit', function() {
 
-    //event.preventDefault();
-
         // validate and process form
         // first hide any error messages
-            $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
-          var formData = getFormData('#addteam', '#form-validation-error');
-           if (!formData || formData.validated == false) {
-              return false;
-            }
-            var trefresh = $("#trefresh").val();
-            var lrefresh = $("#lrefresh").val();
-            var comp_id = $("#comp_id").val();
-        $.post('/add_team_process.php',
-        {team: formData.team, comp_id: comp_id},
-        function(){
-                 $('#teams').fadeOut('slow', function(){
-                     $('#teams').html('Please wait...');
-                     $('#teams').fadeIn('fast');
-                       $('#teams').load(trefresh, function(){
-                     $('#teams').fadeIn('slow');
-                     });
-                 });
-                 $('#addteamdiv').fadeOut('slow', function(){
-                     $('#addteamdiv').html('Please wait...');
-                     $('#addteamdiv').fadeIn('fast');
-                       $('#addteamdiv').load(lrefresh, function(){
-                     $('#addteamdiv').fadeIn('slow');
-                     });
-                 });
-                 $('#addgamediv').fadeOut('slow', function(){
-                     $('#addgamediv').html('Please wait...');
-                     $('#addgamediv').fadeIn('fast');
-                       $('#addgamediv').load('/add_game.php?id='+comp_id, function(){
-                     $('#addgamediv').fadeIn('slow');
-                     });
-                 });
+      $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
+      var formData = getFormData('#addteam', '#form-validation-error');
+     if (!formData || formData.validated == false) {
+        return false;
+      }
+      var trefresh = $("#trefresh").val();
+      var lrefresh = $("#lrefresh").val();
+      var comp_id = $("#comp_id").val();
+      $.post('/add_team_process.php', {
+        team: formData.team,
+        comp_id: comp_id
+      }, function(){
+           $('#teams').fadeOut('slow', function(){
+             $('#teams').html('Please wait...');
+             $('#teams').fadeIn('fast');
+             $('#teams').load(trefresh, function(){
+               $('#teams').fadeIn('slow');
+             });
+           });
+           $('#addteamdiv').fadeOut('slow', function(){
+             $('#addteamdiv').html('Please wait...');
+             $('#addteamdiv').fadeIn('fast');
+             $('#addteamdiv').load(lrefresh, function(){
+               $('#addteamdiv').fadeIn('slow');
+             });
+           });
+           $('#addgamediv').fadeOut('slow', function(){
+             $('#addgamediv').html('Please wait...');
+             $('#addgamediv').fadeIn('fast');
+             $('#addgamediv').load('/add_game.php?id='+comp_id, function(){
+               $('#addgamediv').fadeIn('slow');
+             });
+           });
         });
-
         return false;
     });
 
@@ -485,72 +482,17 @@ $(document).ready(function() {
           koh: formData.koh,
           kom: formData.kom,
           game_id: formData.game_id
-        },
-        function(){
-                 $('#info').fadeOut('slow', function(){
-                     $('#info').html('Please wait...');
-                     $('#info').fadeIn('fast');
-                       $('#info').load(refresh, function(){
-                     $('#info').fadeIn('slow');
-                     });
-                 });
-         });
-
-
-        return false;
+        }, function(){
+            $('#info').fadeOut('slow', function(){
+              $('#info').html('Please wait...');
+              $('#info').fadeIn('fast');
+              $('#info').load(refresh, function(){
+                $('#info').fadeIn('slow');
+              });
+            });
+          });
+          return false;
         });
-
-        /*$('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
-
-          var field = $("input#field").val();
-
-          var gnum = $("input#gnum").val();
-        if (gnum == "") {
-              $("label#gnum_error").show();
-              $("input#gnum").focus();
-              return false;
-            }
-
-        var kdate = $('#kdate').val();
-        if (kdate == "") {
-              $("label#kdate_error").show();
-              $("input#kdate").focus();
-              return false;
-            }
-
-        var koh = $('#koh').val();
-        if (koh == "") {
-              $("label#koh_error").show();
-              $("input#koh").focus();
-              return false;
-            }
-
-            var kom = $('#kom').val();
-        if (kom == "") {
-              $("label#kom_error").show();
-              $("input#kom").focus();
-              return false;
-            }
-
-            var game_id = $("#game_id").val();
-
-            var refresh = '/game_info.php?id='+game_id;
-
-        $.post('/edit_game_info_process.php',
-        {field: field, gnum: gnum, kdate: kdate, koh: koh, kom: kom, game_id: game_id},
-        function(){
-                 $('#info').fadeOut('slow', function(){
-                     $('#info').html('Please wait...');
-                     $('#info').fadeIn('fast');
-                       $('#info').load(refresh, function(){
-                     $('#info').fadeIn('slow');
-                     });
-                 });
-
-        });
-
-    return false;*/
-    //});
 
 
     //submit event roster edit info
