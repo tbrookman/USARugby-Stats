@@ -133,7 +133,7 @@ function eType($id)
         $output = "{$row['name']}";
     }
 
-    return $output;
+    return isset($output) ? $output : '';
 }
 
 /**
