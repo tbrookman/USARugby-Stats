@@ -57,13 +57,16 @@ $(document).ready(function() {
     return formData;
   }
 
-  var reloadData = function(elementName, loaderTarget) {
+  var reloadData = function(elementName, loaderTarget, extraOpsPostLoad) {
     $(elementName).fadeOut('slow', function(){
           $(elementName).html('Please wait...');
           $(elementName).fadeIn('fast');
           $(elementName).load(loaderTarget, function(){
             $(elementName).fadeIn('slow');
             initDateTime();
+            if (extraOpsPostLoad) {
+              extraOpsPostLoad();
+            }
           });
         });
   }
@@ -576,13 +579,9 @@ $(document).ready(function() {
             $(".eUser").live('click', function() {
 
             var eId = $(":input").eq($(":input").index(this) + 1).val();
-
-            /*$('#users').html('Please wait...');
-              $('#users').fadeIn('fast');
-               $('#users').load('/edit_user.php?id='+eId, function(){
-             $('#users').fadeIn('slow');
-             });*/
-            reloadData('#users', '/edit_user.php?id='+eId);
+           reloadData('#users', '/edit_user.php?id='+eId, function() {
+             $('#useradd').hide();
+           });
 
     return false;
     });
@@ -615,7 +614,9 @@ $(document).ready(function() {
         $.post('/edit_user_process.php',
         {login: login, team: team, access: access, user_id: user_id},
         function(){
-          reloadData('#users', 'users_list.php');
+          reloadData('#users', 'users_list.php', function(){
+            $('#useradd').show();
+          });
         });
 
     return false;
