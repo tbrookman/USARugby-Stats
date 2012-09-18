@@ -10,8 +10,7 @@ $roster = $db->getRosterById($roster_id);
 $comp_id = $roster['comp_id'];
 $team_id = $roster['team_id'];
 
-//echo "<h2>".compName($roster_id)."</h2>";
-//echo "<h3>".teamName($team_id)."</h3>";
+
 ?>
 <div class='page-header'>
     <h1>Event Roster</h1>
