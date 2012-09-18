@@ -83,20 +83,24 @@ In order to start using the testing framework, you first have to install mink/be
 ```
 compose update --dev
 ```
-Next step is to modify your behat.yml.dist file and change your host:
+Next step is to modify your behat.yml.dist file:
 ```
 default:
   context:
     class:  'FeatureContext'
   extensions:
     Behat\MinkExtension\Extension:
-      base_url:  '<BASE_URL_YOU_WANT_TO_TEST>'
       goutte:    ~
       selenium2: ~
 ```
 And finally, run the tests by running:
 ```
 bin/behat
+```
+
+Optionally, add params like host:
+```
+export BEHAT_PARAMS="formatter[name]=progress&context[parameters][base_url]=http://localhost"
 ```
 
 To look at mink extensions available that you can use in your tests,
