@@ -10,13 +10,7 @@
           <div class="control-group">
             <label for="minute" id="minute_label" class="control-label">Min.</label>
             <div class="controls">
-            <?php
-              echo "<select id='minute' data-placeholder='Min' class='input-mini required chzn-select'>\n";
-              for ($k=1;$k<121;$k++) {
-                echo "<option value='$k'>$k</option>\n";
-              }
-              echo "</select>";
-            ?>
+              <input type="text" name="minute" id="minute" placeholder='Min' class='input-mini required' data-minute-max-value="121">
             </div>
           </div>
         </div>

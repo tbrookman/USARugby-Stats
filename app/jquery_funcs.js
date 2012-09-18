@@ -30,6 +30,8 @@ $(document).ready(function() {
     errorElementName = formElementName + ' ' + errorElementName;
     var formData = {validated : true};
     $(formElementName + ' input[type!="submit"], ' + formElementName + ' select').each(function(index){
+      var elementValidated = true;
+      var validationMessage = '';
       // Get value
       var val = "";
       if ($(this).hasClass('time-entry')) {
@@ -39,20 +41,28 @@ $(document).ready(function() {
         val = $(this).val();
       }
 
-      if ($(this).hasClass('required')) {
-        if (val == "" || val == null) {
-          var missing = $(this).prop('placeholder') || "Missing Fields";
-          $(errorElementName + ' .error-message').text('Please Enter ' + missing);
-          $(errorElementName).show();
-          $(this).parents('.control-group').addClass('error');
-          formData.validated = false;
-          return false;
-        }
-        else {
-          $(this).parents('.control-group').removeClass('error');
-        }
+      // Validate
+      if ($(this).hasClass('required') && (val == "" || val == null)) {
+        elementValidated = false;
+        var missing = $(this).prop('placeholder') || $(this).data('placeholder') || "Missing Fields";
+        validationMessage = 'Please Enter ' + missing;
       }
-      formData[$(this).prop('id')] = val;
+      if ($(this).data('minute-max-value') && val > $(this).data('minute-max-value')) {
+        elementValidated = false;
+        validationMessage = 'Maximum allowed is ' + $(this).data('minute-max-value');
+      }
+
+      if (elementValidated == false) {
+         $(errorElementName + ' .error-message').text(validationMessage);
+         $(errorElementName).show();
+         $(this).parents('.control-group').addClass('error');
+         formData.validated = false;
+         return false;
+      }
+      else {
+        $(this).parents('.control-group').removeClass('error');
+        formData[$(this).prop('id')] = val;
+      }
     });
     return formData;
   }

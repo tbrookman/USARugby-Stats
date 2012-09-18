@@ -11,13 +11,7 @@
             <div class="control-group">
               <label for="cardmin" id="cardmin_label" class="control-label">Min.</label>
               <div class="controls">
-                <?php
-                    echo "<select id='cardmin' data-placeholder='Min' class='required input-mini chzn-select'>\n";
-                    for ($k=1;$k<121;$k++) {
-                        echo "<option value='$k'>$k</option>\n";
-                    }
-                    echo "</select>";
-                ?>
+                <input type="text" name="cardmin" id="cardmin" placeholder='Min' class='input-mini required' data-minute-max-value="121">
               </div>
             </div>
           </div>
