@@ -9,3 +9,7 @@ div#maincontent {
 .welcome_user {
 	padding-top:10px;
 }
+
+.chzn-search input {
+    width:95% !important;
+}

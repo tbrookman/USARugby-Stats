@@ -21,7 +21,7 @@ if (editCheck(1)) {
 
         echo "<td>$tout</td>\n";
         echo "<td>".accessName($row['access'])."</td>\n";
-        echo "<td><input name='eUser{$row['id']}' class='eUser' id='eUser{$row['id']}' type='button' value='Edit User' /></td>\n";
+        echo "<td><input name='eUser{$row['id']}' class='eUser btn btn-warning' id='eUser{$row['id']}' type='button' value='Edit User' /></td>\n";
         echo "<input name='eId{$row['id']}' class='eId' id='eId{$row['id']}' type='hidden' value='{$row['id']}' />\n";
         echo "<td><input name='dUser{$row['id']}' class='dUser btn btn-danger' id='dUser{$row['id']}' type='button' value='Delete User' /></td>\n";
         echo "<input name='dId{$row['id']}' class='dId' id='dId{$row['id']}' type='hidden' value='{$row['id']}' />\n";

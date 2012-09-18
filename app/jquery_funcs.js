@@ -20,6 +20,8 @@ $(document).ready(function() {
       spinnerImage: '',
       spinnerBigImage: ''
     });
+
+    $(".chzn-select").chosen({allow_single_deselect: true});
   };
 
   initDateTime();
@@ -575,11 +577,12 @@ $(document).ready(function() {
 
             var eId = $(":input").eq($(":input").index(this) + 1).val();
 
-            $('#users').html('Please wait...');
-        $('#users').fadeIn('fast');
+            /*$('#users').html('Please wait...');
+              $('#users').fadeIn('fast');
                $('#users').load('/edit_user.php?id='+eId, function(){
              $('#users').fadeIn('slow');
-             });
+             });*/
+            reloadData('#users', '/edit_user.php?id='+eId);
 
     return false;
     });

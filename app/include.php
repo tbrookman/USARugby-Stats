@@ -17,6 +17,7 @@ include_once './db.php';
   <!-- Styles -->
   <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
   <link href="https://raw.github.com/eternicode/bootstrap-datepicker/master/css/datepicker.css" rel="stylesheet" type="text/css">
+  <link href="https://raw.github.com/harvesthq/chosen/master/chosen/chosen.css" rel="stylesheet" type="text/css">
   <link href="/assets/css/app.css" rel="stylesheet" type="text/css">
 
 <?php
@@ -27,6 +28,7 @@ include_once './other_funcs.php';
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
   <script src="https://raw.github.com/eternicode/bootstrap-datepicker/master/js/bootstrap-datepicker.js" type="text/javascript"></script>
+  <script src="https://raw.github.com/harvesthq/chosen/master/chosen/chosen.jquery.min.js" type="text/javascript"></script>
   <script src='/assets/js/jquery.timeentry.pack.js' type='text/javascript'></script>
   <script src='jquery_funcs.js'></script>
 

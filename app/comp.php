@@ -1,18 +1,14 @@
 <?php
 include_once './include.php';
 
-$comp_id = $_GET['id'];
+$comp_id = $request->get('id');
+$comp = $db->getCompetition($comp_id);
+?>
 
-$query = "SELECT * FROM `comps` WHERE id = $comp_id";
-$result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)) {
-    echo "<h1>{$row['name']}</h1>";
-}
 
-echo "<h2>Competition Info</h2>";
-//Get the info for this comp
-include_once './comp_info.php';
-echo "<br/>";
+<h1><?php print $comp['name']; ?></h1>
+<?php include_once './comp_info.php'; ?>
+<?php
 
 echo "<h2>Teams</h2>";
 echo "<div id='teams'>";
