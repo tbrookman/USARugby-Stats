@@ -10,7 +10,7 @@ while ($row=mysql_fetch_assoc($result)) {
 
     if (editCheck(1)) {
         echo "<td><form style='margin: 0; padding: 0' name='hForm{$row['id']}' id='hForm{$row['id']}'>";
-        echo "<input name='hidec{$row['id']}' class='hidec' id='hidec{$row['id']}' type='button' value='Hide' />";
+        echo "<input name='hidec{$row['id']}' class='hidec btn btn-inverse' id='hidec{$row['id']}' type='button' value='Hide' />";
         echo "<input type='hidden' class='hId' name='comp_id' id='comp_id' value='{$row['id']}' />";
         echo "<input type='hidden' name='comprefresh' id='comprefresh' value='comp_list.php' />";
 

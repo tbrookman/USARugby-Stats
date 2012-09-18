@@ -51,7 +51,7 @@ while ($row=mysql_fetch_assoc($result)) {
         echo "<input type='hidden' id='comp_id' value='$comp_id' />";
         echo "<input type='hidden' id='team_id' value='$team_id' />";
         echo "<input type='hidden' id='roster_id' value='$roster_id' />";
-        echo "<input type='button' id='presubmit' value='Fill with Previous Roster' />";
+        echo "<input type='button' id='presubmit' class='btn btn-primary' value='Fill with Previous Roster' />";
         echo "</form>\n";
     }
 }
@@ -124,7 +124,7 @@ for ($j=1;$j<=$max_game;$j++) {
     echo "<tr>";
 
     //show number select, 0-99
-    echo "<td><select id='n$j'>\n";
+    echo "<td><select id='n$j' class='input-small chzn-select'>\n";
     for ($k=0;$k<100;$k++) {
         if ($k==$numvals[$j]) {$stest = 'selected';} else {$stest='';}
         echo "<option id='n$j' $stest>$k</option>\n";
@@ -132,7 +132,7 @@ for ($j=1;$j<=$max_game;$j++) {
     echo "</select></td>\n";
 
     //show player select
-    echo "<td><select id='p$j'>\n";
+    echo "<td><select id='p$j' data-placeholder='Select Player' class='input-large chzn-select'>\n";
     echo "<option value=''></option>\n";
 
     $i=1;
@@ -159,5 +159,5 @@ echo "<input type='hidden' id='max' value='$max_game' />";
 echo "<input type='hidden' id='game_id' value='$game_id' />";
 echo "<input type='hidden' id='team_id' value='$team_id' />";
 echo "<input type='hidden' id='roster_id' value='$roster_id' />";
-echo "<input type='button' id='grsubmit' value='Update Roster' />";
+echo "<input type='button' id='grsubmit' class='btn btn-primary' value='Update Roster' />";
 echo "</form>\n";

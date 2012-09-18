@@ -11,13 +11,7 @@
           <div class="control-group">
             <label for="submin" id="submin_label" class="control-label">Min.</label>
             <div class="controls">
-              <?php
-                echo "<select id='submin' class='input-mini required'>\n";
-                for ($k=1;$k<121;$k++) {
-                    echo "<option value='$k'>$k</option>\n";
-                }
-                echo "</select>";
-              ?>
+              <input type="text" name="submin" id="submin" placeholder='Min' class='input-mini required' data-minute-max-value="121">
             </div>
           </div>
         </div>
@@ -26,7 +20,7 @@
           <div class="control-group">
             <label for="subtype" id="subtype_label" class="control-label">Type</label>
             <div class="controls">
-              <select name='subtype' id='subtype' class='input-medium required'>
+              <select name='subtype' id='subtype' data-placeholder='Type' class='chzn-select input-medium required'>
                 <option value=''></option>
                 <option value='11'>Tactical</option>
                 <option value='13'>Injury</option>
@@ -41,16 +35,19 @@
           <div class="control-group">
            <label for="player_on" id="player_on_label" class="control-label">Player On</label>
             <div class="controls">
-                <select name='player_on' id='player_on' class='input-medium required'>
+                <select name='player_on' id='player_on' data-placeholder="Player On" class='input-medium required chzn-select'>
+                  <option value=""></option>
                 <?php
-                  echo "<option value=''>--".teamName($away_id)."--</option>";
+                  echo "<optgroup label='" . teamName($away_id, FALSE) ."'>";
                   foreach ($awayps as $awayp) {
                     echo "<option value='$awayp'>".playerName($awayp)."</option>";
                   }
-                  echo "<option value=''>--".teamName($home_id)."--</option>";
+                  echo "</optgroup>";
+                  echo "<optgroup label='" . teamName($home_id, FALSE) ."'>";
                   foreach ($homeps as $homep) {
                     echo "<option value='$homep'>".playerName($homep)."</option>";
                   }
+                  echo "</optgroup>";
                 ?>
               </select>
             </div>
@@ -61,16 +58,19 @@
           <div class="control-group">
             <label for="player_off" id="player_off_label" class="control-label">Player Off</label>
             <div class="controls">
-              <select name='player_off' id='player_off' class='input-medium required'>
+              <select name='player_off' id='player_off' data-placeholder="Player Off" class='input-medium required chzn-select'>
+                <option value=""></option>
                 <?php
-                  echo "<option value=''>--".teamName($away_id)."--</option>";
+                  echo "<optgroup label='" . teamName($away_id, FALSE) ."'>";
                   foreach ($awayps as $awayp) {
                     echo "<option value='$awayp'>".playerName($awayp)."</option>";
                   }
-                  echo "<option value=''>--".teamName($home_id)."--</option>";
+                  echo "</optgroup>";
+                  echo "<optgroup label='" . teamName($home_id, FALSE) ."'>";
                   foreach ($homeps as $homep) {
                     echo "<option value='$homep'>".playerName($homep)."</option>";
                   }
+                  echo "</optgroup>";
                 ?>
               </select>
             </div>

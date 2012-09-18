@@ -19,8 +19,8 @@ if (editCheck(1)) {
           <div class="control-group">
             <label for="team" id="team_label" class="control-label">Team</label>
             <div class="controls">
-              <select name='team' id='team' class="required input-medium">
-                  <option value=''>Team</option>
+              <select data-placeholder='Team' name='team' id='team' class="required input-medium chzn-select">
+                  <option value=''></option>
                   <?php
                     //give a list of every team to choose from
                     $query = "SELECT team_id FROM ct_pairs WHERE comp_id=$comp_id";

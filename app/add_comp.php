@@ -14,7 +14,7 @@ include_once './header.php';
     <input id='name' name='name' type='text' size='30' placeholder="Competition Name" class="required input-large">
 
     <label for="type" id="type_label">Type</label>
-    <select name='type' id='type' class="required">
+    <select name='type' id='type' data-placeholder="Type" class="required chzn-select">
         <option value=''></option>
         <option value='1'>15s</option>
         <option value='2'>7s</option>
@@ -26,7 +26,7 @@ include_once './header.php';
 
     <label for="max_event" id="max_event_label">Maximum players on event roster</label>
 
-    <select name='max_event' id='max_event'>
+    <select name='max_event' id='max_event' data-placeholder="Max Players on Event Roster" class="input-large chzn-select required">
         <option value=''></option>
             <?php
             for ($i = 10; $i <= 35; $i++) {
@@ -37,7 +37,7 @@ include_once './header.php';
     </select>
 
     <label for="max_event" id="max_event_label">Maximum players on match roster</label>
-    <select name='max_match' id='max_match'>
+    <select name='max_match' id='max_match' data-placeholder="Max Players on Match Roster" class="input-large chzn-select required">
         <option value=''></option>
             <?php
             for ($i = 7; $i <= 25; $i++) {

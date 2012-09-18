@@ -104,6 +104,13 @@ class DataSource {
         return $roster;
     }
 
+    public function getRosterById($id) {
+        $query = "SELECT * FROM `event_rosters` WHERE id = $id";
+        $result = mysql_query($query);
+        $roster = mysql_fetch_assoc($result);
+        return $roster;
+    }
+
     public function getCompetition($comp_id) {
         $query = "SELECT * FROM `comps` WHERE id = $comp_id";
         $result = mysql_query($query);

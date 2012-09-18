@@ -21,7 +21,7 @@ foreach ($game_score_events as $game_score_event) {
 
     if (editCheck() && empty($iframe)) {
         echo "<td><form style='margin: 0; padding: 0' name='dForm{$game_score_event['id']}' id='dForm{$game_score_event['id']}'>";
-        echo "<input name='dScore{$game_score_event['id']}' class='dScore btn btn-danger' id='dScore{$game_score_event['id']}' type='button' value='Delete Score' />";
+        echo "<a href='#' class='dScore' id='dScore{$game_score_event['id']}' data-del-score-id='{$game_score_event['id']}'> <i class='icon-trash'></i></a>";
         echo "<input type='hidden' class='dId' name='event_id' id='event_id' value='{$game_score_event['id']}' />";
         echo "<input type='hidden' name='refresh' id='refresh' value='game_score_events.php?id=$game_id' />";
 

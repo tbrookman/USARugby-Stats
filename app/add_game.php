@@ -59,8 +59,8 @@ $comp_id = $_GET['id'];
           <div class="control-group">
             <label for="home" id="home_label" class="control-label">Home Team</label>
             <div class="controls">
-             <select name='home' id='home' class="input-medium required" placeholder="Home Team">
-              <option value=''>Home Team</option>
+             <select data-placeholder='Home Team' name='home' id='home' class="input-medium required chzn-select">
+              <option value=''></option>
                 <?php
                 $query = "SELECT * FROM `ct_pairs` WHERE comp_id = $comp_id";
                 $result = mysql_query($query);
@@ -82,8 +82,8 @@ $comp_id = $_GET['id'];
           <div class="control-group">
             <label for="away" id="away_label" class="control-label">Away Team</label>
             <div class="controls">
-               <select name='away' id='away' class="required input-medium" placeholder="Away Team">
-                  <option value=''>Away Team</option>
+               <select data-placeholder='Away Team' name='away' id='away' class="required input-medium chzn-select">
+                  <option value=''></option>
 
                   <?php
                   $query = "SELECT * FROM `ct_pairs` WHERE comp_id = $comp_id";

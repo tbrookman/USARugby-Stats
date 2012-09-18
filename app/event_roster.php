@@ -1,22 +1,23 @@
 <?php
 include_once './header.php';
 
-echo "<h1>Event Roster</h1>";
 
-$roster_id = $_GET['id'];
+
+$roster_id = $request->get('id');
 
 //Get info about our event and roster
-$query = "SELECT * FROM `event_rosters` WHERE id = $roster_id";
-$result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)) {
+$roster = $db->getRosterById($roster_id);
+$comp_id = $roster['comp_id'];
+$team_id = $roster['team_id'];
 
-    $comp_id=$row['comp_id'];
-    $team_id=$row['team_id'];
 
-    echo "<h2>".compName($roster_id)."</h2>";
-
-    echo "<h3>".teamName($row['team_id'])."</h3>";
-}
+?>
+<div class='page-header'>
+    <h1>Event Roster</h1>
+    <h2><?php echo compName($roster_id); ?> </h2>
+    <h3><?php echo teamName($team_id); ?> </h3>
+</div>
+<?php
 
 //either allow edit by team/usarugby or just show for press / other teams
 echo "<div id='eroster'>";

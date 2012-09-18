@@ -54,8 +54,9 @@ $cplayers = explode('-', substr($player_ids, 1, (strlen($player_ids)-2)));
 
 //Create select for each roster spot and provide an option for each player for team
 for ($j=1;$j<=$max_event;$j++) {
-    echo "Player $j";
-    echo "<select id='p$j'>\n";
+    echo "<div class='row-fluid'>";
+    echo "Player $j ";
+    echo "<select id='p$j' class='chzn-select input-large' data-placeholder='Player $j'>\n";
     echo "<option value=''></option>\n";
 
     $i=1;
@@ -65,10 +66,10 @@ for ($j=1;$j<=$max_event;$j++) {
         $i++;
     }
 
-    echo "</select><br/>\n";
+    echo "</select></div><br/>\n";
 }
 
 echo "<input type='hidden' id='max' value='$max_event' />";
 echo "<input type='hidden' id='roster_id' value='$roster_id' />";
-echo "<input type='button' id='ersubmit' value='Update Roster' />";
+echo "<input type='button' id='ersubmit' class='btn btn-primary' value='Update Roster' />";
 echo "</form>\n";
