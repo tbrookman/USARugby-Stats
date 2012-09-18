@@ -69,6 +69,16 @@ class DataSource {
         return $result;
     }
 
+    public function getTeamGames($team_id) {
+        $query = "SELECT * FROM `games` WHERE home_id = $team_id OR away_id = $team_id ORDER BY kickoff";
+        $result = mysql_query($query);
+        $team_games = array();
+        while($team_game = mysql_fetch_assoc($result)) {
+            $team_games[] = $team_game;
+        }
+        return $team_games;
+    }
+
     /**
      * Retrieve a serial id by uuid.
      * @param string $table_name

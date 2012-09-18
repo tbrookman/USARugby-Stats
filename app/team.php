@@ -14,6 +14,11 @@ echo "<h2>Event Rosters</h2>";
 include_once './team_event_rosters.php';
 echo "<br/>";
 
+echo "<h2>Games</h2>";
+//Get the rosters for this team
+include_once './team_games.php';
+echo "<br/>";
+
 echo "<h2>Game Rosters</h2>";
 //Get the rosters for this team
 include_once './team_game_rosters.php';

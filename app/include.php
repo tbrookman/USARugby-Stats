@@ -36,7 +36,9 @@ include_once './other_funcs.php';
 <body>
 
 <?php
-include_once './header.php';
+if (empty($iframe)) {
+  include_once './header.php';
+}
 
 echo "<title>USA Rugby National Championship Series</title>";
 
