@@ -21,7 +21,7 @@ foreach ($game_sub_events as $game_sub_event) {
 
     if (editCheck() && empty($iframe)) {
         echo "<td><form style='margin: 0; padding: 0' name='dForm{$game_sub_event['id']}' id='dForm{$game_sub_event['id']}'>";
-        echo "<input name='dSub{$game_sub_event['id']}' class='dSub btn btn-danger' id='dSub{$game_sub_event['id']}' type='button' value='Delete Sub' />";
+        echo "<a href='#' class='dSub' id='dSub{$game_sub_event['id']}' data-del-sub-id='{$game_sub_event['id']}'> <i class='icon-trash'></i></a>";
         echo "<input type='hidden' class='dId' name='event_id' id='event_id' value='{$game_sub_event['id']}' />";
         echo "<input type='hidden' name='subDrefresh' id='subDrefresh' value='game_sub_events.php?game_id=$game_id' />";
 

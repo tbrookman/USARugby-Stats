@@ -22,7 +22,7 @@ while ($row=mysql_fetch_assoc($result)) {
 
     if (editCheck(1)) {
         echo "<td><form style='margin: 0; padding: 0' name='dGame{$row['id']}' id='dGame{$row['id']}'>\n";
-        echo "<input name='dGame{$row['id']}' class='dGame btn btn-danger' id='dGame{$row['id']}' type='button' value='Delete Game' />\n";
+        echo "<a href='#' class='dGame' id='dGame{$row['id']}' data-del-game-id='{$row['id']}'> <i class='icon-trash'></i></a>";
         echo "<input type='hidden' class='dId' name='game_id' id='game_id' value='{$row['id']}' />\n";
         echo "<input type='hidden' name='grefresh' id='grefresh' value='comp_games.php?id=$comp_id' />\n";
 

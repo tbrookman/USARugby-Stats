@@ -160,7 +160,7 @@ $(document).ready(function() {
     $(".dScore").live('click', function() {
 
         var refresh = $("#refresh").val();
-            var dId = $(":input").eq($(":input").index(this) + 1).val();
+            var dId = $(this).data('del-score-id');
 
             var game_id = $("#game_id").val();
             var game_score = '/game_score.php?id=' + game_id;
@@ -181,7 +181,7 @@ $(document).ready(function() {
     $(".dSub").live('click', function() {
 
         var subDrefresh = $("#subDrefresh").val();
-        var dId = $(":input").eq($(":input").index(this) + 1).val();
+        var dId = $(this).data('del-sub-id');
             var game_id = $("#game_id").val();
 
         $.post('/delete_sub_process.php',
@@ -198,8 +198,7 @@ $(document).ready(function() {
     $(".dCard").live('click', function() {
 
         var cardDrefresh = $("#cardrefresh").val();
-        var dId = $(":input").eq($(":input").index(this) + 1).val();
-
+        var dId = $(this).data('del-card-id');
             var game_id = $("#game_id").val();
 
         $.post('/delete_card_process.php',
@@ -302,7 +301,7 @@ $(document).ready(function() {
     if(!confirm('Are you sure you want to delete this game?')){return false;}
 
         var refresh = $("#grefresh").val();
-            var dId = $(":input").eq($(":input").index(this) + 1).val();
+            dId = $(this).data('del-game-id');
 
         $.post('/delete_game_process.php',
         {game_id: dId},
@@ -320,8 +319,8 @@ $(document).ready(function() {
 
         var refresh = $("#trefresh").val();
 
-            var team_id = $(":input").eq($(":input").index(this) + 1).val();
             var comp_id = $("#comp_id").val();
+            var team_id = $(this).data('del-team-id');
 
         $.post('/delete_team_process.php',
         {comp_id: comp_id, team_id: team_id},
