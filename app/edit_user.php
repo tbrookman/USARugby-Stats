@@ -14,7 +14,7 @@ while ($row=mysql_fetch_assoc($result)) {
     echo "<input id='login' name='login' type='text' value='{$row['login']}'>";
     echo "<label class='error' for='login' id='login_error'>This field is required.</label><br/>";
 
-    echo "Team<select name='team' id='team'>";
+    echo "Team <br/><select name='team' id='team'>";
     echo "<option value=''></option>";
     $query2 = "SELECT id, name FROM `teams` WHERE hidden=0";
     $result2 = mysql_query($query2);
@@ -38,7 +38,7 @@ while ($row=mysql_fetch_assoc($result)) {
 }
 
 if (editCheck(1)) {
-    echo "<input type='button' class='edit' id='eUserSubmit' name='eUserSubmit' value='Submit Edits' />";
+    echo "<input type='button' class='edit btn btn-primary' id='eUserSubmit' name='eUserSubmit' value='Submit Edits' />";
     echo "<input type='hidden' id='user_id' value='$user_id' />";
 }
 

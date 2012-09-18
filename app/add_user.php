@@ -28,5 +28,5 @@ if (editCheck(1)) {
     echo "<label class='error' for='access' id='access_error'>This field is required.</label>";
     echo "<br/>";
 
-    echo "<input type='button' class='add' id='addUser' name='addUser' value='Add User' />";
+    echo "<input type='button' class='add btn btn-primary' id='addUser' name='addUser' value='Add User' />";
 }
