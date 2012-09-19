@@ -96,7 +96,7 @@ $app->get('/login', function(Request $request) use ($app) {
         }
 
         $client = new Client($app['session']->get('domain') . '/oauth', array(
-                'curl.CURLOPT_SSL_VERIFYPEER' => $app['config']['verify_peer'],
+                'curl.CURLOPT_SSL_VERIFYPEER' => isset($app['config']['verify_peer']) ? $app['config']['verify_peer'] : TRUE,
                 'curl.CURLOPT_CAINFO' => 'assets/mozilla.pem',
                 'curl.CURLOPT_FOLLOWLOCATION' => FALSE,
             ));
@@ -142,7 +142,7 @@ $app->get('/auth', function() use ($app) {
             $app->abort(400, 'Invalid token');
         }
         $client = new Client($app['session']->get('domain') . '/oauth', array(
-                'curl.CURLOPT_SSL_VERIFYPEER' => $app['config']['verify_peer'],
+                'curl.CURLOPT_SSL_VERIFYPEER' => isset($app['config']['verify_peer']) ? $app['config']['verify_peer'] : TRUE,
                 'curl.CURLOPT_CAINFO' => 'assets/mozilla.pem',
                 'curl.CURLOPT_FOLLOWLOCATION' => FALSE,
             ));
@@ -180,7 +180,7 @@ $app->get('/auth', function() use ($app) {
                     'token_secret' => $secret
                 ),
                 'host' => parse_url($app['session']->get('domain'), PHP_URL_HOST),
-                'curl.CURLOPT_SSL_VERIFYPEER' => $app['config']['verify_peer'],
+                'curl.CURLOPT_SSL_VERIFYPEER' => isset($app['config']['verify_peer']) ? $app['config']['verify_peer'] : TRUE,
                 'curl.CURLOPT_CAINFO' => 'assets/mozilla.pem',
                 'curl.CURLOPT_FOLLOWLOCATION' => FALSE
             ));
