@@ -1,5 +1,7 @@
 <?php
 include_once './include_mini.php';
+use Source\APSource;
+use Source\DataSource;
 
 $field = $_POST['field'];
 $game_num = $_POST['gnum'];
@@ -10,10 +12,32 @@ $home = $_POST['home'];
 $away = $_POST['away'];
 $comp_id = $_POST['comp_id'];
 
+$client = APSource::factory();
+$db = new DataSource;
+$home_team = $db->getTeam($home);
+$away_team = $db->getTeam($away);
+$date_time_allplayers = $kod . 'T' . DATE("H:i:s", STRTOTIME($_POST['minutes']));
+$event = array(
+    'groups' => array(
+        0 => $home_team['uuid'],
+        1 => $away_team['uuid']
+    ),
+    'title' => $away_team['name'] . ' @ ' . $home_team['name'],
+    'description' => $away_team['name'] . ' @ ' . $home_team['name'],
+    'date_time' => array(
+        'start' => $date_time_allplayers,
+        'end' => $date_time_allplayers
+    ),
+    'external_id' => 'STATS_APP'
+);
+$command = $client->getCommand('CreateEvent', $event);
+$command->execute();
+$event = json_decode($command->getResponse()->getBody());
+
 $date_time = new DateTime($kod . 'T' . $koh . ':' . $kom);
 $kfull = $date_time->format('Y-m-d H:i:\0\0');
 
-$query = "INSERT INTO `games` VALUES ('','{$_SESSION['user']}','$comp_id','$game_num','$home','$away','$kfull','$field','0','0','0','0','0','0','0', NULL)";
+$query = "INSERT INTO `games` VALUES ('','{$_SESSION['user']}','$comp_id','$game_num','$home','$away','$kfull','$field','0','0','0','0','0','0','0', '$event->uuid')";
 $result = mysql_query($query);
 
 $now = date('Y-m-d H:i:s');

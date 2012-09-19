@@ -55,7 +55,7 @@ class DataSource {
      * @param string $params.
      *  Set of params (WHERE, ORDER, etc)
      */
-    public function getTeam($uuid, $params = "") {
+    public function getTeam($id, $params = "") {
         $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('teams', $id) : $id;
         $query = "SELECT * from `teams` WHERE id=$search_id" . $params;
         $result = mysql_query($query);
