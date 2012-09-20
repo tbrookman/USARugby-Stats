@@ -19,8 +19,7 @@ $away_team = $db->getTeam($away);
 $date_time_allplayers = $kod . 'T' . DATE("H:i:s", STRTOTIME($_POST['minutes']));
 $event = array(
     'groups' => array(
-        0 => $home_team['uuid'],
-        1 => $away_team['uuid']
+        0 => $home_team['uuid']
     ),
     'title' => $away_team['name'] . ' @ ' . $home_team['name'],
     'description' => $away_team['name'] . ' @ ' . $home_team['name'],
@@ -28,7 +27,17 @@ $event = array(
         'start' => $date_time_allplayers,
         'end' => $date_time_allplayers
     ),
-    'external_id' => 'STATS_APP'
+    'competitors' => array(
+        0 => array(
+            'uuid' => $home_team['uuid'],
+            'label' => 'home'
+        ),
+        1 => array(
+            'uuid' => $away_team['uuid'],
+            'label' => 'away'
+        )
+    ),
+    'category' => 'game'
 );
 $command = $client->getCommand('CreateEvent', $event);
 $command->execute();
@@ -51,3 +60,7 @@ $result = mysql_query($query);
 
 $query = "INSERT INTO `game_rosters` VALUES ('','{$_SESSION['user']}','$now','$comp_id','$game_id','$away','','$numbers','$frontrows')";
 $result = mysql_query($query);
+
+$command = $client->getCommand('UpdateEvent', array('external_id' => 'STATS_APP_' . $game_id));
+$command->setUuid($event->uuid);
+$command->execute();
