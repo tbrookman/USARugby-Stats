@@ -46,8 +46,24 @@ $event = json_decode($command->getResponse()->getBody());
 $date_time = new DateTime($kod . 'T' . $koh . ':' . $kom);
 $kfull = $date_time->format('Y-m-d H:i:\0\0');
 
-$query = "INSERT INTO `games` VALUES ('','{$_SESSION['user']}','$comp_id','$game_num','$home','$away','$kfull','$field','0','0','0','0','0','0','0', '$event->uuid')";
-$result = mysql_query($query);
+$game_info = array(
+    'user_create' => $_SESSION['user'],
+    'comp_id' => $comp_id,
+    'comp_game_id' => $game_num,
+    'home_id' => $home,
+    'away_id' => $away,
+    'kickoff' => $kfull,
+    'field_num' => $field,
+    'home_score' => '0',
+    'away_score' => '0',
+    'ref_id' => '0',
+    'ref_sign' => '0',
+    '4_sign' => '0',
+    'home_sign' => '0',
+    'away_sign' => '0',
+    'uuid' => $event->uuid
+);
+$game = $db->addGame($game_info);
 
 $now = date('Y-m-d H:i:s');
 $numbers = '-1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30-';
