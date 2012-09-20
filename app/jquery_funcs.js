@@ -257,7 +257,6 @@ $(document).ready(function() {
           field: formData.field,
           gnum: formData.gnum,
           kdate: formData.kdate,
-          minutes: formData.ko_time,
           koh: formData.koh,
           kom: formData.kom,
           home: formData.home,

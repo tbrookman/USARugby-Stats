@@ -16,7 +16,8 @@ $client = APSource::factory();
 $db = new DataSource;
 $home_team = $db->getTeam($home);
 $away_team = $db->getTeam($away);
-$date_time_allplayers = $kod . 'T' . DATE("H:i:s", STRTOTIME($_POST['minutes']));
+$date_time = new DateTime($kod . 'T' . $koh . ':' . $kom);
+$date_time_allplayers = $date_time->format('Y-m-d\TH:i:s');
 $event = array(
     'groups' => array(
         0 => $home_team['uuid']
@@ -43,7 +44,6 @@ $command = $client->getCommand('CreateEvent', $event);
 $command->execute();
 $event = json_decode($command->getResponse()->getBody());
 
-$date_time = new DateTime($kod . 'T' . $koh . ':' . $kom);
 $kfull = $date_time->format('Y-m-d H:i:\0\0');
 
 $game_info = array(
