@@ -16,8 +16,11 @@ $client = APSource::factory();
 $db = new DataSource;
 $home_team = $db->getTeam($home);
 $away_team = $db->getTeam($away);
-$date_time = new DateTime($kod . 'T' . $koh . ':' . $kom);
-$date_time_allplayers = $date_time->format('Y-m-d\TH:i:s');
+$userTimezone = new DateTimeZone((isset($config['timezone']) ? $config['timezone'] : 'America/Chicago'));
+$date_time = new DateTime($kod . 'T' . $koh . ':' . $kom, $userTimezone);
+$date_time_ap = $date_time;
+$date_time_ap->setTimezone(new DateTimeZone('UTC'));
+$date_time_ap = $date_time_ap->format('Y-m-d\TH:i:s');
 $event = array(
     'groups' => array(
         0 => $home_team['uuid']
@@ -25,8 +28,8 @@ $event = array(
     'title' => $away_team['name'] . ' @ ' . $home_team['name'],
     'description' => $away_team['name'] . ' @ ' . $home_team['name'],
     'date_time' => array(
-        'start' => $date_time_allplayers,
-        'end' => $date_time_allplayers
+        'start' => $date_time_ap,
+        'end' => $date_time_ap
     ),
     'competitors' => array(
         0 => array(
