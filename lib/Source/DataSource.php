@@ -19,6 +19,15 @@ class DataSource {
     }
 
     /**
+     * Add a game.
+     */
+    public function addGame($game_info) {
+        $query = "INSERT INTO `games` VALUES ('', '" . implode("', '", $game_info) . "')";
+        $result = mysql_query($query);
+        return $result;
+    }
+
+    /**
      * Retrieve game by serial id or uuid.
      *
      * @param mixed $id

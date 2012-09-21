@@ -10,10 +10,10 @@ Feature: Login with AllPlayers
     When I follow "Create new account"
     Then I should see "Create your AllPlayers.com account"
     When I fill in the following:
-      |First Name:|test|
-      |Last Name:|from mink|
-      |Password:|test123|
-      |Confirm Password:|test123|
+      |First Name:       |test      |
+      |Last Name:        |from mink |
+      |Password:         |test123   |
+      |Confirm Password: |test123   |
       And I get rand email and fill in "E-mail:"
       And I select "Jan" from "field_birth_date[0][value][month]"
       And I select "1" from "field_birth_date[0][value][day]"

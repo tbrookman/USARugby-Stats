@@ -46,8 +46,7 @@ if (isset($_POST['submit'])) {
 function sync_group_members($group_uuid, $client, $db) {
     $existing_players = $db->getTeamPlayers($group_uuid);
     $added = 0;
-    $command = $client->getCommand('GetGroupMembers', array('uuid' => $group_uuid));
-    $command->setLimit(0);
+    $command = $client->getCommand('GetGroupMembers', array('uuid' => $group_uuid, 'limit' => 0));
     $client->execute($command);
     $members = json_decode($command->getResponse()->getBody());
     foreach ($members as $member) {
