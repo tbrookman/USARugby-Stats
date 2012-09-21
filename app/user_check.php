@@ -5,6 +5,7 @@ if (!(isset($_SESSION['user']) && $_SESSION['user'])) {
   $allow = FALSE;
   $allowed_iframe_scripts = array(
     '/game.php',
+    '/team_games.php',
   );
   // Allow only if allowed script, and iFrame request present.
   if (!empty($request) &&

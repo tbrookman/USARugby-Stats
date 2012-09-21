@@ -36,7 +36,12 @@ include_once './other_funcs.php';
 <body>
 
 <?php
-include_once './header.php';
+if (empty($iframe)) {
+  include_once './header.php';
+}
+else {
+  echo "<script src='https://www.allplayers.com/iframe.js?usar_stats' type='text/javascript'></script>";
+}
 
 echo "<title>USA Rugby National Championship Series</title>";
 

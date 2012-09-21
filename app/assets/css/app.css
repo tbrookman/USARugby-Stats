@@ -13,3 +13,7 @@ div#maincontent {
 .chzn-search input {
     width:95% !important;
 }
+
+.team-games .alert-no-games, .game .alert-no-game{
+    text-align: center;
+}

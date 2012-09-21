@@ -81,6 +81,21 @@ $(document).ready(function() {
         });
   }
 
+  //Team Games.
+  $('.chzn-game-switcher').chosen().change(function(){
+    var game_id = $(this).val();
+    var url = 'game.php?id=' + game_id + '&iframe=true' + $('.game-loadspace').data('requested-ops');
+    $('.game-loadspace').load(url + ' #wrapper', function(response, status) {
+      console.log($(this).height());
+      if (status == 'success' && windowProxy) {
+        windowProxy.post({
+          'height' : $('html').height(),
+          'id' : window.location.hash
+        });
+      }
+    });
+  });
+
   //adding a score event for a game
   $("#addscore").live('submit', function() {
     // validate and process form
