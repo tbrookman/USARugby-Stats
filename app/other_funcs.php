@@ -128,3 +128,40 @@ function tExists($id)
         if ($row['id']) {return true;} else {return false;}
     }
 }
+
+function getPositionList()
+{
+    $counts = array(
+        'Lock' => 2,
+        'Wing' => 2,
+        'Reserve' => 8,
+    );
+
+    $positions = array(
+        'LHP' => 'Loose-Head Prop',
+        'H' => 'Hooker',
+        'THP' => 'Tight-Head Prop',
+        'OSF' => 'Open Side Flanker',
+        'BSF' => 'Blind Side Flanker',
+        'N8' => 'Number 8',
+        'SH' => 'Scrum Half',
+        'FH' => 'Fly Half',
+        'IC' => 'Inside Center',
+        'OC' => 'Outside Center',
+        'FB' => 'Fullback',
+    );
+    foreach ($counts as $pos_name => $count) {
+        $pos_short = strtoupper(substr($pos_name, 0, 1));
+        for ($i = 1; $i <= $count; $i++) {
+            $positions[$pos_short . $i] = $pos_name . ' ' . $i;
+        }
+    }
+
+    return $positions;
+}
+
+function getPositionNameByCode($code)
+{
+    $positions = getPositionList();
+    return $positions[$code];
+}

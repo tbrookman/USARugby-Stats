@@ -13,6 +13,7 @@ while ($row=mysql_fetch_assoc($result)) {
     $player_ids = $row['player_ids'];
     $numbers = $row['numbers'];
     $frontrows = $row['frontrows'];
+    $positions = $row['positions'];
 }
 
 //DON'T NEED?
@@ -114,10 +115,13 @@ foreach ($frows as &$fr) {
 $cplayers = array();
 $cplayers = explode('-', substr($player_ids, 1, (strlen($player_ids)-2)));
 
+$cpositions = array();
+$cpositions = explode('-', substr($positions, 1, (strlen($positions)-2)));
+
 //header for columns
 echo "<table class='table'>\n";
 $frhead = ($comp_type == 1) ? '<th>FR</th>' : '';
-echo "<tr><th>Num.</th><th>Name</th>$frhead</tr>\n";
+echo "<tr><th>Num.</th><th>Name</th><th>Position</th>$frhead</tr>\n";
 
 //Create select for each roster spot and provide an option for each player for team
 for ($j=1;$j<=$max_game;$j++) {
@@ -143,7 +147,21 @@ for ($j=1;$j<=$max_game;$j++) {
     }
 
     echo "</select></td>\n";
+    echo "<td> <select data-placeholder='Select Position' class='input-large chzn-select' id='pos$j'>";
 
+    $positions = getPositionList();
+    $current_player_position = $cpositions[$j - 1];
+    if ($current_player_position == 'NIL') {
+        echo "<option value='NIL' selected></option>";
+    }
+    else {
+        echo "<option value='NIL'></option>";
+    }
+    foreach ($positions as $pos_code => $pos_name) {
+        $selected = $current_player_position == $pos_code ? 'selected' : '';
+        echo "<option value='$pos_code' $selected>$pos_name</option>\n";
+    }
+    echo "</select></td>";
     //show front row checkbox if this is a 15s comp
     if ($comp_type==1) {
         if ($frows[$j]==1) {$c="checked='checked'";} else {$c='';}
