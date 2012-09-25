@@ -150,13 +150,7 @@ for ($j=1;$j<=$max_game;$j++) {
     echo "<td> <select data-placeholder='Select Position' class='input-large chzn-select' id='pos$j'>";
 
     $positions = getPositionList();
-    $current_player_position = $cpositions[$j - 1];
-    if ($current_player_position == 'NIL') {
-        echo "<option value='NIL' selected></option>";
-    }
-    else {
-        echo "<option value='NIL'></option>";
-    }
+    $current_player_position = empty($cpositions[$j - 1]) ? 'NIL' : $cpositions[$j - 1];
     foreach ($positions as $pos_code => $pos_name) {
         $selected = $current_player_position == $pos_code ? 'selected' : '';
         echo "<option value='$pos_code' $selected>$pos_name</option>\n";

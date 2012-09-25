@@ -138,6 +138,7 @@ function getPositionList()
     );
 
     $positions = array(
+        'NIL' => '',
         'LHP' => 'Loose-Head Prop',
         'H' => 'Hooker',
         'THP' => 'Tight-Head Prop',
@@ -158,10 +159,4 @@ function getPositionList()
     }
 
     return $positions;
-}
-
-function getPositionNameByCode($code)
-{
-    $positions = getPositionList();
-    return $positions[$code];
 }
