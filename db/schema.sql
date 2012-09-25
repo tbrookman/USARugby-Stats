@@ -69,6 +69,7 @@ CREATE TABLE `game_rosters` (
   `player_ids` text NOT NULL,
   `numbers` text NOT NULL,
   `frontrows` text NOT NULL,
+  `positions` text, NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=765 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
