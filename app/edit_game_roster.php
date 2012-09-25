@@ -5,16 +5,14 @@ if (!isset($game_id) || !$game_id) {$game_id=$_GET['gid'];}
 if (!isset($team_id) || !$team_id) {$team_id=$_GET['tid'];}
 
 //get our team id and list of current rostered players
-$query = "SELECT * FROM `game_rosters` WHERE game_id = $game_id AND team_id = $team_id";
-$result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)) {
-    $roster_id=$row['id'];
-    $comp_id=$row['comp_id'];
-    $player_ids = $row['player_ids'];
-    $numbers = $row['numbers'];
-    $frontrows = $row['frontrows'];
-    $positions = $row['positions'];
-}
+$roster = $db->getRoster($game_id, $team_id);
+$roster_id=$roster['id'];
+$comp_id=$roster['comp_id'];
+$player_ids = $roster['player_ids'];
+$numbers = $roster['numbers'];
+$frontrows = $roster['frontrows'];
+$positions = $roster['positions'];
+
 
 //DON'T NEED?
 //get the team's UUID to match against players Team UUID
