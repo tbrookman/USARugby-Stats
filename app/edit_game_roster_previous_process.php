@@ -19,20 +19,18 @@ if (editCheck(2, $team_id)) {
     }
 
     //get previous roster data
-    $query = "SELECT * FROM `game_rosters` WHERE game_id = $p_id AND team_id = $team_id";
-    $result = mysql_query($query);
-    while ($row=mysql_fetch_assoc($result)) {
-        $player_ids = $row['player_ids'];
-        $numbers = $row['numbers'];
-        $frontrows = $row['frontrows'];
-    }
+    $prev_roster = $db->getRoster($p_id, $team_id);
+    $player_ids = $prev_roster['player_ids'];
+    $player_positions = $prev_roster['positions'];
+    $numbers = $prev_roster['numbers'];
+    $frontrows = $prev_roster['frontrows'];
 
     //get rest of necessary data to update roster
     $roster_id = $_POST['roster_id'];
     $now = date('Y-m-d H:i:s');
 
     //update roster
-    $query = "UPDATE `game_rosters` SET user_create='{$_SESSION['user']}',last_edit='$now',player_ids='$player_ids',
+    $query = "UPDATE `game_rosters` SET user_create='{$_SESSION['user']}',last_edit='$now',player_ids='$player_ids',positions='$player_positions',
 numbers='$numbers', frontrows='$frontrows' WHERE id='$roster_id'";
     $result = mysql_query($query);
 }

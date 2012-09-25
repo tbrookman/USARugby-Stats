@@ -17,4 +17,5 @@ ALTER TABLE game_rosters CHANGE user_create user_create varchar(64) NOT NULL;
 ALTER TABLE games CHANGE user_create user_create varchar(64) NOT NULL;
 ALTER TABLE players CHANGE user_create user_create varchar(64) NOT NULL;
 ALTER TABLE teams CHANGE user_create user_create varchar(64) NOT NULL;
+ALTER TABLE game_rosters ADD positions TEXT  NULL  AFTER frontrows;
 

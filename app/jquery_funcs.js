@@ -447,63 +447,80 @@ $(document).ready(function() {
 
     //submit game roster info
     $("#grsubmit").live('click', function() {
-    if(!confirm('Update roster?')){return false;}
+      if( !confirm('Update roster?') ){
+        return false;
+      }
 
-        $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
+      $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
 
-          var max = $("input#max").val();
+      var max = $("input#max").val();
 
-          var players = '-';
-          for (var i=1;i<=max;i++){
-          var temp = 'p'+i;
-          var val = $("#"+temp).val()
-          if(val != '' && val != undefined){
-          players = players+val+'-';
-          }
-          }
+      var players = '-';
+      for (var i = 1; i <= max; i++) {
+        var temp = 'p' + i;
+        var val = $("#" + temp).val()
+        if(val != '' && val != undefined){
+          players = players + val + '-';
+        }
+      }
 
-          var numbers = '-';
-          for (var i=1;i<=max;i++){
-          var temp = 'n'+i;
-          var val = $("#"+temp).val()
+      var positions = '-';
+      for (var i = 1; i <= max; i++) {
+        var temp = 'pos' + i;
+        var val = $("#" + temp).val();
+        if(val != '' && val != undefined){
+          positions = positions + val + '-';
+        }
+        else {
+          positions = positions + 'NIL' + '-';
+        }
+      }
 
-          if(val != undefined){
-            if(val==''){
+      var numbers = '-';
+      for (var i = 1; i <= max; i++) {
+        var temp = 'n' + i;
+        var val = $("#" + temp).val();
+
+        if(val != undefined) {
+          if(val =='' ) {
             numbers = numbers+'B-';
-            }
-            else
-            {
+          }
+          else {
             numbers = numbers+val+'-';
-            }
           }
+        }
+      }
 
-          }
-
-          var frontrows = '-';
-          for (var i=1;i<=max;i++){
-          var temp = 'fr'+i;
-          var val = $("#"+temp+":checked").val()
-            if(val != undefined){
-            frontrows = frontrows+'1-';
-            }
-            else
-            {
-            frontrows = frontrows+'0-';
-            }
-          }
+      var frontrows = '-';
+      for (var i = 1; i <= max; i++) {
+        var temp = 'fr' + i;
+        var val = $("#" + temp + ":checked").val();
+        if(val != undefined) {
+          frontrows = frontrows + '1-';
+        }
+        else {
+          frontrows = frontrows + '0-';
+        }
+      }
 
 
-            var game_id = $("#game_id").val();
-            var team_id = $("#team_id").val();
-            var roster_id = $("#roster_id").val();
+      var game_id = $("#game_id").val();
+      var team_id = $("#team_id").val();
+      var roster_id = $("#roster_id").val();
 
-            var refresh = '/edit_game_roster.php?gid='+game_id+'&tid='+team_id;
+      var refresh = '/edit_game_roster.php?gid=' + game_id + '&tid=' + team_id;
 
-        $.post('/edit_game_roster_process.php',
-        {players: players, numbers: numbers, frontrows: frontrows, roster_id: roster_id, team_id: team_id},
-        function(){
-          reloadData('#groster', refresh);
-        });
+      $.post('/edit_game_roster_process.php', {
+        players: players,
+        positions: positions,
+        numbers: numbers,
+        frontrows: frontrows,
+        roster_id: roster_id,
+        team_id: team_id
+      },
+      function(){
+        reloadData('#groster', refresh);
+      });
 
     return false;
     });
