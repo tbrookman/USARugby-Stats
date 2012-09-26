@@ -4,8 +4,8 @@
         {
             "package": "allplayers/allplayers-php",
             "version": "dev-guzzle-allplayers",
-            "source-reference": "8982b6d9f9ef0c31b8e103ad887e6124947ce954",
-            "commit-date": "1348510336"
+            "source-reference": "318542590cd17fa60b059531e1d15d037e34471e",
+            "commit-date": "1348631340"
         },
         {
             "package": "guzzle/guzzle",
