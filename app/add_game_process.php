@@ -1,7 +1,6 @@
 <?php
 include_once './include_mini.php';
 use Source\APSource;
-use Source\DataSource;
 
 $field = $_POST['field'];
 $game_num = $_POST['gnum'];
@@ -13,7 +12,6 @@ $away = $_POST['away'];
 $comp_id = $_POST['comp_id'];
 
 $client = APSource::factory();
-$db = new DataSource;
 $home_team = $db->getTeam($home);
 $away_team = $db->getTeam($away);
 $userTimezone = new DateTimeZone((isset($config['timezone']) ? $config['timezone'] : 'America/Chicago'));
@@ -43,9 +41,7 @@ $event = array(
     ),
     'category' => 'game'
 );
-$command = $client->getCommand('create_event', $event);
-$command->execute();
-$event = json_decode($command->getResponse()->getBody());
+$event = $client->createEvent($event);
 
 $kfull = $date_time->format('Y-m-d H:i:\0\0');
 
@@ -80,5 +76,4 @@ $result = mysql_query($query);
 $query = "INSERT INTO `game_rosters` VALUES ('','{$_SESSION['user']}','$now','$comp_id','$game_id','$away','','$numbers','$frontrows')";
 $result = mysql_query($query);
 
-$command = $client->getCommand('update_event', array('uuid' => $event->uuid, 'external_id' => 'STATS_APP_' . $game_id));
-$command->execute();
+$client->updateEvent($event->uuid, array('external_id' => 'STATS_APP_' . $game_id));
