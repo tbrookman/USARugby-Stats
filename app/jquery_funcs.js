@@ -86,7 +86,6 @@ $(document).ready(function() {
     var game_id = $(this).val();
     var url = 'game.php?id=' + game_id + '&iframe=true' + $('.game-loadspace').data('requested-ops');
     $('.game-loadspace').load(url + ' #wrapper', function(response, status) {
-      console.log($(this).height());
       if (status == 'success' && windowProxy) {
         windowProxy.post({
           'height' : $('html').height(),
@@ -94,6 +93,16 @@ $(document).ready(function() {
         });
       }
     });
+  });
+
+  $('.game-switcher-row .chzn-container').mousedown(function(){
+    if (windowProxy) {
+      var height = $(this).height() + $(this).find('.chzn-drop').height();
+      windowProxy.post({
+          'height' : height,
+          'id' : window.location.hash
+      });
+    }
   });
 
   //adding a score event for a game
