@@ -43,7 +43,7 @@ $event = array(
     ),
     'category' => 'game'
 );
-$command = $client->getCommand('CreateEvent', $event);
+$command = $client->getCommand('create_event', $event);
 $command->execute();
 $event = json_decode($command->getResponse()->getBody());
 
@@ -80,6 +80,5 @@ $result = mysql_query($query);
 $query = "INSERT INTO `game_rosters` VALUES ('','{$_SESSION['user']}','$now','$comp_id','$game_id','$away','','$numbers','$frontrows')";
 $result = mysql_query($query);
 
-$command = $client->getCommand('UpdateEvent', array('external_id' => 'STATS_APP_' . $game_id));
-$command->setUuid($event->uuid);
+$command = $client->getCommand('update_event', array('uuid' => $event->uuid, 'external_id' => 'STATS_APP_' . $game_id));
 $command->execute();
