@@ -27,6 +27,24 @@ class DataSource {
         return $result;
     }
 
+    public function updateGame($game_id, $game_info) {
+        $original_game = $this->getGame($game_id);
+        $query = "UPDATE `games` SET ";
+        $count = 1;
+        $max_count = count($original_game);
+        $updated_game = array_merge($original_game, $game_info);
+        foreach ($updated_game as $col => $new_value) {
+            $query .= $col . "='" . $new_value . "'";
+            if ($count < $max_count) {
+                $query .= ",";
+            }
+            $count++;
+        }
+        $query .= " WHERE id='{$original_game['id']}'";
+        $result = mysql_query($query);
+        return $result;
+    }
+
     /**
      * Retrieve game by serial id or uuid.
      *
@@ -126,6 +144,23 @@ class DataSource {
         $result = mysql_query($query);
         $roster = mysql_fetch_assoc($result);
         return $roster;
+    }
+
+    public function addRoster($roster_data) {
+        $columns = array('id', 'user_create', 'last_edit', 'comp_id', 'game_id', 'team_id', 'player_ids', 'numbers', 'frontrows', 'positions');
+        $values = '';
+        $count = 1;
+        $max_count = count($columns);
+        foreach ($columns as $col) {
+            $values .= is_null($roster_data[$col]) ? 'NULL' : "'" . $roster_data[$col] . "'";
+            if ($count < $max_count) {
+                $values .= ',';
+            }
+            $count++;
+        }
+        $query = "INSERT INTO `game_rosters` (" . implode(',', $columns) . ") VALUES ($values)";
+        $result = mysql_query($query);
+        return $result;
     }
 
     public function getRosterById($id) {
