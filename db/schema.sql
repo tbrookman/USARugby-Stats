@@ -11,7 +11,7 @@ CREATE TABLE `comps` (
   `max_game` int(2) NOT NULL,
   `hidden` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -20,7 +20,7 @@ CREATE TABLE `ct_pairs` (
   `comp_id` int(6) NOT NULL,
   `team_id` int(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=319 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=319 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -32,7 +32,7 @@ CREATE TABLE `event_rosters` (
   `team_id` int(6) NOT NULL,
   `player_ids` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=274 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=274 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -42,7 +42,7 @@ CREATE TABLE `event_types` (
   `name` varchar(30) NOT NULL,
   `value` int(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -55,7 +55,7 @@ CREATE TABLE `game_events` (
   `type` int(2) NOT NULL,
   `minute` int(3) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8445 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8445 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -71,7 +71,7 @@ CREATE TABLE `game_rosters` (
   `frontrows` text NOT NULL,
   `positions` text NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=765 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=765 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -93,7 +93,7 @@ CREATE TABLE `games` (
   `away_sign` int(1) NOT NULL,
   `uuid` char(36) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -106,7 +106,7 @@ CREATE TABLE `players` (
   `firstname` varchar(25) NOT NULL,
   `lastname` varchar(35) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9189 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9189 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -118,7 +118,7 @@ CREATE TABLE `teams` (
   `name` varchar(60) NOT NULL,
   `short` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=203 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=203 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -131,5 +131,5 @@ CREATE TABLE `users` (
   `token` char(40) DEFAULT NULL,
   `secret` char(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=216 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=216 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
