@@ -1,19 +1,25 @@
 {
-    "hash": "f51e795e8bfb780273ab6ec0afe05405",
+    "hash": "9192b89919af306e2928d5b03029e9bc",
     "packages": [
         {
-            "name": "allplayers/allplayers-php",
+            "name": "allplayers/allplayers.php",
             "version": "dev-guzzle-allplayers",
             "source": {
                 "type": "git",
-                "url": "git@github.com:AllPlayers/AllPlayers-PHP.git",
-                "reference": "318542590cd17fa60b059531e1d15d037e34471e"
+                "url": "https://github.com/AllPlayers/allplayers.php.git",
+                "reference": "0a73d9ac72a7fe9bb5c4cc53d107877a0499bd4b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/AllPlayers/allplayers.php/zipball/0a73d9ac72a7fe9bb5c4cc53d107877a0499bd4b",
+                "reference": "0a73d9ac72a7fe9bb5c4cc53d107877a0499bd4b",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "guzzle/guzzle": "2.8.*"
             },
-            "time": "1348631340",
+            "time": "1348855813",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -62,7 +68,7 @@
             },
             "time": "2012-09-30 20:48:10",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Guzzle\\Tests": "tests/",
@@ -124,7 +130,22 @@
                 "psr-0": {
                     "Pimple": "lib/"
                 }
-            }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
+            "homepage": "http://pimple.sensiolabs.org",
+            "keywords": [
+                "dependency injection",
+                "container"
+            ]
         },
         {
             "name": "silex/silex",
@@ -241,7 +262,22 @@
                 "psr-0": {
                     "Symfony\\Component\\EventDispatcher": ""
                 }
-            }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony EventDispatcher Component",
+            "homepage": "http://symfony.com"
         },
         {
             "name": "symfony/http-foundation",
@@ -399,7 +435,22 @@
                 "psr-0": {
                     "Symfony\\Component\\Routing": ""
                 }
-            }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Routing Component",
+            "homepage": "http://symfony.com"
         },
         {
             "name": "twig/twig",
@@ -457,7 +508,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "allplayers/allplayers-php": 20,
+        "allplayers/allplayers.php": 20,
         "behat/behat": 0
     }
 }
