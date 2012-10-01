@@ -59,6 +59,8 @@ class APSource extends AllPlayersClient {
         $command_params = array_merge(array('uuid' => $uuid), $event_info);
         $command = $this->getCommand('update_event', $command_params);
         $command->execute();
+        $event = json_decode($command->getResponse()->getBody());
+        return $event;
     }
 
 }
