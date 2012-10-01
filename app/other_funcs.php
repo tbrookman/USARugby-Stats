@@ -48,7 +48,7 @@ function getValue($type)
 function updateScore($game_id)
 {
     //first get the id's of the home and away teams
-    $query = "SELECT * FROM `games` WHERE id = '$game_id'";
+    $query = "SELECT * FROM `games` WHERE id='$game_id'";
     $result = mysql_query($query);
     $homep = 0;
     $awayp = 0;
@@ -92,9 +92,7 @@ function updateScore($game_id)
             'score' => $awayp
         )
     );
-    $command = $client->getCommand('UpdateEvent', array('competitors' => $competitors));
-    $command->setUuid($game_uuid);
-    $command->execute();
+    $client->updateEvent($game_uuid, array('competitors' => $competitors));
 }
 
 
