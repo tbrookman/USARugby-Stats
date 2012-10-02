@@ -22,7 +22,18 @@ class DataSource {
      * Add a game.
      */
     public function addGame($game_info) {
-        $query = "INSERT INTO `games` VALUES ('', '" . implode("', '", $game_info) . "')";
+        $columns = array('id', 'user_create', 'comp_id', 'comp_game_id', 'home_id', 'away_id', 'kickoff', 'field_num', 'home_score', 'away_score', 'ref_id', 'ref_sign', '4_sign', 'home_sign', 'away_sign', 'uuid');
+        $values = '';
+        $count = 1;
+        $max_count = count($columns);
+        foreach ($columns as $col) {
+            $values .= is_null($game_info[$col]) ? 'NULL' : "'" . $game_info[$col] . "'";
+            if ($count < $max_count) {
+                $values .= ',';
+            }
+            $count++;
+        }
+        $query = "INSERT INTO `games` (" . implode(',', $columns) . ") VALUES ($values)";
         $result = mysql_query($query);
         return $result;
     }

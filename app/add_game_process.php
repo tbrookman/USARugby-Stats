@@ -16,7 +16,7 @@ $home_team = $db->getTeam($home);
 $away_team = $db->getTeam($away);
 $userTimezone = new DateTimeZone((isset($config['timezone']) ? $config['timezone'] : 'America/Chicago'));
 $date_time = new DateTime($kod . 'T' . $koh . ':' . $kom, $userTimezone);
-$date_time_ap = $date_time;
+$date_time_ap = clone $date_time;
 $date_time_ap->setTimezone(new DateTimeZone('UTC'));
 $date_time_ap = $date_time_ap->format('Y-m-d\TH:i:s');
 
