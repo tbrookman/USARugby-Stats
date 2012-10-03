@@ -1,25 +1,25 @@
 {
-    "hash": "9192b89919af306e2928d5b03029e9bc",
+    "hash": "dc4cbe62a989aa10b5e37e220c324ac7",
     "packages": [
         {
-            "name": "allplayers/allplayers.php",
+            "name": "allplayers/allplayers",
             "version": "dev-guzzle-allplayers",
             "source": {
                 "type": "git",
                 "url": "https://github.com/AllPlayers/allplayers.php.git",
-                "reference": "0a73d9ac72a7fe9bb5c4cc53d107877a0499bd4b"
+                "reference": "5a1ca30da88dbfa14f339fcf25c0703b88132d59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/AllPlayers/allplayers.php/zipball/0a73d9ac72a7fe9bb5c4cc53d107877a0499bd4b",
-                "reference": "0a73d9ac72a7fe9bb5c4cc53d107877a0499bd4b",
+                "url": "https://github.com/AllPlayers/allplayers.php/zipball/5a1ca30da88dbfa14f339fcf25c0703b88132d59",
+                "reference": "5a1ca30da88dbfa14f339fcf25c0703b88132d59",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "guzzle/guzzle": "2.8.*"
             },
-            "time": "1348855813",
+            "time": "1349189001",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -286,18 +286,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation",
-                "reference": "c6d48206a04fc2aa75d396bb23f0152f33eaab0c"
+                "reference": "17af0b966d268aa62e3487e3c48f0742e919edd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/HttpFoundation/zipball/c6d48206a04fc2aa75d396bb23f0152f33eaab0c",
-                "reference": "c6d48206a04fc2aa75d396bb23f0152f33eaab0c",
+                "url": "https://github.com/symfony/HttpFoundation/zipball/17af0b966d268aa62e3487e3c48f0742e919edd1",
+                "reference": "17af0b966d268aa62e3487e3c48f0742e919edd1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1348937790",
+            "time": "1349173376",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -308,7 +308,7 @@
             "autoload": {
                 "psr-0": {
                     "Symfony\\Component\\HttpFoundation": "",
-                    "SessionHandlerInterface": "Resources/stubs"
+                    "SessionHandlerInterface": "Symfony/Component/HttpFoundation/Resources/stubs"
                 }
             },
             "license": [
@@ -334,12 +334,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel",
-                "reference": "1859e49f38c705b6241510dc7d577fbae65e7ca6"
+                "reference": "9d00c6069a5e194826091d72baa5402f623ebf31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/HttpKernel/zipball/1859e49f38c705b6241510dc7d577fbae65e7ca6",
-                "reference": "1859e49f38c705b6241510dc7d577fbae65e7ca6",
+                "url": "https://github.com/symfony/HttpKernel/zipball/9d00c6069a5e194826091d72baa5402f623ebf31",
+                "reference": "9d00c6069a5e194826091d72baa5402f623ebf31",
                 "shasum": ""
             },
             "require": {
@@ -365,7 +365,7 @@
                 "symfony/dependency-injection": "2.1.*",
                 "symfony/finder": "2.1.*"
             },
-            "time": "1349083395",
+            "time": "1349173376",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -508,7 +508,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "allplayers/allplayers.php": 20,
+        "allplayers/allplayers": 20,
         "behat/behat": 0
     }
 }
