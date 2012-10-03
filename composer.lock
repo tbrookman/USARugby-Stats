@@ -6,7 +6,7 @@
             "version": "dev-guzzle-allplayers",
             "source": {
                 "type": "git",
-                "url": "git@github.com:AllPlayers/allplayers.php.git",
+                "url": "https://github.com/AllPlayers/allplayers.php.git",
                 "reference": "5a1ca30da88dbfa14f339fcf25c0703b88132d59"
             },
             "dist": {
