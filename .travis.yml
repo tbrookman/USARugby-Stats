@@ -15,7 +15,7 @@ before_script:
   - mysql -u root usarugby < db/data.sql
   - mv behat.yml.dist behat.yml
   - echo "$(curl -fsSL https://raw.github.com/gist/3814376/a4ba9ea9f57ee8c2abb5b8a08ad843c453d4132c/config.php)" | sudo tee app/config.php
-  - composer install --dev
+  - composer install -n --dev
   - sudo service apache2 restart
 script:
   - bin/behat --verbose
