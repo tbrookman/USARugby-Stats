@@ -17,13 +17,13 @@ all: makecss makejs
 deleteall: makedeletecss makedeletejs
 
 makecss: 
-	cd css; echo `pwd`; wget ${css}; cd ..;
+	homedir=`pwd`; mkdir app/assets/css/vendor; cd app/assets/css/vendor; wget ${css}; cd ${homedir};
 
 makejs: 
-	cd js; echo `pwd`; wget ${js}; cd ..;
+	homedir=`pwd`; mkdir app/assets/js/vendor; cd app/assets/js/vendor; wget ${js}; cd ${homedir};
 
 makedeletecss:
-	cd css; rm -rf ${installed_css}; cd ..;
+	rm -rf app/assets/css/vendor;
 
 makedeletejs:
-	cd js; rm -rf ${installed_js}; cd ..;
+	rm -rf app/assets/js/vendor;

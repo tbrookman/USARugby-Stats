@@ -1,3 +1,5 @@
 app/config.php
 vendor
 bin/behat
+app/assets/css/vendor/*
+app/assets/js/vendor/*
