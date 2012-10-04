@@ -28,6 +28,8 @@ Included under directory: "db" is the DDL used for the system; if there are upda
 
 `mysqldump -d --skip-add-drop-table --skip-add-locks --skip-disable-keys --skip-set-charset --skip-comments --compact -u<user> -p<pass> <dbname>`
 
+### Javascript and CSS.
+In order to add in the proper javascript, in your commandline browse over to app/assets and run `make`.
 
 ### Composer
 
