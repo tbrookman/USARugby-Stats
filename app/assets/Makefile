@@ -1,7 +1,3 @@
-# To run this makefile, you must do the following.
-#
-# 1.)  sudo make tools -B
-#
 
 # Create the list of files
 css = https://raw.github.com/eternicode/bootstrap-datepicker/99b6f8d3608c948a0c05c8e2e5ec3c4e2c1f96b2/css/datepicker.css\
