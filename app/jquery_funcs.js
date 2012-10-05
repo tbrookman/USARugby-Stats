@@ -306,40 +306,36 @@ $(document).ready(function() {
           }
         }
         $('#addgamediv').data('teamsByResource', teamsByResource);
-
         return teamsByResource;
       },
 
       buildAvailableResources: function(teams) {
-    // Update Field Lists.
-          var availableResources = {};
-          for (t in teams) {
-            var search_team = teams[t];
-            var resourcesByTeam = $('#addgamediv').data('resourcesByTeam') || {};
-            if (!$.isEmptyObject(resourcesByTeam[search_team])) {
-              for (av_resource in resourcesByTeam[search_team]) {
-                resourceForATeam = resourcesByTeam[search_team][av_resource];
-                availableResources[resourceForATeam.uuid] = {};
-                availableResources[resourceForATeam.uuid].uuid = resourceForATeam.uuid;
-                availableResources[resourceForATeam.uuid].title = resourceForATeam.title;
-                availableResources[resourceForATeam.uuid].teamOwner = search_team;
-              }
+        var availableResources = {};
+        for (t in teams) {
+          var search_team = teams[t];
+          var resourcesByTeam = $('#addgamediv').data('resourcesByTeam') || {};
+          if (!$.isEmptyObject(resourcesByTeam[search_team])) {
+            for (av_resource in resourcesByTeam[search_team]) {
+              resourceForATeam = resourcesByTeam[search_team][av_resource];
+              availableResources[resourceForATeam.uuid] = {};
+              availableResources[resourceForATeam.uuid].uuid = resourceForATeam.uuid;
+              availableResources[resourceForATeam.uuid].title = resourceForATeam.title;
+              availableResources[resourceForATeam.uuid].teamOwner = search_team;
             }
-
           }
-          return availableResources;
+
+        }
+        return availableResources;
       },
 
       showAvailableResources: function(availableResources) {
         $('#addgamediv #field').children('option[value!=""]').remove().end();
-              for (av_resource in availableResources) {
-                var resourceData = availableResources[av_resource];
-                var newOption = $('<option value="' + resourceData.uuid + '">' + resourceData.title + '</option>').data('teamOwner', resourceData.teamOwner);
-                $('#addgamediv #field').append(newOption);
-              }
-
-
-              $('#addgamediv #field').removeAttr('disabled').trigger("liszt:updated");
+          for (av_resource in availableResources) {
+            var resourceData = availableResources[av_resource];
+            var newOption = $('<option value="' + resourceData.uuid + '">' + resourceData.title + '</option>').data('teamOwner', resourceData.teamOwner);
+            $('#addgamediv #field').append(newOption);
+          }
+          $('#addgamediv #field').removeAttr('disabled').trigger("liszt:updated");
       },
 
       initSync: function() {
@@ -369,9 +365,7 @@ $(document).ready(function() {
           });
         });
       }
-
     }
-
 
     //adding a game
     $("#addgame").live('submit', function() {
