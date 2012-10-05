@@ -12,14 +12,6 @@ $comp_id = $_GET['id'];
       </div>
 
       <div class="row-fluid">
-        <div id="field-wrapper" class="span1">
-          <div class="control-group">
-            <label for="field" id="field_label" class="control-label">Field #</label>
-            <div class="controls">
-               <input id='field' name='field' type='text' size='1' class="input-small" placeholder="Field #">
-            </div>
-          </div>
-        </div>
 
         <div id="game-wrapper" class="span1">
           <div class="control-group">
@@ -59,7 +51,7 @@ $comp_id = $_GET['id'];
           <div class="control-group">
             <label for="home" id="home_label" class="control-label">Home Team</label>
             <div class="controls">
-             <select data-placeholder='Home Team' name='home' id='home' class="input-medium required chzn-select">
+             <select data-placeholder='Home Team' name='home' id='home' class="input-medium required chzn-select addgame-home">
               <option value=''></option>
                 <?php
                 $query = "SELECT * FROM `ct_pairs` WHERE comp_id = $comp_id";
@@ -69,7 +61,7 @@ $comp_id = $_GET['id'];
                     $query1 = "SELECT * FROM `teams` WHERE id = {$row['team_id']}";
                     $result1 = mysql_query($query1);
                     while ($row1=mysql_fetch_assoc($result1)) {
-                        echo "<option value='{$row1['id']}'>{$row1['name']}</option>";
+                        echo "<option value='{$row1['uuid']}'>{$row1['name']}</option>";
                     }
                 }
                 ?>
@@ -82,7 +74,7 @@ $comp_id = $_GET['id'];
           <div class="control-group">
             <label for="away" id="away_label" class="control-label">Away Team</label>
             <div class="controls">
-               <select data-placeholder='Away Team' name='away' id='away' class="required input-medium chzn-select">
+               <select data-placeholder='Away Team' name='away' id='away' class="required input-medium chzn-select addgame-away">
                   <option value=''></option>
 
                   <?php
@@ -93,11 +85,22 @@ $comp_id = $_GET['id'];
                       $query1 = "SELECT * FROM `teams` WHERE id = {$row['team_id']}";
                       $result1 = mysql_query($query1);
                       while ($row1=mysql_fetch_assoc($result1)) {
-                          echo "<option value='{$row1['id']}'>{$row1['name']}</option>";
+                          echo "<option value='{$row1['uuid']}'>{$row1['name']}</option>";
                       }
                   }
                   ?>
 
+              </select>
+            </div>
+          </div>
+        </div>
+
+         <div id="field-wrapper" class="span2">
+          <div class="control-group">
+            <label for="field" id="field_label" class="control-label">Field #</label>
+            <div class="controls">
+              <select id='field' data-placeholder='Select Field' name='field' id='field' class='input-medium chzn-select'>
+                <option value=''></option>
               </select>
             </div>
           </div>
@@ -108,6 +111,7 @@ $comp_id = $_GET['id'];
             <label for="submit" id="submit_label" class="control-label">&nbsp;</label>
             <div class="controls">
               <input type='hidden' name='grefresh' id='grefresh' value='<?php echo "comp_games.php?id=$comp_id"; ?>'>
+              <input type='hidden' name='active-domain' id='active-domain' value='<?php echo $_SESSION['_sf2_attributes']['domain'] ?>'>
               <input type='hidden' name='comp_id' id='comp_id' value='<?php echo $comp_id; ?>'>
               <input type='submit' name='submit' class='button btn btn-primary' id='add_game' value='Add Game'>
             </div>
