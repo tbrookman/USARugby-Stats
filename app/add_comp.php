@@ -48,6 +48,7 @@ include_once './header.php';
     </select>
 
     <br/>
+    <br/>
 
     <input type='submit' name='submit' class='button btn btn-primary' id='add_comp' value='Create Competition'>
 </form>
