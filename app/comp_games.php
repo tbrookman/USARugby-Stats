@@ -4,21 +4,21 @@ include_once './include_mini.php';
 if (!isset($comp_id) || !$comp_id) {$comp_id=$_GET['id'];}
 
 echo "<table class='normal table'>\n";
-echo "<tr><td>Game</td><td>Kickoff</td><td>Home</td><td>&nbsp;</td>\n";
-echo "<td>Away</td><td>Field</td></tr>\n";
+echo "<tr><th>Game</th><th>Kickoff</th><th>Home</th><th>Score</th><th>Away</th><th>Field</th></tr>\n";
 
 $query = "SELECT * FROM `games` WHERE comp_id = $comp_id ORDER BY kickoff";
 $result = mysql_query($query);
 while ($row=mysql_fetch_assoc($result)) {
 
     $kout = date('n/j g:ia', strtotime($row['kickoff']));
+    $resource = $db->getResource($row['field_num']);
 
     echo "<tr>\n<td>{$row['comp_game_id']}</td>\n";
     echo "<td>$kout</td>\n";
     echo "<td>".teamName($row['home_id'])."</td>\n";
     echo "<td align='center'><a href='game.php?id={$row['id']}'>{$row['home_score']} - {$row['away_score']}</a></td>\n";
     echo "<td>".teamName($row['away_id'])."</td>\n";
-    echo "<td>{$row['field_num']}</td>\n";
+    echo "<td>{$resource['title']}</td>\n";
 
     if (editCheck(1)) {
         echo "<td><form style='margin: 0; padding: 0' name='dGame{$row['id']}' id='dGame{$row['id']}'>\n";
