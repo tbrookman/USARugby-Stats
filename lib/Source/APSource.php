@@ -48,6 +48,13 @@ class APSource extends AllPlayersClient {
         return $user;
     }
 
+
+    public function getGroupResources($group_uuid, $decode = TRUE) {
+       $command = $this->getCommand('GetGroupResources', array('uuid' => $group_uuid));
+       $command->execute();
+       return empty($decode) ? $command->getResponse()->getBody() : json_decode($command->getResponse()->getBody());
+    }
+
     public function createEvent($event_info) {
         $command = $this->getCommand('create_event', $event_info);
         $event = $command->execute();
