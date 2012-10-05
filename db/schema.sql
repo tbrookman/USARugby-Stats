@@ -83,7 +83,7 @@ CREATE TABLE `games` (
   `home_id` int(7) NOT NULL,
   `away_id` int(7) NOT NULL,
   `kickoff` datetime NOT NULL,
-  `field_num` int(2) NOT NULL,
+  `field_num` char(36) DEFAULT '',
   `home_score` int(3) NOT NULL,
   `away_score` int(3) NOT NULL,
   `ref_id` int(6) NOT NULL,
@@ -110,6 +110,16 @@ CREATE TABLE `players` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `resources` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL DEFAULT '',
+  `title` varchar(120) DEFAULT NULL,
+  `location` longblob,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `teams` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `hidden` int(1) NOT NULL,
@@ -117,6 +127,7 @@ CREATE TABLE `teams` (
   `uuid` char(36) DEFAULT NULL,
   `name` varchar(60) NOT NULL,
   `short` varchar(30) NOT NULL,
+  `resources` longblob,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

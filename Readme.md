@@ -26,8 +26,7 @@ $config = array(
 
 Included under directory: "db" is the DDL used for the system; if there are updates to the structure this can be documented using the following command:
 
-`mysqldump -d --skip-add-drop-table --skip-add-locks --skip-disable-keys --skip-set-charset --skip-comments --compact -u<user> -p<pass> <dbname>`
-
+`mysqldump -d <db_name> --skip-add-drop-table --skip-add-locks --skip-disable-keys --skip-set-charset --skip-comments --compact -u<user> -p<pass> <dbname> > db/schema.sql`
 
 ### Composer
 
