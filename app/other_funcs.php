@@ -158,3 +158,27 @@ function getPositionList()
 
     return $positions;
 }
+
+function getResourceMapUrl($resource = NULL, $resource_id = NULL) {
+    if (empty($resource)) {
+        $db = new Source\DataSource;
+        $resource = $db->getResource($resource_id);
+    }
+    if (!$resource_loc = $resource['location']) {
+        return FALSE;
+    }
+    $loc_url = 'http://maps.google.com/?q=';
+    $usable_loc_fiels = array('street', 'city', 'state', 'zip', 'country');
+    $count = 1;
+    $max_count = count($usable_loc_fiels);
+    foreach ($usable_loc_fiels as $loc_field) {
+        if (!empty($resource_loc[$loc_field])) {
+            $loc_url .= $resource_loc[$loc_field];
+        }
+        if ($count < $max_count && !empty($resource_loc[$loc_field])) {
+            $loc_url .= '+';
+        }
+        $count ++;
+    }
+    return $loc_url;
+}
