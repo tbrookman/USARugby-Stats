@@ -1,5 +1,4 @@
 $(document).ready(function() {
-  //if (window.location.hash)
   $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
   $('input.text-input').css({backgroundColor:"#FFFFFF"});
   $('input.text-input').focus(function(){
