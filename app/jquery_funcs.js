@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  //if (window.location.hash)
   $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
   $('input.text-input').css({backgroundColor:"#FFFFFF"});
   $('input.text-input').focus(function(){
@@ -12,7 +13,6 @@ $(document).ready(function() {
   var initDateTime = function() {
     $('.date_select').datepicker({
       format: 'yyyy-mm-dd',
-      //startDate: new Date(),
       autoclose: true
     });
 
@@ -22,6 +22,9 @@ $(document).ready(function() {
     });
 
     $(".chzn-select").chosen({allow_single_deselect: true});
+    $('.addgame-home, .addgame-away').chosen().change(function() {
+      resourceSync.initSync();
+    });
   };
 
   initDateTime();
@@ -104,6 +107,7 @@ $(document).ready(function() {
       });
     }
   });
+
 
   //adding a score event for a game
   $("#addscore").live('submit', function() {
@@ -263,6 +267,112 @@ $(document).ready(function() {
     return false;
     });
 
+    var resourceSync = {
+      getTeams: function() {
+        var home_team_id = $('.addgame-home').val();
+        var away_team_id = $('.addgame-away').val();
+        var teams = {};
+        if (home_team_id != '') {
+          teams.home = home_team_id;
+        }
+        if (away_team_id != '') {
+          teams.away = away_team_id;
+        }
+        return teams;
+      },
+
+      buildResourcesByTeam: function(resources, team_id) {
+        var resourcesByTeam = $('#addgamediv').data('resourcesByTeam') || {};
+        if (!$.isArray(resources)) {
+          var resourcesToStore = new Array(resources);
+        }
+        else {
+          var resourcesToStore = resources;
+        }
+        resourcesByTeam[team_id] = resourcesToStore;
+        $('#addgamediv').data('resourcesByTeam', resourcesByTeam);
+
+        return resourcesByTeam;
+      },
+
+      buildTeamsByResource: function(resources, team_id) {
+        var teamsByResource = $('#addgamediv').data('teamsByResource') || {};
+        for (r in resources) {
+          var resource = resources[r];
+          if ($.isEmptyObject(teamsByResource[resource.uuid])) {
+            teamsByResource[resource.uuid] = {
+              uuid: resource.uuid,
+              title: resource.title,
+            }
+          }
+        }
+        $('#addgamediv').data('teamsByResource', teamsByResource);
+
+        return teamsByResource;
+      },
+
+      buildAvailableResources: function(teams) {
+    // Update Field Lists.
+          var availableResources = {};
+          for (t in teams) {
+            var search_team = teams[t];
+            var resourcesByTeam = $('#addgamediv').data('resourcesByTeam') || {};
+            if (!$.isEmptyObject(resourcesByTeam[search_team])) {
+              for (av_resource in resourcesByTeam[search_team]) {
+                resourceForATeam = resourcesByTeam[search_team][av_resource];
+                availableResources[resourceForATeam.uuid] = {};
+                availableResources[resourceForATeam.uuid].uuid = resourceForATeam.uuid;
+                availableResources[resourceForATeam.uuid].title = resourceForATeam.title;
+                availableResources[resourceForATeam.uuid].teamOwner = search_team;
+              }
+            }
+
+          }
+          return availableResources;
+      },
+
+      showAvailableResources: function(availableResources) {
+        $('#addgamediv #field').children('option[value!=""]').remove().end();
+              for (av_resource in availableResources) {
+                var resourceData = availableResources[av_resource];
+                var newOption = $('<option value="' + resourceData.uuid + '">' + resourceData.title + '</option>').data('teamOwner', resourceData.teamOwner);
+                $('#addgamediv #field').append(newOption);
+              }
+
+
+              $('#addgamediv #field').removeAttr('disabled').trigger("liszt:updated");
+      },
+
+      initSync: function() {
+        var syncClass = this;
+        var base_url = $('#addgamediv #active-domain').val() + '/api/v1/rest/groups/';
+        $('#addgamediv #field').attr('disabled', 'disabled').trigger("liszt:updated");
+        // Get home first.
+        var teams = this.getTeams();
+        var url = base_url + teams.home + '/resources.jsonp';
+        $.getJSON(url + "?callback=?", null, function(resources) {
+          // Just sync.
+          syncClass.buildResourcesByTeam(resources, teams.home);
+          syncClass.buildTeamsByResource(resources, teams.home);
+
+          var url = base_url + teams.away + '/resources.jsonp';
+          $.getJSON(url + "?callback=?", null, function(resources) {
+            syncClass.buildResourcesByTeam(resources, teams.away);
+            syncClass.buildTeamsByResource(resources, teams.away);
+
+            //Finally build available resources after the last call completes.
+            var latestTeams = syncClass.getTeams();
+            if (latestTeams.home == teams.home && latestTeams.away == teams.away) {
+              // If the teams have changed during our requests, let the next set take care of it.
+              var availableResources = syncClass.buildAvailableResources(latestTeams);
+              syncClass.showAvailableResources(availableResources);
+            }
+          });
+        });
+      }
+
+    }
+
 
     //adding a game
     $("#addgame").live('submit', function() {
@@ -272,26 +382,31 @@ $(document).ready(function() {
         if (!formData || formData.validated == false) {
           return false;
         }
+
         formData.koh = formData.ko_time.getHours();
         formData.kom = formData.ko_time.getMinutes();
         formData.grefresh = $("#grefresh").val();
         formData.comp_id = $("#comp_id").val();
 
+        var resourcesByTeam = $('#addgamediv').data('resourcesByTeam');
+        var teamsByResource = $('#addgamediv').data('teamsByResource');
+        var selectedResource = {uuid: $('#addgamediv #field').val(), teamOwner: $('#addgamediv #field option:selected').data('teamOwner')};
         $.post('/add_game_process.php', {
-          field: formData.field,
           gnum: formData.gnum,
           kdate: formData.kdate,
           koh: formData.koh,
           kom: formData.kom,
           home: formData.home,
           away: formData.away,
-          comp_id: formData.comp_id
+          comp_id: formData.comp_id,
+          resources_by_team: resourcesByTeam,
+          teams_by_resource: teamsByResource,
+          selected_resource: selectedResource,
         }, function(){
             reloadData('#games', formData.grefresh);
         });
         return false;
     });
-
 
 
     //adding a team to a comp
