@@ -2,16 +2,19 @@
 include_once './include_mini.php';
 use Source\APSource;
 
-$field = $_POST['field'];
-$game_num = $_POST['gnum'];
-$kod = $_POST['kdate'];
-$koh = $_POST['koh'];
-$kom = $_POST['kom'];
-$home = $_POST['home'];
-$away = $_POST['away'];
-$comp_id = $_POST['comp_id'];
+$game_num = $request->get('gnum');
+$kod = $request->get('kdate');
+$koh = $request->get('koh');
+$kom = $request->get('kom');
+$home = $request->get('home');
+$away = $request->get('away');
+$comp_id = $request->get('comp_id');
+$resources_by_team = $request->get('resources_by_team');
+$teams_by_resource = $request->get('teams_by_resource');
+$selected_resource = $request->get('selected_resource');
 
 $client = APSource::factory();
+
 $home_team = $db->getTeam($home);
 $away_team = $db->getTeam($away);
 $userTimezone = new DateTimeZone((isset($config['timezone']) ? $config['timezone'] : 'America/Chicago'));
@@ -27,10 +30,10 @@ $game_info = array(
     'user_create' => $_SESSION['user'],
     'comp_id' => $comp_id,
     'comp_game_id' => $game_num,
-    'home_id' => $home,
-    'away_id' => $away,
+    'home_id' => $home_team['id'],
+    'away_id' => $away_team['id'],
     'kickoff' => $kfull,
-    'field_num' => $field,
+    'field_num' => $selected_resource['uuid'],
     'home_score' => '0',
     'away_score' => '0',
     'ref_id' => '0',
@@ -45,7 +48,7 @@ $game_id = mysql_insert_id();
 
 $event = array(
     'groups' => array(
-        0 => $home_team['uuid']
+        0 => $selected_resource['teamOwner'],
     ),
     'title' => $away_team['name'] . ' @ ' . $home_team['name'],
     'description' => $away_team['name'] . ' @ ' . $home_team['name'],
@@ -65,10 +68,38 @@ $event = array(
     ),
     'category' => 'game',
     'external_id' => 'STATS_APP_GAME_' . $game_id,
+    'resources' => array($selected_resource['uuid']),
 );
 $event = $client->createEvent($event);
 
 $db->updateGame($game_id, array('uuid' => $event->uuid));
+
+// Add Resources From Synced Data.
+// Safety check.
+$event_resource = reset($event->resource_ids);
+if ($event_resource->uuid == $selected_resource['uuid']) {
+    $location = (array) $event_resource->location;
+    $teams_by_resource[$event_resource->uuid]['location'] = $location;
+}
+
+foreach ($teams_by_resource as $res_uuid => $resource_data) {
+    if ($existing_resource = $db->getResource($resource_data['uuid'])) {
+        $db->updateResource($existing_resource['id'], $resource_data);
+    }
+    else {
+        $db->addResource($resource_data);
+    }
+}
+
+foreach ($resources_by_team as $team_uuid => $synced_team_resources) {
+    $team = $db->getTeam($team_uuid);
+    $team_resources = $team['resources'];
+    foreach ($synced_team_resources as $resource) {
+        $team_resources[] = $resource['uuid'];
+    }
+    $team['resources'] = array_unique($team_resources);
+    $db->updateTeam($team['id'], $team);
+}
 
 $now = date('Y-m-d H:i:s');
 $numbers = '-1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30-';
