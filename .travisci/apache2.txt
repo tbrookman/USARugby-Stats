@@ -1,0 +1,10 @@
+<Directory PATH>
+  AllowOverride All
+  Options None
+  Order allow,deny
+  Allow from all
+</Directory>
+<VirtualHost *:80>
+  DocumentRoot PATH
+  ServerName 127.0.0.1
+</VirtualHost>

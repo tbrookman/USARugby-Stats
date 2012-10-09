@@ -77,7 +77,12 @@ There are several parameters you can pass in the [GET] request to `/game.php` in
 *  `https://usarugbystats.pdup.allplayers.com/game.php?id=123&iframe=TRUE&ops[0]=game_info&ops[1]=game_rosters&ops[2]=game_sub_events`
 
 
-### Mink/Behat Testing
+### Testing
+
+[![Build Status](https://secure.travis-ci.org/AllPlayers/USARugby-Stats.png)](http://travis-ci.org/AllPlayers/USARugby-Stats)
+
+
+#### Mink/Behat Testing
 
 In order to start using the testing framework, you first have to install mink/behat from composer dev so run:
 ```
