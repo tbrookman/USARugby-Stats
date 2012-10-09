@@ -26,7 +26,14 @@ $config = array(
 
 Included under directory: "db" is the DDL used for the system; if there are updates to the structure this can be documented using the following command:
 
+
 `mysqldump -d <db_name> --skip-add-drop-table --skip-add-locks --skip-disable-keys --skip-set-charset --skip-comments --compact -u<user> -p<pass> <dbname> > db/schema.sql`
+
+
+### Javascript and CSS.
+In order to add in the proper javascript, in your commandline in the top level directory run `make`.  
+If you choose to update the hash on any of the files, be sure to run make to update them.
+
 
 ### Composer
 
@@ -76,7 +83,12 @@ There are several parameters you can pass in the [GET] request to `/game.php` in
 *  `https://usarugbystats.pdup.allplayers.com/game.php?id=123&iframe=TRUE&ops[0]=game_info&ops[1]=game_rosters&ops[2]=game_sub_events`
 
 
-### Mink/Behat Testing
+### Testing
+
+[![Build Status](https://secure.travis-ci.org/AllPlayers/USARugby-Stats.png)](http://travis-ci.org/AllPlayers/USARugby-Stats)
+
+
+#### Mink/Behat Testing
 
 In order to start using the testing framework, you first have to install mink/behat from composer dev so run:
 ```
