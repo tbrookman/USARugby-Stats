@@ -33,7 +33,7 @@ $game_info = array(
     'home_id' => $home_team['id'],
     'away_id' => $away_team['id'],
     'kickoff' => $kfull,
-    'field_num' => $selected_resource['uuid'],
+    'field_num' => empty($selected_resource['uuid']) ? NULL : $selected_resource['uuid'],
     'home_score' => '0',
     'away_score' => '0',
     'ref_id' => '0',
@@ -47,9 +47,6 @@ $game = $db->addGame($game_info);
 $game_id = mysql_insert_id();
 
 $event = array(
-    'groups' => array(
-        0 => $selected_resource['teamOwner'],
-    ),
     'title' => $away_team['name'] . ' @ ' . $home_team['name'],
     'description' => $away_team['name'] . ' @ ' . $home_team['name'],
     'date_time' => array(
@@ -68,8 +65,14 @@ $event = array(
     ),
     'category' => 'game',
     'external_id' => 'STATS_APP_GAME_' . $game_id,
-    'resources' => array($selected_resource['uuid']),
 );
+if (!empty($selected_resource)) {
+    $event['groups'] = array($selected_resource['teamOwner']);
+    $event['resources'] = array($selected_resource['uuid']);
+}
+else {
+    $event['groups'] = array($home_team['uuid']);
+}
 $event = $client->createEvent($event);
 
 $db->updateGame($game_id, array('uuid' => $event->uuid));

@@ -383,7 +383,15 @@ $(document).ready(function() {
 
         var resourcesByTeam = $('#addgamediv').data('resourcesByTeam');
         var teamsByResource = $('#addgamediv').data('teamsByResource');
-        var selectedResource = {uuid: $('#addgamediv #field').val(), teamOwner: $('#addgamediv #field option:selected').data('teamOwner')};
+        if ($('#addgamediv #field').val() != '' && $('#addgamediv #field').val() != null) {
+          var selectedResource = {
+            uuid: $('#addgamediv #field').val(),
+            teamOwner: $('#addgamediv #field option:selected').data('teamOwner')
+          };
+        }
+        else {
+          var selected_resource = {};
+        }
         $.post('/add_game_process.php', {
           gnum: formData.gnum,
           kdate: formData.kdate,
