@@ -95,12 +95,14 @@ function compName($id, $link = TRUE)
  */
 function playerName($id)
 {
-    $query = "SELECT id,firstname,lastname FROM `players` WHERE id = $id";
+    $query = "SELECT id,firstname,lastname,picture_url FROM `players` WHERE id = $id";
     $result = mysql_query($query);
     $output = '';
     while ($row=mysql_fetch_assoc($result)) {
-
-        $output = "{$row['firstname']} {$row['lastname']}";
+        $picture_url = getFullImageUrl($row['picture_url']);
+        $output .= "<div class='row'>";
+        $output = "<img src='$picture_url' class='img-polaroid player-picture player-picture-mini'/>{$row['firstname']} {$row['lastname']}";
+        $output .= "</div>";
     }
 
     return $output;

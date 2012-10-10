@@ -17,3 +17,8 @@ div#maincontent {
 .team-games .alert-no-games, .game .alert-no-game{
     text-align: center;
 }
+
+.player-picture-mini {
+    margin-right:10px;
+    width:40px;
+}
