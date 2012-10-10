@@ -105,6 +105,7 @@ CREATE TABLE `players` (
   `team_uuid` char(36) DEFAULT NULL,
   `firstname` varchar(25) NOT NULL,
   `lastname` varchar(35) NOT NULL,
+  `picture_url` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -128,6 +129,7 @@ CREATE TABLE `teams` (
   `name` varchar(60) NOT NULL,
   `short` varchar(30) NOT NULL,
   `resources` longblob,
+  `logo_url` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
