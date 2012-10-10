@@ -21,6 +21,7 @@ $config = array(
   'auth_domain'     => 'https://www.allplayers.com', // Optional
   'admin_group_uuid' => 'ffc1b780-cc4c-11e1-9e39-12313d2a2278',
   'verify_peer' => TRUE // FALSE if you're connecting to sandbox where HTTPS is invalid.
+  'cdn' => 'https://d2xe74i6zxd0fz.cloudfront.net'
 );
 ```
 

@@ -100,8 +100,9 @@ function playerName($id)
     $output = '';
     while ($row=mysql_fetch_assoc($result)) {
         $picture_url = getFullImageUrl($row['picture_url']);
+        $full_name = $row['firstname'] . ' ' .$row['lastname'];
         $output .= "<div class='row'>";
-        $output = "<img src='$picture_url' class='img-polaroid player-picture player-picture-mini'/>{$row['firstname']} {$row['lastname']}";
+        $output = "<img src='$picture_url' class='img-polaroid player-picture player-picture-mini' alt='$full_name' onerror='imgError(this);'/>$full_name";
         $output .= "</div>";
     }
 

@@ -8,7 +8,7 @@ $team_logo = getFullImageUrl($team['logo_url']);
 ?>
 <div class="row">
     <div class="span1">
-        <?php echo "<img src='$team_logo' alt='{$team['name']}'/>"; ?>
+        <?php echo "<img src='$team_logo' alt='{$team['name']}' class='img-polaroid group-logo' onerror='imgError(this);'/>"; ?>
     </div>
     <div class="span11">
         <?php echo "<h1>{$team['name']}</h1>"; ?>
