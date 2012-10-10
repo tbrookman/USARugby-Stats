@@ -79,30 +79,37 @@ $db->updateGame($game_id, array('uuid' => $event->uuid));
 
 // Add Resources From Synced Data.
 // Safety check.
-$event_resource = reset($event->resource_ids);
-if ($event_resource->uuid == $selected_resource['uuid']) {
-    $location = (array) $event_resource->location;
-    $teams_by_resource[$event_resource->uuid]['location'] = $location;
-}
-
-foreach ($teams_by_resource as $res_uuid => $resource_data) {
-    if ($existing_resource = $db->getResource($resource_data['uuid'])) {
-        $db->updateResource($existing_resource['id'], $resource_data);
-    }
-    else {
-        $db->addResource($resource_data);
+if (!empty($event->resource_ids)) {
+    $event_resource = reset($event->resource_ids);
+    if ($event_resource->uuid == $selected_resource['uuid']) {
+      $location = (array) $event_resource->location;
+      $teams_by_resource[$event_resource->uuid]['location'] = $location;
     }
 }
 
-foreach ($resources_by_team as $team_uuid => $synced_team_resources) {
-    $team = $db->getTeam($team_uuid);
-    $team_resources = $team['resources'];
-    foreach ($synced_team_resources as $resource) {
-        $team_resources[] = $resource['uuid'];
+if (!empty($teams_by_resource)) {
+    foreach ($teams_by_resource as $res_uuid => $resource_data) {
+        if ($existing_resource = $db->getResource($resource_data['uuid'])) {
+            $db->updateResource($existing_resource['id'], $resource_data);
+        }
+        else {
+            $db->addResource($resource_data);
+        }
     }
-    $team['resources'] = array_unique($team_resources);
-    $db->updateTeam($team['id'], $team);
 }
+
+if (!empty($resource_by_team)) {
+    foreach ($resources_by_team as $team_uuid => $synced_team_resources) {
+        $team = $db->getTeam($team_uuid);
+        $team_resources = $team['resources'];
+        foreach ($synced_team_resources as $resource) {
+            $team_resources[] = $resource['uuid'];
+        }
+        $team['resources'] = array_unique($team_resources);
+        $db->updateTeam($team['id'], $team);
+    }
+}
+
 
 $now = date('Y-m-d H:i:s');
 $numbers = '-1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30-';
@@ -113,7 +120,7 @@ $roster_data = array(
     'last_edit' => $now,
     'comp_id' => $comp_id,
     'game_id' => $game_id,
-    'team_id' => $home,
+    'team_id' => $home_team['id'],
     'player_ids' => '',
     'numbers' => $numbers,
     'frontrows' => $frontrows,
@@ -124,6 +131,6 @@ $roster_data = array(
 $db->addRoster($roster_data);
 
 // Add away.
-$roster_data['team_id'] = $away;
+$roster_data['team_id'] = $away_team['id'];
 $db->addRoster($roster_data);
 
