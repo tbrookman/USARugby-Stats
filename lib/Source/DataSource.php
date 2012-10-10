@@ -105,7 +105,7 @@ class DataSource {
     }
 
     public function addTeam($team_info) {
-        $columns = array('id', 'hidden', 'user_create', 'uuid', 'name', 'short', 'resources');
+        $columns = array('id', 'hidden', 'user_create', 'uuid', 'name', 'short', 'resources', 'logo_url');
         $values = '';
         $count = 1;
         $max_count = count($columns);
@@ -324,7 +324,23 @@ class DataSource {
     }
 
     public function addPlayer($player_info) {
-        $query = "INSERT INTO `players` VALUES ('', '" . implode("', '", $player_info) . "')";
+        $columns = $this->showColumns('players');
+        $values = '';
+        $count = 1;
+        $max_count = count($columns);
+        foreach ($columns as $col_key => $col) {
+            if (array_key_exists($col, $player_info)) {
+                $values .= is_null($player_info[$col]) ? 'NULL' : "'" . $player_info[$col] . "'";
+                if ($count < $max_count) {
+                  $values .= ',';
+                }
+            }
+            else {
+                unset($columns[$col_key]);
+            }
+            $count++;
+        }
+        $query = "INSERT INTO `players` (" . implode(',', $columns) . ") VALUES ($values)";
         $result = mysql_query($query);
         return $result;
     }
@@ -424,6 +440,16 @@ class DataSource {
      */
     public static function uuidIsValid($uuid) {
         return (boolean) preg_match('/^[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$/', $uuid);
+    }
+
+    public function showColumns($table_name) {
+        $columns = array();
+        $query = "SHOW COLUMNS FROM $table_name";
+        $result = mysql_query($query);
+        while ($row = mysql_fetch_assoc($result)) {
+          $columns[] = $row['Field'];
+        }
+        return $columns;
     }
 
 }

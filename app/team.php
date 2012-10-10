@@ -1,13 +1,20 @@
 <?php
 include_once './include.php';
 
-$team_id = $_GET['id'];
+$team_id = $request->get('id');
 
-$query = "SELECT name FROM `teams` WHERE id = $team_id";
-$result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)) {
-    echo "<h1>{$row['name']}</h1>";
-}
+$team = $db->getTeam($team_id);
+$team_logo = getFullImageUrl($team['logo_url']);
+?>
+<div class="row">
+    <div class="span1">
+        <?php echo "<img src='$team_logo' alt='{$team['name']}'/>"; ?>
+    </div>
+    <div class="span11">
+        <?php echo "<h1>{$team['name']}</h1>"; ?>
+    </div>
+</div>
+<?php
 
 echo "<h2>Event Rosters</h2>";
 //Get the rosters for this team

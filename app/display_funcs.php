@@ -23,6 +23,12 @@ function teamName($id, $link = TRUE)
     return (isset($output) && $output) ? $output : '';
 }
 
+function getFullImageUrl($partial_image_url) {
+    include './config.php';
+    $image_url = $config['cdn'] . $partial_image_url;
+    return $image_url;
+}
+
 /**
  *
  *
