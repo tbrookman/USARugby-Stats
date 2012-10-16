@@ -2,6 +2,10 @@ a.brand {
   padding: 0px !important;
 }
 
+div#hero-clipboard {
+  overflow: hidden;
+}
+
 div#maincontent {
     margin-left: 30px;
 }
