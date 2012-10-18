@@ -21,13 +21,14 @@ $config = array(
   'auth_domain'     => 'https://www.allplayers.com', // Optional
   'admin_group_uuid' => 'ffc1b780-cc4c-11e1-9e39-12313d2a2278',
   'verify_peer' => TRUE // FALSE if you're connecting to sandbox where HTTPS is invalid.
+  'cdn' => 'https://d2xe74i6zxd0fz.cloudfront.net'
 );
 ```
 
 Included under directory: "db" is the DDL used for the system; if there are updates to the structure this can be documented using the following command:
 
 
-`mysqldump -d <db_name> --skip-add-drop-table --skip-add-locks --skip-disable-keys --skip-set-charset --skip-comments --compact -u<user> -p<pass> <dbname> > db/schema.sql`
+`mysqldump -d <db_name> --skip-add-drop-table --skip-add-locks --skip-disable-keys --skip-set-charset --skip-comments --compact -u<user> -p<pass> > db/schema.sql`
 
 
 ### Javascript and CSS.

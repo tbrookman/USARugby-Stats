@@ -1,3 +1,17 @@
+// Helper Function for bad images.
+ function imgError(image) {
+    image.onerror = "";
+    console.log(image);
+    if ($(image).hasClass('group-logo')) {
+      image.src = "assets/group-icon.png";
+    }
+    else {
+      image.src = "/assets/default_profile.png";
+    }
+
+    return true;
+  }
+
 $(document).ready(function() {
   $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
   $('input.text-input').css({backgroundColor:"#FFFFFF"});
@@ -25,6 +39,7 @@ $(document).ready(function() {
       resourceSync.initSync();
     });
   };
+
 
   initDateTime();
   var getFormData = function(formElementName, errorElementName) {

@@ -23,6 +23,12 @@ function teamName($id, $link = TRUE)
     return (isset($output) && $output) ? $output : '';
 }
 
+function getFullImageUrl($partial_image_url) {
+    include './config.php';
+    $image_url = $config['cdn'] . $partial_image_url;
+    return $image_url;
+}
+
 /**
  *
  *
@@ -89,12 +95,15 @@ function compName($id, $link = TRUE)
  */
 function playerName($id)
 {
-    $query = "SELECT id,firstname,lastname FROM `players` WHERE id = $id";
+    $query = "SELECT id,firstname,lastname,picture_url FROM `players` WHERE id = $id";
     $result = mysql_query($query);
     $output = '';
     while ($row=mysql_fetch_assoc($result)) {
-
-        $output = "{$row['firstname']} {$row['lastname']}";
+        $picture_url = getFullImageUrl($row['picture_url']);
+        $full_name = $row['firstname'] . ' ' .$row['lastname'];
+        $output .= "<div class='row'>";
+        $output = "<img src='$picture_url' class='img-polaroid player-picture player-picture-mini' alt='$full_name' onerror='imgError(this);'/>$full_name";
+        $output .= "</div>";
     }
 
     return $output;
