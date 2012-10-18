@@ -12,7 +12,16 @@ echo "Game Number: ".$game['comp_game_id']."<br/>";
 echo teamName($game['away_id'], empty($iframe))." @ ".teamName($game['home_id'], empty($iframe))."<br/>";
 echo date('F j, Y', strtotime($game['kickoff']))."<br/>";
 echo "Kickoff: ".date('g:i', strtotime($game['kickoff']))."<br/>";
-echo "Field: ".$game['field_num']."<br/>";
+if (!empty($game['field_num'])) {
+    $resource = $db->getResource($game['field_num']);
+    $loc_url = getResourceMapUrl($resource);
+    if (!empty($loc_url)) {
+        echo "Field: ". $resource['title'] . " (<a href='$loc_url' target='_blank'>Map</a>)<br/>";
+    }
+    else {
+        echo "Field: ". $resource['title'] . "<br/>";
+    }
+}
 
 
 if (editCheck() && empty($iframe)) {

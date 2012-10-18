@@ -18,4 +18,13 @@ ALTER TABLE games CHANGE user_create user_create varchar(64) NOT NULL;
 ALTER TABLE players CHANGE user_create user_create varchar(64) NOT NULL;
 ALTER TABLE teams CHANGE user_create user_create varchar(64) NOT NULL;
 ALTER TABLE game_rosters ADD positions TEXT  NULL  AFTER frontrows;
+ALTER TABLE `teams` ADD `resources` LONGBLOB  NULL  AFTER `short`;
+ALTER TABLE `games` CHANGE `field_num` `field_num` CHAR(36)  NULL  DEFAULT '';
+CREATE TABLE `resources` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL DEFAULT '',
+  `title` varchar(120) DEFAULT NULL,
+  `location` longblob,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

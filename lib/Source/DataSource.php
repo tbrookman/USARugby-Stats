@@ -98,11 +98,49 @@ class DataSource {
         $query = "SELECT * from `teams` WHERE id=$search_id" . $params;
         $result = mysql_query($query);
         $team = mysql_fetch_assoc($result);
+        if (!empty($team['resources'])) {
+            $team['resources'] = unserialize($team['resources']);
+        }
         return $team;
     }
 
     public function addTeam($team_info) {
-        $query = "INSERT INTO `teams` VALUES ('', '" . implode("', '", $team_info) . "')";
+        $columns = array('id', 'hidden', 'user_create', 'uuid', 'name', 'short', 'resources');
+        $values = '';
+        $count = 1;
+        $max_count = count($columns);
+        if (!empty($team_info['resources']) && is_array($team_info['resources'])) {
+            $team_info['resources'] = serialize($team_info['resources']);
+        }
+        foreach ($columns as $col) {
+            $values .= is_null($team_info[$col]) ? 'NULL' : "'" . $team_info[$col] . "'";
+            if ($count < $max_count) {
+                $values .= ',';
+            }
+            $count++;
+        }
+        $query = "INSERT INTO `teams` (" . implode(',', $columns) . ") VALUES ($values)";
+        $result = mysql_query($query);
+        return $result;
+    }
+
+    public function updateTeam($team_id, $team_info) {
+        $original_team = $this->getTeam($team_id);
+        $query = "UPDATE `teams` SET ";
+        $count = 1;
+        $max_count = count($original_team);
+        $updated_team = array_merge($original_team, $team_info);
+        if (!empty($updated_team['resources']) && is_array($updated_team['resources'])) {
+            $updated_team['resources'] = serialize($updated_team['resources']);
+        }
+        foreach ($updated_team as $col => $new_value) {
+          $query .= $col . "='" . $new_value . "'";
+          if ($count < $max_count) {
+            $query .= ",";
+          }
+          $count++;
+        }
+        $query .= " WHERE id='{$original_team['id']}'";
         $result = mysql_query($query);
         return $result;
     }
@@ -142,7 +180,7 @@ class DataSource {
      * @return string $uuid.
      */
     public function getUUIDBySerialID($table_name, $serial_id) {
-        $query = "SELECT id FROM `$table_name` WHERE id='$serial_id'";
+        $query = "SELECT uuid FROM `$table_name` WHERE id='$serial_id'";
         $result = mysql_query($query);
         $uuid = mysql_fetch_assoc($result);
         return empty($uuid['uuid']) ? FALSE : $uuid['uuid'];
@@ -324,6 +362,59 @@ class DataSource {
             $players[$row['uuid']] = $row;
         }
         return isset($players) ? $players : FALSE;
+    }
+
+    public function addResource($resource_data) {
+        $columns = array('id', 'uuid', 'title', 'location');
+        $values = '';
+        $count = 1;
+        $max_count = count($columns);
+        if (!empty($resource_data['location']) && is_array($resource_data['location'])) {
+            $resource_data['location'] = serialize($resource_data['location']);
+        }
+        foreach ($columns as $col) {
+            $values .= is_null($resource_data[$col]) ? 'NULL' : "'" . $resource_data[$col] . "'";
+            if ($count < $max_count) {
+                $values .= ',';
+            }
+            $count++;
+        }
+        $query = "INSERT INTO `resources` (" . implode(',', $columns) . ") VALUES ($values)";
+        $result = mysql_query($query);
+        return $result;
+    }
+
+    public function getResource($id) {
+        $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('resources', $id) : $id;
+        $query = "SELECT * FROM `resources` WHERE id=$search_id";
+        $result = mysql_query($query);
+        $resource = empty($result) ? $result : mysql_fetch_assoc($result);
+        if (!empty($resource['location'])) {
+            $resource['location'] = unserialize($resource['location']);
+        }
+        return $resource;
+    }
+
+    public function updateResource($id, $new_resource_data) {
+        $original_resource = $this->getResource($id);
+        $query = "UPDATE `resources` SET ";
+        $count = 1;
+        $max_count = count($original_resource);
+        $updated_resource = array_merge($original_resource, $new_resource_data);
+        if (!empty($updated_resource['location']) && is_array($updated_resource['location'])) {
+            $updated_resource['location'] = serialize($updated_resource['location']);
+        }
+        foreach ($updated_resource as $col => $new_value) {
+          $insert_value = is_null($new_value) ? 'NULL' : "'$new_value'";
+          $query .= $col . "=" . $insert_value;
+          if ($count < $max_count) {
+            $query .= ",";
+          }
+          $count++;
+        }
+        $query .= " WHERE id='{$original_resource['id']}'";
+        $result = mysql_query($query);
+        return $result;
     }
 
     /**

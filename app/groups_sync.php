@@ -18,7 +18,7 @@ if (editCheck(1)) {
 	                'user_create' => $_SESSION['user'],
 	                'uuid' => $team['uuid'],
 	                'name' => $team['title'],
-	                'short' => $team['title']
+	                'short' => $team['title'],
 	            );
 	            $db->addTeam($team_info);
 	            $existing_teams = $db->getAllTeams();
