@@ -64,6 +64,13 @@
             }
           });
         });
+
+        // Append iframe to document to see if we can auto-login.
+        $(document.createElement('iframe'))
+         .attr('id','ConnectWithOAuthFrame')
+         .attr('src', window.location.href + 'login')
+         .attr('height','0').attr('width','0')
+         .appendTo('.container-fluid').hide();
       });
     </script>
   </body>

@@ -33,6 +33,14 @@ include_once './other_funcs.php';
   <script src='jquery_funcs.js'></script>
   <script>
     if (window.name=="ConnectWithOAuth") {window.close();}
+    if (window.name=="ConnectWithOAuthFrame") {
+      try {
+        result = window.parent.location.href !== undefined;
+        window.parent.location = '/';
+      } catch (e) {
+        // noop
+      }
+    }
   </script>
 </head>
 <body>
