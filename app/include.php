@@ -29,7 +29,7 @@ include_once './other_funcs.php';
   <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
   <script src="/assets/js/vendor/bootstrap-datepicker.js" type="text/javascript"></script>
   <script src="/assets/js/vendor/chosen.jquery.min.js" type="text/javascript"></script>
-  <script src='/assets/js/jquery.timeentry.pack.js' type='text/javascript'></script>
+  <script src='/assets/js/vendor/jquery.timeentry.pack.js' type='text/javascript'></script>
   <script src='jquery_funcs.js'></script>
 
 </head>
