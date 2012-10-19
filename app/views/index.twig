@@ -51,5 +51,20 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/assets/js/vendor/jquery.oauthpopup.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('a#login-allplayers').click(function(event){
+          event.preventDefault();
+          $.oauthpopup({
+            path: '/login',
+            windowOptions: 'location=0,status=0,width=590,height=370,scrollbars=yes',
+            callback: function(){
+              window.location = '/';
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>
