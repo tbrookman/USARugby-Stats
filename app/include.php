@@ -31,7 +31,9 @@ include_once './other_funcs.php';
   <script src="/assets/js/vendor/chosen.jquery.min.js" type="text/javascript"></script>
   <script src='/assets/js/vendor/jquery.timeentry.pack.js' type='text/javascript'></script>
   <script src='jquery_funcs.js'></script>
-
+  <script>
+    if (window.name=="ConnectWithOAuth") {window.close();}
+  </script>
 </head>
 <body>
 

@@ -21,7 +21,7 @@ Feature: Login with AllPlayers
       And I select "Male" from "field_user_gender[value]"
       And I solve captcha and fill in "captcha_response"
       And I press "edit-submit"
-    Then I should see "Permissions"
+    Then I should see "Access content available to your user"
     When I check "edit-levels-*"
       And I press "edit-confirm"
     Then I should see "Welcome to USA"
