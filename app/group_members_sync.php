@@ -53,8 +53,8 @@ function sync_group_members($group_uuid, $client, $db) {
         $member = (array) $member;
         if (!$existing_players || !key_exists($member['uuid'], $existing_players)) {
             $now = date('Y-m-d H:i:s');
-            if (!empty($member['picture'])) {
-                $picture_url = substr($member['picture'], strpos($member['picture'], '/sites/default/'));
+            if (!empty($member->picture)) {
+                $picture_url = substr($member->picture, strpos($member->picture, '/sites/default/'));
             }
             else {
                 $picture_url = '/sites/default/files/imagecache/profile_mini/sites/all/themes/allplayers960/images/default_profile.png';
@@ -64,8 +64,8 @@ function sync_group_members($group_uuid, $client, $db) {
                 'last_update' => $now,
                 'uuid' => $member['uuid'],
                 'team_uuid' => $group_uuid,
-                'firstname' => $member['fname'],
-                'lastname' => $member['lname'],
+                'firstname' => $member->fname,
+                'lastname' => $member->lname,
                 'picture_url' => $picture_url,
             );
             $db->addPlayer($player_info);
