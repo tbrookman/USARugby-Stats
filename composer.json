@@ -1,8 +1,10 @@
 {
     "require": {
+        "allplayers/allplayers": "dev-guzzle-allplayers",
+        "doctrine/migrations": "*",
         "silex/silex": "1.0.*",
-        "twig/twig": ">=1.8,<2.0-dev",
-        "allplayers/allplayers": "dev-guzzle-allplayers"
+        "symfony/console": "2.1.*",
+        "twig/twig": ">=1.8,<2.0-dev"
     },
     "require-dev": {
         "behat/behat":           "2.4@stable",

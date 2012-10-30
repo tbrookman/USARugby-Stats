@@ -30,6 +30,15 @@ Included under directory: "db" is the DDL used for the system; if there are upda
 
 `mysqldump -d <db_name> --skip-add-drop-table --skip-add-locks --skip-disable-keys --skip-set-charset --skip-comments --compact -u<user> -p<pass> > db/schema.sql`
 
+#### Migrations/Updates
+
+Information about current updates and status of the database schema can be managed with the doctrine cli:
+
+`bin/doctrine migrations:status`
+
+Updating to the latest version:
+
+`bin/doctrine migrations:migrate`
 
 ### Javascript and CSS.
 In order to add in the proper javascript, in your commandline in the top level directory run `make`.  
