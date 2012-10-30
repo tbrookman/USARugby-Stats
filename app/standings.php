@@ -63,7 +63,7 @@ foreach ($teams as $uuid => $team) {
     $totals->setAttribute('ties', $record['away_ties']);
 }
 
-$xml_string = $doc->saveXML();
+$doc->saveXML();
 $xslDoc = new DOMDocument();
 $xslDoc->load("views/sportsml2html.xsl");
 $proc = new XSLTProcessor();

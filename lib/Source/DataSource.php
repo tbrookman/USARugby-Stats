@@ -193,6 +193,14 @@ class DataSource {
                         $record['points']+=1;
                     }
                 }
+
+                // Calculate Bonus Points.
+                $tries_query = "SELECT COUNT(*) FROM game_events g, event_types t WHERE  t.id = g.type AND g.game_id = {$team_game['id']} AND t.name = 'Try' AND g.team_id = $team_id";
+                $tries_result = mysql_fetch_row(mysql_query($tries_query));
+                $record['tries'] = (int) $tries_result[0];
+                if ($record['tries'] >= 4) {
+                    $record['points']+=1;
+                }
             }
         }
 
