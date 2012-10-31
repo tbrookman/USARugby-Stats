@@ -2,6 +2,17 @@
 include_once './include_mini.php';
 use Source\APSource;
 $comp_id = $request->get('comp_id');
+if (empty($comp_id)) {
+    $team_uuid = $request->get('team_uuid');
+    $team = $db->getTeam($team_uuid);
+    $query = "SELECT * FROM `comps`";
+    $result = mysql_query($query);
+    while ($row = mysql_fetch_assoc($result)) {
+        if (in_array((string) $team['id'], explode(',', $row['top_groups']))) {
+            $comp_id = $row['id'];
+        }
+    }
+}
 
 $doc = new DomDocument('1.0');
 

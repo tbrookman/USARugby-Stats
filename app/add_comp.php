@@ -20,6 +20,25 @@ include_once './header.php';
         <option value='2'>7s</option>
     </select>
 
+    <label for="top_groups" id="top_groups_label" class="control-label">League or Division</label>
+    <select data-placeholder='League or Division' name='top_groups[]' id='top_groups' class="input-medium chzn-select" multiple="multiple">
+        <option value=''></option>
+        <?php
+        //give a list of every team to choose from
+        $query = "SELECT team_id FROM ct_pairs WHERE comp_id=$comp_id";
+        $result = mysql_query($query);
+        while ($row = mysql_fetch_assoc($result)) {
+            $andsort = $andsort . "AND id != '{$row['team_id']}' ";
+        }
+
+        $query = "SELECT * FROM `teams` WHERE 1 $andsort";
+        $result = mysql_query($query);
+        while ($row = mysql_fetch_assoc($result)) {
+            echo "<option value='{$row['id']}'>{$row['name']}</option>";
+        }
+        ?>
+    </select>
+
     <label id="date_time" class="control-label">Date And Time</label>
     <input id='start_date' name='start_date' type='text' size='10' class="date_select required input-small" placeholder="Start Date">
     <input id='end_date' name='end_date' type='text' size='10' class="date_select required input-small" placeholder="End Date">
