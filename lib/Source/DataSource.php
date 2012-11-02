@@ -158,8 +158,18 @@ class DataSource {
     }
 
     public function getTeamRecordInCompetition($team_id, $comp_id) {
-        $record = array('home_wins' => 0, 'home_losses' => 0, 'home_ties' => 0, 'away_wins' => 0,
-            'away_losses' => 0, 'away_ties' => 0, 'total_games' => 0, 'points' => 0, 'favor' => 0, 'against' => 0);
+        $record = array(
+            'home_wins' => 0,
+            'home_losses' => 0,
+            'home_ties' => 0,
+            'away_wins' => 0,
+            'away_losses' => 0,
+            'away_ties' => 0,
+            'total_games' => 0,
+            'points' => 0,
+            'favor' => 0,
+            'against' => 0
+            );
         $query = "SELECT * FROM `games` WHERE home_id = $team_id OR away_id = $team_id AND comp_id = $comp_id";
         $result = mysql_query($query);
         if (!empty($result)) {
@@ -282,6 +292,33 @@ class DataSource {
         $result = mysql_query($query);
         $competition = mysql_fetch_assoc($result);
         return $competition;
+    }
+
+    public function getAllCompetitions($params = '') {
+        $query = "SELECT * from `comps`" . $params;
+        $result = mysql_query($query);
+        while ($row = mysql_fetch_assoc($result)) {
+            $comps[$row['id']] = $row;
+        }
+        return isset($comps) ? $comps : FALSE;
+    }
+
+    // Add a competition.
+    public function addCompetition($comp_info) {
+        $columns = array('id', 'user_create', 'name', 'start_date', 'end_date', 'type', 'max_event', 'max_game', 'hidden', 'top_groups');
+        $values = '';
+        $count = 1;
+        $max_count = count($columns);
+        foreach ($columns as $col) {
+            $values .= is_null($comp_info[$col]) ? 'NULL' : "'" . $comp_info[$col] . "'";
+            if ($count < $max_count) {
+                $values .= ',';
+            }
+            $count++;
+        }
+        $query = "INSERT INTO `comps` (" . implode(',', $columns) . ") VALUES ($values)";
+        $result = mysql_query($query);
+        return $result;
     }
 
     public function getCompetitionTeams($comp_id) {

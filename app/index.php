@@ -225,17 +225,17 @@ $app->get('/auth', function() use ($app) {
 /**
  *  Return html representation of standings based on comp or group.
  */
-$app->get('/standings.php', function() use ($app) {
+$app->get('/standings', function() use ($app) {
     include_once './db.php';
     $comp_id = $app['request']->get('comp_id');
     if (empty($comp_id)) {
-        $team_uuid = $app['request']->get('team_uuid');
+        // Team UUID is required in order to get the standings of that group (league or division).
+        $team_uuid = $app['request']->get('group_uuid');
         $team = $db->getTeam($team_uuid);
-        $query = "SELECT * FROM `comps`";
-        $result = mysql_query($query);
-        while ($row = mysql_fetch_assoc($result)) {
-            if (in_array((string) $team['id'], explode(',', $row['top_groups']))) {
-                $comp_id = $row['id'];
+        $comps = $db->getAllCompetitions();
+        foreach ($comps as $id => $comp) {
+            if (in_array((string) $team['id'], explode(',', $comp['top_groups']))) {
+                $comp_id = $id;
             }
         }
     }
@@ -257,13 +257,13 @@ $app->get('/standings.xml', function() use ($app) {
     header('Content-type: application/xml');
     $comp_id = $app['request']->get('comp_id');
     if (empty($comp_id)) {
-        $team_uuid = $app['request']->get('team_uuid');
+        // Team UUID is required in order to get the standings of that group (league or division).
+        $team_uuid = $app['request']->get('group_uuid');
         $team = $db->getTeam($team_uuid);
-        $query = "SELECT * FROM `comps`";
-        $result = mysql_query($query);
-        while ($row = mysql_fetch_assoc($result)) {
-            if (in_array((string) $team['id'], explode(',', $row['top_groups']))) {
-                $comp_id = $row['id'];
+        $comps = $db->getAllCompetitions();
+        foreach ($comps as $id => $comp) {
+            if (in_array((string) $team['id'], explode(',', $comp['top_groups']))) {
+                $comp_id = $id;
             }
         }
     }

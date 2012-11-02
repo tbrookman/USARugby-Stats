@@ -34,8 +34,7 @@ $(document).ready(function() {
       spinnerBigImage: ''
     });
 
-    $(".chzn-select").chosen({allow_single_deselect: true});
-    $(".chzn-select").chosen({no_results_text: "No results matched"});
+    $(".chzn-select").chosen({allow_single_deselect: true, no_results_test: "No results matched"});
     $('.addgame-home, .addgame-away').chosen().change(function() {
       resourceSync.initSync();
     });

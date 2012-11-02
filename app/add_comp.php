@@ -24,17 +24,10 @@ include_once './header.php';
     <select data-placeholder='League or Division' name='top_groups[]' id='top_groups' class="input-medium chzn-select" multiple="multiple">
         <option value=''></option>
         <?php
-        //give a list of every team to choose from
-        $query = "SELECT team_id FROM ct_pairs WHERE comp_id=$comp_id";
-        $result = mysql_query($query);
-        while ($row = mysql_fetch_assoc($result)) {
-            $andsort = $andsort . "AND id != '{$row['team_id']}' ";
-        }
-
-        $query = "SELECT * FROM `teams` WHERE 1 $andsort";
-        $result = mysql_query($query);
-        while ($row = mysql_fetch_assoc($result)) {
-            echo "<option value='{$row['id']}'>{$row['name']}</option>";
+        // Give a list of every team to choose from.
+        $teams = $db->getAllTeams();
+        foreach ($teams as $uuid => $team) {
+            echo "<option value='{$team['id']}'>{$team['name']}</option>";
         }
         ?>
     </select>
