@@ -10,6 +10,7 @@ CREATE TABLE `comps` (
   `max_event` int(2) NOT NULL,
   `max_game` int(2) NOT NULL,
   `hidden` int(1) NOT NULL,
+  `top_groups` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

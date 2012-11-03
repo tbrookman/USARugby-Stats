@@ -157,6 +157,74 @@ class DataSource {
         return empty($team_games) ? FALSE : $team_games;
     }
 
+    public function getTeamRecordInCompetition($team_id, $comp_id) {
+        $record = array(
+            'home_wins' => 0,
+            'home_losses' => 0,
+            'home_ties' => 0,
+            'away_wins' => 0,
+            'away_losses' => 0,
+            'away_ties' => 0,
+            'total_games' => 0,
+            'points' => 0,
+            'favor' => 0,
+            'against' => 0
+            );
+        $query = "SELECT * FROM `games` WHERE home_id = $team_id OR away_id = $team_id AND comp_id = $comp_id";
+        $result = mysql_query($query);
+        if (!empty($result)) {
+            while($team_game = mysql_fetch_assoc($result)) {
+                $record['total_games']++;
+                // Home games record.
+                if ($team_game['home_id'] == $team_id) {
+                    $record['favor']+= $team_game['home_score'];
+                    $record['against']+= $team_game['away_score'];
+                    if ($team_game['home_score'] > $team_game['away_score']) {
+                        $record['home_wins']++;
+                        $record['points']+= 4;
+                    } elseif ($team_game['home_score'] < $team_game['away_score']) {
+                        $record['home_losses']++;
+                    } elseif ($team_game['home_score'] == $team_game['away_score']) {
+                        $record['home_ties']++;
+                        $record['points']+=1;
+                    }
+                }
+                // Away record.
+                else if ($team_game['away_id'] == $team_id) {
+                    $record['favor']+= $team_game['away_score'];
+                    $record['against']+= $team_game['home_score'];
+                    if ($team_game['away_score'] > $team_game['home_score']) {
+                        $record['away_wins']++;
+                        $record['points']+= 4;
+                    } elseif ($team_game['away_score'] < $team_game['home_score']) {
+                        $record['away_losses']++;
+                    } elseif ($team_game['away_score'] == $team_game['home_score']) {
+                        $record['away_ties']++;
+                        $record['points']+=1;
+                    }
+                }
+
+                // Calculate Bonus Points.
+                $tries_query = "SELECT COUNT(*) FROM game_events g, event_types t WHERE  t.id = g.type AND g.game_id = {$team_game['id']} AND t.name = 'Try' AND g.team_id = $team_id";
+                $tries_result = mysql_fetch_row(mysql_query($tries_query));
+                $record['tries'] = (int) $tries_result[0];
+                if ($record['tries'] >= 4) {
+                    $record['points']+=1;
+                }
+            }
+        }
+
+        $record['total_wins'] = $record['home_wins'] + $record['away_wins'];
+        $record['total_losses'] = $record['home_losses'] + $record['away_losses'];
+        $record['total_ties'] = $record['home_ties'] + $record['away_ties'];
+
+        // Calculating winning percentage.
+        $record['percent'] = ($record['total_games'] > 0) ? ($record['total_wins'] / $record['total_games']) : 0;
+        $record['percent'] = number_format($record['percent'], 3);
+
+        return $record;
+    }
+
     /**
      * Retrieve a serial id by uuid.
      * @param string $table_name
@@ -224,6 +292,42 @@ class DataSource {
         $result = mysql_query($query);
         $competition = mysql_fetch_assoc($result);
         return $competition;
+    }
+
+    public function getAllCompetitions($params = '') {
+        $query = "SELECT * from `comps`" . $params;
+        $result = mysql_query($query);
+        while ($row = mysql_fetch_assoc($result)) {
+            $comps[$row['id']] = $row;
+        }
+        return isset($comps) ? $comps : FALSE;
+    }
+
+    // Add a competition.
+    public function addCompetition($comp_info) {
+        $columns = array('id', 'user_create', 'name', 'start_date', 'end_date', 'type', 'max_event', 'max_game', 'hidden', 'top_groups');
+        $values = '';
+        $count = 1;
+        $max_count = count($columns);
+        foreach ($columns as $col) {
+            $values .= is_null($comp_info[$col]) ? 'NULL' : "'" . $comp_info[$col] . "'";
+            if ($count < $max_count) {
+                $values .= ',';
+            }
+            $count++;
+        }
+        $query = "INSERT INTO `comps` (" . implode(',', $columns) . ") VALUES ($values)";
+        $result = mysql_query($query);
+        return $result;
+    }
+
+    public function getCompetitionTeams($comp_id) {
+        $query = "SELECT t.* FROM teams t, ct_pairs c WHERE c.team_id = t.id AND c.comp_id = $comp_id";
+        $result = mysql_query($query);
+        while ($row = mysql_fetch_assoc($result)) {
+            $teams[$row['uuid']] = $row;
+        }
+        return $teams;
     }
 
     public function getGameScoreEvents($id) {

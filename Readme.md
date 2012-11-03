@@ -84,6 +84,18 @@ There are several parameters you can pass in the [GET] request to `/game.php` in
 *  `https://usarugbystats.pdup.allplayers.com/game.php?id=123&iframe=TRUE&ops[0]=game_info&ops[1]=game_rosters&ops[2]=game_sub_events`
 
 
+### Standings
+
+Additionally, you can also request standings for a league or division, in order to do that you have to specify a
+group to display standings in when you are creating the competition.
+
+
+###### Examples
+*  `https://usarugbystats.pdup.allplayers.com/standings?iframe=TRUE&group_uuid=a74fedb0-d1ba-11e1-9e39-12313d2a2278`
+    * Get the html representation of standings based on sportsml generated and interpreted with our xsl sheet.
+*  `https://usarugbystats.pdup.allplayers.com/standings.xml?iframe=TRUE&group_uuid=a74fedb0-d1ba-11e1-9e39-12313d2a2278`
+    * Get the xml file with all the standings data formatted in sportsml.
+
 ### Testing
 
 [![Build Status](https://secure.travis-ci.org/AllPlayers/USARugby-Stats.png)](http://travis-ci.org/AllPlayers/USARugby-Stats)
