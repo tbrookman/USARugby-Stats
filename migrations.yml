@@ -1,0 +1,4 @@
+name: Rugby Stats default migrations
+migrations_namespace: RugbyStatsMigrations
+table_name: rugbystats_migration_versions
+migrations_directory: db/migrations
