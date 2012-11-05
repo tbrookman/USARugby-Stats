@@ -4,6 +4,7 @@
         "doctrine/migrations": "*",
         "silex/silex": "1.0.*",
         "symfony/console": "2.1.*",
+        "symfony/yaml": "2.1.*",
         "twig/twig": ">=1.8,<2.0-dev"
     },
     "require-dev": {
