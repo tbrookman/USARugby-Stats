@@ -1,10 +1,10 @@
 <?php
 include_once './include_mini.php';
 
-$name = mysql_real_escape_string($request('name'));
-$type = mysql_real_escape_string($request('type'));
-$max_event = mysql_real_escape_string($request('max_event'));
-$max_match = mysql_real_escape_string($request('max_match'));
+$name = mysql_real_escape_string($request->get('name'));
+$type = mysql_real_escape_string($request->get('type'));
+$max_event = mysql_real_escape_string($request->get('max_event'));
+$max_match = mysql_real_escape_string($request->get('max_match'));
 $start_date = mysql_real_escape_string($request->get('start_date'));
 $end_date = mysql_real_escape_string($request->get('end_date'));
 $top_groups = implode(',', $request->get('top_groups'));

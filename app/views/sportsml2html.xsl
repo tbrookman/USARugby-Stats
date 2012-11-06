@@ -24,7 +24,7 @@
 	<html>
 		<head>
 			<title><xsl:value-of select="sports-metadata/sports-title"/></title>
-			<link rel="stylesheet" type="text/css" href="sportsml.css"/>
+			<link rel="stylesheet" type="text/css" href="assets/css/vendor/sportsml.css" />
 		</head>
 		<body>
 		
@@ -178,7 +178,7 @@
 
 	<table class="smalltable" valign="top" cellpadding="4">  <!--start a table-->
 	<tr class="blueline">
-		<td colspan="11"><b><xsl:value-of select="standing-metadata/sports-content-codes/sports-content-code[1]/@code-name"/></b></td>
+		<td colspan="9"><b><xsl:value-of select="standing-metadata/sports-content-codes/sports-content-code[1]/@code-name"/></b></td>
 		<xsl:for-each select="team[1]/team-stats/outcome-totals">
 			<xsl:choose>
 			<xsl:when test="(@duration-scope = 'events-most-recent-10')">
@@ -207,8 +207,6 @@
 		<td>L</td>
 		<td>T</td>
 		<td>Pts.</td>
-		<td>Streak</td>
-		<td>GB</td>
 		<xsl:if test="team[1]/team-stats/@events-played"><td>Games</td></xsl:if>
 		<td><span title="points scored for">PF</span></td>
 		<td><span title="points scored against">PA</span></td>
@@ -287,14 +285,6 @@
 		<td>
 			<xsl:value-of select="$oneteam/team-stats/@standing-points"/>
 		</td>
-      <td>
-		<xsl:if test="$oneteam/team-stats/@streak">
-			<xsl:value-of select="$oneteam/team-stats/@streak"/>
-		</xsl:if></td>
-      <td>
-		<xsl:if test="$oneteam/team-stats/@games-back">
-			<xsl:value-of select="$oneteam/team-stats/@games-back"/>
-		</xsl:if></td>
       <td>
 		<xsl:if test="$oneteam/team-stats/@events-played">
 			<xsl:value-of select="$oneteam/team-stats/@events-played"/>
