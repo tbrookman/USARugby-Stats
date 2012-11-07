@@ -2,7 +2,8 @@
 # Create the list of files
 css = https://raw.github.com/eternicode/bootstrap-datepicker/99b6f8d3608c948a0c05c8e2e5ec3c4e2c1f96b2/css/datepicker.css\
       https://raw.github.com/harvesthq/chosen/3640fa177816aee932aaeb402a28c063c11f52da/chosen/chosen.css\
-      https://raw.github.com/harvesthq/chosen/3640fa177816aee932aaeb402a28c063c11f52da/chosen/chosen-sprite.png
+      https://raw.github.com/harvesthq/chosen/3640fa177816aee932aaeb402a28c063c11f52da/chosen/chosen-sprite.png\
+      http://www.sportsdb.org/modules/sm/assets/downloads/sportsml.css
 
 js = https://raw.github.com/eternicode/bootstrap-datepicker/99b6f8d3608c948a0c05c8e2e5ec3c4e2c1f96b2/js/bootstrap-datepicker.js\
      https://raw.github.com/kbwood/timeentry/3e1881d041f5ce0f8f338ea45ff4fe8e6e7f1a2d/jquery.timeentry.pack.js\
