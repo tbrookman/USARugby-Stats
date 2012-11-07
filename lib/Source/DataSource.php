@@ -177,16 +177,19 @@ class DataSource {
                 $record['total_games']++;
                 // Home games record.
                 if ($team_game['home_id'] == $team_id) {
-                    $record['favor']+= $team_game['home_score'];
+                    $record['favor'] += $team_game['home_score'];
                     $record['against']+= $team_game['away_score'];
                     if ($team_game['home_score'] > $team_game['away_score']) {
                         $record['home_wins']++;
-                        $record['points']+= 4;
+                        $record['points'] += 4;
                     } elseif ($team_game['home_score'] < $team_game['away_score']) {
                         $record['home_losses']++;
+                        if ($team_game['home_score'] + 7 >= $team_game['away_score']) {
+                            $record['points'] += 1;
+                        }
                     } elseif ($team_game['home_score'] == $team_game['away_score']) {
                         $record['home_ties']++;
-                        $record['points']+=1;
+                        $record['points'] +=2;
                     }
                 }
                 // Away record.
@@ -195,12 +198,15 @@ class DataSource {
                     $record['against']+= $team_game['home_score'];
                     if ($team_game['away_score'] > $team_game['home_score']) {
                         $record['away_wins']++;
-                        $record['points']+= 4;
+                        $record['points'] += 4;
                     } elseif ($team_game['away_score'] < $team_game['home_score']) {
                         $record['away_losses']++;
+                        if ($team_game['away_score'] + 7 >= $team_game['home_score']) {
+                            $record['points'] += 1;
+                        }
                     } elseif ($team_game['away_score'] == $team_game['home_score']) {
                         $record['away_ties']++;
-                        $record['points']+=1;
+                        $record['points'] += 2;
                     }
                 }
 
@@ -209,7 +215,7 @@ class DataSource {
                 $tries_result = mysql_fetch_row(mysql_query($tries_query));
                 $record['tries'] = (int) $tries_result[0];
                 if ($record['tries'] >= 4) {
-                    $record['points']+=1;
+                    $record['points'] +=1;
                 }
             }
         }

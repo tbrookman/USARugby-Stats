@@ -6,6 +6,14 @@
 *  Determine a good way to tell the user why they are not allowed to log in or why their login failed.
 *  Possibly Move libraries off github as CDN?
 
+
+## SportsML
+
+*  [Getting started guide](http://dev.iptc.org/SportML-Getting-started)
+*  [SportMLT](http://www.sportsdb.org/sm/sportsmlt)
+   *  [sportsml2html.xsl](https://www.iptc.org/std/SportsML/1.0/examples/sportsml2html.xsl) (Note: 1.0 - deprecated?)
+
+
 ## Deprecate
 
 *  login.php

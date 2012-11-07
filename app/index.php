@@ -227,6 +227,9 @@ $app->get('/auth', function() use ($app) {
  */
 $app->get('/standings', function() use ($app) {
     include_once './db.php';
+    if ($app['request']->get('iframe')) {
+        echo "<script src='https://www.allplayers.com/iframe.js?usar_stats' type='text/javascript'></script>";
+    }
     $comp_id = $app['request']->get('comp_id');
     if (empty($comp_id)) {
         // Team UUID is required in order to get the standings of that group (league or division).
@@ -281,11 +284,6 @@ function get_standings($comp_id, $db) {
     $root = $doc->appendChild($doc->createElement('sports-content'));
     $root->setAttribute('xmlns', "http://iptc.org/std/SportsML/2008-04-01/");
     $root->setAttribute('xmlns:xsi', "http://www.w3.org/2001/XMLSchema-instance");
-
-    $sports_metadata = $root->appendChild($doc->createElement('sports-metadata'));
-    $sports_title = $doc->createElement('sports-title');
-    $sports_title->appendChild($doc->createTextNode("USA Rugby Standings"));
-    $sports_metadata->appendChild($sports_title);
 
     $standing = $root->appendChild($doc->createElement('standing'));
     $teams = $db->getCompetitionTeams($comp_id);
