@@ -2,8 +2,7 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Guzzle\Http\Client;
-use Guzzle\Http\Plugin\OauthPlugin;
-use AllPlayers\AllPlayersClient;
+use Guzzle\Plugin\Oauth\OauthPlugin;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -96,9 +95,11 @@ $app->get('/login', function(Request $request) use ($app) {
         }
 
         $client = new Client($app['session']->get('domain') . '/oauth', array(
-                'curl.CURLOPT_SSL_VERIFYPEER' => isset($app['config']['verify_peer']) ? $app['config']['verify_peer'] : TRUE,
-                'curl.CURLOPT_CAINFO' => 'assets/mozilla.pem',
-                'curl.CURLOPT_FOLLOWLOCATION' => FALSE,
+                'curl.options' => array(
+                    CURLOPT_SSL_VERIFYPEER => isset($app['config']['verify_peer']) ? $app['config']['verify_peer'] : TRUE,
+                    CURLOPT_CAINFO => 'assets/mozilla.pem',
+                    CURLOPT_FOLLOWLOCATION => FALSE
+                )
             ));
 
         $oauth = new OauthPlugin(array(
@@ -142,9 +143,11 @@ $app->get('/auth', function() use ($app) {
             $app->abort(400, 'Invalid token');
         }
         $client = new Client($app['session']->get('domain') . '/oauth', array(
-                'curl.CURLOPT_SSL_VERIFYPEER' => isset($app['config']['verify_peer']) ? $app['config']['verify_peer'] : TRUE,
-                'curl.CURLOPT_CAINFO' => 'assets/mozilla.pem',
-                'curl.CURLOPT_FOLLOWLOCATION' => FALSE,
+                'curl.options' => array(
+                    CURLOPT_SSL_VERIFYPEER => isset($app['config']['verify_peer']) ? $app['config']['verify_peer'] : TRUE,
+                    CURLOPT_CAINFO => 'assets/mozilla.pem',
+                    CURLOPT_FOLLOWLOCATION => FALSE
+                )
             ));
 
         $oauth = new OauthPlugin(array(
@@ -171,19 +174,14 @@ $app->get('/auth', function() use ($app) {
         include_once './include_micro.php';
         //Look for any users with our login and md5'ed password
         if (!empty($token) && !empty($secret)) {
-            $client = AllPlayersClient::factory(array(
-                'auth' => 'oauth',
-                'oauth' => array(
-                    'consumer_key' => $app['session']->get('consumer_key'),
-                    'consumer_secret' => $app['session']->get('consumer_secret'),
-                    'token' => $token,
-                    'token_secret' => $secret
-                ),
-                'host' => parse_url($app['session']->get('domain'), PHP_URL_HOST),
-                'curl.CURLOPT_SSL_VERIFYPEER' => isset($app['config']['verify_peer']) ? $app['config']['verify_peer'] : TRUE,
-                'curl.CURLOPT_CAINFO' => 'assets/mozilla.pem',
-                'curl.CURLOPT_FOLLOWLOCATION' => FALSE
+            $oauth = new OauthPlugin(array(
+                'consumer_key' => $app['session']->get('consumer_key'),
+                'consumer_secret' => $app['session']->get('consumer_secret'),
+                'token' => $token,
+                'token_secret' => $secret,
             ));
+            $client->addSubscriber($oauth);
+            $client->setBaseUrl($app['session']->get('domain') . '/api/v1/rest');
 
             $response = $client->get('users/current.json')->send();
             // Note: getLocation returns full URL info, but seems to work as a request in Guzzle

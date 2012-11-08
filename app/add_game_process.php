@@ -13,8 +13,7 @@ $resources_by_team = $request->get('resources_by_team');
 $teams_by_resource = $request->get('teams_by_resource');
 $selected_resource = $request->get('selected_resource');
 
-$client = APSource::factory();
-
+$client = APSource::SourceFactory();
 $home_team = $db->getTeam($home);
 $away_team = $db->getTeam($away);
 $userTimezone = new DateTimeZone((isset($config['timezone']) ? $config['timezone'] : 'America/Chicago'));

@@ -1,6 +1,6 @@
 {
     "require": {
-        "allplayers/allplayers": "dev-guzzle-allplayers",
+        "allplayers/allplayers": "dev-master",
         "doctrine/migrations": "*",
         "silex/silex": "1.0.*",
         "symfony/console": "2.1.*",

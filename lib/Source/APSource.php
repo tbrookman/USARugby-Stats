@@ -2,43 +2,36 @@
 
 namespace Source;
 
-use AllPlayers\AllPlayersClient;
+use AllPlayers\Component\ClientFactory;
+use AllPlayers\Client;
+use Guzzle\Plugin\Log\LogPlugin;
 use Guzzle\Service\Inspector;
-use Guzzle\Http\Plugin\OauthPlugin;
 use Guzzle\Service\Resource\ResourceIteratorClassFactory;
 
-class APSource extends AllPlayersClient {
-
-    public static function factory($config = array()) {
+class APSource extends Client {
+    public static function SourceFactory($base_url = 'https://www.pdup.allplayers.com', LogPlugin $log_plugin = null) {
         $attributes = $_SESSION['_sf2_attributes'];
-        $default = array(
-            'oauth' => array(
-                'consumer_key' => $attributes['consumer_key'],
-                'consumer_secret' => $attributes['consumer_secret'],
-                'token' => $attributes['auth_token'],
-                'token_secret' => $attributes['auth_secret']
-            ),
-            'base_url' => 'https://{host}/api/v1/rest',
-            'host' => parse_url($attributes['domain'], PHP_URL_HOST),
-            'curl.CURLOPT_SSL_VERIFYPEER' => FALSE, // @todo TRUE
-            'curl.CURLOPT_CAINFO' => 'assets/mozilla.pem',
-            'curl.CURLOPT_FOLLOWLOCATION' => FALSE,
-            'command.prefix' => 'AllPlayers\\Command\\',
+        $base_url = (isset($attributes['auth_domain'])) ? $attributes['auth_domain'] : $base_url;
+        $oauth_config = array(
+            'consumer_key' => $attributes['consumer_key'],
+            'consumer_secret' => $attributes['consumer_secret'],
+            'token' => $attributes['auth_token'],
+            'token_secret' => $attributes['auth_secret']
         );
-        $required = array('base_url');
-        $config = Inspector::prepareConfig($config, $default, $required);
-        $auth = new OauthPlugin($config->get('oauth'));
-        $client = new self($config->get('base_url'), $auth);
-        $client->setDefaultHeaders(array('Accept' => 'application/json'));
-        $client->resourceIteratorFactory = new ResourceIteratorClassFactory('AllPlayers\\Model');
-        $client->setConfig($config);
+        $client = new self($base_url, $log_plugin);
+        ClientFactory::OauthFactory($base_url, $oauth_config, $client, $log_plugin);
+
         return $client;
     }
 
     public function getGroupMembers($group_uuid) {
-        $command = $this->getCommand('GetGroupMembers', array('uuid' => $group_uuid));
-        $command->setLimit(0);
-        $members = $command->execute();
+        $offset = 0;
+        $members = array();
+        do {
+            $response = $this->groupsGetMembers($group_uuid, NULL, $offset, 10);
+            $offset+=1;
+            $members = array_merge($members, (array) $response);
+        } while (sizeof($response) == 10);
         return $members;
     }
 
@@ -56,15 +49,14 @@ class APSource extends AllPlayersClient {
     }
 
     public function createEvent($event_info) {
-        $command = $this->getCommand('create_event', $event_info);
-        $event = $command->execute();
+        $event = $this->eventsCreateEvent($event_info['groups'], $event_info['title'], $event_info['description'], $event_info['date_time'],
+                $event_info['category'], $event_info['resources'], $event_info['competitors'], $event_info['published'], $event_info['external_id']);
         return $event;
     }
 
     public function updateEvent($uuid, $event_info) {
-        $command_params = array_merge(array('uuid' => $uuid), $event_info);
-        $command = $this->getCommand('update_event', $command_params);
-        $event = $command->execute();
+        $event = $this->eventsUpdateEvent($uuid, $event_info['groups'], $event_info['title'], $event_info['description'], $event_info['date_time'],
+                $event_info['category'], $event_info['resources'], $event_info['competitors'], $event_info['published'], $event_info['external_id']);
         return $event;
     }
 
