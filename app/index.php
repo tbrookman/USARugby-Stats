@@ -111,8 +111,10 @@ $app->get('/login', function(Request $request) use ($app) {
 
         // if $request path !set then set to request_token
         $timestamp = time();
-        $params = $oauth->getParamsToSign($client->get('request_token'), $timestamp);
-        $params['oauth_signature'] = $oauth->getSignature($client->get('request_token'), $timestamp);
+        $req = $client->get('request_token');
+        $nonce = $oauth->generateNonce($req);
+        $params = $oauth->getParamsToSign($req, $timestamp, $nonce);
+        $params['oauth_signature'] = $oauth->getSignature($req, $timestamp, $nonce);
         $response = $client->get('request_token?' . http_build_query($params))->send();
 
         // Parse oauth tokens from response object
@@ -184,8 +186,6 @@ $app->get('/auth', function() use ($app) {
             $client->setBaseUrl($app['session']->get('domain') . '/api/v1/rest');
 
             $response = $client->get('users/current.json')->send();
-            // Note: getLocation returns full URL info, but seems to work as a request in Guzzle
-            $response = $client->get($response->getLocation())->send();
             $user = json_decode($response->getBody(TRUE));
 
             $app['session']->set('user_uuid', $user->uuid);
