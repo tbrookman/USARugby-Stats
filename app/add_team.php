@@ -15,11 +15,11 @@ if (editCheck(1)) {
       </div>
       <div class="row-fluid">
 
-        <div id="team-wrapper" class="span2">
+        <div id="team-wrapper" class="span5">
           <div class="control-group">
             <label for="team" id="team_label" class="control-label">Team</label>
             <div class="controls">
-              <select data-placeholder='Team' name='team' id='team' class="required input-medium chzn-select">
+              <select data-placeholder='Team' name='team' id='team' class="required input-medium chzn-select-team" style="width: 100%;">
                   <option value=''></option>
                   <?php
                     //give a list of every team to choose from
@@ -39,7 +39,8 @@ if (editCheck(1)) {
             </div>
           </div>
         </div>
-
+      </div>
+      <div class="row-fluid">
         <div id="submit-wrapper" class="span1">
           <div class="control-group">
             <label for="submit" id="submit_label" class="control-label">&nbsp;</label>
