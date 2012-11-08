@@ -31,6 +31,7 @@ if (editCheck(1)) {
                 'name' => $team['title'],
                 'short' => $team['title'],
                 'logo_url' => $logo_url,
+                'description' => $team['description']
             );
             $db->addTeam($team_info);
             $added++;
