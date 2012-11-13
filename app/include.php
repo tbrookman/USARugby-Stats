@@ -39,6 +39,7 @@ include_once './other_funcs.php';
       $(".chzn-select-team").chosen({
         template: function (text, templateData) {
           return [
+            "<span style='float: right'>" + templateData.type.charAt(0).toUpperCase() + templateData.type.slice(1) + "</span>",
             "<div>" + text + "</div>",
             "<div><i>" + templateData.description + "</i></div>"
           ].join("");

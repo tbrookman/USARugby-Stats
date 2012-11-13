@@ -132,6 +132,7 @@ CREATE TABLE `teams` (
   `resources` longblob,
   `logo_url` varchar(1024) DEFAULT NULL,
   `description` varchar(1024) DEFAULT NULL,
+  `type` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
