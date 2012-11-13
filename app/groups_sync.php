@@ -10,13 +10,12 @@ if (editCheck(1)) {
     $teams = array();
     $offset = 0;
     do {
-        $response = $client->userGetMyGroups($attributes['user_uuid'], NULL, $offset, 10);
+        $response = $client->userGetMyGroups($attributes['user_uuid'], '*,group_type', $offset, 1000);
         $offset+= 1;
         $teams = array_merge($teams, (array)$response);
-    } while (sizeof($response) == 10);
+    } while (sizeof($response) == 1000);
     foreach ($teams as $team) {
         $team = (is_array($team)) ? $team : (array) $team;
-        $existing_teams = $db->getAllTeams();
         if (!key_exists($team['uuid'], $existing_teams)) {
             if (!empty($team['logo'])) {
                 $logo_url = substr($team['logo'], strpos($team['logo'], '/sites/default/'));
@@ -31,9 +30,12 @@ if (editCheck(1)) {
                 'name' => $team['title'],
                 'short' => $team['title'],
                 'logo_url' => $logo_url,
+                'description' => $team['description'],
+                'type' => $team['group_type'],
             );
             $db->addTeam($team_info);
             $added++;
+            $existing_teams[$team['uuid']] = $team_info;
         }
     }
 

@@ -15,11 +15,11 @@ if (editCheck(1)) {
       </div>
       <div class="row-fluid">
 
-        <div id="team-wrapper" class="span2">
+        <div id="team-wrapper" class="span5">
           <div class="control-group">
             <label for="team" id="team_label" class="control-label">Team</label>
             <div class="controls">
-              <select data-placeholder='Team' name='team' id='team' class="required input-medium chzn-select">
+              <select data-placeholder='Team' name='team' id='team' class="required input-medium chzn-select-team" style="width: 100%;">
                   <option value=''></option>
                   <?php
                     //give a list of every team to choose from
@@ -32,14 +32,15 @@ if (editCheck(1)) {
                     $query = "SELECT * FROM `teams` WHERE 1 $andsort";
                     $result = mysql_query($query);
                     while ($row=mysql_fetch_assoc($result)) {
-                        echo "<option value='{$row['id']}'>{$row['name']}</option>";
+                        echo "<option data-type='{$row['type']}' data-description='{$row['description']}' value='{$row['id']}'>{$row['name']}</option>";
                     }
                   ?>
               </select>
             </div>
           </div>
         </div>
-
+      </div>
+      <div class="row-fluid">
         <div id="submit-wrapper" class="span1">
           <div class="control-group">
             <label for="submit" id="submit_label" class="control-label">&nbsp;</label>

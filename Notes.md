@@ -5,6 +5,10 @@
 *  CDN-ify {bootstrap, jquery, ...} (assetic?).
 *  Determine a good way to tell the user why they are not allowed to log in or why their login failed.
 *  Possibly Move libraries off github as CDN?
+*  Chosen enhancements
+   *  Use AJAX callback for large search area
+   *  Search based on aggregate group above, description, name, categorization
+   *  Possibly replace with jquery UI functionality: https://github.com/ivaynberg/select2
 
 
 ## SportsML
