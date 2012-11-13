@@ -16,7 +16,6 @@ if (editCheck(1)) {
     } while (sizeof($response) == 1000);
     foreach ($teams as $team) {
         $team = (is_array($team)) ? $team : (array) $team;
-        $existing_teams = $db->getAllTeams();
         if (!key_exists($team['uuid'], $existing_teams)) {
             if (!empty($team['logo'])) {
                 $logo_url = substr($team['logo'], strpos($team['logo'], '/sites/default/'));
@@ -36,6 +35,7 @@ if (editCheck(1)) {
             );
             $db->addTeam($team_info);
             $added++;
+            $existing_teams[$team['uuid']] = $team_info;
         }
     }
 
