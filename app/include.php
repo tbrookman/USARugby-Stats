@@ -33,19 +33,6 @@ include_once './other_funcs.php';
   <script src='jquery_funcs.js'></script>
   <script>
     if (window.name=="ConnectWithOAuth") {window.close();}
-
-    // TODO: move this to app.js
-    $(document).ready(function() {
-      $(".chzn-select-team").chosen({
-        template: function (text, templateData) {
-          return [
-            "<span style='float: right'>" + templateData.type.charAt(0).toUpperCase() + templateData.type.slice(1) + "</span>",
-            "<div>" + text + "</div>",
-            "<div><i>" + templateData.description + "</i></div>"
-          ].join("");
-        }
-      });
-    });
   </script>
 </head>
 <body>
