@@ -4,17 +4,17 @@ include_once './include.php';
 use Source\APSource;
 if (editCheck(1)) {
   include './config.php';
-  $APSource = APSource::factory();
-  $members = $APSource->getGroupMembers($config['admin_group_uuid']);
+  $client = APSource::SourceFactory();
+  $members = $client->getGroupMembers($config['admin_group_uuid']);
   $added = 0;
   foreach ($members as $member) {
-    $user = $db->getUser($member['uuid']);
+    $user = $db->getUser($member->uuid);
     if (!$user) {
       $user_info = array(
         'login' => '',
         'team' => 0,
         'access' => 1,
-        'uuid' => $member['uuid'],
+        'uuid' => $member->uuid,
       );
 
       if ($db->addUser($user_info)) {
