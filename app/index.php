@@ -227,6 +227,7 @@ $app->get('/standings', function() use ($app) {
     include_once './db.php';
     if ($app['request']->get('iframe')) {
         echo "<script src='https://www.allplayers.com/iframe.js?usar_stats' type='text/javascript'></script>";
+        echo '<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css">';
     }
     $comp_id = $app['request']->get('comp_id');
     if (empty($comp_id)) {
@@ -237,7 +238,11 @@ $app->get('/standings', function() use ($app) {
         foreach ($comps as $id => $comp) {
             if (in_array((string) $team['id'], explode(',', $comp['top_groups']))) {
                 $comp_id = $id;
+                // @todo.
             }
+        }
+        if (empty($comp_id)) {
+            return '<div class="alert alert-no-game"><h4>No Standings Information Available For This Team</h4></div>';
         }
     }
     $doc = get_standings($comp_id, $db);
