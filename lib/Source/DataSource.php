@@ -168,7 +168,9 @@ class DataSource {
             'total_games' => 0,
             'points' => 0,
             'favor' => 0,
-            'against' => 0
+            'against' => 0,
+            'try_bonus_total' => 0,
+            'loss_bonus_total' => 0,
             );
         $query = "SELECT * FROM `games` WHERE home_id = $team_id OR away_id = $team_id AND comp_id = $comp_id";
         $result = mysql_query($query);
@@ -186,6 +188,7 @@ class DataSource {
                         $record['home_losses']++;
                         if ($team_game['home_score'] + 7 >= $team_game['away_score']) {
                             $record['points'] += 1;
+                            $record['loss_bonus_total'] ++;
                         }
                     } elseif ($team_game['home_score'] == $team_game['away_score']) {
                         $record['home_ties']++;
@@ -203,6 +206,7 @@ class DataSource {
                         $record['away_losses']++;
                         if ($team_game['away_score'] + 7 >= $team_game['home_score']) {
                             $record['points'] += 1;
+                            $record['loss_bonus_total'] ++;
                         }
                     } elseif ($team_game['away_score'] == $team_game['home_score']) {
                         $record['away_ties']++;
@@ -213,10 +217,15 @@ class DataSource {
                 // Calculate Bonus Points.
                 $tries_query = "SELECT COUNT(*) FROM game_events g, event_types t WHERE  t.id = g.type AND g.game_id = {$team_game['id']} AND t.name = 'Try' AND g.team_id = $team_id";
                 $tries_result = mysql_fetch_row(mysql_query($tries_query));
-                $record['tries'] = (int) $tries_result[0];
-                if ($record['tries'] >= 4) {
-                    $record['points'] +=1;
+                $tries_for_team_in_game = (int) $tries_result[0];
+                if ($tries_for_team_in_game >= 4) {
+                  $record['points'] +=1;
                 }
+                $try_bonus_for_game = 0;
+                if (!empty($tries_for_team_in_game) && $tries_for_team_in_game >= 4) {
+                    $try_bonus_for_game = (($tries_for_team_in_game - ($tries_for_team_in_game % 4)) / 4);
+                }
+                $record['try_bonus_total'] = empty($record['try_bonus_total']) ? $try_bonus_for_game : $record['try_bonus_total'] + $try_bonus_for_game;
             }
         }
 

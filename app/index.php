@@ -247,7 +247,7 @@ $app->get('/standings', function() use ($app) {
     $xslDoc->load("views/sportsml2html.xsl");
     $proc = new XSLTProcessor();
     $proc->importStylesheet($xslDoc);
-    echo $proc->transformToXML($doc);
+    return $proc->transformToXML($doc);
 });
 
 /**
@@ -271,14 +271,15 @@ $app->get('/standings.xml', function() use ($app) {
     $doc = get_standings($comp_id, $db);
 
     $doc->formatOutput = true;
-    echo $doc->saveXML();
+    return $doc->saveXML();
 });
 
 $app->run();
 
 function get_standings($comp_id, $db) {
     $doc = new DomDocument('1.0');
-
+    $comp_data = $db->getCompetition($comp_id);
+    $comp_type = $comp_data['type'] == 1 ? '15s' : '7s';
     $root = $doc->appendChild($doc->createElement('sports-content'));
     $root->setAttribute('xmlns', "http://iptc.org/std/SportsML/2008-04-01/");
     $root->setAttribute('xmlns:xsi', "http://www.w3.org/2001/XMLSchema-instance");
@@ -317,18 +318,10 @@ function get_standings($comp_id, $db) {
         $totals->setAttribute('winning-percentage', $record['percent']);
         $totals->setAttribute('points-scored-for', $record['favor']);
         $totals->setAttribute('points-scored-against', $record['against']);
-
-        $totals = $team_stats->appendChild($doc->createElement('outcome-totals'));
-        $totals->setAttribute('alignment-scope', 'events-home');
-        $totals->setAttribute('wins', $record['home_wins']);
-        $totals->setAttribute('losses', $record['home_losses']);
-        $totals->setAttribute('ties', $record['home_ties']);
-
-        $totals = $team_stats->appendChild($doc->createElement('outcome-totals'));
-        $totals->setAttribute('alignment-scope', 'events-away');
-        $totals->setAttribute('wins', $record['away_wins']);
-        $totals->setAttribute('losses', $record['away_losses']);
-        $totals->setAttribute('ties', $record['away_ties']);
+        if ($comp_type == '15s') {
+            $totals->setAttribute('try-bonus', $record['try_bonus_total']);
+            $totals->setAttribute('loss-bonus', $record['loss_bonus_total']);
+        }
     }
 
     return $doc;
