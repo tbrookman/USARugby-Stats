@@ -8,7 +8,7 @@ Feature: Login with AllPlayers
     When I follow "login-allplayers"
     Then I should see "Log in"
     When I follow "Create new account"
-    Then I should see "Create your AllPlayers.com account"
+    Then I should see "Create your account"
     When I fill in the following:
       |First Name:       |test      |
       |Last Name:        |from mink |
