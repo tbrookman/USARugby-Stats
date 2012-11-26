@@ -127,32 +127,60 @@ function tExists($id)
     }
 }
 
-function getPositionList()
+function getPositionList($op = 'selection')
 {
-    $counts = array(
-        'Lock' => 2,
-        'Wing' => 2,
-        'Reserve' => 8,
-    );
-
-    $positions = array(
-        'NIL' => '',
-        'LHP' => 'Loose-Head Prop',
-        'H' => 'Hooker',
-        'THP' => 'Tight-Head Prop',
-        'OSF' => 'Open Side Flanker',
-        'BSF' => 'Blind Side Flanker',
-        'N8' => 'Number 8',
-        'SH' => 'Scrum Half',
-        'FH' => 'Fly Half',
-        'IC' => 'Inside Center',
-        'OC' => 'Outside Center',
-        'FB' => 'Fullback',
-    );
-    foreach ($counts as $pos_name => $count) {
-        $pos_short = strtoupper(substr($pos_name, 0, 1));
-        for ($i = 1; $i <= $count; $i++) {
-            $positions[$pos_short . $i] = $pos_name . ' ' . $i;
+    if ($op == 'selection') {
+        $positions = array(
+            'NIL' => '',
+            'LHP' => 'Loose-Head Prop',
+            'H' => 'Hooker',
+            'THP' => 'Tight-Head Prop',
+            'L1' => 'Lock 1',
+            'L2' => 'Lock 2',
+            'OSF' => 'Open Side Flanker',
+            'BSF' => 'Blind Side Flanker',
+            'N8' => 'Number 8',
+            'SH' => 'Scrum Half',
+            'FH' => 'Fly Half',
+            'IC' => 'Inside Center',
+            'OC' => 'Outside Center',
+            'W1' => 'Wing 1',
+            'W2' => 'Wing 2',
+            'FB' => 'Fullback',
+        );
+        // Add 8 Reserves.
+        for ($i = 1; $i <= 8; $i++) {
+          $positions['R' . $i] = 'Reserve ' . $i;
+        }
+        $display_positions = getPositionList('display');
+        foreach ($positions as $pos_code => $pos_name) {
+            if (!empty($pos_name)) {
+                $positions[$pos_code] = $pos_name . ' (' . $display_positions[$pos_code] . ')';
+            }
+        }
+    }
+    else {
+        $positions = array(
+          'NIL' => '',
+          'LHP' => 'P',
+          'H' => 'H',
+          'THP' => 'P',
+          'L1' => 'L',
+          'L2' => 'L',
+          'OSF' => 'F',
+          'BSF' => 'F',
+          'N8' => 'N8',
+          'SH' => 'SH',
+          'FH' => 'FH',
+          'IC' => 'C',
+          'OC' => 'C',
+          'W1' => 'W',
+          'W2' => 'W',
+          'FB' => 'FB',
+        );
+        // Add 8 Reserves.
+        for ($i = 1; $i <= 8; $i++) {
+          $positions['R' . $i] = 'R';
         }
     }
 
