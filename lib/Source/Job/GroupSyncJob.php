@@ -8,17 +8,17 @@ use Source\APSource;
 
 class GroupSyncJob implements Job
 {
-    private $user;
+    private $sessionattributes;
 
-    public function __construct($user) {
-        $this->user = $user;
+    public function __construct($sessionattributes) {
+        $this->sessionattributes = $sessionattributes;
     }
 
     public function run()
     {
         $db = new DataSource();
         $existing_teams = $db->getAllTeams();
-        $attributes = $this->user;
+        $attributes = $this->sessionattributes;
         $user = $db->getUser($attributes['user_uuid']);
         $client = APSource::SourceFactory($attributes);
         $teams = array();
