@@ -1,6 +1,8 @@
 <?php
 
-namespace Source\Jobs;
+namespace Source\Job;
+use Source\DataSource;
+
 use Kue\Job;
 use Source\APSource;
 
@@ -14,7 +16,7 @@ class GroupSyncJob implements Job
 
     public function run()
     {
-        include_once './include.php';
+        $db = new DataSource();
         $existing_teams = $db->getAllTeams();
         $attributes = $this->user;
         $client = APSource::SourceFactory();
