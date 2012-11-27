@@ -1,10 +1,10 @@
 <?php
 
 namespace Source\Job;
-use Source\DataSource;
 
 use Kue\Job;
 use Source\APSource;
+use Source\DataSource;
 
 class GroupSyncJob implements Job
 {

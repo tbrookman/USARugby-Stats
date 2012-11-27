@@ -9,7 +9,7 @@ if (editCheck(1))
 {
     // Enqueue Group Sync operation.
     $qh = new QueueHelper();
-    $qh->GroupSync($_SESSION['_sf2_attributes']);
+    $qh->GroupSync();
 
     $_SESSION['alert_message'] = "Group Sync enqueued.";
 }
