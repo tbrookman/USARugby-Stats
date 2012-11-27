@@ -3,7 +3,7 @@ include_once './include.php';
 use Source\APSource;
 
 $teams = array();
-$client = APSource::SourceFactory();
+$client = APSource::SessionSourceFactory();
 
 $teams = $db->getAllTeams();
 ?>

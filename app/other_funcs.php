@@ -76,7 +76,7 @@ function updateScore($game_id)
     $query = "UPDATE `games` SET home_score='$homep', away_score='$awayp' WHERE id = '$game_id'";
     $result = mysql_query($query);
 
-    $client = APSource::SourceFactory();
+    $client = APSource::SessionSourceFactory();
     $db = new DataSource;
     $home_team = $db->getTeam($home_id);
     $away_team = $db->getTeam($away_id);

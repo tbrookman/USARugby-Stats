@@ -9,9 +9,13 @@ use Guzzle\Service\Inspector;
 use Guzzle\Service\Resource\ResourceIteratorClassFactory;
 
 class APSource extends Client {
-    public static function SourceFactory($base_url = 'https://www.pdup.allplayers.com', LogPlugin $log_plugin = null) {
+    public static function SessionSourceFactory($base_url = 'https://www.pdup.allplayers.com', LogPlugin $log_plugin = null) {
         $attributes = $_SESSION['_sf2_attributes'];
-        $base_url = (isset($attributes['auth_domain'])) ? $attributes['auth_domain'] : $base_url;
+        return APSource::SourceFactory($attributes, $base_url, $log_plugin);
+    }
+
+    public static function SourceFactory($attributes = null, $base_url = 'https://www.pdup.allplayers.com', LogPlugin $log_plugin = null) {
+        $base_url = (isset($attributes['domain'])) ? $attributes['domain'] : $base_url;
         $oauth_config = array(
             'consumer_key' => $attributes['consumer_key'],
             'consumer_secret' => $attributes['consumer_secret'],

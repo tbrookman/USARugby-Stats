@@ -19,7 +19,8 @@ class GroupSyncJob implements Job
         $db = new DataSource();
         $existing_teams = $db->getAllTeams();
         $attributes = $this->user;
-        $client = APSource::SourceFactory();
+        $user = $db->getUser($attributes['user_uuid']);
+        $client = APSource::SourceFactory($attributes);
         $teams = array();
         $offset = 0;
         do {
@@ -38,7 +39,7 @@ class GroupSyncJob implements Job
                 }
                 $team_info = array(
                     'hidden' => 0,
-                    'user_create' => $_SESSION['user'],
+                    'user_create' => $user['login'],
                     'uuid' => $team['uuid'],
                     'name' => $team['title'],
                     'short' => $team['title'],
