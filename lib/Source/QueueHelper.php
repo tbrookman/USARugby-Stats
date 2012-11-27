@@ -1,51 +1,30 @@
 <?php
 
 namespace Source;
+use Source\Jobs\GroupSyncJob;
 use Phive\Queue\InMemoryQueue;
 use Phive\Queue\Db\Pdo\MysqlQueue;
-use Kue\Job;
 
-class HelloJob implements Job
+class QueueHelper
 {
-    function run()
-    {
-        echo "Hello world\n";
-        sleep(10);
-        echo "Ready\n";
-    }
-}
+    private $queue;
 
-class QueueHelper {
-    public static function InMemoryness() {
-        $queue = new InMemoryQueue();
-
-        $queue->push(new HelloJob());
-
-        while ($payload = $queue->pop()) {
-            echo $payload->run(), PHP_EOL;
-        }
-
-        $queue->clear();
-
-        echo $queue->count(), PHP_EOL;
-    }
-
-    public static function Mysqlness() {
+    public function __construct() {
         include __DIR__ . '/../../app/config.php';
         $host = $config['server'] ? $config['server'] : 'localhost';
         $dbname = $config['database'];
         $conn = new \PDO("mysql:host=$host;dbname=$dbname", $config['username'], $config['password'], $options);
-        $mysqlqueue = new MysqlQueue($conn, 'queue');
+        $this->queue = new MysqlQueue($conn, 'queue');
+    }
 
-        $mysqlqueue->push('payload1');
-        $mysqlqueue->push('payload2', new \DateTime());
-        $mysqlqueue->push('payload3', time());
-        $mysqlqueue->push('payload4', '+5 seconds');
+    public function GroupSync($user) {
+        $this->queue->push(serialize(new GroupSyncJob($user)));
+    }
 
-        while ($payload = $mysqlqueue->pop()) {
-            echo $payload, PHP_EOL;
+    public function RunQueue() {
+        while ($payload = $this->queue->pop()) {
+            $payload = unserialize($payload) === 0 ? $payload : unserialize($payload);
+            print_r(is_object($payload) ? $payload->run() : $payload);
         }
-
-        echo $mysqlqueue->count(), PHP_EOL;
     }
 }
