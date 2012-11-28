@@ -1,5 +1,6 @@
 <?php
 
+use Source\DataSource;
 /**
  *
  *
@@ -93,20 +94,55 @@ function compName($id, $link = TRUE)
  * @param unknown $id
  * @return unknown
  */
-function playerName($id)
+function playerName($id, $game_id = NULL)
 {
-    $query = "SELECT id,firstname,lastname,picture_url FROM `players` WHERE id = $id";
-    $result = mysql_query($query);
-    $output = '';
-    while ($row=mysql_fetch_assoc($result)) {
-        $picture_url = getFullImageUrl($row['picture_url']);
-        $full_name = $row['firstname'] . ' ' .$row['lastname'];
-        $output .= "<div class='row'>";
-        $output = "<img src='$picture_url' class='img-polaroid player-picture player-picture-mini' alt='$full_name' onerror='imgError(this);'/>$full_name";
-        $output .= "</div>";
+    include_once './player.php';
+    if (empty($id)) {
+        return '';
     }
+    if (empty($db)) {
+      $db = new DataSource();
+    }
+    $player = $db->getPlayer($id);
+    $output = '';
+    $popover_content = htmlspecialchars(getPlayerData($id, NULL, TRUE), ENT_QUOTES);
+    $picture_url = getFullImageUrl($player['picture_url']);
+    $full_name = $player['firstname'] . ' ' .$player['lastname'];
+    $popover_title = htmlspecialchars("$full_name<button type='button' class='close' id='$id' onClick='closePopover(this);'>×</button>", ENT_QUOTES);
+    $output .= "<div class='player-popover'> <a href='#' data-player-id='$id' id='$id' data-title='$popover_title'";
+    $output .= " data-content='" . $popover_content . "'>";
+    $output .= "<img src='$picture_url' class='img-polaroid player-picture player-picture-mini' alt='$full_name' onerror='imgError(this);'/>";
+    $output .= $full_name;
+    $output .= "<div class='player-popover-container'></div></a></div>";
+
 
     return $output;
+}
+
+function getPopoverContentForPlayer($player_data = array(), $player_id = NULL, $game_id = NULL) {
+    if (empty($db)) {
+      $db = new DataSource();
+    }
+    if (empty($player_data)) {
+        $player_data = $db->getPlayer($id);
+    }
+    $popover_content = '';
+    $picture_url = getFullImageUrl($player_data['picture_url']);
+    $full_name = $player_data['firstname'] . ' ' .$player_data['lastname'];
+    // Construct Popover Content.
+    $popover_content = "<div class='row player-popover-content'>";
+    /*$popover_content .= "<div class='left-col span1'>";
+    $popover_content .= "<img src='$picture_url' class='img-polaroid player-picture player-picture-medium' alt='$full_name' onerror='imgError(this);'/>";
+    $popover_content .= "</div>";
+    $popover_content .= "<div class='span3 right-col'>";
+    $player_team = $db->getTeam($player_data['team_uuid']);
+    if (!empty($player_team)) {
+      $popover_content .= "<div class='row'><strong>Club: </strong>{$player_team['short']}</div>";
+    }
+    $popover_content .= "</div>";*/
+    $popover_content .= "</div>";
+    $popover_content = htmlspecialchars($popover_content, ENT_QUOTES);
+    return $popover_content;
 }
 
 /**

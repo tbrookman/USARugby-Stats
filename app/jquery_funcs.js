@@ -1,7 +1,6 @@
 // Helper Function for bad images.
  function imgError(image) {
     image.onerror = "";
-    console.log(image);
     if ($(image).hasClass('group-logo')) {
       image.src = "assets/group-icon.png";
     }
@@ -11,6 +10,11 @@
 
     return true;
   }
+
+ function closePopover(popoverButton) {
+	 var id = $(popoverButton).attr('id');
+	 $('.player-popover a#' + id + '.popover-active').popover('hide');
+ }
 
 $(document).ready(function() {
   $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
@@ -49,8 +53,32 @@ $(document).ready(function() {
     });
   };
 
+  var playerPopoverInit = function() {
+    $('.player-popover a').popover({
+	  trigger: 'manual',
+	  placement: 'right',
+	  html: true
+    }).click(function(e) {
+	e.preventDefault();
+	e.stopPropagation();
+	var el = $(this);
+	if (!$(this).hasClass('popover-active')) {
+		$(this).addClass('popover-active').popover('show');
+	}
+	$('.player-popover a.popover-active').each(function(index){
+		if (!$(this).is(el)) {
+			$(this).removeClass('popover-active').popover('hide');
+		}
+	});
+	return false;
+    });
+  };
 
   initDateTime();
+  playerPopoverInit();
+
+
+
   var getFormData = function(formElementName, errorElementName) {
     var errorElementName = errorElementName || '#form-validation-error';
     errorElementName = formElementName + ' ' + errorElementName;

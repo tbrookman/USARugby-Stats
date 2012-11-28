@@ -26,3 +26,15 @@ div#maincontent {
     margin-right:10px;
     width:40px;
 }
+
+.player-picture-medium {
+	width: 70px;
+}
+
+.popover {
+	width:500px !important;
+}
+
+.player_info .left-col{
+	margin-right:25px;
+}

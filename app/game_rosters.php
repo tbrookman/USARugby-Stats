@@ -41,9 +41,9 @@ echo "<tr><th>#</th><th>" . teamName($away_id, $link) . "</th><th>Position</th><
 
 //0 element has been filtered above so start at 1
 //displaying number, name, FR capable
-for ($i=1;$i<=$max;$i++) {
+for ($i=1; $i<=$max; $i++) {
     echo "<tr><td>{$awayns[$i]}</td>\r";
-    $away_player_name_string = empty($awayps[$i]) ? "<td>&nbsp;</td>\r" : "<td>".playerName($awayps[$i])."</td>\r";
+    $away_player_name_string = empty($awayps[$i]) ? "<td>&nbsp;</td>\r" : "<td>".playerName($awayps[$i], $game_id)."</td>\r";
     echo $away_player_name_string;
     echo "<td>";
     if (!empty($away_positions[$i])) {
@@ -54,7 +54,7 @@ for ($i=1;$i<=$max;$i++) {
     echo "<td>$frout</td>\r";
     echo "<td>&nbsp;</td>\r";
     echo "<td>{$homens[$i]}</td>\r";
-    echo "<td>". (isset($homeps[$i]) ? playerName($homeps[$i]) : '') ."</td>\r";
+    echo "<td>". (isset($homeps[$i]) ? playerName($homeps[$i], $game_id) : '') ."</td>\r";
     echo "<td>";
     if (!empty($home_positions[$i])) {
         echo($positions[$home_positions[$i]]);
