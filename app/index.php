@@ -279,6 +279,14 @@ $app->get('/standings.xml', function() use ($app) {
     return $doc->saveXML();
 });
 
+$app->get('/player', function() use ($app) {
+    $iframe = $app['request']->get('iframe');
+    $player_id = $app['request']->get('player_id');
+    $comp_id = $app['request']->get('comp_id');
+    include_once './player.php';
+    return getPlayerData($player_id, $comp_id, $iframe);
+});
+
 $app->run();
 
 function get_standings($comp_id, $db) {
