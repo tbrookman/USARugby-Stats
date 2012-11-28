@@ -3,8 +3,9 @@ include_once './include_mini.php';
 
 $team_id = $_POST['team'];
 $comp_id = $_POST['comp_id'];
+$division_id = (isset($_POST['division'])) ? $_POST['division'] : NULL;
 
-$query = "INSERT INTO `ct_pairs` VALUES ('','$comp_id','$team_id')";
+$query = "INSERT INTO `ct_pairs` VALUES ('','$comp_id','$team_id', '$division_id')";
 $result = mysql_query($query);
 
 date_default_timezone_set('America/Detroit');
