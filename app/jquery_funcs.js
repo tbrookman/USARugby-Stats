@@ -21,7 +21,9 @@ $(document).ready(function() {
   $('input.text-input').blur(function(){
     $(this).css({backgroundColor:"#FFFFFF"});
   });
-
+  if (!$('#signoff').hasClass('Finished')) {
+    $('#signoff').hide();
+  }
 
   var initDateTime = function() {
     $('.date_select').datepicker({
@@ -201,6 +203,30 @@ $(document).ready(function() {
       card_game_id: formData.card_game_id
     }, function(){
       reloadData('#cards', formData.cardrefresh);
+    });
+    return false;
+  });
+
+  //adding a status to a game
+  $("#addstatus").live('submit', function() {
+    $('.error').not(function(index){return $(this).hasClass('control-group');}).hide();
+    var formData = getFormData('#addstatus', '#form-validation-error');
+    if (!formData || formData.validated == false) {
+      return false;
+    }
+
+    formData.status = $("#gamestatus").val();
+    formData.status_game_id = $("#status_game_id").val();
+
+    $.post('/add_status_process.php', {
+      status: formData.status,
+      game_id: formData.status_game_id
+    }, function(){
+      if (formData.status == 3) {
+          $('#signoff').show();
+      } else {
+          $('#signoff').hide();
+      }
     });
     return false;
   });

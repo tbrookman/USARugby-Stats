@@ -18,6 +18,7 @@ if ((!$ops = $request->get('ops')) || empty($iframe)) {
     'game_score_events',
     'game_sub_events',
     'game_card_events',
+    'game_status'
   );
 }
 ?>
@@ -107,11 +108,27 @@ if ((!$ops = $request->get('ops')) || empty($iframe)) {
         if (editCheck() && empty($iframe)) {
             echo "<div id='card_submit'>";
             include './add_card.php';
+            echo "</div></div>";
+        }
+      }
+
+      // Status.
+      if (in_array('game_status', $ops)) {
+        if (empty($iframe)) {
+          echo "<h2>Status</h2>";
+        }
+
+        // If we can edit/add, show the necessary form info.
+        if (editCheck() && empty($iframe)) {
+            echo "<div id='status_submit'>";
+            include './add_status.php';
             echo "</div>";
         }
       }
+
+      $status = game_status($game_id);
       if (empty($iframe) && editCheck()) {
-        echo "<div id='signoff'>";
+        echo "<div id='signoff' class='$status'>";
         // Get the ref, coaches, and #4's signoffs.
         include_once './signatures.php';
         echo "</div>";
