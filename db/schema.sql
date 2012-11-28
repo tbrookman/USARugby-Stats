@@ -108,6 +108,15 @@ CREATE TABLE `players` (
   `lastname` varchar(35) NOT NULL,
   `picture_url` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `queue` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `eta` int(11) NOT NULL,
+  `item` text NOT NULL,
+  UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

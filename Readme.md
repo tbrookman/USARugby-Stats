@@ -4,6 +4,14 @@ This system, originally developed by Matt Trenary, provides an interface and tra
 "The National Championship Series web application is designed to facilitate the management of championship event rosters, scores, and game information. It is designed to work from any phone, computer, or tablet that can access the internet."
 
 
+### Queue
+
+Run an individual queue item
+
+```sh
+bin/console queue:run
+```
+
 ### Database
 
 To configure the database create file `app/config.php` with the following structure:

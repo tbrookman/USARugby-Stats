@@ -4,7 +4,7 @@ include_once './include.php';
 use Source\APSource;
 if (editCheck(1)) {
   include './config.php';
-  $client = APSource::SourceFactory();
+  $client = APSource::SessionSourceFactory();
   $members = $client->getGroupMembers($config['admin_group_uuid']);
   $added = 0;
   foreach ($members as $member) {

@@ -82,7 +82,7 @@ class DataSource {
         while ($row = mysql_fetch_assoc($result)) {
             $teams[$row['uuid']] = $row;
         }
-        return isset($teams) ? $teams : FALSE;
+        return isset($teams) ? $teams : array();
     }
 
     /**
