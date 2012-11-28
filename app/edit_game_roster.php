@@ -26,10 +26,12 @@ while ($row=mysql_fetch_assoc($result)) {
 $players = array();
 $query = "SELECT player_ids FROM `event_rosters` WHERE comp_id = $comp_id AND team_id=$team_id";
 $result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)) {
-    $temp=$row['player_ids'];
+if (!empty($result)) {
+    while ($row=mysql_fetch_assoc($result)) {
+        $temp=$row['player_ids'];
+    }
+    $players = array_filter(explode('-', $temp));
 }
-$players = array_filter(explode('-', $temp));
 
 //Get the roster limit and comp type (15s or 7s) from the comp info
 $query = "SELECT max_game, type FROM `comps` WHERE id = $comp_id";
@@ -147,7 +149,7 @@ for ($j=1;$j<=$max_game;$j++) {
     echo "</select></td>\n";
     echo "<td> <select data-placeholder='Select Position' class='input-large chzn-select' id='pos$j'>";
 
-    $positions = getPositionList();
+    $positions = getPositionList('selection');
     $current_player_position = empty($cpositions[$j - 1]) ? 'NIL' : $cpositions[$j - 1];
     foreach ($positions as $pos_code => $pos_name) {
         $selected = $current_player_position == $pos_code ? 'selected' : '';

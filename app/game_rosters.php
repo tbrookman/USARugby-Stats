@@ -26,7 +26,7 @@ $homens = array_filter(explode('-', $home_nums));
 $awayns = array_filter(explode('-', $away_nums));
 $homefrs = array_filter(explode('-', $home_frs));
 $awayfrs = array_filter(explode('-', $away_frs));
-$positions = getPositionList();
+$positions = getPositionList('display');
 
 //find which has more to limit our roster output
 if (count($homeps) > count($awayps)) {
