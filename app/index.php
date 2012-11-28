@@ -289,20 +289,34 @@ function get_standings($comp_id, $db) {
     $root->setAttribute('xmlns', "http://iptc.org/std/SportsML/2008-04-01/");
     $root->setAttribute('xmlns:xsi', "http://www.w3.org/2001/XMLSchema-instance");
 
-    $standing = $root->appendChild($doc->createElement('standing'));
     $teams = $db->getCompetitionTeams($comp_id);
+    $divisions = array();
     foreach ($teams as $uuid => $team) {
         $record = $db->getTeamRecordInCompetition($team['id'], $comp_id);
         $team_records[$uuid] = $record;
         $points[$uuid] = $record['points'];
         $games_played[$uuid] = $record['total_games'];
+        $divisions[$uuid] = ($team['division_id'] != 0) ? $team['division_id'] : NULL;
     }
 
-    // Sort by ranking.
-    array_multisort($points, SORT_DESC, $games_played, SORT_ASC, $teams);
+    if (empty($divisions) || in_array(NULL, $divisions)) {
+        $standing = $root->appendChild($doc->createElement('standing'));
+        // Sort by ranking.
+        array_multisort($points, SORT_DESC, $games_played, SORT_ASC, $teams);
+    } else {
+        // Sort by divisions then by ranking.
+        array_multisort($divisions, SORT_DESC, $points, SORT_DESC, $games_played, SORT_ASC, $teams);
+        $divisions = array();
+    }
+
     $rank = 1;
     foreach ($teams as $uuid => $team) {
         $record = $team_records[$uuid];
+        if (isset($team['division_id']) && $team['division_id'] != 0 && !array_key_exists($team['division_id'], $divisions)) {
+            $divisions[$team['division_id']] = $db->getTeam($team['division_id']);
+            $standing = $root->appendChild($doc->createElement('standing'));
+            $standing->setAttribute('content-label', 'Division ' . $divisions[$team['division_id']]['name']);
+        }
         $team_node = $standing->appendChild($doc->createElement('team'));
 
         $team_metadata = $team_node->appendChild($doc->createElement('team-metadata'));

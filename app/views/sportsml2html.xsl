@@ -207,7 +207,7 @@
 		<td>L</td>
 		<td>T</td>
 		<td>Pts.</td>
-		<xsl:if test="team[1]/team-stats/@events-played"><td>Games</td></xsl:if>
+		<xsl:if test="team[1]/team-stats/@events-played"><td>GP</td></xsl:if>
 		<td><span title="points scored for">PF</span></td>
 		<td><span title="points scored against">PA</span></td>
 		<xsl:if test="team[1]/team-stats/outcome-totals/@try-bonus"><td>4T</td></xsl:if>

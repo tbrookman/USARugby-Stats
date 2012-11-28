@@ -449,7 +449,8 @@ $(document).ready(function() {
       var comp_id = $("#comp_id").val();
       $.post('/add_team_process.php', {
         team: formData.team,
-        comp_id: comp_id
+        comp_id: comp_id,
+        division: formData.division
       }, function(){
           reloadData('#teams', trefresh);
           reloadData('#addteamdiv', lrefresh);

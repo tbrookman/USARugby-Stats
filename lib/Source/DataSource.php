@@ -172,7 +172,7 @@ class DataSource {
             'try_bonus_total' => 0,
             'loss_bonus_total' => 0,
             );
-        $query = "SELECT * FROM `games` WHERE home_id = $team_id OR away_id = $team_id AND comp_id = $comp_id";
+        $query = "SELECT * FROM `games` WHERE (home_id = $team_id OR away_id = $team_id) AND comp_id = $comp_id";
         $result = mysql_query($query);
         if (!empty($result)) {
             while($team_game = mysql_fetch_assoc($result)) {
@@ -337,7 +337,7 @@ class DataSource {
     }
 
     public function getCompetitionTeams($comp_id) {
-        $query = "SELECT t.* FROM teams t, ct_pairs c WHERE c.team_id = t.id AND c.comp_id = $comp_id";
+        $query = "SELECT t.*, c.division_id FROM teams t, ct_pairs c WHERE c.team_id = t.id AND c.comp_id = $comp_id ORDER BY c.division_id, t.name";
         $result = mysql_query($query);
         while ($row = mysql_fetch_assoc($result)) {
             $teams[$row['uuid']] = $row;
