@@ -28,13 +28,18 @@ div#maincontent {
 }
 
 .player-picture-medium {
-	width: 70px;
+	width: 100%;
+  max-width:100px;
 }
 
-.popover {
-	width:500px !important;
+.player-stats-table th{
+  text-align: center
 }
 
-.player_info .left-col{
-	margin-right:25px;
+h3.popover-title {
+	font-weight:bold;
+}
+
+.player-popover-iframe {
+	width:100%;
 }
