@@ -61,6 +61,14 @@ CREATE TABLE `game_events` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `game_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status_name` varchar(36) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `game_rosters` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_create` varchar(64) NOT NULL,
@@ -94,6 +102,7 @@ CREATE TABLE `games` (
   `home_sign` int(1) NOT NULL,
   `away_sign` int(1) NOT NULL,
   `uuid` char(36) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

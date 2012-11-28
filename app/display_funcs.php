@@ -214,3 +214,33 @@ function get_header_string($op) {
   $header_string .= '</tr>';
   return $header_string;
 }
+
+/**
+ *
+ * @return array of available status names
+ */
+function game_status_list() {
+    $query = "SELECT * FROM `game_status`";
+    $result = mysql_query($query);
+    while ($row = mysql_fetch_assoc($result)) {
+        $output[$row['id']] = "{$row['status_name']}";
+    }
+
+    return isset($output) ? $output : array();
+}
+
+/**
+ *
+ * @param type $game_id
+ *
+ * @return status(name) of game
+ */
+function game_status($game_id) {
+    $query = "SELECT s.status_name FROM game_status s, games g WHERE g.id = $game_id AND g.status = s.id";
+    $result = mysql_query($query);
+    while ($row = mysql_fetch_assoc($result)) {
+        $output = "{$row['status_name']}";
+    }
+
+    return isset($output) ? $output : '';
+}

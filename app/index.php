@@ -341,6 +341,7 @@ function get_standings($comp_id, $db) {
             $totals->setAttribute('try-bonus', $record['try_bonus_total']);
             $totals->setAttribute('loss-bonus', $record['loss_bonus_total']);
         }
+        $totals->setAttribute('forfeits', $record['forfeits']);
     }
 
     return $doc;

@@ -158,6 +158,7 @@ class DataSource {
     }
 
     public function getTeamRecordInCompetition($team_id, $comp_id) {
+        $tries = 0;
         $record = array(
             'home_wins' => 0,
             'home_losses' => 0,
@@ -171,44 +172,75 @@ class DataSource {
             'against' => 0,
             'try_bonus_total' => 0,
             'loss_bonus_total' => 0,
+            'forfeits' => 0
             );
-        $query = "SELECT * FROM `games` WHERE (home_id = $team_id OR away_id = $team_id) AND comp_id = $comp_id";
+        $query = "SELECT g.*, s.status_name FROM `games` g, `game_status` s WHERE (g.home_id = $team_id OR g.away_id = $team_id) AND g.comp_id = $comp_id AND g.status = s.id";
         $result = mysql_query($query);
         if (!empty($result)) {
             while($team_game = mysql_fetch_assoc($result)) {
+                $status = $team_game['status_name'];
+                if ($status != 'Finished' && $status != 'Home Forfeit' && $status != 'Away Forfeit') {
+                    continue;
+                }
                 $record['total_games']++;
                 // Home games record.
                 if ($team_game['home_id'] == $team_id) {
                     $record['favor'] += $team_game['home_score'];
                     $record['against']+= $team_game['away_score'];
-                    if ($team_game['home_score'] > $team_game['away_score']) {
+                    if ($status == 'Home Forfeit') {
+                        $record['favor'] = 0;
+                        $record['points'] -= 1;
+                        $record['forfeits'] += 1;
+                        if ($record['against'] < 20) {
+                            $record['against'] = 20;
+                        }
+                    } elseif ($status == 'Away Forfeit') {
+                        if ($record['favor'] < 20) {
+                            $record['favor'] = 20;
+                            $tries = 4;
+                        }
+                    }
+                    if ($record['favor'] > $record['against']) {
                         $record['home_wins']++;
                         $record['points'] += 4;
-                    } elseif ($team_game['home_score'] < $team_game['away_score']) {
+                    } elseif ($record['favor'] < $record['against']) {
                         $record['home_losses']++;
-                        if ($team_game['home_score'] + 7 >= $team_game['away_score']) {
+                        if ($record['favor'] + 7 >= $record['against']) {
                             $record['points'] += 1;
                             $record['loss_bonus_total'] ++;
                         }
-                    } elseif ($team_game['home_score'] == $team_game['away_score']) {
+                    } elseif ($record['favor'] == $record['against']) {
                         $record['home_ties']++;
-                        $record['points'] +=2;
+                        $record['points'] += 2;
                     }
                 }
                 // Away record.
                 else if ($team_game['away_id'] == $team_id) {
                     $record['favor']+= $team_game['away_score'];
                     $record['against']+= $team_game['home_score'];
-                    if ($team_game['away_score'] > $team_game['home_score']) {
+                    if ($status == 'Away Forfeit') {
+                        $record['favor'] = 0;
+                        $record['points'] -= 1;
+                        $record['forfeits'] += 1;
+                        if ($record['against'] < 20) {
+                            $record['against'] = 20;
+                        }
+                    } elseif ($status == 'Home Forfeit') {
+                        if ($record['favor'] < 20) {
+                            $record['favor'] = 20;
+                            $tries = 4;
+                        }
+                    }
+                    if ($record['favor'] > $record['against']) {
                         $record['away_wins']++;
                         $record['points'] += 4;
-                    } elseif ($team_game['away_score'] < $team_game['home_score']) {
+                    } elseif ($record['favor'] < $record['against']) {
                         $record['away_losses']++;
-                        if ($team_game['away_score'] + 7 >= $team_game['home_score']) {
+                        if ($record['favor'] + 7 >= $record['against']) {
                             $record['points'] += 1;
                             $record['loss_bonus_total'] ++;
                         }
-                    } elseif ($team_game['away_score'] == $team_game['home_score']) {
+                    } elseif ($record['favor'] == $record['against']) {
                         $record['away_ties']++;
                         $record['points'] += 2;
                     }
@@ -218,8 +250,11 @@ class DataSource {
                 $tries_query = "SELECT COUNT(*) FROM game_events g, event_types t WHERE  t.id = g.type AND g.game_id = {$team_game['id']} AND t.name = 'Try' AND g.team_id = $team_id";
                 $tries_result = mysql_fetch_row(mysql_query($tries_query));
                 $tries_for_team_in_game = (int) $tries_result[0];
+                if ($tries == 4 && $tries_for_team_in_game < 4) {
+                    $tries_for_team_in_game = 4;
+                }
                 if ($tries_for_team_in_game >= 4) {
-                  $record['points'] +=1;
+                    $record['points'] +=1;
                 }
                 $try_bonus_for_game = 0;
                 if (!empty($tries_for_team_in_game) && $tries_for_team_in_game >= 4) {
