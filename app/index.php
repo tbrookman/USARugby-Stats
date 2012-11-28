@@ -318,6 +318,8 @@ function getPlayerStatData($player_id, $comp_id = NULL, $iframe = FALSE) {
             'Cons',
             'Pens',
             'DGs',
+            'YC',
+            'RC',
         );
 
         $stat_data = array();
@@ -356,12 +358,26 @@ function getPlayerStatData($player_id, $comp_id = NULL, $iframe = FALSE) {
                 case 4:
                     $game_data['dgs'] = empty($game_data['dgs']) ? 1 : $game_data['dgs'] + 1;
                     break;
+
+                // Yellow Card - YC.
+                case 21:
+                    $game_data['yc'] = empty($game_data['yc']) ? 1 : $game_data['yc'] + 1;
+                    break;
+
+                // Red Card - RC.
+                case 22:
+                    $game_data['rc'] = empty($game_data['rc']) ? 1 : $game_data['rc'] + 1;
+                    break;
             }
             $stat_data[$game_id] = $game_data;
         }
     }
 
-    $render = array('player_data' => $player_data, 'player_team' => $player_team, 'stat_data' => $stat_data);
+    $render = array(
+        'player_data' => $player_data,
+        'player_team' => $player_team,
+        'stat_data' => empty($stat_data) ? array() : $stat_data,
+    );
     return $render;
 }
 

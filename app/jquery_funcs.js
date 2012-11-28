@@ -18,12 +18,13 @@
 
  function iframeLoaded(iframe) {
 	 setTimeout(function() {
-		 var id = $(iframe).attr('id');
-		 var iframeHeight = $(iframe).contents().height();
-		 var iframeWidth = $(iframe).contents().width();
-		 console.log(iframeHeight, iframeWidth, $('.popover#' + id + ' iframe'));
-		 $('.popover#' + id).height(iframeHeight + 50).width(iframeWidth + 50);
-		 $('.popover#' + id + ' iframe').height(iframeHeight).width(iframeWidth);
+      var id = $(iframe).attr('id');
+      var iframeHeight = $(iframe).contents().height();
+      var iframeWidth = $(iframe).contents().width();
+      if ($(iframe).hasClass('player-popover-iframe')) {
+        $('.popover#' + id).height(iframeHeight + 50).width(iframeWidth + 50);
+        $('.popover#' + id + ' iframe').height(iframeHeight).width(iframeWidth);
+      }
 	 }, 50);
  }
 
@@ -67,9 +68,17 @@ $(document).ready(function() {
   var playerPopoverInit = function() {
     $('.player-popover a').popover({
 	  trigger: 'manual',
-	  placement: 'right',
 	  html: true,
-	  content: ''
+	  content: '',
+    placement: function(context, source) {
+      var position = $(source).position();
+      if (position.left > 515) {
+        return "left";
+      }
+      else {
+        return "right";
+      }
+    }
     }).click(function(e) {
 	e.preventDefault();
 	e.stopPropagation();
