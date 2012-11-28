@@ -15,7 +15,7 @@ include_once './db.php';
   <meta name="author" content="">
 
   <!-- Styles -->
-  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
   <link href="/assets/css/vendor/datepicker.css" rel="stylesheet" type="text/css">
   <link href="/assets/css/vendor/chosen.css" rel="stylesheet" type="text/css">
   <link href="/assets/css/app.css" rel="stylesheet" type="text/css">
@@ -26,7 +26,7 @@ include_once './other_funcs.php';
 ?>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js" type="text/javascript"></script>
   <script src="/assets/js/vendor/bootstrap-datepicker.js" type="text/javascript"></script>
   <script src="/assets/js/vendor/chosen.jquery.min.js" type="text/javascript"></script>
   <script src='/assets/js/vendor/jquery.timeentry.pack.js' type='text/javascript'></script>
