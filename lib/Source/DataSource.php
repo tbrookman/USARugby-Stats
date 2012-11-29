@@ -477,6 +477,57 @@ class DataSource {
         return $result;
     }
 
+    public function getPlayerGameEvents($player_id, $comp_id = NULL, $game_id = NULL) {
+        $player_search_id = DataSource::uuidIsValid($player_id) ? $this->getSerialIDByUUID('players', $player_id) : $player_id;
+        $game_events = array();
+        if (empty($player_search_id)) {
+            return FALSE;
+        }
+        $query = "SELECT
+                  ge.game_id,
+                  ge.player_id,
+                  ge.type,
+                  ge.minute,
+                  evt.name,
+                  evt.value,
+                  gam.home_id,
+                  gam.away_id,
+                  gam.kickoff
+                  FROM game_events ge
+                  JOIN  games gam ON (ge.game_id = gam.id)
+                  JOIN event_types evt ON (ge.type = evt.event_id)
+                  WHERE ge.player_id=$player_search_id";
+        $result = mysql_query($query);
+        while ($row = mysql_fetch_assoc($result)) {
+          $game_events[] = $row;
+        }
+        return $game_events;
+    }
+
+    public function getGamesWithPlayerOnRoster($player_id, $comp_id = NULL) {
+        $player_search_id = DataSource::uuidIsValid($player_id) ? $this->getSerialIDByUUID('players', $player_id) : $player_id;
+        if (empty($player_search_id)) {
+            return FALSE;
+        }
+        $games = array();
+        $query = "SELECT DISTINCT 
+                  g.id as game_id, 
+                  g.home_id as home_id, 
+                  g.away_id as away_id, 
+                  g.kickoff as kickoff
+                  FROM players p
+                  JOIN teams t ON (p.team_uuid = t.uuid)
+                  JOIN games g ON (t.id IN (g.home_id, g.away_id))
+                  JOIN game_rosters gr ON (g.id = gr.game_id)
+                  WHERE gr.player_ids LIKE '%-$player_search_id-%'";
+        $result = mysql_query($query);
+        while ($row = mysql_fetch_assoc($result)) {
+          $games[] = $row;
+        }
+        return $games;
+    }
+
+
     public function addupdatePlayer($player_info) {
         $columns = $this->showColumns('players');
         $values = '';

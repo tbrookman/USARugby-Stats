@@ -26,3 +26,28 @@ div#maincontent {
     margin-right:10px;
     width:40px;
 }
+
+.player-picture-medium {
+	width: 100%;
+  max-width:100px;
+}
+
+.player-stats-table th{
+  text-align: center
+}
+
+.player-stats-table {
+  font-size:12px;
+}
+
+.player-stats-table td {
+  white-space: nowrap;
+}
+
+h3.popover-title {
+	font-weight:bold;
+}
+
+.player-popover-iframe {
+	width:100%;
+}

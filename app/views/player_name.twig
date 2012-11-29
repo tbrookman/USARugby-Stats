@@ -1,0 +1,7 @@
+{% set iframe_src = 'http://www.stats.dev/player?player_id=' ~ id ~ '&iframe=1' %}
+<div class='player-popover'>
+    <a href='#' data-player-id='{{ id }}' id='{{ entity }}-{{ id }}' data-template='{% filter escape('html') %}{% include 'iframe-popover-template.twig' %}{% endfilter %}' data-title="{{ full_name }} <button type='button' class='close' id='{{ entity }}-{{ id }}' onClick='closePopover(this);'>×</button>">
+        <img src='{{ picture_url }}' class='img-polaroid player-picture player-picture-mini' alt='{{ full_name }}' onerror='imgError(this);'></img>{{ full_name }}
+        <div class='player-popover-container'></div>
+    </a>
+</div>
