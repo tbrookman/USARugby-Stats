@@ -281,10 +281,6 @@ $app->get('/standings.xml', function() use ($app) {
 
 $app->get('/player', function() use ($app) {
     $iframe = $app['request']->get('iframe');
-    if ($app['request']->get('iframe')) {
-      echo "<script src='https://www.allplayers.com/iframe.js?usar_stats' type='text/javascript'></script>";
-      echo '<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css">';
-    }
     $player_id = $app['request']->get('player_id');
     $comp_id = $app['request']->get('comp_id');
     include_once './include.php';

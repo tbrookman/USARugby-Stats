@@ -13,6 +13,8 @@ include_once './db.php';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta http-equiv="Content-Language" content="en" />
+  <meta name="google" content="notranslate">
 
   <!-- Styles -->
   <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
@@ -30,6 +32,9 @@ include_once './other_funcs.php';
   <script src="/assets/js/vendor/bootstrap-datepicker.js" type="text/javascript"></script>
   <script src="/assets/js/vendor/chosen.jquery.min.js" type="text/javascript"></script>
   <script src='/assets/js/vendor/jquery.timeentry.pack.js' type='text/javascript'></script>
+  <?php if (!empty($iframe)) { ?>
+    <script src='https://www.allplayers.com/iframe.js?usar_stats' type='text/javascript'></script>
+  <?php } ?>
   <script src='jquery_funcs.js'></script>
   <script>
     if (window.name=="ConnectWithOAuth") {window.close();}
@@ -40,9 +45,6 @@ include_once './other_funcs.php';
 <?php
 if (empty($iframe)) {
   include_once './header.php';
-}
-else {
-  echo "<script src='https://www.allplayers.com/iframe.js?usar_stats' type='text/javascript'></script>";
 }
 
 echo "<title>USA Rugby National Championship Series</title>";
