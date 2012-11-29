@@ -475,7 +475,11 @@ class DataSource {
             return FALSE;
         }
         $games = array();
-        $query = "SELECT DISTINCT g.id as game_id, g.home_id as home_id, g.away_id as away_id
+        $query = "SELECT DISTINCT 
+                  g.id as game_id, 
+                  g.home_id as home_id, 
+                  g.away_id as away_id, 
+                  g.kickoff as kickoff
                   FROM players p
                   JOIN teams t ON (p.team_uuid = t.uuid)
                   JOIN games g ON (t.id IN (g.home_id, g.away_id))

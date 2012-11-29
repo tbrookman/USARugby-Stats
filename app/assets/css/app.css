@@ -36,6 +36,14 @@ div#maincontent {
   text-align: center
 }
 
+.player-stats-table {
+  font-size:12px;
+}
+
+.player-stats-table td {
+  white-space: nowrap;
+}
+
 h3.popover-title {
 	font-weight:bold;
 }

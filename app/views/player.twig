@@ -17,9 +17,10 @@
       </div>
       <div class="row">
         <div class="span10">
-          <table class='table table-bordered table-striped player-stats-table'>
+          <table class='table table-bordered table-hover table-condensed player-stats-table'>
             <tr><th colspan='6'>Statistics</th></tr>
             <tr>
+              <th>Date</th>
               <th>Comp</th>
               <th>PTS</th>
               <th>Tries</th>
@@ -31,8 +32,8 @@
             </tr>
             {% for game in stat_data %}
               <tr>
-              {% for stat in game %}
-                <td>{{ stat|raw }}</td>
+              {% for key, stat in game %}
+                <td class='player-stats-{{ key }}'>{{ stat|raw }}</td>
               {% endfor %}
               </tr>
             {% endfor %}
