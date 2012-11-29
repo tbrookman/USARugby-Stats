@@ -104,7 +104,7 @@ class DataSource {
         return $team;
     }
 
-    public function addTeam($team_info) {
+    public function addupdateTeam($team_info) {
         $columns = array('id', 'hidden', 'user_create', 'uuid', 'name', 'short', 'resources', 'logo_url', 'description', 'type');
         $values = '';
         $count = 1;
@@ -119,7 +119,7 @@ class DataSource {
             }
             $count++;
         }
-        $query = "INSERT INTO `teams` (" . implode(',', $columns) . ") VALUES ($values)";
+        $query = "REPLACE INTO `teams` (" . implode(',', $columns) . ") VALUES ($values)";
         $result = mysql_query($query);
         return $result;
     }
