@@ -304,10 +304,18 @@ function getPlayerStatData($player_id, $comp_id = NULL, $iframe = FALSE) {
     $player_data['picture_url'] = getFullImageUrl($player_data['picture_url']);
     $player_data['full_name'] = $player_data['firstname'] . ' ' .$player_data['lastname'];
     $player_team['team_name'] = teamName($player_team['id'], empty($iframe));
-
+    $game_events = array();
     if (empty($comp_id)) {
         // Get all game events for player.
         $game_events = $db->getPlayerGameEvents($player_id);
+    }
+    if (empty($game_events)) {
+        // Try just getting Player's team games where he's on the roster.
+        $game_events = $db->getGamesWithPlayerOnRoster($player_id);
+        foreach ($game_events as $key => $prep_game_event) {
+            $game_events[$key]['value'] = 0;
+            $game_events[$key]['type'] = 0;
+        }
     }
 
     if (!empty($game_events)) {
