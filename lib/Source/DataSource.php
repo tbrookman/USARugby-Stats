@@ -104,7 +104,7 @@ class DataSource {
         return $team;
     }
 
-    public function addTeam($team_info) {
+    public function addupdateTeam($team_info) {
         $columns = array('id', 'hidden', 'user_create', 'uuid', 'name', 'short', 'resources', 'logo_url', 'description', 'type');
         $values = '';
         $count = 1;
@@ -119,7 +119,7 @@ class DataSource {
             }
             $count++;
         }
-        $query = "INSERT INTO `teams` (" . implode(',', $columns) . ") VALUES ($values)";
+        $query = "REPLACE INTO `teams` (" . implode(',', $columns) . ") VALUES ($values)";
         $result = mysql_query($query);
         return $result;
     }
@@ -528,7 +528,7 @@ class DataSource {
     }
 
 
-    public function addPlayer($player_info) {
+    public function addupdatePlayer($player_info) {
         $columns = $this->showColumns('players');
         $values = '';
         $count = 1;
@@ -545,20 +545,7 @@ class DataSource {
             }
             $count++;
         }
-        $query = "INSERT INTO `players` (" . implode(',', $columns) . ") VALUES ($values)";
-        $result = mysql_query($query);
-        return $result;
-    }
-
-    public function updatePlayer($id, $player_info) {
-        $search_id = DataSource::uuidIsValid($id) ? $this->getSerialIDByUUID('players', $id) : $id;
-        $now = date('Y-m-d H:i:s');
-        $team_uuid = $user_info['team_uuid'];
-        $player_uuid = $user_info['player_uuid'];
-        $first_name = $user_info['first_name'];
-        $last_name = $user_info['last_name'];
-        $user_create = $_SESSION['user'];
-        $query = "UPDATE `players` SET user_create='$user_create',last_update='$now',team_uuid='$team_uuid',firstname='$first_name',lastname='$last_name' WHERE id='$search_id'";
+        $query = "REPLACE INTO `players` (" . implode(',', $columns) . ") VALUES ($values)";
         $result = mysql_query($query);
         return $result;
     }
