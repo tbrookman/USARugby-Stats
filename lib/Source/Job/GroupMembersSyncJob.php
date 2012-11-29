@@ -28,25 +28,31 @@ class GroupMembersSyncJob implements Job
         $members = $client->getGroupMembers($this->group_uuid);
 
         foreach ($members as $member) {
+            $now = date('Y-m-d H:i:s');
+            if (!empty($member->picture)) {
+                $picture_url = substr($member->picture, strpos($member->picture, '/sites/default/'));
+            }
+            else {
+                $picture_url = '/sites/default/files/imagecache/profile_mini/sites/all/themes/allplayers960/images/default_profile.png';
+            }
+            $player_info = array(
+                'user_create' => $user['login'],
+                'last_update' => $now,
+                'uuid' => $member->uuid,
+                'team_uuid' => $this->group_uuid,
+                'firstname' => $member->fname,
+                'lastname' => $member->lname,
+                'picture_url' => $picture_url,
+            );
             if (!$existing_players || !key_exists($member->uuid, $existing_players)) {
-                $now = date('Y-m-d H:i:s');
-                if (!empty($member->picture)) {
-                    $picture_url = substr($member->picture, strpos($member->picture, '/sites/default/'));
-                }
-                else {
-                    $picture_url = '/sites/default/files/imagecache/profile_mini/sites/all/themes/allplayers960/images/default_profile.png';
-                }
-                $player_info = array(
-                    'user_create' => $user['login'],
-                    'last_update' => $now,
-                    'uuid' => $member->uuid,
-                    'team_uuid' => $this->group_uuid,
-                    'firstname' => $member->fname,
-                    'lastname' => $member->lname,
-                    'picture_url' => $picture_url,
-                );
-                $db->addPlayer($player_info);
+                $db->addupdatePlayer($player_info);
                 $added++;
+            }
+            else {
+                if (!empty($existing_players[$member->uuid]['id']) && is_numeric($existing_players[$member->uuid]['id'])) {
+                    $player_info['id'] = $existing_players[$member->uuid]['id'];
+                    $db->addupdatePlayer($player_info);
+                }
             }
         }
         return $added;
