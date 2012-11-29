@@ -1,5 +1,6 @@
 <?php
 
+use Source\DataSource;
 /**
  *
  *
@@ -93,19 +94,25 @@ function compName($id, $link = TRUE)
  * @param unknown $id
  * @return unknown
  */
-function playerName($id)
+function playerName($id, $game_id = NULL)
 {
-    $query = "SELECT id,firstname,lastname,picture_url FROM `players` WHERE id = $id";
-    $result = mysql_query($query);
-    $output = '';
-    while ($row=mysql_fetch_assoc($result)) {
-        $picture_url = getFullImageUrl($row['picture_url']);
-        $full_name = $row['firstname'] . ' ' .$row['lastname'];
-        $output .= "<div class='row'>";
-        $output = "<img src='$picture_url' class='img-polaroid player-picture player-picture-mini' alt='$full_name' onerror='imgError(this);'/>$full_name";
-        $output .= "</div>";
+    if (empty($twig)) {
+        $loader = new Twig_Loader_Filesystem(__DIR__.'/views');
+        $twig = new Twig_Environment($loader, array());
     }
 
+    if (empty($id)) {
+        return '';
+    }
+    if (empty($db)) {
+      $db = new DataSource();
+    }
+    $player = $db->getPlayer($id);
+    $player['picture_url'] = getFullImageUrl($player['picture_url']);
+    $player['full_name'] = $player['firstname'] . ' ' .$player['lastname'];
+    $player['entity'] = 'player';
+    $player['id'] = $id;
+    $output = $twig->render('player_name.twig', $player);
     return $output;
 }
 
