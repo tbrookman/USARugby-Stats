@@ -8,7 +8,6 @@ use Source\DataSource;
 require_once __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
-$app['debug'] = TRUE;
 // register the session extension
 $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
@@ -288,15 +287,14 @@ $app->get('/player', function() use ($app) {
     }
     $player_id = $app['request']->get('player_id');
     $comp_id = $app['request']->get('comp_id');
-    //include_once './player.php';
     include_once './include.php';
-    $render = getPlayerStatData($player_id, $comp_id, $iframe);
+    $render = get_player_stat_data($player_id, $comp_id, $iframe);
     return $app['twig']->render('player.twig', $render);
 });
 
 $app->run();
 
-function getPlayerStatData($player_id, $comp_id = NULL, $iframe = FALSE) {
+function get_player_stat_data($player_id, $comp_id = NULL, $iframe = FALSE) {
     $db = new DataSource();
     $render = array();
     $player_data = $db->getPlayer($player_id);
