@@ -50,7 +50,9 @@ $app->get('/', function() use ($app) {
         $app['session']->start();
         // twig/template this section
         if (($token = $app['session']->get('auth_token')) == null) {
-            return $app['twig']->render('index.twig', array());
+            $flash = $app['session']->get('flash');
+            $flash = empty($flash) ? null : $flash;
+            return $app['twig']->render('index.twig', array('flash' => $flash));
         } else {
             $temp_token = $app['session']->get('access_token');
             $temp_secret = $app['session']->get('access_secret');
@@ -60,7 +62,13 @@ $app->get('/', function() use ($app) {
             include_once './session.php';
             if (empty($_SESSION['user'])) {
                 // Error something happened with login...
-                session_destroy();
+                $app['session']->set('auth_token', null);
+                $flash = array(
+                    'type'  => 'warning',
+                    'short' => 'Permission denied!',
+                    'ext'   => 'Your account is not authorized to access Rugby statistics. Please contact <a href="https://www.allplayers.com/g/usarugby/contact-admins" target="_blank">USA Rugby support</a>.',
+                );
+                $app['session']->set('flash', $flash);
                 return $app->redirect('/');
             }
             // @TODO: Change this to use a twig template.
@@ -214,7 +222,9 @@ $app->get('/auth', function() use ($app) {
                 // TODO User management if user is authenticating for the first time insert
                 //  them, otherwise update their token records.
             }
-            // @TODO figure out a better way to fail authentication.
+            else {
+                // @TODO figure out a better way to fail authentication.
+            }
         }
 
         return $app->redirect('/');

@@ -19,6 +19,17 @@
   <body data-spy="scroll" data-target=".subnav" data-offset="50">
     <div class='container-fluid'>
       <div class="grid row-fluid">
+{% block flash %}
+{% if flash.ext is defined %}
+        <div class="span span8 offset2 clearfix" style="margin-top: 30px;">
+          <div class="alert">
+            <a href="/logout.php"><button type="button" class="close">×</button></a>
+            <strong>{{ flash.short }}</strong> {{ flash.ext|raw }}
+          </div>
+        </div>
+{% endif %}
+{% endblock flash %}
+
         <div class="span span3 clearfix">
           <div style="height: 250px; margin: 5px;" id="hero-clipboard">
             <center><img style="height: 100%;" src="/assets/clipboard.png"/></center>
@@ -80,7 +91,7 @@
         });
 
         // Append iframe to document to see if we can auto-login.
-        if (window.name != 'ConnectWithOAuthFrame') {
+        if ((window.name != 'ConnectWithOAuthFrame') && ($('.alert').text().length === 0)) {
           $(document.createElement('iframe'))
            .attr('id','ConnectWithOAuthFrame')
            .attr('src', window.location.href + 'login')
