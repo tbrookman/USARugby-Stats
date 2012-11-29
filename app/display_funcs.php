@@ -96,6 +96,11 @@ function compName($id, $link = TRUE)
  */
 function playerName($id, $game_id = NULL)
 {
+    if (empty($twig)) {
+        $loader = new Twig_Loader_Filesystem(__DIR__.'/views');
+        $twig = new Twig_Environment($loader, array());
+    }
+
     if (empty($id)) {
         return '';
     }
@@ -103,23 +108,11 @@ function playerName($id, $game_id = NULL)
       $db = new DataSource();
     }
     $player = $db->getPlayer($id);
-    $player_id = 'player-' . $id;
-    $output = '';
-    $popover_template = '';
-    $popover_template .= "<div class='popover' id='$player_id'>";
-    $popover_template .= "<div class='arrow'></div><div class='popover-inner'><h3 class='popover-title'></h3><div class='popover-content'>";
-    $popover_template .= "<iframe class='player-popover-iframe' id='$player_id' seamless scrolling='no' src='http://www.stats.dev/player?player_id=$id&iframe=1' onLoad='iframeLoaded(this)'></iframe>";
-    $popover_template .= "</div></div></div>";
-    $picture_url = getFullImageUrl($player['picture_url']);
-    $full_name = $player['firstname'] . ' ' .$player['lastname'];
-    $popover_title = htmlspecialchars("$full_name<button type='button' class='close' id='$player_id' onClick='closePopover(this);'>×</button>", ENT_QUOTES);
-    $output .= "<div class='player-popover'> <a href='#' data-player-id='$id' id='$player_id' data-title='$popover_title'";
-    $output .= " data-template='" . htmlspecialchars($popover_template, ENT_QUOTES) ."'>";
-    $output .= "<img src='$picture_url' class='img-polaroid player-picture player-picture-mini' alt='$full_name' onerror='imgError(this);'/>";
-    $output .= $full_name;
-    $output .= "<div class='player-popover-container'></div></a></div>";
-
-
+    $player['picture_url'] = getFullImageUrl($player['picture_url']);
+    $player['full_name'] = $player['firstname'] . ' ' .$player['lastname'];
+    $player['entity'] = 'player';
+    $player['id'] = $id;
+    $output = $twig->render('player_name.twig', $player);
     return $output;
 }
 
