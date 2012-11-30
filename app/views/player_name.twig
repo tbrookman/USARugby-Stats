@@ -1,4 +1,4 @@
-{% set iframe_src = 'http://www.stats.dev/player?player_id=' ~ id ~ '&iframe=1' %}
+{% set iframe_src = '/player?player_id=' ~ id ~ '&iframe=1' %}
 {% if settings.iframe %}
     {% set modal = { 'entity': entity, 'eid': id, 'title': full_name, 'body': '<iframe class="' ~ entity ~'-modal-iframe" id="' ~ entity ~ '-' ~ id ~ '" seamless scrolling="no" src="' ~ iframe_src ~ '" onLoad="iframeLoaded(this)"></iframe>'} %}
     <div class='player-modal-link player-name'>
