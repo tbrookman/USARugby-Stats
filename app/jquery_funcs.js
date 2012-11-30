@@ -26,9 +26,7 @@
         $('.popover#' + id + ' iframe').height(iframeHeight).width(iframeWidth);
       }
       if ($(iframe).hasClass('player-modal-iframe')) {
-        console.log(iframeWidth, iframeHeight);
         var iframeHeight = $(iframe).contents().find('#wrapper').height();
-        console.log(iframeHeight);
         $(iframe).height(iframeHeight).width(iframeWidth);
       }
 	 }, 50);
