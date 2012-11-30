@@ -18,7 +18,7 @@ while ($row=mysql_fetch_assoc($result)) {
 
 //Turn our ids into names
 foreach ($players as $player) {
-    $outputs[$player]=playerName($player);
+    $outputs[$player]=playerName($player, !empty($iframe), $game_id);
 }
 
 $i=1;

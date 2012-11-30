@@ -17,7 +17,7 @@ foreach ($game_sub_events as $game_sub_event) {
     echo "<tr><td>{$game_sub_event['minute']}'</td>";
     echo "<td>".eType($game_sub_event['type'])."</td>";
     echo "<td>".teamName($game_sub_event['team_id'], empty($iframe))."</td>";
-    echo "<td>".playerName($game_sub_event['player_id'])."</td>";
+    echo "<td>".playerName($game_sub_event['player_id'], !empty($iframe), $game_id)."</td>";
 
     if (editCheck() && empty($iframe)) {
         echo "<td><form style='margin: 0; padding: 0' name='dForm{$game_sub_event['id']}' id='dForm{$game_sub_event['id']}'>";

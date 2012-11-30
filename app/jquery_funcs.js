@@ -13,7 +13,7 @@
 
  function closePopover(popoverButton) {
 	 var id = $(popoverButton).attr('id');
-	 $('.player-popover a#' + id + '.popover-active').popover('hide').removeClass('popover-active');
+	 $('.player-popover-link a#' + id + '.popover-active').popover('hide').removeClass('popover-active');
  }
 
  function iframeLoaded(iframe) {
@@ -24,6 +24,10 @@
       if ($(iframe).hasClass('player-popover-iframe')) {
         $('.popover#' + id).height(iframeHeight + 50).width(iframeWidth + 50);
         $('.popover#' + id + ' iframe').height(iframeHeight).width(iframeWidth);
+      }
+      if ($(iframe).hasClass('player-modal-iframe')) {
+        var iframeHeight = $(iframe).contents().find('#wrapper').height();
+        $(iframe).height(iframeHeight).width(iframeWidth);
       }
 	 }, 50);
  }
@@ -68,39 +72,56 @@ $(document).ready(function() {
   };
 
   var playerPopoverInit = function() {
-    $('.player-popover a').popover({
+    $('.player-popover-link a').popover({
 	  trigger: 'manual',
 	  html: true,
 	  content: '',
-    placement: function(context, source) {
-      var position = $(source).position();
-      if (position.left > 515) {
-        return "left";
+      placement: function(context, source) {
+        var position = $(source).position();
+        if (position.left > 515) {
+          return "left";
+        }
+        else {
+          return "right";
+        }
       }
-      else {
-        return "right";
-      }
-    }
     }).click(function(e) {
 	e.preventDefault();
 	e.stopPropagation();
-	var el = $(this);
+	  var el = $(this);
 	if (!$(this).hasClass('popover-active')) {
 		var playerId = $(this).attr('id');
 		$(this).addClass('popover-active').popover('show');
 	}
-	$('.player-popover a.popover-active').each(function(index){
+	$('.player-popover-link a.popover-active').each(function(index){
 		if (!$(this).is(el)) {
 			$(this).removeClass('popover-active').popover('hide');
 		}
 	});
-	return false;
+	    return false;
     });
   };
 
+  var playerModalInit = function() {
+    $('.player-modal-link a').click(function(e){
+      var modalTemplate = $(this).data('modal-template');
+      $('body').prepend(modalTemplate);
+      var modalId = $(this).attr('id');
+      $('#' + modalId + '-modal').modal().bind('hidden', function(){
+        $('body .player-modal').remove();
+      });
+      return false;
+    });
+  }
+
+  var playerNameInit = function() {
+    playerPopoverInit();
+    playerModalInit();
+  }
+
 
   initDateTime();
-  playerPopoverInit();
+  playerNameInit();
 
 
 
@@ -165,6 +186,7 @@ $(document).ready(function() {
     var game_id = $(this).val();
     var url = 'game.php?id=' + game_id + '&iframe=true' + $('.game-loadspace').data('requested-ops');
     $('.game-loadspace').load(url + ' #wrapper', function(response, status) {
+      playerNameInit();
       if (status == 'success' && windowProxy) {
         windowProxy.post({
           'height' : $('html').height(),
