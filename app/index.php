@@ -237,7 +237,7 @@ $app->get('/standings', function() use ($app) {
     include_once './db.php';
     if ($app['request']->get('iframe')) {
         echo "<script src='https://www.allplayers.com/iframe.js?usar_stats' type='text/javascript'></script>";
-        echo '<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css">';
+        echo '<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css">';
     }
     $comp_id = $app['request']->get('comp_id');
     if (empty($comp_id)) {
