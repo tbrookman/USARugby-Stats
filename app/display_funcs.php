@@ -94,7 +94,7 @@ function compName($id, $link = TRUE)
  * @param unknown $id
  * @return unknown
  */
-function playerName($id, $game_id = NULL)
+function playerName($id, $iframe = FALSE, $game_id = NULL)
 {
     if (empty($twig)) {
         $loader = new Twig_Loader_Filesystem(__DIR__.'/views');
@@ -112,6 +112,7 @@ function playerName($id, $game_id = NULL)
     $player['full_name'] = $player['firstname'] . ' ' .$player['lastname'];
     $player['entity'] = 'player';
     $player['id'] = $id;
+    $player['settings'] = array('iframe' => $iframe);
     $output = $twig->render('player_name.twig', $player);
     return $output;
 }

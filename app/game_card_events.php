@@ -17,7 +17,7 @@ foreach ($game_card_events as $game_card_event) {
     echo "<tr><td>{$game_card_event['minute']}'</td>";
     echo "<td>".eType($game_card_event['type'])."</td>";
     echo "<td>".teamName($game_card_event['team_id'], empty($iframe))."</td>";
-    echo "<td>".playerName($game_card_event['player_id'])."</td>";
+    echo "<td>".playerName($game_card_event['player_id'], !empty($iframe), $game_id)."</td>";
 
     if (editCheck() && empty($iframe)) {
         echo "<td><form style='margin: 0; padding: 0' name='dForm{$game_card_event['id']}' id='dForm{$game_card_event['id']}'>";
