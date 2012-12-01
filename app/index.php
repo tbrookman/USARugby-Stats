@@ -82,7 +82,7 @@ $app->get('/', function() use ($app) {
 
             //List our comps
             echo "<h2>Competitions</h2>";
-            echo "<div id='comps'>";
+            echo "<div id='comps' class='span6'>";
             include_once './comp_list.php';
             echo "</div>";
             include_once './footer.php';
