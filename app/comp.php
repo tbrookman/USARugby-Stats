@@ -21,9 +21,9 @@ if (editCheck(1)) {
     echo "<div id='addteamdiv' class='span6'>";
     include_once './add_team.php';
     echo "</div>";
-    echo "<div class='clearfix'></div>";
 }
 
+echo "<div class='clearfix'></div>";
 echo "<h2>Games</h2>";
 echo "<div id='games'>";
 //Get the games in this comp
