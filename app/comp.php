@@ -11,15 +11,17 @@ $comp = $db->getCompetition($comp_id);
 <?php
 
 echo "<h2>Teams</h2>";
-echo "<div id='teams'>";
+echo "<div id='teams' class='span8'>";
 //Get the teams in this comp
 include_once './comp_teams.php';
 echo "</div>";
 
 if (editCheck(1)) {
-    echo "<div id='addteamdiv'>";
+    echo "<div class='clearfix'></div>";
+    echo "<div id='addteamdiv' class='span6'>";
     include_once './add_team.php';
     echo "</div>";
+    echo "<div class='clearfix'></div>";
 }
 
 echo "<h2>Games</h2>";

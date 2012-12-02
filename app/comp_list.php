@@ -1,6 +1,8 @@
 <?php
 include_once './include_mini.php';
 
+$base_url = $request->getSchemeAndHttpHost();
+
 echo "<table class='table table-hover'><tr>";
 $query = "SELECT * FROM `comps` WHERE hidden=0";
 
@@ -11,7 +13,7 @@ while ($row=mysql_fetch_assoc($result)) {
     if (editCheck(1)) {
        echo "<td>";
 ?>
-<div style="float: right;" class="btn-group">
+<div class="btn-group pull-right">
   <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
     <i class="icon-cog"></i>
     <span class="caret"></span>
@@ -22,7 +24,7 @@ while ($row=mysql_fetch_assoc($result)) {
     <li><a href="#"><i class="icon-remove"></i> Hide</a></li>
     <li class="divider"></li>
     <li class="nav-header">iframes</li>
-    <li><a href="#standingsModal" data-toggle="modal" data-comp-id="<?php echo $row['id']; ?>">Standings</a></li>
+    <li><a href="#standingsModal-<?php echo $row['id']; ?>" data-toggle="modal" data-comp-id="<?php echo $row['id']; ?>">Standings</a></li>
     <li><a href="#">Games</a></li>
 <?php
 //         echo "<form name='hForm{$row['id']}' id='hForm{$row['id']}'>";
@@ -37,22 +39,21 @@ while ($row=mysql_fetch_assoc($result)) {
         echo "</td>\r";
     }
     echo "</tr>";
-}
-
 ?>
-
-<!-- Modal -->
-<div id="standingsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="standingsModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="standingsModalLabel">Modal header</h3>
-  </div>
-  <div class="modal-body">
-    <p>POPULATE MODAL TAG FROM CLICK REF…</p>
-    <a href="standings?comp_id=1">Stangings</a>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-  </div>
-</div>
-
+    <!-- Modals -->
+    <div id="standingsModal-<?php echo $row['id']; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="standingsModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="standingsModalLabel"><?php echo $row['name'];?> Standings</h3>
+      </div>
+      <div class="modal-body">
+        <form>
+          <input class="input-xxlarge" type="text" value="<?php echo $base_url;?>/standings?comp_id=<?php echo $row['id']; ?>" disabled>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </div>
+<?php
+}

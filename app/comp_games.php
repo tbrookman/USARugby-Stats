@@ -16,7 +16,7 @@ while ($row=mysql_fetch_assoc($result)) {
     if (editCheck(1)) {
 ?>
 <td>
-  <div style="float: left;" class="btn-group">
+  <div class="btn-group pull-left">
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
       <i class="icon-cog"></i>
       <span class="caret"></span>

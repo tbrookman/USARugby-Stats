@@ -4,6 +4,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Guzzle\Http\Client;
 use Guzzle\Plugin\Oauth\OauthPlugin;
 use Source\DataSource;
+use Source\QueueHelper;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -75,6 +76,10 @@ $app->get('/', function() use ($app) {
             // Originally "index.php"
             include_once './include.php';
             echo "<h1>Welcome to USA Rugby's National Championship Series!</h1>";
+
+            $qh = new QueueHelper();
+            $queuecount = $qh->Queue()->count();
+            echo "<!-- Queue: $queuecount -->";
 
             if (editCheck(1)) {
                 echo "<a class='btn btn-info' href='add_comp.php'>Add New Competition</a><br/>\r";
@@ -229,6 +234,23 @@ $app->get('/auth', function() use ($app) {
 
         return $app->redirect('/');
     });
+
+/**
+ * Dumb helper to just run pending queue tasks.
+ *
+ * @see QueueRunCommand
+ */
+$app->get('/processqueue', function() use ($app) {
+    $qh = new QueueHelper();
+    if ($qh->Queue()->count() > 0) {
+        $qh->RunQueue();
+    }
+    else {
+        // Nothing to do.
+    }
+
+    return $app->redirect('/');
+});
 
 /**
  *  Return html representation of standings based on comp or group.
