@@ -71,7 +71,7 @@ while ($row=mysql_fetch_assoc($result)) {
     echo "<td>$kout</td>\n";
     echo "<td>".teamName($row['home_id'])."</td>\n";
     echo "<td align='center'><a href='game.php?id={$row['id']}'>{$row['home_score']} - {$row['away_score']}</a></td>\n";
-        echo "<td>".teamName($row['away_id'])."</td>\n";
+    echo "<td>".teamName($row['away_id'])."</td>\n";
     echo "<td>{$resource['title']}</td>\n";
 
     echo "</tr>\n";

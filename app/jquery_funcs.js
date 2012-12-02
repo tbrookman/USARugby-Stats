@@ -376,17 +376,16 @@ $(document).ready(function() {
 
     //hiding a competition
     $(".hidec").live('click', function() {
-
+        if(!confirm('Are you sure you want to hide this competition?')){return false;}
         var comprefresh = $("#comprefresh").val();
-        var hId = $(":input").eq($(":input").index(this) + 1).val();
+        hId = $(this).data('hide-comp-id');
 
         $.post('/hide_comp_process.php',
         {id: hId},
         function(){
           reloadData('#comps', comprefresh);
         });
-
-    return false;
+        return false;
     });
 
     var resourceSync = {
