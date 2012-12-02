@@ -1,6 +1,8 @@
 <?php
 include_once './include_mini.php';
 
+$base_url = $request->getSchemeAndHttpHost();
+
 if (!isset($comp_id) || !$comp_id) {$comp_id=$_GET['id'];}
 
 echo "<table class='normal table'>\n";
@@ -27,8 +29,8 @@ while ($row=mysql_fetch_assoc($result)) {
       <li><a href='#' class='dGame' id='dGame<?php echo $row['id'];?>' data-del-game-id='<?php echo $row['id'];?>'> <i class='icon-remove'></i> Delete</a></li>
       <li class="divider"></li>
       <li class="nav-header">iframes</li>
-      <li><a href="#">Roster</a></li>
-      <li><a href="#">Game info</a></li>
+      <li><a href="#roster-<?php echo $row['id']; ?>-modal" data-toggle="modal">Roster</a></li>
+      <li><a href="#game-<?php echo $row['id']; ?>-modal" data-toggle="modal">Game info</a></li>
     </ul>
 <?php
         echo "<form style='margin: 0; padding: 0' name='dGame{$row['id']}' id='dGame{$row['id']}'>\n";
@@ -39,6 +41,27 @@ while ($row=mysql_fetch_assoc($result)) {
   </div>
 </td>
 <?php
+        // Modals:
+        if (empty($twig)) {
+            $loader = new Twig_Loader_Filesystem(__DIR__.'/views');
+            $twig = new Twig_Environment($loader, array());
+        }
+
+        $rosteriframe = array(
+            'entity' => 'roster',
+            'eid' => $row['id'],
+            'title' => 'Roster', // TODO: What is this roster's name?
+            'iframe_url' => "$base_url/game.php?iframe=1&id={$row['id']}&ops[0]=game_rosters",
+        );
+        echo $twig->render('modal-template-iframe.twig', array('modal' => $rosteriframe));
+
+        $gameiframe = array(
+            'entity' => 'game',
+            'eid' => $row['id'],
+            'title' => 'Game info',
+            'iframe_url' => "$base_url/game.php?iframe=1&id={$row['id']}&ops[0]=game_info&ops[1]=game_score&ops[2]=game_rosters&ops[3]=game_score_events&ops[4]=game_sub_events&ops[5]=game_card_events",
+        );
+        echo $twig->render('modal-template-iframe.twig', array('modal' => $gameiframe));
     }
     else {
         echo "<td></td>";

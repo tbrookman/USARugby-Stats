@@ -25,7 +25,6 @@ while ($row=mysql_fetch_assoc($result)) {
     <li class="divider"></li>
     <li class="nav-header">iframes</li>
     <li><a href="#standings-<?php echo $row['id']; ?>-modal" data-toggle="modal" data-comp-id="<?php echo $row['id']; ?>">Standings</a></li>
-    <li><a href="#">Games</a></li>
 <?php
 //         echo "<form name='hForm{$row['id']}' id='hForm{$row['id']}'>";
 //         echo "<input name='hidec{$row['id']}' class='hidec' id='hidec{$row['id']}' type='button' value='Hidesadfaf' />";
@@ -53,5 +52,4 @@ while ($row=mysql_fetch_assoc($result)) {
         'iframe_url' => $base_url . '/standings?comp_id=' . $row['id'],
     );
     echo $twig->render('modal-template-iframe.twig', array('modal' => $standingsiframe));
-
 }
