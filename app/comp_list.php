@@ -24,7 +24,7 @@ while ($row=mysql_fetch_assoc($result)) {
     <li><a href="#"><i class="icon-remove"></i> Hide</a></li>
     <li class="divider"></li>
     <li class="nav-header">iframes</li>
-    <li><a href="#standingsModal-<?php echo $row['id']; ?>" data-toggle="modal" data-comp-id="<?php echo $row['id']; ?>">Standings</a></li>
+    <li><a href="#standings-<?php echo $row['id']; ?>-modal" data-toggle="modal" data-comp-id="<?php echo $row['id']; ?>">Standings</a></li>
     <li><a href="#">Games</a></li>
 <?php
 //         echo "<form name='hForm{$row['id']}' id='hForm{$row['id']}'>";
@@ -39,21 +39,19 @@ while ($row=mysql_fetch_assoc($result)) {
         echo "</td>\r";
     }
     echo "</tr>";
-?>
-    <!-- Modals -->
-    <div id="standingsModal-<?php echo $row['id']; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="standingsModalLabel" aria-hidden="true">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="standingsModalLabel"><?php echo $row['name'];?> Standings</h3>
-      </div>
-      <div class="modal-body">
-        <form>
-          <input class="input-xxlarge" type="text" value="<?php echo $base_url;?>/standings?comp_id=<?php echo $row['id']; ?>" disabled>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-      </div>
-    </div>
-<?php
+
+    // Modals:
+    if (empty($twig)) {
+        $loader = new Twig_Loader_Filesystem(__DIR__.'/views');
+        $twig = new Twig_Environment($loader, array());
+    }
+
+    $standingsiframe = array(
+        'entity' => 'standings',
+        'eid' => $row['id'],
+        'title' => $row['name'] . ' Standings',
+        'iframe_url' => $base_url . '/standings?comp_id=' . $row['id'],
+    );
+    echo $twig->render('modal-template-iframe.twig', array('modal' => $standingsiframe));
+
 }
