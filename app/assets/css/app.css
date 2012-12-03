@@ -1,3 +1,7 @@
+body {
+  background: transparent;
+}
+
 a.brand {
   padding: 0px !important;
 }

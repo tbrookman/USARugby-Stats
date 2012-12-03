@@ -4,6 +4,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Guzzle\Http\Client;
 use Guzzle\Plugin\Oauth\OauthPlugin;
 use Source\DataSource;
+use Source\QueueHelper;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -76,13 +77,17 @@ $app->get('/', function() use ($app) {
             include_once './include.php';
             echo "<h1>Welcome to USA Rugby's National Championship Series!</h1>";
 
+            $qh = new QueueHelper();
+            $queuecount = $qh->Queue()->count();
+            echo "<!-- Queue: $queuecount -->";
+
             if (editCheck(1)) {
                 echo "<a class='btn btn-info' href='add_comp.php'>Add New Competition</a><br/>\r";
             }
 
             //List our comps
             echo "<h2>Competitions</h2>";
-            echo "<div id='comps'>";
+            echo "<div id='comps' class='span6'>";
             include_once './comp_list.php';
             echo "</div>";
             include_once './footer.php';
@@ -231,13 +236,30 @@ $app->get('/auth', function() use ($app) {
     });
 
 /**
+ * Dumb helper to just run pending queue tasks.
+ *
+ * @see QueueRunCommand
+ */
+$app->get('/processqueue', function() use ($app) {
+    $qh = new QueueHelper();
+    if ($qh->Queue()->count() > 0) {
+        $qh->RunQueue();
+    }
+    else {
+        // Nothing to do.
+    }
+
+    return $app->redirect('/');
+});
+
+/**
  *  Return html representation of standings based on comp or group.
  */
 $app->get('/standings', function() use ($app) {
     include_once './db.php';
     if ($app['request']->get('iframe')) {
         echo "<script src='https://www.allplayers.com/iframe.js?usar_stats' type='text/javascript'></script>";
-        echo '<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css">';
+        echo '<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css">';
     }
     $comp_id = $app['request']->get('comp_id');
     if (empty($comp_id)) {

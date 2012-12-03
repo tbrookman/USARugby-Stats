@@ -15,7 +15,7 @@ if (editCheck(1)) {
       </div>
       <div class="row-fluid">
 
-        <div id="team-wrapper" class="span5">
+        <div id="team-wrapper">
           <div class="control-group">
             <label for="team" id="team_label" class="control-label">Team</label>
             <div class="controls">

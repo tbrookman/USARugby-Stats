@@ -5,7 +5,9 @@
     <h3 id="{{ modal.entity }}-header">{{ modal.title }}</h3>
   </div>
   <div class="modal-body">
-   {{ modal.body|raw}}
+   {% block modalbody %}
+     {{ modal.body|raw}}
+   {% endblock %}
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
