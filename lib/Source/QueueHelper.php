@@ -17,7 +17,7 @@ class QueueHelper
         include __DIR__ . '/../../app/config.php';
         $host = $config['server'] ? $config['server'] : 'localhost';
         $dbname = $config['database'];
-        $conn = new \PDO("mysql:host=$host;dbname=$dbname", $config['username'], $config['password'], $options);
+        $conn = new \PDO("mysql:host=$host;dbname=$dbname", $config['username'], $config['password']);
         $this->queue = new MysqlQueue($conn, 'queue');
     }
 
