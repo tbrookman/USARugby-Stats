@@ -719,7 +719,26 @@ table.standings td, table.standings th
 	{
 	margin-bottom: 4px;
 	}
-	
+    
+.rugby_stats {
+  background-color: transparent;
+}
+.standline {
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: capitalize;
+  color: #08C;
+  padding: 0 0 6px 0;
+}
+.smalltable {
+  width: 100%;
+  margin-bottom: 20px;
+}
 
+.blueline {
+  border-bottom: 1px solid #ccc;
+  font-weight: bold;
+  font-size: 14px;
+}
 
 
