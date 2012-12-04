@@ -23,6 +23,8 @@ class APSource extends Client {
             'token_secret' => $attributes['auth_secret']
         );
         $client = new self($base_url, $log_plugin);
+        $http_client = $client->getClient();
+        $http_client->setSslVerification(!empty($attributes['verify_peer']));
         ClientFactory::OauthFactory($base_url, $oauth_config, $client, $log_plugin);
 
         return $client;
