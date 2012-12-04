@@ -109,11 +109,11 @@ $app->get('/login', function(Request $request) use ($app) {
 
         $client = new Client($app['session']->get('domain') . '/oauth', array(
                 'curl.options' => array(
-                    CURLOPT_SSL_VERIFYPEER => isset($app['config']['verify_peer']) ? $app['config']['verify_peer'] : TRUE,
                     CURLOPT_CAINFO => 'assets/mozilla.pem',
                     CURLOPT_FOLLOWLOCATION => FALSE
                 )
             ));
+        $client->setSslVerification(!empty($app['config']['verify_peer']));
 
         $oauth = new OauthPlugin(array(
                 'consumer_key' => $app['session']->get('consumer_key'),
@@ -159,11 +159,11 @@ $app->get('/auth', function() use ($app) {
         }
         $client = new Client($app['session']->get('domain') . '/oauth', array(
                 'curl.options' => array(
-                    CURLOPT_SSL_VERIFYPEER => isset($app['config']['verify_peer']) ? $app['config']['verify_peer'] : TRUE,
                     CURLOPT_CAINFO => 'assets/mozilla.pem',
                     CURLOPT_FOLLOWLOCATION => FALSE
                 )
             ));
+        $client->setSslVerification(!empty($app['config']['verify_peer']));
 
         $oauth = new OauthPlugin(array(
                 'consumer_key' => $app['session']->get('consumer_key'),
