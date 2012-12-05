@@ -26,7 +26,7 @@
 			<title><xsl:value-of select="sports-metadata/sports-title"/></title>
 			<link rel="stylesheet" type="text/css" href="assets/css/vendor/sportsml.css" />
 		</head>
-		<body>
+		<body class="bg_standings">
 		
 		<h1 class="docTitle"><xsl:value-of select="sports-metadata/sports-title"/></h1>
 		
@@ -166,7 +166,7 @@
 <!-- template for standings -->
 <xsl:template match="standing">
 	<xsl:if test="@date-label or @content-label">
-		<p class="standline">Standings for: <xsl:value-of select="@content-label"/><xsl:text> </xsl:text><xsl:value-of select="@date-label"/></p>
+		<p class="standline"><xsl:value-of select="@content-label"/><xsl:text> </xsl:text><xsl:value-of select="@date-label"/></p>
 	</xsl:if>
 
 	<!-- uncomment the part below when debugging -->
@@ -199,21 +199,19 @@
 			</xsl:choose>
 		</xsl:for-each>
 	</tr>
-
 	<tr class="blueline">
-		<td>Rank</td>
+		<!--<td>Rank</td>-->
 		<td>Team</td>
 		<td>W</td>
 		<td>L</td>
 		<td>T</td>
-		<td>Pts.</td>
-		<xsl:if test="team[1]/team-stats/@events-played"><td>GP</td></xsl:if>
+		<td>GP</td>
 		<td><span title="points scored for">PF</span></td>
 		<td><span title="points scored against">PA</span></td>
 		<xsl:if test="team[1]/team-stats/outcome-totals/@try-bonus"><td>4T</td></xsl:if>
 		<xsl:if test="team[1]/team-stats/outcome-totals/@loss-bonus"><td>-7</td></xsl:if>
-        <xsl:if test="team[1]/team-stats/outcome-totals/@forfeits"><td>FFT</td></xsl:if>
-
+        	<xsl:if test="team[1]/team-stats/outcome-totals/@forfeits"><td>FFT</td></xsl:if>
+        	<td>Pts.</td>
 		<xsl:for-each select="team[1]/team-stats/outcome-totals">
 		<xsl:choose>
 		<xsl:when test="(@duration-scope = 'events-most-recent-10')">
@@ -258,10 +256,10 @@
 <!-- Named template to process a  team in a standing -->
 <xsl:template name="standing-team">
 	<xsl:param name="oneteam"/>
-	<tr valign="top">                                    <!--one row for each team-->
-		<td>
-		<xsl:value-of select="$oneteam/team-stats/rank/@value"/> <!-- put the rank in the first field-->
-		</td>
+	<tr class="td-stats" valign="baseline">                                    <!--one row for each team-->
+		<!--<td>
+		<span class="rank"><xsl:value-of select="$oneteam/team-stats/rank/@value"/></span>   put the rank in the first field
+		</td>-->
 
 		<td nowrap="nowrap"><b>
 			<xsl:for-each select="$oneteam/team-metadata/name"> <!--Build the name in the second field-->
@@ -277,38 +275,39 @@
 		</b></td>
 
 		<td class="wincell">
-			<xsl:value-of select="$oneteam/team-stats/outcome-totals/@wins"/>
+			<span class="win"><xsl:value-of select="$oneteam/team-stats/outcome-totals/@wins"/></span>
 		</td>
-		<td>
-			<xsl:value-of select="$oneteam/team-stats/outcome-totals/@losses"/>
+		<td class="losecell">
+			<span class="losses"><xsl:value-of select="$oneteam/team-stats/outcome-totals/@losses"/></span>
 		</td>
-		<td>
-			<xsl:value-of select="$oneteam/team-stats/outcome-totals/@ties"/>
+		<td class="tiecell">
+			<span class="ties"><xsl:value-of select="$oneteam/team-stats/outcome-totals/@ties"/></span>
 		</td>
-		<td>
-			<xsl:value-of select="$oneteam/team-stats/@standing-points"/>
-		</td>
-      <td>
-		<xsl:if test="$oneteam/team-stats/@events-played">
+        	<td>
 			<xsl:value-of select="$oneteam/team-stats/@events-played"/>
-		</xsl:if></td>
-
+		</td>
 		<td>
 			<xsl:value-of select="$oneteam/team-stats/outcome-totals/@points-scored-for"/>
 		</td>
-
 		<td>
 			<xsl:value-of select="$oneteam/team-stats/outcome-totals/@points-scored-against"/>
 		</td>
-    <td>
-      <xsl:value-of select="$oneteam/team-stats/outcome-totals/@try-bonus"/>
-    </td>
-    <td>
-      <xsl:value-of select="$oneteam/team-stats/outcome-totals/@loss-bonus"/>
-    </td>
-    <td>
-      <xsl:value-of select="$oneteam/team-stats/outcome-totals/@forfeits"/>
-    </td>
+		<xsl:if test="$oneteam/team-stats/outcome-totals/@try-bonus">
+        		<td>
+            			<xsl:value-of select="$oneteam/team-stats/outcome-totals/@try-bonus"/>
+                        </td>
+                </xsl:if>
+                <xsl:if test="$oneteam/team-stats/outcome-totals/@loss-bonus">
+			<td>
+				<xsl:value-of select="$oneteam/team-stats/outcome-totals/@loss-bonus"/>
+			</td>
+		</xsl:if>
+                <td>
+            		<xsl:value-of select="$oneteam/team-stats/outcome-totals/@forfeits"/>
+           	</td>
+        	<td>
+			<span class="points"><xsl:value-of select="$oneteam/team-stats/@standing-points"/></span>
+		</td>
 		<!-- NOTE: Should add in logic for overtime losses and other combinations -->
 
 		<xsl:for-each select="$oneteam/team-stats/outcome-totals">
