@@ -202,16 +202,16 @@
 	<tr class="blueline">
 		<!--<td>Rank</td>-->
 		<td>Team</td>
+        <td>GP</td>
 		<td>W</td>
 		<td>L</td>
 		<td>T</td>
-		<td>GP</td>
 		<td><span title="points scored for">PF</span></td>
 		<td><span title="points scored against">PA</span></td>
 		<xsl:if test="team[1]/team-stats/outcome-totals/@try-bonus"><td>4T</td></xsl:if>
 		<xsl:if test="team[1]/team-stats/outcome-totals/@loss-bonus"><td>-7</td></xsl:if>
-        	<xsl:if test="team[1]/team-stats/outcome-totals/@forfeits"><td>FFT</td></xsl:if>
-        	<td>Pts.</td>
+        	<xsl:if test="team[1]/team-stats/outcome-totals/@forfeits"><td>FF</td></xsl:if>
+        	<td>PTS</td>
 		<xsl:for-each select="team[1]/team-stats/outcome-totals">
 		<xsl:choose>
 		<xsl:when test="(@duration-scope = 'events-most-recent-10')">
@@ -273,6 +273,9 @@
 			<br/>
 			</xsl:for-each>
 		</b></td>
+        	<td>
+			<xsl:value-of select="$oneteam/team-stats/@events-played"/>
+		</td>
 
 		<td class="wincell">
 			<span class="win"><xsl:value-of select="$oneteam/team-stats/outcome-totals/@wins"/></span>
@@ -282,9 +285,6 @@
 		</td>
 		<td class="tiecell">
 			<span class="ties"><xsl:value-of select="$oneteam/team-stats/outcome-totals/@ties"/></span>
-		</td>
-        	<td>
-			<xsl:value-of select="$oneteam/team-stats/@events-played"/>
 		</td>
 		<td>
 			<xsl:value-of select="$oneteam/team-stats/outcome-totals/@points-scored-for"/>
