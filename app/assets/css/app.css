@@ -55,3 +55,14 @@ h3.popover-title {
 .player-popover-iframe {
 	width:100%;
 }
+
+/* admin displays FR - game player view */
+#maincontent th.frout, #maincontent td.frout {
+  display: block;
+}
+
+/* public hides FR - game player view */
+
+th.frout, td.frout {
+  display: none;
+}
