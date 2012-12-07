@@ -294,12 +294,12 @@
 			<xsl:value-of select="$oneteam/team-stats/outcome-totals/@points-scored-against"/>
 		</td>
 		<xsl:if test="$oneteam/team-stats/outcome-totals/@try-bonus">
-        		<td>
+        		<td class="ft-set-cell">
             			<xsl:value-of select="$oneteam/team-stats/outcome-totals/@try-bonus"/>
                         </td>
                 </xsl:if>
                 <xsl:if test="$oneteam/team-stats/outcome-totals/@loss-bonus">
-			<td>
+			<td class="ns-set-cell">
 				<xsl:value-of select="$oneteam/team-stats/outcome-totals/@loss-bonus"/>
 			</td>
 		</xsl:if>

@@ -54,10 +54,10 @@
 }
 
 .smalltable tr.td-stats td + td, .smalltable tr.td-stats td + td + td + td + td + td {
- width: 20%;
+ width: 15%;
 }
 
-.smalltable tr.td-stats td + td + td, .smalltable tr.td-stats td + td + td + td, .smalltable tr.td-stats td + td + td + td + td + td + td + td, .smalltable tr.td-stats td + td + td + td + td + td + td + td + td {
+.smalltable tr.td-stats td + td + td, .smalltable tr.td-stats td + td + td + td, .smalltable tr.td-stats td + td + td + td + td + td + td + td, .smalltable tr.td-stats td + td + td + td + td + td + td + td + td, .smalltable tr.td-stats td + td + td + td + td + td + td + td + td + td, .smalltable tr.td-stats td + td + td + td + td + td + td + td + td + td + td {
  width: 10%;
 }
 
@@ -76,6 +76,14 @@ tr.blueline + tr.blueline {
   background-color: #E8E8E8;
   color: #000;
   text-decoration: underline;
+}
+td.ft-set-cell {
+  background-color: #F7FDFD;
+  border-left: 1px solid #ccc;
+}
+td.ns-set-cell {
+  background-color: #F7FDFD;
+  border-right: 1px solid #ccc;
 }
 
 .blueline {
