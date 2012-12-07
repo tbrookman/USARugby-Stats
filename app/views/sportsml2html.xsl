@@ -25,6 +25,7 @@
 		<head>
 			<title><xsl:value-of select="sports-metadata/sports-title"/></title>
 			<link rel="stylesheet" type="text/css" href="assets/css/vendor/sportsml.css" />
+            <link rel="stylesheet" type="text/css" href="assets/css/sportsml-custom.css" />
 		</head>
 		<body class="bg_standings">
 		
