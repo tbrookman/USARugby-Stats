@@ -28,9 +28,17 @@
   font-size: 14px;
 }
 
-/*.smalltable td b {
+div.standings-key {
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #FAFAFA;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px;
   color: #666;
-}*/
+  
+}
 
 .smalltable td {
   padding: 7px 5px 4px 5px;
@@ -98,46 +106,4 @@ span.rank {
 span.points {
   padding: 3px 10px;
   width: 10px;
-  /*background-color: #cccccc;
-  color: #666666;
-  text-align: center;
-  font-weight: bold;
-  border-radius: 5px;
-  border: 1px solid #666666;
-  font-size: 18px;*/
 }
-
-
-/* Table cell accents for win, lose, points, tie */
-/*span.win {
-  background-color: #1B692A;
-  color: white;
-  text-align: center;
-  padding: 3px 10px;
-  width: 20px;
-  font-weight: bold;
-  border-radius: 5px;
-  border: 1px solid #0d3415;
-}
-
-span.losses {
-  background-color: #cb004c;
-  color: white;
-  text-align: center;
-  padding: 3px 10px;
-  width: 20px;
-  font-weight: bold;
-  border-radius: 5px;
-  border: 1px solid #9b243e;
-}
-
-span.ties {
-  background-color: #2c7892;
-  color: white;
-  text-align: center;
-  padding: 3px 10px;
-  width: 20px;
-  font-weight: bold;
-  border-radius: 5px;
-  border: 1px solid #195571;
-}*/

@@ -28,7 +28,6 @@
             <link rel="stylesheet" type="text/css" href="assets/css/sportsml-custom.css" />
 		</head>
 		<body class="bg_standings">
-		
 		<h1 class="docTitle"><xsl:value-of select="sports-metadata/sports-title"/></h1>
 		
 
@@ -50,12 +49,24 @@
 				<xsl:apply-templates select="article"/>
 				<xsl:apply-templates select="sports-event"/>
 				<xsl:apply-templates select="tournament"/>
-				<xsl:apply-templates select="standing"/>
+				<xsl:apply-templates select="standing"/><div class="standings-key">
+                  <b>GP</b> = Games Played; 
+                  <b>W</b> = Wins; 
+                  <b>L</b> = Losses; 
+                  <b>T</b> = Ties; 
+                  <b>PF</b> = Points For; 
+                  <b>PA</b> = Points Against; 
+                  <b>PD</b> = Points Differential; 
+                  <b>BT</b> = Try Bonus (4 Tries or More); 
+                  <b>BL</b> = Loss Bonus (Loss by 7 or Less); 
+                  <b>FF</b> = Forfeit Deduction; 
+                  <b>PTS</b> = League Points
+                </div>
 				<xsl:apply-templates select="schedule"/>
 				<xsl:apply-templates select="statistic"/>
 				</td></tr></table>
 			</xsl:otherwise>
-			</xsl:choose>
+            </xsl:choose>
 		</body>
 	</html>
 </xsl:template>
@@ -167,7 +178,7 @@
 <!-- template for standings -->
 <xsl:template match="standing">
 	<xsl:if test="@date-label or @content-label">
-		<p class="standline"><xsl:value-of select="@content-label"/><xsl:text> </xsl:text><xsl:value-of select="@date-label"/></p>
+		<!--<p class="standline"><xsl:value-of select="@content-label"/><xsl:text> </xsl:text><xsl:value-of select="@date-label"/></p>-->
 	</xsl:if>
 
 	<!-- uncomment the part below when debugging -->
@@ -202,15 +213,15 @@
 	</tr>
 	<tr class="blueline">
 		<!--<td>Rank</td>-->
-		<td>Team</td>
+		<td><xsl:value-of select="@content-label"/><xsl:text> </xsl:text><xsl:value-of select="@date-label"/></td>
         <td>GP</td>
 		<td>W</td>
 		<td>L</td>
 		<td>T</td>
 		<td><span title="points scored for">PF</span></td>
 		<td><span title="points scored against">PA</span></td>
-		<xsl:if test="team[1]/team-stats/outcome-totals/@try-bonus"><td>4T</td></xsl:if>
-		<xsl:if test="team[1]/team-stats/outcome-totals/@loss-bonus"><td>-7</td></xsl:if>
+		<xsl:if test="team[1]/team-stats/outcome-totals/@try-bonus"><td>BT</td></xsl:if>
+		<xsl:if test="team[1]/team-stats/outcome-totals/@loss-bonus"><td>BL</td></xsl:if>
         	<xsl:if test="team[1]/team-stats/outcome-totals/@forfeits"><td>FF</td></xsl:if>
         	<td>PTS</td>
 		<xsl:for-each select="team[1]/team-stats/outcome-totals">
@@ -250,9 +261,8 @@
 		</xsl:call-template>
 	</xsl:for-each>
 	</table>
-</xsl:template>
+    </xsl:template>
 <!-- end template for standing -->
-
 
 <!-- Named template to process a  team in a standing -->
 <xsl:template name="standing-team">

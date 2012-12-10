@@ -35,9 +35,9 @@ if (count($homeps) > count($awayps)) {
     $max = count($awayps);
 }
 
-echo "<table class='table'>";
+echo "<table class='table rosters'>";
 $link = empty($iframe);
-echo "<tr><th>#</th><th>" . teamName($away_id, $link) . "</th><th>Position</th><th>FR</th><th>@</th><th>#</th><th>" . teamName($home_id, $link) . "</th><th>Position</th><th>FR</th><th></tr>";
+echo "<tr class='rosters-header'><th>#</th><th>" . teamName($away_id, $link) . "</th><th>Position</th><th>FR</th><th>@</th><th>#</th><th>" . teamName($home_id, $link) . "</th><th>Position</th><th>FR</th><th></tr>";
 
 //0 element has been filtered above so start at 1
 //displaying number, name, FR capable

@@ -215,7 +215,7 @@ function get_header_string($op) {
         'player'
       );
   }
-  $header_string = '<tr>';
+  $header_string = '<tr class="header-game-events">';
   foreach ($headers as $header) {
     $header_string .= '<th>' . ucfirst($header) . '</th>';
   }

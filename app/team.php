@@ -28,8 +28,10 @@ echo "<br/>";
 
 echo "<h2>Game Rosters</h2>";
 //Get the rosters for this team
+echo "<div class='rosters-wrapper'>";
 include_once './team_game_rosters.php';
 echo "<br/>";
+echo "</div>";
 
 include_once './footer.php';
 mysql_close();
