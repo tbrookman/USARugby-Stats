@@ -220,6 +220,7 @@
 		<td>T</td>
 		<td><span title="points scored for">PF</span></td>
 		<td><span title="points scored against">PA</span></td>
+        <td><span title="points differential">PD</span></td>
 		<xsl:if test="team[1]/team-stats/outcome-totals/@try-bonus"><td>BT</td></xsl:if>
 		<xsl:if test="team[1]/team-stats/outcome-totals/@loss-bonus"><td>BL</td></xsl:if>
         	<xsl:if test="team[1]/team-stats/outcome-totals/@forfeits"><td>FF</td></xsl:if>
@@ -289,13 +290,13 @@
 		</td>
 
 		<td class="wincell">
-			<span class="win"><xsl:value-of select="$oneteam/team-stats/outcome-totals/@wins"/></span>
+			<xsl:value-of select="$oneteam/team-stats/outcome-totals/@wins"/>
 		</td>
 		<td class="losecell">
-			<span class="losses"><xsl:value-of select="$oneteam/team-stats/outcome-totals/@losses"/></span>
+			<xsl:value-of select="$oneteam/team-stats/outcome-totals/@losses"/>
 		</td>
 		<td class="tiecell">
-			<span class="ties"><xsl:value-of select="$oneteam/team-stats/outcome-totals/@ties"/></span>
+			<xsl:value-of select="$oneteam/team-stats/outcome-totals/@ties"/>
 		</td>
 		<td>
 			<xsl:value-of select="$oneteam/team-stats/outcome-totals/@points-scored-for"/>
@@ -303,13 +304,14 @@
 		<td>
 			<xsl:value-of select="$oneteam/team-stats/outcome-totals/@points-scored-against"/>
 		</td>
+        <td><span title="Points Differential"><xsl:value-of select="$oneteam/team-stats/outcome-totals/@points-differential"/></span></td>
 		<xsl:if test="$oneteam/team-stats/outcome-totals/@try-bonus">
-        		<td class="ft-set-cell">
+        		<td>
             			<xsl:value-of select="$oneteam/team-stats/outcome-totals/@try-bonus"/>
                         </td>
                 </xsl:if>
                 <xsl:if test="$oneteam/team-stats/outcome-totals/@loss-bonus">
-			<td class="ns-set-cell">
+			<td>
 				<xsl:value-of select="$oneteam/team-stats/outcome-totals/@loss-bonus"/>
 			</td>
 		</xsl:if>

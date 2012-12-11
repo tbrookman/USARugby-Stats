@@ -43,6 +43,7 @@ div.standings-key {
 .smalltable td {
   padding: 7px 5px 4px 5px;
   text-align: center;
+  width: 30px;
 }
 
 .smalltable td:first-child {
@@ -50,23 +51,11 @@ div.standings-key {
   text-align:left;
   width: 170px;
   font-size: 13px;
+  text-decoration:none;
 }
 
-.smalltable td:last-child {
-  padding-left: 10px;
-  font-weight: bold;
-}
-
-.smalltable tr.td-stats td:last-child {
- border-left: 1px solid #ccc;
-}
-
-.smalltable tr.td-stats td + td, .smalltable tr.td-stats td + td + td + td + td + td {
- width: 15%;
-}
-
-.smalltable tr.td-stats td + td + td, .smalltable tr.td-stats td + td + td + td, .smalltable tr.td-stats td + td + td + td + td + td + td + td, .smalltable tr.td-stats td + td + td + td + td + td + td + td + td, .smalltable tr.td-stats td + td + td + td + td + td + td + td + td + td, .smalltable tr.td-stats td + td + td + td + td + td + td + td + td + td + td {
- width: 10%;
+.smalltable tr.td-stats:nth-child(even) {
+  background-color: #eeeeee;
 }
 
 tr.blueline:nth-child(2) {
@@ -74,6 +63,19 @@ tr.blueline:nth-child(2) {
   font-size: 14px;
   background-color: #E8E8E8;
   color: #000;
+  font-weight: bold;
+}
+
+tr.blueline:nth-child(2) td + td {
+  border-left: 3px solid #fff;
+  border-right: 3px solid #fff;
+}
+
+tr.blueline:nth-child(2) td:last-child {
+  border-right: 0;
+}
+
+tr.blueline:nth-child(2) td + td {
   text-decoration: underline;
 }
 
@@ -83,17 +85,7 @@ tr.blueline + tr.blueline {
   font-size: 14px;
   background-color: #E8E8E8;
   color: #000;
-  text-decoration: underline;
 }
-td.ft-set-cell {
-  background-color: #F7FDFD;
-  border-left: 1px solid #ccc;
-}
-td.ns-set-cell {
-  background-color: #F7FDFD;
-  border-right: 1px solid #ccc;
-}
-
 .blueline {
   border: 0;
   background-color: transparent;
