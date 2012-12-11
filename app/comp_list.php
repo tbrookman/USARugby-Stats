@@ -1,7 +1,7 @@
 <?php
 include_once './include_mini.php';
 
-$base_url = $request->getSchemeAndHttpHost();
+$base_url = $request->getScheme() . '://' . $request->getHost();
 
 echo "<table class='table table-hover'><tr>";
 $query = "SELECT * FROM `comps` WHERE hidden=0";
