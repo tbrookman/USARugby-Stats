@@ -26,6 +26,8 @@
       </td>
       {{ competition.standingsiframe|raw }}
       {{ competition.competitioniframe|raw }}
+      {% else %}
+      <td></td>
       {% endif %}
   </tr>
   {% endfor %}
