@@ -1,0 +1,54 @@
+<div>
+  <table class="normal table">
+    <tr>
+      <th></th>
+      <th>Game</th>
+      <th>Kickoff</th>
+      <th>Home</th>
+      <th>Score</th>
+      <th>Away</th>
+      <th>Field</th>
+    </tr>
+    {% for game in gamerows%}
+        <tr>
+          {% if game.canedit %}
+            <td>
+              <div class="btn-group pull-left">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="icon-cog"></i>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- dropdown menu links -->
+                  <li><a href='game.php?id={{ game.id }}'><i class="icon-pencil"></i> Edit</a></li>
+                  <li><a href='#' class='dGame' id='dGame{{ game.id }}' data-del-game-id='{{ game.id }}'> <i class='icon-remove'></i> Delete</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header">iframes</li>
+                  <li><a href="#roster-{{ game.id }}-modal" data-toggle="modal">Roster</a></li>
+                  <li><a href="#game-{{ game.id }}-modal" data-toggle="modal">Game info</a></li>
+                </ul>
+                    <form style='margin: 0; padding: 0' name='dGame{{ game.id }}' id='dGame{{ game.id }}'>
+                    <input type='hidden' class='dId' name='game_id' id='game_id' value='{{ game.id }}' />
+                    <input type='hidden' name='grefresh' id='grefresh' value='comp_games.php?id={{ game.comp_id }}' />
+                    </form>
+              </div>
+            </td>
+            {{ game.rosteriframe|raw }}
+            {{ game.gameiframe|raw }}
+          {% else %}
+            <td></td>
+          {% endif %}
+          <td>{{ game.comp_game_id|raw }}</td>
+          <td>{{ game.kickoff|raw }}</td>
+          <td>{{ game.home_id|raw}}</td>
+          <td>{{ game.score|raw }}</td>
+          <td>{{ game.away_id|raw }}</td>
+          <td>{{ game.field|raw }}</td>
+        </tr>
+    {% endfor %}
+  </table>
+ </div>
+
+
+
+    

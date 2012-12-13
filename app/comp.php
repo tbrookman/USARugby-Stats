@@ -12,7 +12,7 @@ $comp = $db->getCompetition($comp_id);
 
 echo "<h2>Teams</h2>";
 echo "<div id='teams' class='span8'>";
-//Get the teams in this comp
+// Get the teams in this comp
 include_once './comp_teams.php';
 echo "</div>";
 
@@ -26,7 +26,8 @@ if (editCheck(1)) {
 echo "<div class='clearfix'></div>";
 echo "<h2>Games</h2>";
 echo "<div id='games'>";
-//Get the games in this comp
+// Get the games in this comp
+// Replace include_once with comp_games.twig
 include_once './comp_games.php';
 echo "</div>";
 
