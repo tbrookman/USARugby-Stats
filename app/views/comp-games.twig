@@ -35,6 +35,8 @@
             </td>
             {{ game.rosteriframe|raw }}
             {{ game.gameiframe|raw }}
+          {% else %}
+            <td></td>
           {% endif %}
           <td>{{ game.comp_game_id|raw }}</td>
           <td>{{ game.kickoff|raw }}</td>
