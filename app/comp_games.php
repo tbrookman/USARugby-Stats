@@ -1,7 +1,7 @@
 <?php
 include_once './include_mini.php';
 
-$base_url = $request->getSchemeAndHttpHost();
+$base_url = $request->getScheme() . '://' . $request->getHost();
 
 if (!isset($comp_id) || !$comp_id) {$comp_id=$_GET['id'];}
 
