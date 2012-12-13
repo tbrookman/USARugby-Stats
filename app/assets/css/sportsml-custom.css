@@ -1,12 +1,4 @@
-/* 
-    Document   : sportsml-custom.css
-    Created on : Dec 7, 2012, 10:09:45 AM
-    Author     : tashabrookman
-    Description:
-        custom style sheet for the css/vendor/sportsml.css
-*/
-
- /*** Standings ***/
+/*** Standings ***/
 .rugby_stats {
   background-color: transparent;
 }
@@ -37,7 +29,6 @@ div.standings-key {
   -webkit-border-radius: 5px;
   -khtml-border-radius: 5px;
   color: #666;
-  
 }
 
 .smalltable td {

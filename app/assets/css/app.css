@@ -66,7 +66,6 @@ th.frout, td.frout {
 }
 
 /** rosters **/
-
 div.row-fluid.span-12.game_info {
   width: 98%;
 }
@@ -74,25 +73,6 @@ div.row-fluid.span-12.game_info {
 div.rosters-wrapper {
   padding-left: 20px;
 }
-
-/*div.row-fluid.span-12.game_info #info {
-  padding: 10px;
-  margin-top: 10px;
-  border: 1px solid #CCC;
-  font-size: 12px;
-  width: 37%;
-  margin-bottom: 10px;
-}
-
-div.row-fluid.span-12.game_info #score {
-  border:  1px solid #ccc;
-  margin-top: 10px;
-  padding: 9px;
-  font-size: 16px;
-  text-align: center;
-  width: 54%;
-  margin-bottom: 10px;
-}*/
 
 table.table.rosters tr.rosters-header {
   background-color: #E8E8E8;
@@ -111,7 +91,6 @@ div.row-fluid.span-12.game_info table.table.rosters tr.rosters-header th:last-ch
 }
 
 /**game score events **/
-
 div.row-fluid.span-12.game_info table.table.game-score-events {
   font-size: 1em;
   margin-bottom: 0;
