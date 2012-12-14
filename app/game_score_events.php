@@ -7,7 +7,7 @@ if (empty($game_id)) {
     }
 }
 
-echo "<table class='table'>";
+echo "<table class='table game-score-events'>";
 
 $game_score_events = $db->getGameScoreEvents($game_id);
 if (!empty($iframe)) {

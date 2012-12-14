@@ -474,6 +474,7 @@ function get_standings($comp_id, $db) {
         $totals->setAttribute('winning-percentage', $record['percent']);
         $totals->setAttribute('points-scored-for', $record['favor']);
         $totals->setAttribute('points-scored-against', $record['against']);
+        $totals->setAttribute('points-differential', $record['favor'] - $record['against']);
         if ($comp_type == '15s') {
             $totals->setAttribute('try-bonus', $record['try_bonus_total']);
             $totals->setAttribute('loss-bonus', $record['loss_bonus_total']);

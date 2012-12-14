@@ -7,7 +7,7 @@ if (empty($game_id)) {
     }
 }
 
-echo "<table class='table'>";
+echo "<table class='table events-sub'>";
 
 $game_sub_events = $db->getGameSubEvents($game_id);
 if (!empty($iframe)) {

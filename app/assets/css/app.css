@@ -55,3 +55,78 @@ h3.popover-title {
 .player-popover-iframe {
 	width:100%;
 }
+/** admin displays FR - game player view **/
+#maincontent th.frout, #maincontent td.frout {
+  display: block;
+}
+
+/** public hides FR - game player view **/
+th.frout, td.frout {
+  display: none;
+}
+
+/** rosters **/
+div.row-fluid.span-12.game_info {
+  width: 98%;
+}
+
+div.rosters-wrapper {
+  padding-left: 20px;
+}
+
+table.table.rosters tr.rosters-header {
+  background-color: #E8E8E8;
+  border-bottom: 1px solid #DDD;
+}
+
+div.row-fluid.span-12.game_info table.table.rosters {
+  font-size: 1em;
+  margin-top: 10px;
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+div.row-fluid.span-12.game_info table.table.rosters tr.rosters-header th:last-child {
+  background-color: transparent;
+}
+
+/**game score events **/
+div.row-fluid.span-12.game_info table.table.game-score-events {
+  font-size: 1em;
+  margin-bottom: 0;
+}
+div.row-fluid.span-12.game_info table.table {
+  font-size: 1em;
+  margin: 0px;
+}
+
+div.row-fluid.span-12.game_info table.table td:first-child {
+  max-width: 50px;
+}
+
+div.row-fluid.span-12.game_info table.table.events-sub {
+  font-size: 1em;
+  margin-top: 10px;
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+div.row-fluid.span-12.game_info table.table tr.header-game-events {
+  background-color: #fafafa;
+}
+
+table.table.card-events tr th:first-child, table.table.events-sub tr th:first-child, table.table.game-score-events tr th:first-child {
+  width: 10%;
+} 
+
+table.table.card-events tr th + th, table.table.events-sub tr th + th, table.table.game-score-events tr th + th {
+  width: 20%;
+}
+
+table.table.card-events tr th + th + th, table.table.events-sub tr th + th + th, table.table.game-score-events tr th + th + th {
+  width: 40%;
+}
+
+table.table.card-events tr th:last-child, table.table.events-sub tr th:last-child, table.table.game-score-events tr th:last-child {
+  width: 30%;
+}
