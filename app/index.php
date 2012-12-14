@@ -85,7 +85,8 @@ $app->get('/', function() use ($app) {
                 echo "<a class='btn btn-info' href='add_comp.php'>Add New Competition</a><br/>\r";
             }
 
-            //List our comps
+            // Lists our comptitions
+            // Renders twig comp-list for competitions
             echo "<h2>Competitions</h2>";
             echo "<div id='comps' class='span6'>";
             include_once './comp_list.php';
