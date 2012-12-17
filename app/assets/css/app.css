@@ -1,5 +1,9 @@
 body {
   background: transparent;
+  padding: 0;
+}
+div.navbar-inverse {
+  padding: 0 10px;
 }
 
 a.brand {
@@ -129,4 +133,52 @@ table.table.card-events tr th + th + th, table.table.events-sub tr th + th + th,
 
 table.table.card-events tr th:last-child, table.table.events-sub tr th:last-child, table.table.game-score-events tr th:last-child {
   width: 30%;
+}
+
+/** Styling for Team Schedules **/
+table.normal.table.team-schedule-games {
+  font-size: .92em;
+}
+table.normal.table.team-schedule-games tr:nth-child(odd) {
+  background-color: #eeeeee;
+  
+}
+table.normal.table.team-schedule-games tr.schedules-table-header:first-child {
+  background-color: #E8E8E8;
+}
+
+table.normal.table.team-schedule-games tr.schedules-table-header:first-child th {
+  border-left: 3px solid #fff;
+  border-right: 3px solid #fff;
+  text-align: center;
+}
+
+table.normal.table.team-schedule-games tr.schedules-table-header:first-child th:first-child {
+  border: 0;
+}
+
+table.normal.table.team-schedule-games tr.schedules-table-header:first-child th + th {
+  border-left: 0px;
+}
+
+/** Admin view Game **/
+#maincontent table.normal.table.team-schedule-games {
+  font-size: 1.2em;
+}
+
+#maincontent table.normal.table.team-schedule-games tr:nth-child(odd) {
+  background-color: transparent;
+}
+
+#maincontent table.normal.table.team-schedule-games .schedules-table-header {
+  background-color: transparent;
+}
+
+#maincontent table.normal.table.team-schedule-games tr.schedules-table-header:first-child {
+  background-color: transparent;
+}
+
+#maincontent table.normal.table.team-schedule-games tr.schedules-table-header:first-child th {
+  border: 0;
+  text-align: left;
 }
