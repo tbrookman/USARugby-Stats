@@ -1,5 +1,5 @@
 <div>
-  <table class="normal table">
+  <table class="normal table team-schedule-games">
     <tr>
       <th></th>
       <th>Game</th>
@@ -39,7 +39,7 @@
             <td></td>
           {% endif %}
           <td>{{ game.comp_game_id|raw }}</td>
-          <td>{{ game.kickoff|raw }}</td>
+          <td>{{ game.kickoff }}</td>
           <td>{{ game.home_id|raw}}</td>
           <td>{{ game.score|raw }}</td>
           <td>{{ game.away_id|raw }}</td>
