@@ -285,6 +285,7 @@
 		<td><span class="points"><b><xsl:value-of select="$oneteam/team-stats/@standing-points"/></b></span></td>
 		<!-- NOTE: Should add in logic for overtime losses and other combinations -->
 
+
 		<xsl:for-each select="$oneteam/team-stats/outcome-totals">
 			<xsl:choose>
 			<xsl:when test="(@duration-scope = 'events-most-recent-10')">

@@ -2,12 +2,12 @@
   <table class="normal table team-schedule-games">
     <tr class="schedules-table-header">
       <th></th>
-      <th>Game</th>
-      <th>Kickoff</th>
+      <th class="schide">Game</th>
+      <th>Date</th>
       <th>Home</th>
       <th>Score</th>
-      <th>Away</th>
-      <th>Field</th>
+      <th>Opponent</th>
+      <th>Location</th>
     </tr>
     {% for game in gamerows%}
         <tr>
@@ -26,6 +26,8 @@
                   <li class="nav-header">iframes</li>
                   <li><a href="#roster-{{ game.id }}-modal" data-toggle="modal">Roster</a></li>
                   <li><a href="#game-{{ game.id }}-modal" data-toggle="modal">Game info</a></li>
+                  <li><a href="#homeschedule-{{ game.id }}-modal" data-toggle="modal">Home Schedule</a></li>
+                  <li><a href="#awayschedule-{{ game.id }}-modal" data-toggle="modal">Away Schedule</a></li>
                 </ul>
                     <form style='margin: 0; padding: 0' name='dGame{{ game.id }}' id='dGame{{ game.id }}'>
                     <input type='hidden' class='dId' name='game_id' id='game_id' value='{{ game.id }}' />
@@ -35,10 +37,12 @@
             </td>
             {{ game.rosteriframe|raw }}
             {{ game.gameiframe|raw }}
+            {{ game.homeschedule|raw }}
+            {{ game.awayschedule|raw }}
           {% else %}
             <td></td>
           {% endif %}
-          <td>{{ game.comp_game_id|raw }}</td>
+          <td class="schide">{{ game.comp_game_id|raw }}</td>
           <td>{{ game.kickoff }}</td>
           <td>{{ game.home_id|raw}}</td>
           <td>{{ game.score|raw }}</td>

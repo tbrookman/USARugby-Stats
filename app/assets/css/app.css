@@ -145,12 +145,12 @@ table.normal.table.team-schedule-games tr:nth-child(odd) {
 }
 table.normal.table.team-schedule-games tr.schedules-table-header:first-child {
   background-color: #E8E8E8;
+  text-decoration: underline;
 }
 
 table.normal.table.team-schedule-games tr.schedules-table-header:first-child th {
   border-left: 3px solid #fff;
   border-right: 3px solid #fff;
-  text-align: center;
 }
 
 table.normal.table.team-schedule-games tr.schedules-table-header:first-child th:first-child {
@@ -159,6 +159,22 @@ table.normal.table.team-schedule-games tr.schedules-table-header:first-child th:
 
 table.normal.table.team-schedule-games tr.schedules-table-header:first-child th + th {
   border-left: 0px;
+}
+
+table.normal.table.team-schedule-games tr th:first-child {
+  display:none;
+}
+
+table.normal.table.team-schedule-games tr td:first-child {
+  display:none;
+}
+
+table.normal.table.team-schedule-games tr td.schide {
+  display:none;
+}
+
+table.normal.table.team-schedule-games tr th.schide {
+  display:none;
 }
 
 /** Admin view Game **/
@@ -176,9 +192,26 @@ table.normal.table.team-schedule-games tr.schedules-table-header:first-child th 
 
 #maincontent table.normal.table.team-schedule-games tr.schedules-table-header:first-child {
   background-color: transparent;
+  text-decoration: none;
 }
 
 #maincontent table.normal.table.team-schedule-games tr.schedules-table-header:first-child th {
   border: 0;
   text-align: left;
+}
+
+#maincontent table.normal.table.team-schedule-games tr th:first-child {
+  display:table-cell;
+}
+
+#maincontent table.normal.table.team-schedule-games tr td:first-child {
+  display:table-cell;
+}
+
+#maincontent table.normal.table.team-schedule-games tr td.schide {
+  display:table-cell;
+}
+
+#maincontent table.normal.table.team-schedule-games tr th.schide {
+  display:table-cell;
 }
