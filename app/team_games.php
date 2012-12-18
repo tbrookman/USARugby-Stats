@@ -25,11 +25,7 @@ if (empty($team_id)) {
         $team_games = $db->getCompetitionGames($team_uuid);
     }
     if (empty($team_games)) {
-      ?>
-      <div class="alert alert-no-games">
-        <h4>No Games Yet!</h4>
-      </div>
-      <?php
+        echo '<!-- No Games -->';
     }
     else {
         // Regular display.
@@ -67,5 +63,4 @@ if (empty($team_id)) {
 </div>
 <?php
 
-
-
+include './footer.php';
