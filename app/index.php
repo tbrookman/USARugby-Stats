@@ -265,17 +265,10 @@ $app->get('/standings', function() use ($app) {
     $comp_id = $app['request']->get('comp_id');
     if (empty($comp_id)) {
         // Team UUID is required in order to get the standings of that group (league or division).
-        $team_uuid = $app['request']->get('group_uuid');
-        $team = $db->getTeam($team_uuid);
-        $comps = $db->getAllCompetitions();
-        foreach ($comps as $id => $comp) {
-            if (in_array((string) $team['id'], explode(',', $comp['top_groups']))) {
-                $comp_id = $id;
-                // @todo.
-            }
-        }
+        $group_uuid = $app['request']->get('group_uuid');
+        $comp_id = $db->getCompetitionId($group_uuid);
         if (empty($comp_id)) {
-            return '<div class="alert alert-no-game"><h4>No Standings Information Available For This Team</h4></div>';
+            return '';
         }
     }
     $doc = get_standings($comp_id, $db);
@@ -297,14 +290,8 @@ $app->get('/standings.xml', function() use ($app) {
     $comp_id = $app['request']->get('comp_id');
     if (empty($comp_id)) {
         // Team UUID is required in order to get the standings of that group (league or division).
-        $team_uuid = $app['request']->get('group_uuid');
-        $team = $db->getTeam($team_uuid);
-        $comps = $db->getAllCompetitions();
-        foreach ($comps as $id => $comp) {
-            if (in_array((string) $team['id'], explode(',', $comp['top_groups']))) {
-                $comp_id = $id;
-            }
-        }
+        $group_uuid = $app['request']->get('group_uuid');
+        $comp_id = $db->getCompetitionId($group_uuid);
     }
     $doc = get_standings($comp_id, $db);
 

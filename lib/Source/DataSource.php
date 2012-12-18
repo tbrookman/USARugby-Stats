@@ -157,6 +157,35 @@ class DataSource {
         return empty($team_games) ? FALSE : $team_games;
     }
 
+    public function getCompetitionGames($comp_uuid) {
+        $uuid = mysql_real_escape_string($comp_uuid);
+        $query = "SELECT g.* FROM games g
+          JOIN comp_top_group ctg ON ctg.id = g.comp_id
+          JOIN teams t ON ctg.team_id = t.id
+          WHERE t.uuid = '$uuid' ORDER BY g.kickoff;";
+        $result = mysql_query($query);
+        $games = array();
+        if (!empty($result)) {
+            while($game = mysql_fetch_assoc($result)) {
+                $games[] = $game;
+            }
+        }
+        return empty($games) ? FALSE : $games;
+    }
+
+    public function getCompetitionId($group_uuid) {
+        $uuid = mysql_real_escape_string($group_uuid);
+        $query = "SELECT ctg.id FROM comp_top_group ctg
+          JOIN teams t ON ctg.team_id = t.id
+          WHERE t.uuid = '$uuid';";
+        $result = mysql_query($query);
+        if (!empty($result)) {
+            // Only fetch one result.
+            $id = mysql_fetch_assoc($result);
+        }
+        return empty($id) ? FALSE : $id['id'];
+    }
+
     public function getTeamRecordInCompetition($team_id, $comp_id) {
         $tries = 0;
         $record = array(
@@ -355,7 +384,7 @@ class DataSource {
 
     // Add a competition.
     public function addCompetition($comp_info) {
-        $columns = array('id', 'user_create', 'name', 'start_date', 'end_date', 'type', 'max_event', 'max_game', 'hidden', 'top_groups');
+        $columns = array('id', 'user_create', 'name', 'start_date', 'end_date', 'type', 'max_event', 'max_game', 'hidden');
         $values = '';
         $count = 1;
         $max_count = count($columns);
@@ -368,6 +397,11 @@ class DataSource {
         }
         $query = "INSERT INTO `comps` (" . implode(',', $columns) . ") VALUES ($values)";
         $result = mysql_query($query);
+        $comp_id = mysql_insert_id();
+        foreach ($comp_info['top_groups'] as $top_group) {
+            $query = "INSERT INTO `comp_top_group` (id, team_id) VALUES ($comp_id, $top_group)";
+            $result = mysql_query($query);
+        }
         return $result;
     }
 
