@@ -282,8 +282,9 @@
 		<td><xsl:value-of select="$oneteam/team-stats/outcome-totals/@loss-bonus"/></td>
 		</xsl:if>
 		<td><xsl:value-of select="$oneteam/team-stats/outcome-totals/@forfeits"/></td>
-		<td><span class="points"><xsl:value-of select="$oneteam/team-stats/@standing-points"/></span></td>
+		<td><span class="points"><b><xsl:value-of select="$oneteam/team-stats/@standing-points"/></b></span></td>
 		<!-- NOTE: Should add in logic for overtime losses and other combinations -->
+
 
 		<xsl:for-each select="$oneteam/team-stats/outcome-totals">
 			<xsl:choose>

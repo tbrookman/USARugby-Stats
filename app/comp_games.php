@@ -40,6 +40,24 @@ while ($row=mysql_fetch_assoc($result)) {
             'iframe_url' => "$base_url/game.php?iframe=1&id={$row['id']}&ops[0]=game_info&ops[1]=game_score&ops[2]=game_rosters&ops[3]=game_score_events&ops[4]=game_sub_events&ops[5]=game_card_events",
         );
         $game['gameiframe'] = $twig->render('modal-template-iframe.twig', array('modal' => $gameiframe));
+        
+        //Home Team Schedule
+        $homeschedule = array(
+            'entity' => 'homeschedule',
+            'eid' => $row['id'],
+            'title' => 'Home Schedule',
+            'iframe_url' => "$base_url/team_games.php?iframe=1&team_id={$row['home_id']}",
+        );
+        $game['homeschedule'] = $twig->render('modal-template-iframe.twig', array('modal' => $homeschedule));
+        
+        //Away Team Schedule
+        $awayschedule = array(
+            'entity' => 'awayschedule',
+            'eid' => $row['id'],
+            'title' => 'Away Schedule',
+            'iframe_url' => "$base_url/team_games.php?iframe=1&team_id={$row['away_id']}",
+        );
+        $game['awayschedule'] = $twig->render('modal-template-iframe.twig', array('modal' => $awayschedule));
     }
 
     $game['comp_game_id'] = $row['comp_game_id'];
