@@ -7,14 +7,14 @@ if (!isset($comp_id) || !$comp_id) {$comp_id=$_GET['id'];}
 
 $query = "SELECT * FROM `games` WHERE comp_id = $comp_id ORDER BY kickoff";
 $result = mysql_query($query);
-$game_rows = array(); 
+$game_rows = array();
 while ($row=mysql_fetch_assoc($result)) {
     // Get infomation for each game
     $game = array();
     $game['canedit'] = false;
     $game['kickoff'] = date('n/j g:ia', strtotime($row['kickoff']));
     $resource = $db->getResource($row['field_num']);
-    
+
     if (editCheck(1)) {
         $game['canedit'] = true;
         $game['id'] = $row['id'];
@@ -40,7 +40,7 @@ while ($row=mysql_fetch_assoc($result)) {
             'iframe_url' => "$base_url/game.php?iframe=1&id={$row['id']}&ops[0]=game_info&ops[1]=game_score&ops[2]=game_rosters&ops[3]=game_score_events&ops[4]=game_sub_events&ops[5]=game_card_events",
         );
         $game['gameiframe'] = $twig->render('modal-template-iframe.twig', array('modal' => $gameiframe));
-        
+
         //Home Team Schedule
         $homeschedule = array(
             'entity' => 'homeschedule',
@@ -49,7 +49,7 @@ while ($row=mysql_fetch_assoc($result)) {
             'iframe_url' => "$base_url/team_games.php?iframe=1&team_id={$row['home_id']}",
         );
         $game['homeschedule'] = $twig->render('modal-template-iframe.twig', array('modal' => $homeschedule));
-        
+
         //Away Team Schedule
         $awayschedule = array(
             'entity' => 'awayschedule',
@@ -74,4 +74,4 @@ if (empty($twig)) {
 }
 
 echo $twig->render('comp-games.twig', array('gamerows' => $game_rows));
-        
+

@@ -10,12 +10,12 @@ while ($row=mysql_fetch_assoc($result)) {
     // Get competition name and link
     $competition = array();
     $competition['canedit'] = false;
-    
+
     if (editCheck(1)) {
         $competition['canedit'] = true;
         $competition['id'] = $row['id'];
         $competition['name'] = $row['name'];
-        
+
         // Modals:
         if (empty($twig)) {
             $loader = new Twig_Loader_Filesystem(__DIR__.'/views');
@@ -41,7 +41,7 @@ while ($row=mysql_fetch_assoc($result)) {
         $competition_rows[] = $competition;
     }
 }
-  
+
 if (empty($twig)) {
     $loader = new Twig_Loader_Filesystem(__DIR__.'/views');
     $twig = new Twig_Environment($loader, array());
