@@ -50,7 +50,7 @@ while ($row=mysql_fetch_assoc($result)) {
         );
         $game['homeschedule'] = $twig->render('modal-template-iframe.twig', array('modal' => $homeschedule));
         
-        //Home Team Schedule
+        //Away Team Schedule
         $awayschedule = array(
             'entity' => 'awayschedule',
             'eid' => $row['id'],
