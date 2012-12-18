@@ -46,8 +46,17 @@ if (empty($team_id)) {
                     $game['score'] = "<b>" . "{$team_game['home_score']} - {$team_game['away_score']}" . "</b>";
                     $game['away_id'] = teamNameNL($team_game['away_id']);
                     $game['home_id'] = teamNameNL($team_game['home_id']);
-                    $game['field'] = $team_game['field_num'];
                     $game_rows[] = $game;
+                    if (!empty($team_game['field'])) {
+                      $resource = $db->getResource($team_game['field']);
+                      $loc_url = getResourceMapUrl($resource);
+                      if(!empty($loc_url)) {
+                        $game['field'] = $resource['title'] . "(<a href='$loc_url' target='_blank'>Map</a>)<br/>";
+                      }
+                      else {
+                        $game['field'] = $resource['title'] . "<br/>";
+                      }
+                    }
                }
             }
             if (empty($twig)) {
