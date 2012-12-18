@@ -41,28 +41,20 @@ if (empty($team_id)) {
             if (!empty($iframe)) {
                 foreach ($team_games as $team_game) {
                     $game = array();
+                    $resource = $db->getResource($team_game['field_num']);
+                    $loc_url = getResourceMapUrl($resource);
                     $game['comp_game_id'] = $team_game['comp_game_id'];
                     $game['kickoff'] = date('M d - g:ia', strtotime($team_game['kickoff']));
                     $game['score'] = "<b>" . "{$team_game['home_score']} - {$team_game['away_score']}" . "</b>";
                     $game['away_id'] = teamNameNL($team_game['away_id']);
                     $game['home_id'] = teamNameNL($team_game['home_id']);
+                    $game['field'] = "<a href=" . "$loc_url" . ">" . "{$resource['title']}" . "</a>";
                     $game_rows[] = $game;
-                    if (!empty($team_game['field'])) {
-                      $resource = $db->getResource($team_game['field']);
-                      $loc_url = getResourceMapUrl($resource);
-                      if(!empty($loc_url)) {
-                        $game['field'] = $resource['title'] . "(<a href='$loc_url' target='_blank'>Map</a>)<br/>";
-                      }
-                      else {
-                        $game['field'] = $resource['title'] . "<br/>";
-                      }
-                    }
                }
             }
             if (empty($twig)) {
                 $loader = new Twig_Loader_Filesystem(__DIR__.'/views');
                 $twig = new Twig_Environment($loader, array());
-
             }
           echo $twig->render('comp-games.twig', array('gamerows' => $game_rows));
       }

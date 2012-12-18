@@ -15,28 +15,28 @@ div#hero-clipboard {
 }
 
 div#maincontent {
-    margin-left: 30px;
+  margin-left: 30px;
 }
 
 .welcome_user {
-	padding-top:10px;
+  padding-top:10px;
 }
 
 .chzn-search input {
-    width:95% !important;
+  width:95% !important;
 }
 
 .team-games .alert-no-games, .game .alert-no-game{
-    text-align: center;
+  text-align: center;
 }
 
 .player-picture-mini {
-    margin-right:10px;
-    width:40px;
+  margin-right:10px;
+  width:40px;
 }
 
 .player-picture-medium {
-	width: 100%;
+  width: 100%;
   max-width:100px;
 }
 
@@ -53,11 +53,11 @@ div#maincontent {
 }
 
 h3.popover-title {
-	font-weight:bold;
+  font-weight:bold;
 }
 
 .player-popover-iframe {
-	width:100%;
+  width:100%;
 }
 /** admin displays FR - game player view **/
 #maincontent th.frout, #maincontent td.frout {
@@ -140,6 +140,19 @@ table.table.card-events tr th:last-child, table.table.events-sub tr th:last-chil
 }
 
 /** Styling for Team Schedules **/
+a[href*="maps.google.com"] + span.icon-map-marker{
+  display:inline-block !important;
+}
+
+a[href^="maps.google.com"] + span.icon-map-marker{
+  display: block;
+}
+
+table.normal.table.team-schedule-games div.location a + span.icon-map-marker {
+ display:none;
+ color: #000;
+}
+
 table.normal.table.team-schedule-games {
   font-size: .92em;
 }
@@ -227,4 +240,8 @@ table.normal.table.team-schedule-games tr th.schide {
 
 #maincontent div.row-fluid.span-12.game_info table.table.rosters tr:nth-child(odd){
   background-color: transparent;
+}
+
+#maincontent span.icon-map-marker{
+  display: none;
 }
