@@ -34,7 +34,7 @@ while ($row=mysql_fetch_assoc($result)) {
             'entity' => 'competitions',
             'eid' => $row['id'],
             'title' => $row['name'] . ' Competition Schedule',
-            'iframe_url' => $base_url . '/competitions?comp_id=' . $row['id'],
+            'iframe_url' => $base_url . '/team_games.php?iframe=1&team_uuid=' . $db->getUUIDBySerialID('comp', $row['id']),
           );
         $competition['competitioniframe'] = $twig->render('modal-template-iframe.twig', array('modal' => $competitioniframe));
         $competition['compnamelink'] = "<a href='comp.php?id={$row['id']}'>{$row['name']}</a>";

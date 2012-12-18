@@ -327,7 +327,16 @@ class DataSource {
      * @return string $uuid.
      */
     public function getUUIDBySerialID($table_name, $serial_id) {
-        $query = "SELECT uuid FROM `$table_name` WHERE id='$serial_id'";
+        $table_name = mysql_real_escape_string($table_name);
+        $serial_id = mysql_real_escape_string($serial_id);
+        if (strpos($table_name, 'comp') !== FALSE) {
+            $query = "SELECT t.uuid FROM teams t
+              JOIN comp_top_group ctg ON ctg.team_id = t.id
+              WHERE ctg.id = '$serial_id'";
+        }
+        else {
+            $query = "SELECT uuid FROM `$table_name` WHERE id='$serial_id'";
+        }
         $result = mysql_query($query);
         $uuid = mysql_fetch_assoc($result);
         return empty($uuid['uuid']) ? FALSE : $uuid['uuid'];
