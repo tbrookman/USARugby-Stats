@@ -26,15 +26,14 @@ include_once './db.php';
 include_once './display_funcs.php';
 include_once './other_funcs.php';
 ?>
-
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js" type="text/javascript"></script>
   <script src="/assets/js/vendor/bootstrap-datepicker.js" type="text/javascript"></script>
   <script src="/assets/js/vendor/chosen.jquery.min.js" type="text/javascript"></script>
   <script src='/assets/js/vendor/jquery.timeentry.pack.js' type='text/javascript'></script>
-  <?php if (!empty($iframe)) { ?>
-    <script src='https://www.allplayers.com/iframe.js?usar_stats' type='text/javascript'></script>
-  <?php } ?>
+<?php if (!empty($iframe)) { ?>
+  <script src='https://www.allplayers.com/iframe.js?usar_stats' type='text/javascript'></script>
+<?php } ?>
   <script src='jquery_funcs.js'></script>
   <script>
     if (window.name=="ConnectWithOAuth") {window.close();}

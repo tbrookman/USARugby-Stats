@@ -18,12 +18,14 @@ if (empty($team_id)) {
 <div id="wrapper" class="container-fluid team-games">
   <?php
     $team_games = $db->getTeamGames($team_id);
+    // If we're not looking at a team - we may be on a competition (top level)
+    //  related group - try to look it up.
     if (empty($team_games)) {
-      ?>
-      <div class="alert alert-no-games">
-        <h4>No Games Yet!</h4>
-      </div>
-      <?php
+        // team_uuid in this case would be comp_uuid
+        $team_games = $db->getCompetitionGames($team_uuid);
+    }
+    if (empty($team_games)) {
+        echo '<!-- No Games -->';
     }
     else {
         // Regular display.
@@ -61,5 +63,4 @@ if (empty($team_id)) {
 </div>
 <?php
 
-
-
+include './footer.php';

@@ -1,3 +1,7 @@
+CREATE TABLE `comp_top_group` (
+  `id` int(11) unsigned NOT NULL,
+  `team_id` int(11) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comps` (
@@ -10,7 +14,6 @@ CREATE TABLE `comps` (
   `max_event` int(2) NOT NULL,
   `max_game` int(2) NOT NULL,
   `hidden` int(1) NOT NULL,
-  `top_groups` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
