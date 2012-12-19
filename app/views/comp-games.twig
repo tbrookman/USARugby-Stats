@@ -47,7 +47,7 @@
           <td>{{ game.home_id|raw}}</td>
           <td>{{ game.score|raw }}</td>
           <td>{{ game.away_id|raw }}</td>
-          <td>{{ game.field|raw }}</td>
+          <td><div class="location">{{ game.field|raw }}<span class="icon-map-marker"></span></div></td>
         </tr>
     {% endfor %}
   </table>
