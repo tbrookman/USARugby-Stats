@@ -514,6 +514,7 @@ $(document).ready(function() {
         else {
           var selected_resource = {};
         }
+        $('#add_game').attr('disabled','disabled');
         $.post('/add_game_process.php', {
           gnum: formData.gnum,
           kdate: formData.kdate,
@@ -527,6 +528,7 @@ $(document).ready(function() {
           selected_resource: selectedResource,
         }, function(){
             reloadData('#games', formData.grefresh);
+            $('#add_game').removeAttr('disabled');
         });
         return false;
     });
