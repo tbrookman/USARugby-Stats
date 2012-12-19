@@ -36,6 +36,13 @@ div.standings-key {
   text-align: center;
   width: 30px;
 }
+.smalltable img.team_logo {
+  float: left;
+  padding-right: 5px;
+  width: 18%;
+  margin-top: -5px;
+  max-width: 30px;
+}
 
 .smalltable td:first-child {
   padding-left: 10px;

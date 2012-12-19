@@ -252,7 +252,7 @@
 <!-- Named template to process a  team in a standing -->
 <xsl:template name="standing-team">
 	<xsl:param name="oneteam"/>
-	<tr class="td-stats" valign="baseline">
+	<tr class="td-stats" valign="bottom">
 		<!--one row for each team-->
 		<td nowrap="nowrap">
 		<b>
@@ -858,6 +858,7 @@
     <xsl:choose>
      <xsl:when test="$team-meta/name/@full">
       <xsl:value-of select="$team-meta/name/@full"/>
+      <img class="team_logo"><xsl:attribute name="src"><xsl:value-of select="$team-meta/name/@logo"/></xsl:attribute></img>
      </xsl:when>
      <xsl:otherwise>
       <xsl:value-of select="$team-meta/name/@first"/><xsl:text> </xsl:text>
@@ -1195,12 +1196,13 @@
     </td>
     <td>
      <xsl:for-each select="team-metadata/name"> <!--Build the name in the second field-->
-      <xsl:if test="@language">
+       <xsl:if test="@language">
        <xsl:value-of select="@language"/>:
       </xsl:if>
       <xsl:choose>
        <xsl:when test="@full">
         <xsl:value-of select="@full"/>
+        <xsl:value-of select="@logo"/>
          <xsl:if test="@first">
           <small>
            (<xsl:value-of select="@first"/><xsl:text> </xsl:text><xsl:value-of select="@last"/>)
