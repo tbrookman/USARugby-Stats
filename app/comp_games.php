@@ -1,5 +1,6 @@
 <?php
 include_once './include_mini.php';
+include './config.php';
 
 $base_url = $request->getScheme() . '://' . $request->getHost();
 
@@ -58,6 +59,15 @@ while ($row=mysql_fetch_assoc($result)) {
             'iframe_url' => "$base_url/team_games.php?iframe=1&team_id={$row['away_id']}",
         );
         $game['awayschedule'] = $twig->render('modal-template-iframe.twig', array('modal' => $awayschedule));
+
+        //Event on AllPlayers.com
+        $linktoapgame = array(
+            'entity' => 'linktoapgame',
+            'eid' => $row['id'],
+            'title' => 'Event on AllPlayers.com',
+            'iframe_url' => "{$config['auth_domain']}/groups/uuid/{$row['uuid']}",
+        );
+        $game['linktoapgame'] = $twig->render('modal-template-iframe.twig', array('modal' => $linktoapgame));
     }
 
     $game['comp_game_id'] = $row['comp_game_id'];
