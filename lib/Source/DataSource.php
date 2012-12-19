@@ -393,7 +393,7 @@ class DataSource {
 
     // Add a competition.
     public function addCompetition($comp_info) {
-        $columns = array('id', 'user_create', 'name', 'start_date', 'end_date', 'type', 'max_event', 'max_game', 'hidden');
+        $columns = array('id', 'user_create', 'name', 'start_date', 'end_date', 'type','league_type', 'max_event', 'max_game', 'hidden');
         $values = '';
         $count = 1;
         $max_count = count($columns);

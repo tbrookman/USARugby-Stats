@@ -3,6 +3,7 @@ include_once './include_mini.php';
 
 $name = mysql_real_escape_string($request->get('name'));
 $type = mysql_real_escape_string($request->get('type'));
+$league_type = mysql_real_escape_string($request->get('league_type'));
 $max_event = mysql_real_escape_string($request->get('max_event'));
 $max_match = mysql_real_escape_string($request->get('max_match'));
 $start_date = mysql_real_escape_string($request->get('start_date'));
@@ -15,6 +16,7 @@ $result = $db->addCompetition(array(
     'start_date' => $start_date,
     'end_date' => $end_date,
     'type' => $type,
+    'league_type' => $league_type,
     'max_event' => $max_event,
     'max_game' => $max_match,
     'hidden' => '0',

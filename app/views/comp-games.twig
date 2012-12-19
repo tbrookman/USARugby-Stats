@@ -5,8 +5,9 @@
       <th class="schide">Game</th>
       <th>Date</th>
       <th>Home</th>
-      <th>Score</th>
       <th>Opponent</th>
+      <th>Score</th>
+      <th>Type</th>
       <th>Location</th>
     </tr>
     {% for game in gamerows %}
@@ -45,8 +46,9 @@
           <td class="schide">{{ game.comp_game_id|raw }}</td>
           <td>{{ game.kickoff }}</td>
           <td>{{ game.home_id|raw}}</td>
-          <td>{{ game.score|raw }}</td>
           <td>{{ game.away_id|raw }}</td>
+          <td>{{ game.score|raw }}</td>
+          <td>{{ game.league }}</td>
           <td><div class="location">{{ game.field|raw }}<span class="icon-map-marker"></span></div></td>
         </tr>
     {% endfor %}
