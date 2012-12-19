@@ -78,6 +78,14 @@ div.rosters-wrapper {
   padding-left: 20px;
 }
 
+table.normal.table.team-schedule-games td{
+  padding: 5px;
+}
+
+table.normal.table.team-schedule-games th{
+  padding: 5px;
+}
+
 table.table.rosters tr.rosters-header {
   background-color: #E8E8E8;
   border-bottom: 1px solid #DDD;
@@ -244,4 +252,11 @@ table.normal.table.team-schedule-games tr th.schide {
 
 #maincontent span.icon-map-marker{
   display: none;
+}
+#maincontent table.normal.table.team-schedule-games td{
+  padding: 8px;
+}
+
+#maincontent table.normal.table.team-schedule-games th{
+  padding: 8px;
 }
