@@ -415,6 +415,9 @@ function get_standings($comp_id, $db, $domain) {
     $root->setAttribute('xmlns:xsi', "http://www.w3.org/2001/XMLSchema-instance");
 
     $teams = $db->getCompetitionTeams($comp_id);
+    $team_records = array();
+    $points = array();
+    $games_played = array();
     $divisions = array();
     foreach ($teams as $uuid => $team) {
         $record = $db->getTeamRecordInCompetition($team['id'], $comp_id);
