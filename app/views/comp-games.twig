@@ -3,14 +3,21 @@
     <tr class="schedules-table-header">
       <th></th>
       <th class="schide">Game</th>
-      <th>Date</th>
-      <th>Home</th>
-      <th>Score</th>
-      <th>Opponent</th>
-      <th>Location</th>
+      <th class="admindate">Date</th>
+      <th class="home-right">Home</th>
+      <th class="score-center">Score</th>
+      <th class="opponentgames">Opponent</th>
+      <th class="teamgameslocation">Location</th>
     </tr>
     {% for game in gamerows %}
         <tr>
+          <tr class="daterow">
+            <td class="schide"></td>
+            <td class="iframedate">{{ game.kickoff }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
           {% if game.canedit %}
             <td>
               <div class="btn-group pull-left">
@@ -45,9 +52,9 @@
             <td></td>
           {% endif %}
           <td class="schide">{{ game.comp_game_id|raw }}</td>
-          <td>{{ game.kickoff }}</td>
-          <td>{{ game.home_id|raw}}</td>
-          <td>{{ game.score|raw }}</td>
+          <td class="admindate">{{ game.kickoff }}</td>
+          <td class="home-right">{{ game.home_id|raw}}</td>
+          <td class="score-center">{{ game.score|raw }}</td>
           <td>{{ game.away_id|raw }}</td>
           <td><div class="location">{{ game.field|raw }}<span class="icon-map-marker"></span></div></td>
         </tr>

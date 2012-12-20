@@ -164,7 +164,7 @@ table.normal.table.team-schedule-games div.location a + span.icon-map-marker {
 table.normal.table.team-schedule-games {
   font-size: .92em;
 }
-table.normal.table.team-schedule-games tr:nth-child(odd) {
+table.normal.table.team-schedule-games tr:nth-child(3n+1) {
   background-color: #eeeeee;
   
 }
@@ -186,28 +186,53 @@ table.normal.table.team-schedule-games tr.schedules-table-header:first-child th 
   border-left: 0px;
 }
 
+table.normal.table.team-schedule-games th.admindate, table.normal.table.team-schedule-games td.admindate {
+  display: none;
+}
+
 table.normal.table.team-schedule-games tr th:first-child {
-  display:none;
+  display: none;
 }
 
 table.normal.table.team-schedule-games tr td:first-child {
-  display:none;
+  display: none;
 }
 
-table.normal.table.team-schedule-games tr td.schide {
-  display:none;
+th.schide, td.schide {
+  display: none;
+}
+td.home-right {
+  text-align: right;
+  width: 26%;
 }
 
-table.normal.table.team-schedule-games tr th.schide {
-  display:none;
+th.home-right {
+  text-align: center;
 }
 
-/** Admin view Game **/
+th.score-center, td.score-center {
+  text-align: center;
+  width: 10%;
+}
+
+th.opponentgames {
+  width: 27%;
+  text-align: center;
+}
+th.teamgameslocation {
+  width: 40%;
+}
+
+div.location {
+  float: left;
+}
+
+/** Styling to keep admin view Game theme **/
 #maincontent table.normal.table.team-schedule-games {
   font-size: 1.2em;
 }
 
-#maincontent table.normal.table.team-schedule-games tr:nth-child(odd) {
+#maincontent table.normal.table.team-schedule-games tr:nth-child(3n+1) {
   background-color: transparent;
 }
 
@@ -226,19 +251,19 @@ table.normal.table.team-schedule-games tr th.schide {
 }
 
 #maincontent table.normal.table.team-schedule-games tr th:first-child {
-  display:table-cell;
+  display: table-cell;
 }
 
 #maincontent table.normal.table.team-schedule-games tr td:first-child {
-  display:table-cell;
+  display: table-cell;
 }
 
 #maincontent table.normal.table.team-schedule-games tr td.schide {
-  display:table-cell;
+  display: table-cell;
 }
 
 #maincontent table.normal.table.team-schedule-games tr th.schide {
-  display:table-cell;
+  display: table-cell;
 }
 
 #maincontent table.table.rosters tr.rosters-header {
@@ -259,4 +284,36 @@ table.normal.table.team-schedule-games tr th.schide {
 
 #maincontent table.normal.table.team-schedule-games th{
   padding: 8px;
+}
+#maincontent table.normal.table.team-schedule-games tr.daterow {
+  display:none;
+}
+
+#maincontent table.normal.table.team-schedule-games th.admindate, #maincontent table.normal.table.team-schedule-games td.admindate {
+  display: table-cell;
+}
+
+#maincontent th.home-right, #maincontent td.home-right, #maincontent th.home-right, #maincontent td.home-right {
+  text-align: left;
+}
+
+#maincontent th.home-right, #maincontent td.home-right {
+  text-align: inherit;
+  width: auto;
+}
+
+#maincontent th.score-center,#maincontent td.score-center {
+  text-align: left;
+  width: auto;
+}
+
+#maincontent th.opponentgames {
+  width: auto;
+}
+#maincontent th.teamgameslocation {
+  width: auto;
+}
+
+#maincontent div.location {
+  float:none;
 }
