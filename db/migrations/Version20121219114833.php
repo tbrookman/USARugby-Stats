@@ -12,7 +12,7 @@ class Version20121219114833 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
-        $this->addSql('ALTER TABLE comps ADD league_type VARCHAR(20) NOT NULL');
+        $this->addSql('ALTER TABLE comps INSERT league_type VARCHAR(20) NOT NULL');
 
     }
 

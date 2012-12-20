@@ -381,6 +381,19 @@ class DataSource {
         $competition = mysql_fetch_assoc($result);
         return $competition;
     }
+    
+      public function getLeague($league_type) {
+        $query = "SELECT * FROM `comps` WHERE league_type = $league_type";
+        $result = mysql_query($query);
+        //$league = mysql_fetch_assoc($result);
+        $league = array();
+        while(($row = mysql_fetch_array($result)) !== false) {
+            $league[] = $row['league_type'];
+        }
+        $result = mysql_query("INSERT INTO comps WHERE league_type = $league_type (first, 2, 3) VALUES ('{$league_type[0]}', '{$league_type[1]}', '{$league_type[2]}') or die(mysql_error()");
+          
+        return $league;
+    }
 
     public function getAllCompetitions($params = '') {
         $query = "SELECT * from `comps`" . $params;

@@ -2,7 +2,13 @@
 include_once './include_micro.php';
 $iframe = $request->get('iframe');
 $team_uuid = $request->get('team_uuid');
-$league_type = $request->get('league_type');
+$league_type = $db->getLeague('league_type');
+if (!empty($league_type)) {
+  foreach ($league_type as $team_game) {
+    
+  }
+    
+  }
 include_once './include.php';
 
 if (!empty($team_uuid)) {
@@ -42,7 +48,7 @@ if (empty($team_id)) {
             if (!empty($iframe)) {
                 foreach ($team_games as $team_game) {
                     $game = array();
-                    $game['league'] = $db->getAllCompetitions($league_type['league_type']);
+                    $game['league'] = $league_type['19'];//Need to asign array for league
                     $resource = $db->getResource($team_game['field_num']);
                     $loc_url = getResourceMapUrl($resource);
                     $game['comp_game_id'] = $team_game['comp_game_id'];
@@ -54,10 +60,10 @@ if (empty($team_id)) {
                     $game_rows[] = $game;
                }
             }
-            //if (empty($twig)) {
+            if (empty($twig)) {
                 $loader = new Twig_Loader_Filesystem(__DIR__.'/views');
                 $twig = new Twig_Environment($loader, array());
-            //
+            }
           echo $twig->render('comp-games.twig', array('gamerows' => $game_rows));
       }
 
