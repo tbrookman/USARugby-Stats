@@ -256,7 +256,7 @@ $app->get('/processqueue', function() use ($app) {
 /**
  *  Return html representation of standings based on comp or group.
  */
-$app->get('/standings', function() use ($app) {
+$app->get('/standings', function(Request $request) use ($app) {
     include_once './db.php';
     if ($app['request']->get('iframe')) {
         echo "<script src='https://www.allplayers.com/iframe.js?usar_stats' type='text/javascript'></script>";
@@ -271,7 +271,7 @@ $app->get('/standings', function() use ($app) {
             return '';
         }
     }
-    $doc = get_standings($comp_id, $db);
+    $doc = get_standings($comp_id, $db, $app['session']->get('domain'));
 
     $doc->saveXML();
     $xslDoc = new DOMDocument();
@@ -293,7 +293,7 @@ $app->get('/standings.xml', function() use ($app) {
         $group_uuid = $app['request']->get('group_uuid');
         $comp_id = $db->getCompetitionId($group_uuid);
     }
-    $doc = get_standings($comp_id, $db);
+    $doc = get_standings($comp_id, $db, $app['session']->get('domain'));
 
     $doc->formatOutput = true;
     return $doc->saveXML();
@@ -406,7 +406,7 @@ function get_player_stat_data($player_id, $comp_id = NULL, $iframe = FALSE) {
     return $render;
 }
 
-function get_standings($comp_id, $db) {
+function get_standings($comp_id, $db, $domain) {
     $doc = new DomDocument('1.0');
     $comp_data = $db->getCompetition($comp_id);
     $comp_type = $comp_data['type'] == 1 ? '15s' : '7s';
@@ -440,13 +440,14 @@ function get_standings($comp_id, $db) {
         if (isset($team['division_id']) && $team['division_id'] != 0 && !array_key_exists($team['division_id'], $divisions)) {
             $divisions[$team['division_id']] = $db->getTeam($team['division_id']);
             $standing = $root->appendChild($doc->createElement('standing'));
-            $standing->setAttribute('content-label', 'Division ' . $divisions[$team['division_id']]['name']);
+            $standing->setAttribute('content-label', $divisions[$team['division_id']]['name']);
         }
         $team_node = $standing->appendChild($doc->createElement('team'));
 
         $team_metadata = $team_node->appendChild($doc->createElement('team-metadata'));
         $name = $team_metadata->appendChild($doc->createElement('name'));
         $name->setAttribute('full', $team['name']);
+        $name->setAttribute('logo', $domain . $team['logo_url']);
 
         $team_stats = $team_node->appendChild($doc->createElement('team-stats'));
         $team_stats->setAttribute('events-played', $record['total_games']);
