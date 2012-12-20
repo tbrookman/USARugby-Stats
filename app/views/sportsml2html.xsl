@@ -857,8 +857,8 @@
   <xsl:otherwise>
     <xsl:choose>
      <xsl:when test="$team-meta/name/@full">
+       <img class="team_logo"><xsl:attribute name="src"><xsl:value-of select="$team-meta/name/@logo"/></xsl:attribute></img>
       <xsl:value-of select="$team-meta/name/@full"/>
-      <img class="team_logo"><xsl:attribute name="src"><xsl:value-of select="$team-meta/name/@logo"/></xsl:attribute></img>
      </xsl:when>
      <xsl:otherwise>
       <xsl:value-of select="$team-meta/name/@first"/><xsl:text> </xsl:text>
