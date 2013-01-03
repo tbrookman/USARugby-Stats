@@ -260,3 +260,11 @@ table.normal.table.team-schedule-games tr th.schide {
 #maincontent table.normal.table.team-schedule-games th{
   padding: 8px;
 }
+
+#maincontent div#groups input#sgroup {
+  margin: 7px 8px 10px 24px;
+}
+
+#maincontent input.sgroup {
+  margin: 5px 4px 7px 3px;
+}

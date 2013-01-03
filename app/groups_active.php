@@ -8,8 +8,8 @@ $teams = array();
 $client = APSource::SessionSourceFactory();
 $teams = $db->getAllTeams();
 
-if (isset($_POST['submit'])) {
-    unset($_POST['submit']);
+if (isset($_POST['show'])) {
+    unset($_POST['hide']);
     $qh = new QueueHelper();
     echo '<div class="alert alert-success">Groups have been updated.</div>';
 
@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
 ?>
 <form name="teams_sync" id="teams_sync" method="POST" action="">
     <label for="active">Active Groups</label>
-    <input type="checkbox" name="active" id="active" />
+    <input class="sgroup" type="checkbox" name="active" id="active" /> Select All
     <br />
     <?php
     foreach ($teams as $uuid => $team) {
@@ -39,7 +39,8 @@ if (isset($_POST['submit'])) {
     }
     ?>
     <br >
-    <input class="btn btn-warning" name="submit" type="submit" value="Active Groups" />
-    <input class="btn btn-danger" name="sbumit" type="submit" value="Inactive Groups" />
-    <input type='hidden' name='grouprefresh' id='grouprefresh' value='groups_actve.php' />
+    <input class="btn btn-warning" name="submit" type="show" value="Active Groups" />
+    <input class="btn btn-danger" name="sbumit" type="hide" value="Inactive Groups" />
+    <input type='hidden' name='grouprefresh' id='grouprefresh' value='hide_group.php' />
+    <!-- need to create hide display and show all display need to create value 'groups_file.php' -->
 </form>
