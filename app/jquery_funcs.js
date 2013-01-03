@@ -387,6 +387,34 @@ $(document).ready(function() {
         });
         return false;
     });
+    
+    //hiding a group
+    $(".hideg").live('click', function() {
+        if(!confirm('Are you sure you want to hide this group?')){return false;}
+        var grouprefresh = $("#grouprefresh").val();
+        hId = $(this).data('hide-group-id');
+
+        $.post('/hide_group_process.php',
+        {id: gId},
+        function(){
+          reloadData('#groups', grouprefresh);
+        });
+        return false;
+    });
+    
+     //showing a group
+    $(".showg").live('click', function() {
+        if(!confirm('Are you sure you want to show this group?')){return false;}
+        var grouprefresh = $("#grouprefresh").val();
+        hId = $(this).data('hide-group-id');
+
+        $.post('/show_group_process.php',
+        {id: gId},
+        function(){
+          reloadData('#groups', grouprefresh);
+        });
+        return false;
+    });
 
     var resourceSync = {
       getTeams: function() {
