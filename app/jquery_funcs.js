@@ -392,7 +392,7 @@ $(document).ready(function() {
     $(".hideg").live('click', function() {
         if(!confirm('Are you sure you want to hide this group?')){return false;}
         var grouprefresh = $("#grouprefresh").val();
-        hId = $(this).data('hide-group-id');
+        gId = $(this).data('hide-group-id');
 
         $.post('/hide_group_process.php',
         {id: gId},
@@ -406,7 +406,7 @@ $(document).ready(function() {
     $(".showg").live('click', function() {
         if(!confirm('Are you sure you want to show this group?')){return false;}
         var grouprefresh = $("#grouprefresh").val();
-        hId = $(this).data('hide-group-id');
+        gId = $(this).data('hide-group-id');
 
         $.post('/show_group_process.php',
         {id: gId},
@@ -414,6 +414,13 @@ $(document).ready(function() {
           reloadData('#groups', grouprefresh);
         });
         return false;
+    });
+    //Select All
+    $(document).ready(function(){
+    $('input#active,input#sgroup').bind('click', function(){
+        var status = $(this).is(':checked');
+        $('input[type="checkbox"]', $(this).parent('')).attr('checked', status);
+        });
     });
 
     var resourceSync = {
@@ -973,6 +980,4 @@ $(document).ready(function() {
     return false;
     });
 
- });
-
-
+});

@@ -30,13 +30,16 @@ if (isset($_POST['submit'])) {
     <?php
     foreach ($teams as $uuid => $team) {
         echo '<label class=\"checkbox\">';
-        echo "<div class='hideg showg' id='groups'> {$team['name']} (<small>$uuid</small>) </div>";
-        echo '<input class="btn btn-warning" name="submit" type="submit" value="Active Groups" />';
-        echo '<input class="btn btn-danger" name="submit" type="submit" value="Inactive Groups" />';
-        /*echo "<input type=\"checkbox\" name=\"team_$uuid\" \\>";*/
+        echo "<div class='hideg showg' id='groups'>";
+        echo "<input id='sgroup' type=\"checkbox\" name=\"team_$uuid\" \\>";
+        echo "{$team['name']} (<small>$uuid</small>)";
         echo '</label>';
+        echo '</div>';
         
     }
     ?>
-
+    <br >
+    <input class="btn btn-warning" name="submit" type="submit" value="Active Groups" />
+    <input class="btn btn-danger" name="sbumit" type="submit" value="Inactive Groups" />
+    <input type='hidden' name='grouprefresh' id='grouprefresh' value='groups_actve.php' />
 </form>
