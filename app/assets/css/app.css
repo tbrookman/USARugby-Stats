@@ -206,6 +206,10 @@ td.home-right {
   width: 26%;
 }
 
+div.date-left {
+  float: left;
+}
+
 th.home-right {
   text-align: center;
 }
@@ -317,3 +321,14 @@ div.location {
 #maincontent div.location {
   float:none;
 }
+
+#maincontent div#games {
+  margin-right: 20px;
+}
+
+/*IE iframe need to fix iframe in ie for webapp*/
+div.rugby_stats-blokc > iframe {
+  height: 100%;
+}
+
+
