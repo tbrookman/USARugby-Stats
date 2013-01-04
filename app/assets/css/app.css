@@ -1,6 +1,7 @@
 body {
   background: transparent;
   padding: 0;
+  ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 div.navbar-inverse {
   padding: 0 10px;
@@ -325,10 +326,3 @@ div.location {
 #maincontent div#games {
   margin-right: 20px;
 }
-
-/*IE iframe need to fix iframe in ie for webapp*/
-div.rugby_stats-blokc > iframe {
-  height: 100%;
-}
-
-
