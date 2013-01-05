@@ -63,7 +63,9 @@ h3.popover-title {
 #maincontent th.frout, #maincontent td.frout {
   display: block;
 }
-
+a.left {
+  float:left;
+}
 /** public hides FR - game player view **/
 th.frout, td.frout {
   display: none;
@@ -84,6 +86,9 @@ table.normal.table.team-schedule-games td{
 
 table.normal.table.team-schedule-games th{
   padding: 5px;
+}
+table.table.rosters tr.rosters-header tr td:firstchild {
+  text-align: right;
 }
 
 table.table.rosters tr.rosters-header {
@@ -118,6 +123,10 @@ div.row-fluid.span-12.game_info table.table {
 
 div.row-fluid.span-12.game_info table.table td:first-child {
   max-width: 50px;
+  text-align: right;
+}
+div.row-fluid.span-12.game_info table.table td + td + td + td + td {
+  text-align: left;
 }
 
 div.row-fluid.span-12.game_info table.table.events-sub {
