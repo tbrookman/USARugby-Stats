@@ -388,39 +388,31 @@ $(document).ready(function() {
         return false;
     });
     
-    //hiding a group
-    $(".hideg").live('click', function() {
-        if(!confirm('Are you sure you want to hide this group?')){return false;}
-        var grouprefresh = $("#grouprefresh").val();
-        gId = $(this).data('hide-group-id');
-
-        $.post('/hide_group_process.php',
-        {id: gId},
-        function(){
-          reloadData('#groups', grouprefresh);
+    //Hide Groups when selected
+    $(document).ready(function() {
+    $('.hideg').click(function() {
+        var check = $(this).is(':checked');
+        //hide
+        $('.hideg', $(this).hide('.hideg')).attr('checked', check);
+        }); 
+    });
+    //Show
+    $(document).ready(function() {
+    $('#buttonshow').click(function() {
+        var showcheck = $(this).attr('checked, true');
+        $('.hideg', $(this).show('.hideg')).attr('checked', showcheck);
         });
-        return false;
+        
     });
     
-     //showing a group
-    $(".showg").live('click', function() {
-        if(!confirm('Are you sure you want to show this group?')){return false;}
-        var grouprefresh = $("#grouprefresh").val();
-        gId = $(this).data('hide-group-id');
-
-        $.post('/show_group_process.php',
-        {id: gId},
-        function(){
-          reloadData('#groups', grouprefresh);
-        });
-        return false;
-    });
+      
     //Select All
     $(document).ready(function(){
     $('input#active,input#sgroup').bind('click', function(){
         var status = $(this).is(':checked');
         $('input[type="checkbox"]', $(this).parent('')).attr('checked', status);
         });
+        
     });
 
     var resourceSync = {

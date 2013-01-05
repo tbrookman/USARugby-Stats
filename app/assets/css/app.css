@@ -268,3 +268,7 @@ table.normal.table.team-schedule-games tr th.schide {
 #maincontent input.sgroup {
   margin: 5px 4px 7px 3px;
 }
+
+#maincontent ul.sgroups {
+  list-style-type: none;
+}
