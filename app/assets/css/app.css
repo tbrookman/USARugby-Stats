@@ -267,7 +267,7 @@ div.date-left {
 }
 
 th.home-right {
-  text-align: center;
+  text-align: right;
 }
 
 th.score-center, td.score-center {
@@ -277,7 +277,7 @@ th.score-center, td.score-center {
 
 th.opponentgames {
   width: 27%;
-  text-align: center;
+  text-align: left;
 }
 th.teamgameslocation {
   width: 40%;
