@@ -14,6 +14,13 @@ while ($row=mysql_fetch_assoc($result)) {
     $game['canedit'] = false;
     $game['kickoff'] = date('n/j g:ia', strtotime($row['kickoff']));
     $resource = $db->getResource($row['field_num']);
+    $league_type = $db->getLeague('league_type');
+    
+    if (!empty($league_type)) {
+      foreach ($league_type as $league_name => $league_value) {
+      }
+      $league_value;
+    }
 
     if (editCheck(1)) {
         $game['canedit'] = true;
@@ -65,6 +72,7 @@ while ($row=mysql_fetch_assoc($result)) {
     $game['score'] = "<a href='game.php?id={$row['id']}'>{$row['home_score']} - {$row['away_score']}</a>";
     $game['away_id'] = teamName($row['away_id']);
     $game['field'] = $resource['title'];
+    $game['league'] = $league_value;
     $game_rows[] = $game;
 }
 
