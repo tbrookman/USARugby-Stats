@@ -105,7 +105,7 @@ class DataSource {
     }
 
     public function addupdateTeam($team_info) {
-        $columns = array('id', 'hidden', 'user_create', 'uuid', 'name', 'short', 'resources', 'logo_url', 'description', 'type');
+        $columns = array('id', 'hidden', 'user_create', 'uuid', 'name', 'short', 'resources', 'logo_url', 'description', 'type' ,'status');
         $values = '';
         $count = 1;
         $max_count = count($columns);
