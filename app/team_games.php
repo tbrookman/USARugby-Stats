@@ -52,7 +52,8 @@ if (empty($team_id)) {
                     $resource = $db->getResource($team_game['field_num']);
                     $loc_url = getResourceMapUrl($resource);
                     $game['comp_game_id'] = $team_game['comp_game_id'];
-                    $game['kickoff'] = date('M d - g:ia', strtotime($team_game['kickoff']));
+                    $game['kickoff'] = date('M d', strtotime($team_game['kickoff']));
+                    $game['kickoff_time'] = date('g:ia', strtotime($team_game['kickoff']));
                     $game['score'] = "<b>" . "{$team_game['home_score']} - {$team_game['away_score']}" . "</b>";
                     $game['away_id'] = teamNameNL($team_game['away_id']);
                     $game['home_id'] = teamNameNL($team_game['home_id']);

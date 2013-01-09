@@ -23,6 +23,7 @@ class GroupSyncJob implements Job
         $client = APSource::SourceFactory($attributes);
         $teams = array();
         $offset = 0;
+        $added = 0;
         do {
             $response = $client->userGetMyGroups($attributes['user_uuid'], '*,group_type', $offset, 1000);
             $offset+= 1;

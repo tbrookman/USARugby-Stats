@@ -430,6 +430,7 @@ class DataSource {
     public function getCompetitionTeams($comp_id) {
         $query = "SELECT t.*, c.division_id FROM teams t, ct_pairs c WHERE c.team_id = t.id AND c.comp_id = $comp_id ORDER BY c.division_id, t.name";
         $result = mysql_query($query);
+        $teams = array();
         while ($row = mysql_fetch_assoc($result)) {
             $teams[$row['uuid']] = $row;
         }

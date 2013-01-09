@@ -66,4 +66,8 @@ class APSource extends Client {
         return $event;
     }
 
+    public function deleteEvent($uuid) {
+        // @TODO: Move this to the upstream library.
+        $this->delete("/api/v1/rest/events/$uuid");
+    }
 }

@@ -29,11 +29,10 @@ if (isset($_POST['submit'])) {
     <br />
     <?php
     foreach ($teams as $uuid => $team) {
-        echo "$uuid - {$team['name']} ";
-        ?>
-        <input type="checkbox" name="team_<?php echo $uuid; ?>" />
-        <br />
-        <?php
+        echo '<label class=\"checkbox\">';
+        echo "<input type=\"checkbox\" name=\"team_$uuid\" \\>";
+        echo "  {$team['name']} (<small>$uuid</small>)";
+        echo '</label>';
     }
     ?>
     <input class="button" name="submit" type="submit" value="Sync Team(s)" />
