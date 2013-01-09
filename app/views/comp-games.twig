@@ -53,7 +53,7 @@
           {% endif %}
           <td class="schide">{{ game.comp_game_id|raw }}</td>
           <td class="admindate">{{ game.kickoff}}</td>
-          <td class="home-right"><div class="date-left">{{ game.kickoff_time }}</div>{{ game.home_id|raw}}</td>
+          <td class="home-right"><div class="date-left"><b>{{ game.kickoff}}</b><br>{{ game.kickoff_time }}</div>{{ game.home_id|raw}}</td>
           <td class="score-center">{{ game.score|raw }}</td>
           <td>{{ game.away_id|raw }}</td>
           <td><div class="location">{{ game.field|raw }}<span class="icon-map-marker"></span></div></td>

@@ -78,6 +78,19 @@ div.row-fluid.span-12.game_info {
 div.rosters-wrapper {
   padding-left: 20px;
 }
+table.normal.table.team-schedule-games a {
+  color: #000;
+  text-decoration: none;
+}
+
+table.normal.table.team-schedule-games tr.daterow {
+  display:none;
+}
+
+table.normal.table.team-schedule-games a:hover {
+  color: #000;
+  text-decoration: underline;
+}
 
 table.normal.table.team-schedule-games td{
   padding: 5px;
@@ -164,8 +177,13 @@ table.normal.table.team-schedule-games div.location a + span.icon-map-marker {
 
 table.normal.table.team-schedule-games {
   font-size: .92em;
+  margin-bottom: 0px;
 }
-table.normal.table.team-schedule-games tr:nth-child(3n+1) {
+
+tr.schedules-table-header{
+  display: none;
+}
+table.normal.table.team-schedule-games tr:nth-child(2n+1) {
   background-color: #eeeeee;
   
 }
@@ -209,6 +227,7 @@ td.home-right {
 
 div.date-left {
   float: left;
+  text-align: left;
 }
 
 th.home-right {
@@ -232,9 +251,11 @@ div.location {
   float: left;
 }
 
-/** Styling to keep admin view Game theme **/
+/** Styling USA RUGBY STATS ADMIN - theme **/
+
 #maincontent table.normal.table.team-schedule-games {
   font-size: 1.2em;
+  margin-bottom: 20px;
 }
 
 #maincontent table.normal.table.team-schedule-games tr:nth-child(3n+1) {
@@ -325,4 +346,38 @@ div.location {
 
 #maincontent div#games {
   margin-right: 20px;
+}
+
+#maincontent table.normal.table.team-schedule-games a {
+  color: #08C;
+  text-decoration: none;
+}
+
+#maincontent table.normal.table.team-schedule-games a:hover {
+  color:#005580;
+  text-decoration:underline;
+}
+
+#maincontent .chzn-container-multi .chzn-choices .search-field input {
+  height: 20px;
+  width: 150px;
+}
+
+#maincontent table.normal.table.team-schedule-games ul.dropdown-menu a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+#maincontent table.normal.table.team-schedule-games a.btn.dropdown-toggle a:hover{
+  text-decoration: none;
+}
+
+#maincontent tr.schedules-table-header {
+  display:table-row;
+}
+#maincontent table.normal.table.admin-header {
+  margin-bottom: -33px;
+}
+#maincontent div.date-left {
+  display: none;
 }
