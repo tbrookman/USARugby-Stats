@@ -188,13 +188,10 @@ table.normal.table.team-schedule-games {
   margin-bottom: 0px;
 }
 
-tr.schedules-table-header{
-  display: none;
-}
-
 table.normal.table.team-schedule-games tr.schedules-table-header:first-child {
   background-color: #E8E8E8;
   text-decoration: underline;
+  border-bottom: 2px solid #ddd;
 }
 
 table.normal.table.team-schedule-games tr.schedules-table-header:first-child th {
@@ -236,7 +233,8 @@ div.date-left {
 }
 
 th.home-right {
-  text-align: center;
+  text-align: right;
+  padding-left: 5px;
 }
 
 th.score-center, td.score-center {
@@ -245,8 +243,9 @@ th.score-center, td.score-center {
 }
 
 th.opponentgames {
-  width: 27%;
-  text-align: center;
+  width: 20%;
+  text-align: left;
+  padding-right: 5px;
 }
 th.teamgameslocation {
   width: 40%;
