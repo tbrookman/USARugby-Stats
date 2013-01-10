@@ -13,13 +13,14 @@ if (isset($_POST['submit'])) {
     
     echo '<div class="alert alert-success">Show Groups.</div>';
     
-    foreach ($teams as $uuid => $team) {
-    for ($i=0; $i<sizeof($checkboxvalue); $i++) {
-        $query="UPDATE teams SET status = ('".$checkboxvalue[$i]."') WHERE status ='hide' ";
-         mysql_query($query) or die(mysql_error());
-           }
+    foreach ($_POST as $name => $value) {
+        if ($name == 'sync_all' && $value == 'on') {
+            $qh->GroupMembersSync();
+        }
+        elseif ($uuid = split('_', $name)) {
+            $qh->GroupMembersSync($uuid[1]);
+        }
     }
-           echo "record is inserted";       
 }
 ?>
 <form name="teams_sync" id="teams_sync" method="POST" action="">
@@ -29,7 +30,13 @@ if (isset($_POST['submit'])) {
     <?php
     foreach ($teams as $uuid => $team) {
         echo '<label class=\"checkbox\">';
+    if (hide) {
+        echo "<input id='checkbox' checked='check' type=\"checkbox\" name='checkbox[]' value='show' \\>";       
+    }
+    else {
         echo "<input id='checkbox' type=\"checkbox\" name='checkbox[]' value='show' \\>";
+
+    }
         echo "  {$team['name']} (<small>$uuid</small>)";
         echo '</label>';
     }

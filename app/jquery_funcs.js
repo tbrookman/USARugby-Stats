@@ -404,14 +404,6 @@ $(document).ready(function() {
         });
         
     });
-    // If checked
-    $('#checkbox').click(function(){
-    if ($('#checkbox').attr('checked')) {
-        var checked = $('#checkbox:checked').val('hide');
-        if (checked != undefined) $('#checkbox').removeVal('');
-        else $('#checkbox').attr('not:checked');
-    }
-    }); 
       
     //Select All
     $(document).ready(function(){
