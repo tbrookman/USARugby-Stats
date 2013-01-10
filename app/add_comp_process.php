@@ -1,6 +1,7 @@
 <?php
 include_once './include_mini.php';
 
+$id = mysql_real_escape_string($request->get('id'));
 $name = ereg_replace("[^A-Za-z0-9 ]", "", trim($request->get('name')));
 $name = mysql_real_escape_string($name);
 $type = mysql_real_escape_string($request->get('type'));
@@ -10,7 +11,7 @@ $start_date = mysql_real_escape_string($request->get('start_date'));
 $end_date = mysql_real_escape_string($request->get('end_date'));
 $top_groups = $request->get('top_groups');
 $result = $db->addupdateCompetition(array(
-    'id' => '',
+    'id' => $id,
     'user_create' => $_SESSION['user'],
     'name' => $name,
     'start_date' => $start_date,

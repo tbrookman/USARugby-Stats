@@ -418,6 +418,16 @@ class DataSource {
         return $result;
     }
 
+    public function getCompetitionTopGroups($comp_id) {
+        $query = "SELECT * FROM comp_top_group WHERE id = $comp_id";
+        $result = mysql_query($query);
+        $teams = array();
+        while ($row = mysql_fetch_assoc($result)) {
+            $teams[] = $row['team_id'];
+        }
+        return $teams;
+    }
+
     public function getCompetitionTeams($comp_id) {
         $query = "SELECT t.*, c.division_id FROM teams t, ct_pairs c WHERE c.team_id = t.id AND c.comp_id = $comp_id ORDER BY c.division_id, t.name";
         $result = mysql_query($query);
