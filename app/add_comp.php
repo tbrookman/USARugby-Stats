@@ -21,7 +21,7 @@ include_once './header.php';
     </select>
 
     <label for="top_groups" id="top_groups_label" class="control-label">League or Division</label>
-    <select data-placeholder='League or Division' name='top_groups[]' id='top_groups' class="input-medium chzn-select" multiple="multiple">
+    <select data-placeholder='League or Division' name='top_groups[]' id='top_groups' class="chzn-select" multiple="multiple">
         <option value=''></option>
         <?php
         // Give a list of every team to choose from.
