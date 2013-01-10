@@ -6,41 +6,40 @@ use Source\APSource;
 
 $teams = array();
 $client = APSource::SessionSourceFactory();
-$teams = $db->getAllTeams();
-$checkboxvalue = $_POST['checkbox'];
 if (isset($_POST['submit'])) {
     unset($_POST['post']);
-    
-    echo '<div class="alert alert-success">Show Groups.</div>';
-    
+    unset($_POST['check_all']);
+
+    echo '<div class="alert alert-success">Selected groups hidden.</div>';
+
+    $query = "UPDATE teams SET status='show'";
+    $result = mysql_query($query);
     foreach ($_POST as $name => $value) {
-        if ($name == 'sync_all' && $value == 'on') {
-            $qh->GroupMembersSync();
-        }
-        elseif ($uuid = split('_', $name)) {
-            $qh->GroupMembersSync($uuid[1]);
-        }
+        $team_id = mysql_real_escape_string($value);
+        $query = "UPDATE teams SET status='hide' WHERE id=$team_id";
+        $result = mysql_query($query);
+        // $db->hideTeam($value);
     }
 }
+
+$teams = $db->getAllTeams();
 ?>
-<form name="teams_sync" id="teams_sync" method="POST" action="">
+<form name="teams_showhide" id="teams_showhide" method="POST" action="">
     <label for="check_all">Show All:</label>
     <input type="checkbox" name="check_all" id="active" />
     <br />
     <?php
     foreach ($teams as $uuid => $team) {
         echo '<label class=\"checkbox\">';
-    if (hide) {
-        echo "<input id='checkbox' checked='check' type=\"checkbox\" name='checkbox[]' value='show' \\>";       
-    }
-    else {
-        echo "<input id='checkbox' type=\"checkbox\" name='checkbox[]' value='show' \\>";
-
-    }
+        if ($team['status'] == "hide") {
+            echo "<input checked='checked' type='checkbox' name='team_{$team['uuid']}' value='{$team['id']}'>";
+        }
+        else {
+            echo "<input type='checkbox' name='team_{$team['uuid']}' value='{$team['id']}'>";
+        }
         echo "  {$team['name']} (<small>$uuid</small>)";
         echo '</label>';
     }
     ?>
-    <input class="button" name="submit" type="submit" value="Show" />
-    <input class="button" name="submit" type="submit" value="Hide" />
+    <input class="button" name="submit" type="submit" value="Hide groups" />
 </form>
