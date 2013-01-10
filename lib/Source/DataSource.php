@@ -146,7 +146,7 @@ class DataSource {
     }
 
     public function getTeamGames($team_id) {
-        $query = "SELECT * FROM `games` WHERE home_id = $team_id OR away_id = $team_id ORDER BY kickoff";
+        $query = "SELECT g.*, c.league_type FROM games g JOIN comps c ON g.comp_id=c.id WHERE home_id = $team_id OR away_id = $team_id ORDER BY kickoff";
         $result = mysql_query($query);
         $team_games = array();
         if (!empty($result)) {
@@ -381,19 +381,6 @@ class DataSource {
         $competition = mysql_fetch_assoc($result);
         return $competition;
     }
-    
-      public function getLeague($league_type) {
-        $query = "SELECT * FROM `comps` WHERE league_type = $league_type";
-        $result = mysql_query($query);
-        //$league = mysql_fetch_assoc($result);
-        $league = array();
-        while(($row = mysql_fetch_array($result)) !== false) {
-            $league[] = $row['league_type'];
-        }
-        $result = mysql_query("INSERT INTO comps WHERE league_type = $league_type (first, 2, 3) VALUES ('{$league_type[0]}', '{$league_type[1]}', '{$league_type[2]}') or die(mysql_error()");
-          
-        return $league;
-    }
 
     public function getAllCompetitions($params = '') {
         $query = "SELECT * from `comps`" . $params;
@@ -406,7 +393,7 @@ class DataSource {
 
     // Add a competition.
     public function addCompetition($comp_info) {
-        $columns = array('id', 'user_create', 'name', 'start_date', 'end_date', 'type','league_type', 'max_event', 'max_game', 'hidden');
+        $columns = array('id', 'user_create', 'name', 'start_date', 'end_date', 'type', 'league_type', 'max_event', 'max_game', 'hidden');
         $values = '';
         $count = 1;
         $max_count = count($columns);

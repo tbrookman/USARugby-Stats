@@ -2,13 +2,6 @@
 include_once './include_micro.php';
 $iframe = $request->get('iframe');
 $team_uuid = $request->get('team_uuid');
-$league_type = $db->getLeague('league_type');
-if (!empty($league_type)) {
-  foreach ($league_type as $team_game) {
-    
-  }
-    
-  }
 include_once './include.php';
 
 if (!empty($team_uuid)) {
@@ -48,7 +41,6 @@ if (empty($team_id)) {
             if (!empty($iframe)) {
                 foreach ($team_games as $team_game) {
                     $game = array();
-                    $game['league'] = $league_type['19'];//Need to asign array for league
                     $resource = $db->getResource($team_game['field_num']);
                     $loc_url = getResourceMapUrl($resource);
                     $game['comp_game_id'] = $team_game['comp_game_id'];
@@ -58,6 +50,7 @@ if (empty($team_id)) {
                     $game['away_id'] = teamNameNL($team_game['away_id']);
                     $game['home_id'] = teamNameNL($team_game['home_id']);
                     $game['field'] = "<a href=" . "$loc_url" . ">" . "{$resource['title']}" . "</a>";
+                    $game['league'] = $team_game['league_type'];
                     $game_rows[] = $game;
                }
             }
