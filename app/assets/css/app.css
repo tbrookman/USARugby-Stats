@@ -84,7 +84,15 @@ table.normal.table.team-schedule-games a {
 }
 
 table.normal.table.team-schedule-games tr.daterow {
-  display:none;
+  background-color: #E8E8E8 !important;
+  border-bottom: 2px solid #DDD;
+}
+table.normal.table.team-schedule-games tr.game:nth-child(2n+1) {
+  background-color: #eeeeee;
+}
+
+table.normal.table.team-schedule-games td.iframedate {
+  width: 28%;
 }
 
 table.normal.table.team-schedule-games a:hover {
@@ -92,11 +100,11 @@ table.normal.table.team-schedule-games a:hover {
   text-decoration: underline;
 }
 
-table.normal.table.team-schedule-games td{
+table.normal.table.team-schedule-games td {
   padding: 5px;
 }
 
-table.normal.table.team-schedule-games th{
+table.normal.table.team-schedule-games th {
   padding: 5px;
 }
 
@@ -183,10 +191,7 @@ table.normal.table.team-schedule-games {
 tr.schedules-table-header{
   display: none;
 }
-table.normal.table.team-schedule-games tr:nth-child(2n+1) {
-  background-color: #eeeeee;
-  
-}
+
 table.normal.table.team-schedule-games tr.schedules-table-header:first-child {
   background-color: #E8E8E8;
   text-decoration: underline;
@@ -297,18 +302,21 @@ div.location {
   border-bottom: 0;
 }
 
-#maincontent div.row-fluid.span-12.game_info table.table.rosters tr:nth-child(odd){
+#maincontent div.row-fluid.span-12.game_info table.table.rosters tr:nth-child(odd) {
+  background-color: transparent;
+}
+#maincontent table.normal.table.team-schedule-games tr.game:nth-child(2n+1) {
   background-color: transparent;
 }
 
 #maincontent span.icon-map-marker{
   display: none;
 }
-#maincontent table.normal.table.team-schedule-games td{
+#maincontent table.normal.table.team-schedule-games td {
   padding: 8px;
 }
 
-#maincontent table.normal.table.team-schedule-games th{
+#maincontent table.normal.table.team-schedule-games th {
   padding: 8px;
 }
 #maincontent table.normal.table.team-schedule-games tr.daterow {
@@ -368,7 +376,7 @@ div.location {
   text-decoration: none;
 }
 
-#maincontent table.normal.table.team-schedule-games a.btn.dropdown-toggle a:hover{
+#maincontent table.normal.table.team-schedule-games a.btn.dropdown-toggle:hover {
   text-decoration: none;
 }
 

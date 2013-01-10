@@ -39,25 +39,35 @@ if (empty($team_id)) {
       // Iframe.
         else {
             if (!empty($iframe)) {
+                    $pre_date = '';
                 foreach ($team_games as $team_game) {
                     $game = array();
                     $resource = $db->getResource($team_game['field_num']);
                     $loc_url = getResourceMapUrl($resource);
                     $game['comp_game_id'] = $team_game['comp_game_id'];
-                    $game['kickoff'] = date('M d, Y', strtotime($team_game['kickoff']));
+                    $game['kickoff'] = date('l M d, Y', strtotime($team_game['kickoff']));
                     $game['kickoff_time'] = date('g:ia', strtotime($team_game['kickoff']));
                     $game['score'] = "<b>" . "{$team_game['home_score']} - {$team_game['away_score']}" . "</b>";
                     $game['away_id'] = teamNameNL($team_game['away_id']);
                     $game['home_id'] = teamNameNL($team_game['home_id']);
                     $game['field'] = "<a href=" . "$loc_url" . ">" . "{$resource['title']}" . "</a>";
+                    $game['pre_date'] = false;
+                    if ($pre_date != $game['kickoff']){
+                        $pre_date = $game['kickoff'];
+                        $game['pre_date'] = true;
+                        }
+                    else {
+                        $game['kickoff'] =  '';
+                    }
                     $game_rows[] = $game;
-               }
+                }
             }
+            
             if (empty($twig)) {
                 $loader = new Twig_Loader_Filesystem(__DIR__.'/views');
                 $twig = new Twig_Environment($loader, array());
             }
-          echo $twig->render('comp-games.twig', array('gamerows' => $game_rows));
+            echo $twig->render('comp-games.twig', array('gamerows' => $game_rows));
       }
 
     }
