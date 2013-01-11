@@ -359,7 +359,9 @@ function get_player_stat_data($player_id, $comp_id = NULL, $iframe = FALSE) {
             }
             $competing_team = ($game_event['home_id'] == $player_team['id']) ? $game_event['away_id'] : $game_event['home_id'];
             $kickoff = new DateTime($game_event['kickoff']);
-            $game_data['date'] = $kickoff->format('m-d-Y');
+            $kickoff_year = new DateTime($game_event['kickoff']);
+            $kickoff_year->add(new DateInterval('P365D'));
+            $game_data['date'] = $kickoff->format('Y') . ' - ' . $kickoff_year->format('Y');
             $game_data['comp'] = teamName($competing_team, empty($iframe));
             $game_data['pts'] = empty($game_data['pts']) ? $game_event['value'] : $game_data['pts'] + $game_event['value'];
 

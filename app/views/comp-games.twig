@@ -10,14 +10,16 @@
       <th class="teamgameslocation">Location</th>
     </tr>
     {% for game in gamerows %}
-        <tr>
+          {% if game.pre_date %}
           <tr class="daterow">
             <td class="schide"></td>
-            <td class="iframedate">{{ game.kickoff }}</td>
+            <td class="iframedate"><b>{{ game.kickoff }}</b></td>
             <td></td>
             <td></td>
             <td></td>
           </tr>
+          {% endif %}
+          <tr class="game">
           {% if game.canedit %}
             <td>
               <div class="btn-group pull-left">
