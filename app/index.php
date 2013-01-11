@@ -75,7 +75,6 @@ $app->get('/', function() use ($app) {
             // @TODO: Change this to use a twig template.
             // Originally "index.php"
             include_once './include.php';
-            echo "<h1>Welcome to USA Rugby's National Championship Series!</h1>";
 
             $qh = new QueueHelper();
             $queuecount = $qh->Queue()->count();
