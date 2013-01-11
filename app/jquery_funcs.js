@@ -372,42 +372,10 @@ $(document).ready(function() {
         return true;
       }
     });
-
-
-    //hiding a competition
-    $(".hidec").live('click', function() {
-        if(!confirm('Are you sure you want to hide this competition?')){return false;}
-        var comprefresh = $("#comprefresh").val();
-        hId = $(this).data('hide-comp-id');
-
-        $.post('/hide_comp_process.php',
-        {id: hId},
-        function(){
-          reloadData('#comps', comprefresh);
-        });
-        return false;
-    });
-    
-    //Hide Groups when selected
-    $(document).ready(function() {
-    $('.hideg').click(function() {
-        var check = $(this).is(':checked');
-        //hide
-        $('.hideg', $(this).hide('.hideg')).attr('checked', check);
-        }); 
-    });
-    //Show
-    $(document).ready(function() {
-    $('#buttonshow').click(function() {
-        var showcheck = $(this).attr('checked, true');
-        $('.hideg', $(this).show('.hideg')).attr('checked', showcheck);
-        });
-        
-    });
       
-    //Select All
+    //Select All checkboxes
     $(document).ready(function(){
-    $('input#active,input#sgroup').bind('click', function(){
+    $('input#active, input#sync_all').bind('click', function(){
         var status = $(this).is(':checked');
         $('input[type="checkbox"]', $(this).parent('')).attr('checked', status);
         });

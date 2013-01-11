@@ -18,7 +18,7 @@ class Version20130108134740 extends AbstractMigration
 
     public function down(Schema $schema)
     {
-        $this->addSql('ALTER TABLE teams DROP status VARCHAR(10) NOT NULL;');
+        $this->addSql('ALTER TABLE teams DROP status;');
 
     }
 }

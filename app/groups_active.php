@@ -25,21 +25,21 @@ if (isset($_POST['submit'])) {
 $teams = $db->getAllTeams();
 ?>
 <form name="teams_showhide" id="teams_showhide" method="POST" action="">
-    <label for="check_all">Show All:</label>
-    <input type="checkbox" name="check_all" id="active" />
-    <br />
+  <label for="check_all">Select groups to display as hidden</label>
+    <input class="btn btn-warning" name="submit" type="submit" value="Hide Groups" />
+    <div class="border"><input type="checkbox" name="check_all" id="active" value="Select All"/>Select All</div>
     <?php
     foreach ($teams as $uuid => $team) {
         echo '<label class=\"checkbox\">';
         if ($team['status'] == "hide") {
-            echo "<input checked='checked' type='checkbox' name='team_{$team['uuid']}' value='{$team['id']}'>";
+            echo "<input class='grps-active' checked='checked' type='checkbox' name='team_{$team['uuid']}' value='{$team['id']}'>";
         }
         else {
-            echo "<input type='checkbox' name='team_{$team['uuid']}' value='{$team['id']}'>";
+            echo "<input class='grps-active' type='checkbox' name='team_{$team['uuid']}' value='{$team['id']}'>";
         }
         echo "  {$team['name']} (<small>$uuid</small>)";
         echo '</label>';
     }
     ?>
-    <input class="button" name="submit" type="submit" value="Hide groups" />
+    <input class="btn btn-warning" name="submit" type="submit" value="Hide Groups" />
 </form>
