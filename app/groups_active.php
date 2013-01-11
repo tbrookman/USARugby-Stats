@@ -25,9 +25,10 @@ if (isset($_POST['submit'])) {
 $teams = $db->getAllTeams();
 ?>
 <form name="teams_showhide" id="teams_showhide" method="POST" action="">
-  <label for="check_all">Select groups to display as hidden</label>
-    <input class="btn btn-warning" name="submit" type="submit" value="Hide Groups" />
-    <div class="border"><input type="checkbox" name="check_all" id="active" value="Select All"/>Select All</div>
+  <h2>Group Management</h2>
+  <label class="flabel" for="check_all">Manage teams to display in competitions by checking the groups you would like to display as hidden.</label>
+  <input type="checkbox" name="check_all" id="active" value="Select All"/><span>Select All</span>  
+  <input class="btn btn-warning btntop" name="submit" type="submit" value="Hide Groups" />
     <?php
     foreach ($teams as $uuid => $team) {
         echo '<label class=\"checkbox\">';
@@ -41,5 +42,5 @@ $teams = $db->getAllTeams();
         echo '</label>';
     }
     ?>
-    <input class="btn btn-warning" name="submit" type="submit" value="Hide Groups" />
+    <input class="btn btn-warning btntop" name="submit" type="submit" value="Hide Groups" />
 </form>
