@@ -29,6 +29,15 @@ CREATE TABLE `ct_pairs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `divisions` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `comp_id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `event_rosters` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_create` varchar(64) NOT NULL,
