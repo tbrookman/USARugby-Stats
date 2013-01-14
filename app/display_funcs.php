@@ -228,7 +228,7 @@ function get_header_string($op) {
  * @return array of available status names
  */
 function game_status_list() {
-    $query = "SELECT * FROM `game_status`";
+    $query = "SELECT * FROM `game_status` ORDER BY status_name ASC";
     $result = mysql_query($query);
     while ($row = mysql_fetch_assoc($result)) {
         $output[$row['id']] = "{$row['status_name']}";
