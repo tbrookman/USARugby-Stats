@@ -21,11 +21,11 @@
             <div class="controls">
                <select name='type' id='type' data-placeholder='Type' class='input-medium required chzn-select'>
                   <option value=''></option>
-                  <option value='1'>Try</option>
                   <option value='2'>Conversion</option>
-                  <option value='3'>Penalty Kick</option>
                   <option value='4'>Drop Goal</option>
+                  <option value='3'>Penalty Kick</option>
                   <option value='5'>Penalty Try</option>
+                  <option value='1'>Try</option>
               </select>
             </div>
           </div>
