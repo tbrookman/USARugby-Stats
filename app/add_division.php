@@ -24,18 +24,15 @@ if (!empty($id) && !empty($divisionid)) {
 <h1><?php echo $title; ?></h1>
 <?php
 
-// $db->getDivisions($compid);
-//$query = "SELECT d.* FROM divisions d JOIN ct_pairs ctp ON ctp.division_id=d.id WHERE ctp.comp_id = $id";
-$query = "SELECT d.* FROM divisions d WHERE d.comp_id = $id";
-$result = mysql_query($query);
-if ($result) {
+$divisions = $db->getDivisions($id);
+if (count($divisions)) {
     echo "<table class='table'><tr><td><strong>Division</strong></td><td></td></tr><tr>";
-    while ($row=mysql_fetch_assoc($result)) {
-        echo "<td>{$row['name']}</td>";
+    foreach ($divisions as $divid => $name) {
+        echo "<td>{$name}</td>";
         if (editCheck(1)) {
             echo "<td><form name='deldivision' id='deldivision' method='POST' action='add_division.php?id=$id'>";
             echo "<input id='id' name='id' type='hidden' value='$id' />";
-            echo "<input id='deldivision' name='deldivision' type='hidden' value='{$row['id']}' />";
+            echo "<input id='deldivision' name='deldivision' type='hidden' value='{$divid}' />";
             echo "<input type='submit' name='submit' class='btn btn-danger' value='Delete' />";
             echo "</form></td>\r";
         }
