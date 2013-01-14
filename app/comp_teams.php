@@ -14,7 +14,7 @@ while ($row=mysql_fetch_assoc($result)) {
     while ($row2=mysql_fetch_assoc($result2)) {
 
         echo "<td><a href='team.php?id={$row2['id']}'>{$row2['short']}<a/></td>";
-        $division = $db->getTeam($row['division_id']);
+        $division = $db->getDivision($row['division_id']);
         echo "<td>{$division['name']}</td>";
 
         if (editCheck(1)) {

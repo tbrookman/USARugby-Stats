@@ -442,7 +442,7 @@ function get_standings($comp_id, $db, $domain) {
     foreach ($teams as $uuid => $team) {
         $record = $team_records[$uuid];
         if (isset($team['division_id']) && $team['division_id'] != 0 && !array_key_exists($team['division_id'], $divisions)) {
-            $divisions[$team['division_id']] = $db->getTeam($team['division_id']);
+            $divisions[$team['division_id']] = $db->getDivision($team['division_id']);
             $standing = $root->appendChild($doc->createElement('standing'));
             $standing->setAttribute('content-label', $divisions[$team['division_id']]['name']);
         }
