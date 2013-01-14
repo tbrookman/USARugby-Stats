@@ -29,7 +29,7 @@ if (editCheck(1)) {
                         $andsort = $andsort."AND id != '{$row['team_id']}' ";
                     }
 
-                    $query = "SELECT * FROM `teams` WHERE 1 $andsort";
+                    $query = "SELECT * FROM `teams` WHERE 1 $andsort ORDER BY name ASC";
                     $result = mysql_query($query);
                     while ($row=mysql_fetch_assoc($result)) {
                         echo "<option data-type='{$row['type']}' data-description='{$row['description']}' value='{$row['id']}'>{$row['name']}</option>";
@@ -42,7 +42,7 @@ if (editCheck(1)) {
               <select data-placeholder='Division' name='division' id='division' class="input-medium chzn-select-team" style="width: 100%;">
                   <option value=''></option>
                   <?php
-                    $teams = $db->getAllTeams();
+                    $teams = $db->getAllTeams("ORDER BY name ASC");
                     foreach ($teams as $uuid => $team) {
                         echo "<option data-type='{$team['type']}' data-description='{$team['description']}' value='{$team['id']}'>{$team['name']}</option>";
                     }
