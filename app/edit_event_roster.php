@@ -23,7 +23,7 @@ while ($row=mysql_fetch_assoc($result)) {
 
 //Get the players that have a Team FSI ID that matches our team's FSI ID
 $players = array();
-$query = "SELECT id FROM `players` WHERE team_uuid = '$uuid'";
+$query = "SELECT id FROM `players` WHERE team_uuid = '$uuid' ORDER BY lastname ASC";
 $result = mysql_query($query);
 while ($row=mysql_fetch_assoc($result)) {
     $players[]=$row['id'];
