@@ -58,7 +58,7 @@ $comp_id = $_GET['id'];
                 $result = mysql_query($query);
                 while ($row=mysql_fetch_assoc($result)) {
 
-                    $query1 = "SELECT * FROM `teams` WHERE id = {$row['team_id']}";
+                    $query1 = "SELECT * FROM `teams` WHERE id = {$row['team_id']} ORDER BY name ASC";
                     $result1 = mysql_query($query1);
                     while ($row1=mysql_fetch_assoc($result1)) {
                         echo "<option value='{$row1['uuid']}'>{$row1['name']}</option>";
@@ -82,7 +82,7 @@ $comp_id = $_GET['id'];
                   $result = mysql_query($query);
                   while ($row=mysql_fetch_assoc($result)) {
 
-                      $query1 = "SELECT * FROM `teams` WHERE id = {$row['team_id']}";
+                      $query1 = "SELECT * FROM `teams` WHERE id = {$row['team_id']} ORDER BY name ASC";
                       $result1 = mysql_query($query1);
                       while ($row1=mysql_fetch_assoc($result1)) {
                           echo "<option value='{$row1['uuid']}'>{$row1['name']}</option>";
