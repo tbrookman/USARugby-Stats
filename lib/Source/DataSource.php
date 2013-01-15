@@ -392,7 +392,7 @@ class DataSource {
     }
 
     // Add a competition.
-    public function addCompetition($comp_info) {
+    public function addupdateCompetition($comp_info) {
         $columns = array('id', 'user_create', 'name', 'start_date', 'end_date', 'type', 'league_type', 'max_event', 'max_game', 'hidden');
         $values = '';
         $count = 1;
@@ -404,14 +404,28 @@ class DataSource {
             }
             $count++;
         }
-        $query = "INSERT INTO `comps` (" . implode(',', $columns) . ") VALUES ($values)";
+        $query = "REPLACE INTO `comps` (" . implode(',', $columns) . ") VALUES ($values)";
         $result = mysql_query($query);
         $comp_id = mysql_insert_id();
+
+        // Remove associated "top level groups" and update with the latest.
+        $query = "DELETE FROM comp_top_group WHERE id={$comp_info['id']};";
+        $result = mysql_query($query);
         foreach ($comp_info['top_groups'] as $top_group) {
             $query = "INSERT INTO `comp_top_group` (id, team_id) VALUES ($comp_id, $top_group)";
             $result = mysql_query($query);
         }
         return $result;
+    }
+
+    public function getCompetitionTopGroups($comp_id) {
+        $query = "SELECT * FROM comp_top_group WHERE id = $comp_id";
+        $result = mysql_query($query);
+        $teams = array();
+        while ($row = mysql_fetch_assoc($result)) {
+            $teams[] = $row['team_id'];
+        }
+        return $teams;
     }
 
     public function getCompetitionTeams($comp_id) {
