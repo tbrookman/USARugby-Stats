@@ -388,3 +388,6 @@ div.location {
 #maincontent div.date-left {
   display: none;
 }
+#maincontent th.league, #maincontent td.league {
+    display:none;
+}
