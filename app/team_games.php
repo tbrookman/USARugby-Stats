@@ -51,6 +51,7 @@ if (empty($team_id)) {
                     $game['away_id'] = teamNameNL($team_game['away_id']);
                     $game['home_id'] = teamNameNL($team_game['home_id']);
                     $game['field'] = "<a href=" . "$loc_url" . ">" . "{$resource['title']}" . "</a>";
+                    $game['league'] = $team_game['league_type'];
                     $game['pre_date'] = false;
                     if ($pre_date != $game['kickoff']){
                         $pre_date = $game['kickoff'];
