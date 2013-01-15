@@ -59,6 +59,7 @@ if (empty($team_id)) {
                     else {
                         $game['kickoff'] =  '';
                     }
+                    $game['league'] = $team_game['league_type'];
                     $game_rows[] = $game;
                 }
             }

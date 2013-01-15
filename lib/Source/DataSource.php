@@ -146,7 +146,7 @@ class DataSource {
     }
 
     public function getTeamGames($team_id) {
-        $query = "SELECT * FROM `games` WHERE home_id = $team_id OR away_id = $team_id ORDER BY kickoff";
+        $query = "SELECT g.*, c.league_type FROM games g JOIN comps c ON g.comp_id=c.id WHERE home_id = $team_id OR away_id = $team_id ORDER BY kickoff";
         $result = mysql_query($query);
         $team_games = array();
         if (!empty($result)) {
@@ -392,8 +392,8 @@ class DataSource {
     }
 
     // Add a competition.
-    public function addupdateCompetition($comp_info) {
-        $columns = array('id', 'user_create', 'name', 'start_date', 'end_date', 'type', 'max_event', 'max_game', 'hidden');
+    public function addCompetition($comp_info) {
+        $columns = array('id', 'user_create', 'name', 'start_date', 'end_date', 'type', 'league_type', 'max_event', 'max_game', 'hidden');
         $values = '';
         $count = 1;
         $max_count = count($columns);

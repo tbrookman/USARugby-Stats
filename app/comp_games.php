@@ -6,7 +6,7 @@ $base_url = $request->getScheme() . '://' . $request->getHost();
 
 if (!isset($comp_id) || !$comp_id) {$comp_id=$_GET['id'];}
 
-$query = "SELECT * FROM `games` WHERE comp_id = $comp_id ORDER BY kickoff";
+$query = "SELECT g.*, c.league_type FROM games g JOIN comps c ON g.comp_id=c.id WHERE comp_id = $comp_id ORDER BY kickoff";
 $result = mysql_query($query);
 $game_rows = array();
 while ($row=mysql_fetch_assoc($result)) {
@@ -75,6 +75,7 @@ while ($row=mysql_fetch_assoc($result)) {
     $game['score'] = "<a href='game.php?id={$row['id']}'>{$row['home_score']} - {$row['away_score']}</a>";
     $game['away_id'] = teamName($row['away_id']);
     $game['field'] = $resource['title'];
+    $game['league'] = $row['league_type'];
     $game_rows[] = $game;
 }
 
