@@ -105,12 +105,18 @@ class DataSource {
     }
 
     public function addupdateTeam($team_info) {
-        $columns = array('id', 'hidden', 'user_create', 'uuid', 'name', 'short', 'resources', 'logo_url', 'description', 'type');
+        $columns = array('id', 'hidden', 'user_create', 'uuid', 'name', 'short', 'resources', 'logo_url', 'description', 'type' ,'status');
         $values = '';
         $count = 1;
         $max_count = count($columns);
+        if (empty($team_info['id'])) {
+            $team_info['id'] = 'NULL';
+        }
         if (!empty($team_info['resources']) && is_array($team_info['resources'])) {
             $team_info['resources'] = serialize($team_info['resources']);
+        }
+        else {
+            $team_info['resources'] = 'NULL';
         }
         foreach ($columns as $col) {
             $values .= is_null($team_info[$col]) ? 'NULL' : "'" . $team_info[$col] . "'";

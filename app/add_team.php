@@ -29,7 +29,7 @@ if (editCheck(1)) {
                         $andsort = $andsort."AND id != '{$row['team_id']}' ";
                     }
 
-                    $query = "SELECT * FROM `teams` WHERE 1 $andsort";
+                    $query = "SELECT * FROM `teams` WHERE 1 $andsort AND status = 'show'";
                     $result = mysql_query($query);
                     while ($row=mysql_fetch_assoc($result)) {
                         echo "<option data-type='{$row['type']}' data-description='{$row['description']}' value='{$row['id']}'>{$row['name']}</option>";

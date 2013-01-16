@@ -31,6 +31,7 @@ if (editCheck(1)) {
               <!-- <li><a href='db_update.php'>Update Player Database</a></li> -->
               <!-- <li><a href='db_update_team.php'>Add Club to Club Database</a></li> -->
               <li><a href='users.php'>User Management</a></li>
+               <li><a href='groups_active.php'>Group Management</a></li>
               <li class="divider"></li>
               <li class="dropdown-submenu">
                 <a tabindex="-1" href="processqueue">Sync</a>

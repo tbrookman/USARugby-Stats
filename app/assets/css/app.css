@@ -20,7 +20,7 @@ div#maincontent {
 }
 
 .welcome_user {
-  padding-top:10px;
+  padding-top: 10px;
 }
 
 .chzn-search input {
@@ -32,13 +32,13 @@ div#maincontent {
 }
 
 .player-picture-mini {
-  margin-right:10px;
-  width:40px;
+  margin-right: 10px;
+  width: 40px;
 }
 
 .player-picture-medium {
   width: 100%;
-  max-width:100px;
+  max-width: 100px;
 }
 
 .player-stats-table th{
@@ -46,7 +46,7 @@ div#maincontent {
 }
 
 .player-stats-table {
-  font-size:12px;
+  font-size: 12px;
 }
 
 .player-stats-table td {
@@ -54,17 +54,19 @@ div#maincontent {
 }
 
 h3.popover-title {
-  font-weight:bold;
+  font-weight: bold;
 }
 
 .player-popover-iframe {
-  width:100%;
+  width: 100%;
 }
 /** admin displays FR - game player view **/
 #maincontent th.frout, #maincontent td.frout {
-  display: block;
+  display: table-cell;
 }
-
+a.left {
+  float: left;
+}
 /** public hides FR - game player view **/
 th.frout, td.frout {
   display: none;
@@ -107,9 +109,12 @@ table.normal.table.team-schedule-games td {
 table.normal.table.team-schedule-games th {
   padding: 5px;
 }
+table.table.rosters tr.rosters-header tr td:first-child {
+  text-align: right;
+}
 
 table.table.rosters tr.rosters-header {
-  background-color: #E8E8E8;
+  background: #E8E8E8;
   border-bottom: 1px solid #DDD;
 }
 
@@ -119,13 +124,45 @@ div.row-fluid.span-12.game_info table.table.rosters {
   margin-bottom: 0;
   margin-right: 10px;
 }
+div.row-fluid.span-12.game_info table.table.rosters th:first-child + th + th {
+  width: 15px;
+}
+
+div.row-fluid.span-12.game_info table.table.rosters th:last-child{
+  display: none;
+}
+
+div.row-fluid.span-12.game_info table.table.rosters th:first-child + th {
+  width: 30px;
+}
+
+div.row-fluid.span-12.game_info table.table.rosters th:first-child + th + th + th + th + th + th{
+  width: 15px;
+}
 
 div.row-fluid.span-12.game_info table.table.rosters tr.rosters-header th:last-child {
-  background-color: transparent;
+  background: transparent;
 }
 
 div.row-fluid.span-12.game_info table.table.rosters tr:nth-child(odd){
-  background-color: #eeeeee;
+  background: #eeeeee;
+}
+
+div.row-fluid.span-12.game_info .table th, div.row-fluid.span-12.game_info .table td {
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+
+div.row-fluid.span-12.game_info table.table.rosters td:first-child {
+  width: 10px;
+  text-align: right; 
+}
+
+div.row-fluid.span-12.game_info table.table.rosters td + td + td + td + td + td + td + td {
+  width: 50px;
 }
 
 /**game score events **/
@@ -140,6 +177,15 @@ div.row-fluid.span-12.game_info table.table {
 
 div.row-fluid.span-12.game_info table.table td:first-child {
   max-width: 50px;
+  text-align: right;
+}
+div.row-fluid.span-12.game_info table.table.signature td:first-child {
+  text-align: left;
+}
+
+div.row-fluid.span-12.game_info table.table td + td + td + td + td {
+  text-align: left;
+  width: 10px;
 }
 
 div.row-fluid.span-12.game_info table.table.events-sub {
@@ -150,7 +196,7 @@ div.row-fluid.span-12.game_info table.table.events-sub {
 }
 
 div.row-fluid.span-12.game_info table.table tr.header-game-events {
-  background-color: #fafafa;
+  background: #fafafa;
 }
 
 table.table.card-events tr th:first-child, table.table.events-sub tr th:first-child, table.table.game-score-events tr th:first-child {
@@ -187,9 +233,13 @@ table.normal.table.team-schedule-games {
   font-size: .92em;
   margin-bottom: 0px;
 }
+table.normal.table.team-schedule-games tr:nth-child(3n+1) {
+  background: #eeeeee;
+  
+}
 
 table.normal.table.team-schedule-games tr.schedules-table-header:first-child {
-  background-color: #E8E8E8;
+  background: #E8E8E8;
   text-decoration: underline;
   border-bottom: 2px solid #ddd;
 }
@@ -219,9 +269,18 @@ table.normal.table.team-schedule-games tr td:first-child {
   display: none;
 }
 
+table.normal.table.team-schedule-games tr td.schide {
+  display: none;
+}
+
+table.normal.table.team-schedule-games tr th.schide {
+  display: none;
+}
+
 th.schide, td.schide {
   display: none;
 }
+
 td.home-right {
   text-align: right;
   width: 26%;
@@ -263,15 +322,15 @@ div.location {
 }
 
 #maincontent table.normal.table.team-schedule-games tr:nth-child(3n+1) {
-  background-color: transparent;
+  background: transparent;
 }
 
 #maincontent table.normal.table.team-schedule-games .schedules-table-header {
-  background-color: transparent;
+  background: transparent;
 }
 
 #maincontent table.normal.table.team-schedule-games tr.schedules-table-header:first-child {
-  background-color: transparent;
+  background: transparent;
   text-decoration: none;
 }
 
@@ -297,12 +356,12 @@ div.location {
 }
 
 #maincontent table.table.rosters tr.rosters-header {
-  background-color: transparent;
+  background: transparent;
   border-bottom: 0;
 }
 
-#maincontent div.row-fluid.span-12.game_info table.table.rosters tr:nth-child(odd) {
-  background-color: transparent;
+#maincontent div.row-fluid.span-12.game_info table.table.rosters tr:nth-child(odd){
+  background: transparent;
 }
 #maincontent table.normal.table.team-schedule-games tr.game:nth-child(2n+1) {
   background-color: transparent;
@@ -318,6 +377,51 @@ div.location {
 #maincontent table.normal.table.team-schedule-games th {
   padding: 8px;
 }
+
+#maincontent input.grps-active {
+  margin: 5px 4px 7px 20px;
+}
+#maincontent label.flabel {
+  background: transparent !important;
+  border: 0px !important;
+}
+
+#maincontent input#active, #maincontent input#sync_all {
+  margin: 5px 8px 7px 3px;
+}
+
+#maincontent input#active span, #maincontent input#sync_all span {
+  margin: 5px 4px 7px 3px;
+}
+#maincontent input.btn.btn-warning.btntop {
+  margin: 10px 10px;
+}
+#maincontent form#teams_showhide label, #maincontent form#teams_sync label {
+  border-top: 1px solid #ccc;
+  padding: 5px;
+  margin: 0px 30px 0px 0px;
+}
+
+#maincontent form#teams_showhide label:first-child + label, #maincontent form#teams_sync label:first-child + label {
+  border-top: 1px solid #ccc;
+}
+
+#maincontent form#teams_showhide label:nth-child(even), #maincontent form#teams_sync label:nth-child(even) {
+  background: #fafafa;
+}
+
+#maincontent form#teams_showhide label:last-child, #maincontent form#teams_sync label:last-child {
+  margin-bottom: 5px;
+}
+
+#maincontent .table th, #maincontent .table td {
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+
 #maincontent table.normal.table.team-schedule-games tr.daterow {
   display:none;
 }

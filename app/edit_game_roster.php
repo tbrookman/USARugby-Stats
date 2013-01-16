@@ -36,24 +36,28 @@ if (!empty($result)) {
 //Get the roster limit and comp type (15s or 7s) from the comp info
 $query = "SELECT max_game, type FROM `comps` WHERE id = $comp_id";
 $result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)) {
-    $max_game = $row['max_game'];
-    $comp_type = $row['type'];
+if ($result) {
+    while ($row=mysql_fetch_assoc($result)) {
+        $max_game = $row['max_game'];
+        $comp_type = $row['type'];
+    }
 }
 
 //if this is not the first game, show button to fill with previous game's roster
 $query = "SELECT * FROM `games` WHERE comp_id = $comp_id AND
 (home_id = $team_id OR away_id = $team_id) ORDER BY kickoff LIMIT 1";
 $result = mysql_query($query);
-while ($row=mysql_fetch_assoc($result)) {
-    if ($row['id'] != $game_id) {
-        echo "<form name='pregame' id='pregame' />\n\r";
-        echo "<input type='hidden' id='game_id' value='$game_id' />";
-        echo "<input type='hidden' id='comp_id' value='$comp_id' />";
-        echo "<input type='hidden' id='team_id' value='$team_id' />";
-        echo "<input type='hidden' id='roster_id' value='$roster_id' />";
-        echo "<input type='button' id='presubmit' class='btn btn-primary' value='Fill with Previous Roster' />";
-        echo "</form>\n";
+if ($result) {
+    while ($row=mysql_fetch_assoc($result)) {
+        if ($row['id'] != $game_id) {
+            echo "<form name='pregame' id='pregame' />\n\r";
+            echo "<input type='hidden' id='game_id' value='$game_id' />";
+            echo "<input type='hidden' id='comp_id' value='$comp_id' />";
+            echo "<input type='hidden' id='team_id' value='$team_id' />";
+            echo "<input type='hidden' id='roster_id' value='$roster_id' />";
+            echo "<input type='button' id='presubmit' class='btn btn-primary' value='Fill with Previous Roster' />";
+            echo "</form>\n";
+        }
     }
 }
 
@@ -120,10 +124,11 @@ $cpositions = explode('-', substr($positions, 1, (strlen($positions)-2)));
 
 //header for columns
 echo "<table class='table'>\n";
-$frhead = ($comp_type == 1) ? '<th>FR</th>' : '';
+$frhead = (!empty($comp_type) && ($comp_type == 1)) ? '<th>FR</th>' : '';
 echo "<tr><th>Num.</th><th>Name</th><th>Position</th>$frhead</tr>\n";
 
 //Create select for each roster spot and provide an option for each player for team
+$max_game = empty($max_game) ? 0 : $max_game;
 for ($j=1;$j<=$max_game;$j++) {
     echo "<tr>";
 

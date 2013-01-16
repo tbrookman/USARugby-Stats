@@ -24,16 +24,18 @@ if (isset($_POST['submit'])) {
 }
 ?>
 <form name="teams_sync" id="teams_sync" method="POST" action="">
-    <label for="sync_all">Sync all:</label>
-    <input type="checkbox" name="sync_all" id="sync_all" />
+    <h2>Update Players in Groups</h2>
+    <label class="flabel" for="sync_all">Update players in groups by checking the groups you would synchronize.</label>
+    <input type="checkbox" name="sync_all" id="sync_all" /><span>Select All</span>
+    <input class="btn btn-warning btntop" name="submit" type="submit" value="Sync Team(s)" />
     <br />
     <?php
     foreach ($teams as $uuid => $team) {
         echo '<label class=\"checkbox\">';
-        echo "<input type=\"checkbox\" name=\"team_$uuid\" \\>";
+        echo "<input class='grps-active' type=\"checkbox\" name=\"team_$uuid\" \\>";
         echo "  {$team['name']} (<small>$uuid</small>)";
         echo '</label>';
     }
     ?>
-    <input class="button" name="submit" type="submit" value="Sync Team(s)" />
+    <input class="btn btn-warning btntop" name="submit" type="submit" value="Sync Team(s)" />
 </form>
