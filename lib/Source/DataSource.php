@@ -709,7 +709,7 @@ class DataSource {
      */
     public function getDivisions($comp_id) {
         $comp_id = mysql_escape_string($comp_id);
-        $query = "SELECT d.* FROM divisions d WHERE d.comp_id = $comp_id";
+        $query = "SELECT d.* FROM divisions d WHERE d.comp_id = $comp_id ORDER BY name ASC";
         $result = mysql_query($query);
         $return = array();
         while ($row = mysql_fetch_assoc($result)) {

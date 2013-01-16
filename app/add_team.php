@@ -41,11 +41,6 @@ if (editCheck(1)) {
               <select data-placeholder='Division' name='division' id='division' class="input-medium chzn-select" style="width: 100%;">
                   <option value=''></option>
                   <?php
-
-/*                    $teams = $db->getAllTeams("ORDER BY name ASC");
-                    foreach ($teams as $uuid => $team) {
-                        echo "<option data-type='{$team['type']}' data-description='{$team['description']}' value='{$team['id']}'>{$team['name']}</option>";
-*/
                     $divisions = $db->getDivisions($comp_id);
                     foreach ($divisions as $id => $division) {
                         echo "<option value='{$id}'>{$division}</option>";
