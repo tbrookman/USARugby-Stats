@@ -6,6 +6,10 @@ body {
 div.navbar-inverse {
   padding: 0 10px;
 }
+table.table {
+    max-width: 800px;
+    min-width: 300px;
+}
 
 a.brand {
   padding: 0px !important;
@@ -491,4 +495,11 @@ div.location {
 }
 #maincontent div.date-left {
   display: none;
+}
+#maincontent th.league, #maincontent td.league {
+    display:none;
+}
+
+#maincontent table.table {
+    max-width: 100%;
 }
