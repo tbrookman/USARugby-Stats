@@ -112,8 +112,14 @@ if (!empty($id)) {
 
     <br/>
     <br/>
-
-    <input type='submit' name='submit' class='button btn btn-primary' id='add_comp' value='Create Competition'>
+    <?php
+        if (!empty($id)) {
+            echo "<input type='submit' name='submit' class='button btn btn-primary' id='add_comp' value='Update Competition'>";
+        }
+        else {
+            echo "<input type='submit' name='submit' class='button btn btn-primary' id='add_comp' value='Create Competition'>";
+        }
+    ?>
 </form>
 
 <?php
