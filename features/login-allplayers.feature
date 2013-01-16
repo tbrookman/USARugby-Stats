@@ -1,4 +1,3 @@
-
 Feature: Login with AllPlayers
   As an anonymous user
   I can click on a link to sign in with an allplayers account.
@@ -24,4 +23,4 @@ Feature: Login with AllPlayers
     Then I should see "Access content available to your user"
     When I check "edit-levels-*"
       And I press "edit-confirm"
-    Then I should see "Welcome to USA"
+    Then I should see "Add New Competition"
