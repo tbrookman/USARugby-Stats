@@ -10,6 +10,7 @@ $type = 0;
 $max_event = '';
 $max_match = '';
 $hidden = 0;
+$league_type = '';
 $top_groups = array();
 
 if (!empty($id)) {
@@ -23,6 +24,7 @@ if (!empty($id)) {
     $max_event = $competition['max_event'];
     $max_match = $competition['max_game'];
     $hidden = $competition['hidden'];
+    $league_type = $competition['league_type'];
 }
 ?>
 
@@ -49,9 +51,9 @@ if (!empty($id)) {
     <label for="league_type" id="league_label">League Type</label>
     <select name='league_type' id='league-type' data-placeholder="League Type" class="required chzn-select">
         <option value=''></option>
-        <option value='League'>League</option>
-        <option value='Friendly'>Friendly</option>
-        <option value='Playoffs'>Playoffs</option>
+        <option <?php if ($league_type == 'League') echo 'selected'; ?> value='League'>League</option>
+        <option <?php if ($league_type == 'Friendly') echo 'selected'; ?> value='Friendly'>Friendly</option>
+        <option <?php if ($league_type == 'Playoffs') echo 'selected'; ?> value='Playoffs'>Playoffs</option>
     </select>
 
     <label for="top_groups" id="top_groups_label" class="control-label">League or Division</label>
@@ -101,7 +103,7 @@ if (!empty($id)) {
                     echo '<option selected value="' . $i . '">' . $i . '</option>';
                 }
                 else {
-                    echo '<option selected value="' . $i . '">' . $i . '</option>';
+                    echo '<option value="' . $i . '">' . $i . '</option>';
                 }
             }
             ?>
@@ -110,8 +112,14 @@ if (!empty($id)) {
 
     <br/>
     <br/>
-
-    <input type='submit' name='submit' class='button btn btn-primary' id='add_comp' value='Create Competition'>
+    <?php
+        if (!empty($id)) {
+            echo "<input type='submit' name='submit' class='button btn btn-primary' id='add_comp' value='Update Competition'>";
+        }
+        else {
+            echo "<input type='submit' name='submit' class='button btn btn-primary' id='add_comp' value='Create Competition'>";
+        }
+    ?>
 </form>
 
 <?php
