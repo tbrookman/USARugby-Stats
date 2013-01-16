@@ -9,7 +9,7 @@ if (editCheck(1)) {
     echo "<label for='team' id='team_label'>Team</label>";
     echo "<select name='team' id='team' class='chzn-select input-large'>";
     echo "<option value=''>No team (Admin / Ref only)</option>";
-    $query2 = "SELECT id, name FROM `teams` WHERE hidden=0";
+    $query2 = "SELECT id, name FROM `teams` WHERE hidden=0 ORDER BY name ASC";
     $result2 = mysql_query($query2);
     while ($row2=mysql_fetch_assoc($result2)) {
         echo "<option value='{$row2['id']}'>{$row2['name']}</option>";

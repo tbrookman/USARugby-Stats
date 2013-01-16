@@ -16,7 +16,7 @@ while ($row=mysql_fetch_assoc($result)) {
 
     echo "Team<br/><select name='team' id='team' class='input-large chzn-select'>";
     echo "<option value=''></option>";
-    $query2 = "SELECT id, name FROM `teams` WHERE hidden=0";
+    $query2 = "SELECT id, name FROM `teams` WHERE hidden=0 ORDER BY name ASC";
     $result2 = mysql_query($query2);
     while ($row2=mysql_fetch_assoc($result2)) {
         echo "<option value='{$row2['id']}'>{$row2['name']}</option>";

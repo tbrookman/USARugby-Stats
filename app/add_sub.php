@@ -22,10 +22,10 @@
             <div class="controls">
               <select name='subtype' id='subtype' data-placeholder='Type' class='chzn-select input-medium required'>
                 <option value=''></option>
-                <option value='11'>Tactical</option>
-                <option value='13'>Injury</option>
                 <option value='15'>Blood</option>
+                <option value='13'>Injury</option>
                 <option value='17'>Front Row Card</option>
+                <option value='11'>Tactical</option>
               </select>
             </div>
           </div>

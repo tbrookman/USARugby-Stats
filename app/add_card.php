@@ -23,8 +23,8 @@
               <div class="controls">
                 <select name='cardtype' id='cardtype' data-placeholder="Card Type" class='required input-medium chzn-select'>
                   <option value=''></option>
-                  <option value='21'>Yellow Card</option>
                   <option value='22'>Red Card</option>
+                  <option value='21'>Yellow Card</option>
                 </select>
               </div>
             </div>
