@@ -46,6 +46,14 @@ if (!empty($id)) {
         <option <?php if ($type == 2) echo 'selected'; ?> value='2'>7s</option>
     </select>
 
+    <label for="league_type" id="league_label">League Type</label>
+    <select name='league_type' id='league-type' data-placeholder="League Type" class="required chzn-select">
+        <option value=''></option>
+        <option value='League'>League</option>
+        <option value='Friendly'>Friendly</option>
+        <option value='Playoffs'>Playoffs</option>
+    </select>
+
     <label for="top_groups" id="top_groups_label" class="control-label">League or Division</label>
     <select data-placeholder='League or Division' name='top_groups[]' id='top_groups' class="chzn-select" multiple="multiple">
         <option value=''></option>
