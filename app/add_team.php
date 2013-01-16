@@ -17,7 +17,6 @@ if (editCheck(1)) {
 
         <div id="team-wrapper">
           <div class="control-group">
-            <label for="team" id="team_label" class="control-label">Team</label>
             <div class="controls">
               <select data-placeholder='Team' name='team' id='team' class="required input-medium chzn-select-team" style="width: 100%;">
                   <option value=''></option>
@@ -37,14 +36,14 @@ if (editCheck(1)) {
                   ?>
               </select>
             </div>
-            <label for="division" id="division_label" class="control-label">Division</label>
+            <br />
             <div class="controls">
-              <select data-placeholder='Division' name='division' id='division' class="input-medium chzn-select-team" style="width: 100%;">
+              <select data-placeholder='Division' name='division' id='division' class="input-medium chzn-select" style="width: 100%;">
                   <option value=''></option>
                   <?php
-                    $teams = $db->getAllTeams();
-                    foreach ($teams as $uuid => $team) {
-                        echo "<option data-type='{$team['type']}' data-description='{$team['description']}' value='{$team['id']}'>{$team['name']}</option>";
+                    $divisions = $db->getDivisions($comp_id);
+                    foreach ($divisions as $id => $division) {
+                        echo "<option value='{$id}'>{$division}</option>";
                     }
                   ?>
               </select>

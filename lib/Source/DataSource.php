@@ -689,6 +689,35 @@ class DataSource {
         return $result;
     }
 
+    /*
+     * Get a specific Division by id
+    */
+    public function getDivision($div_id) {
+        $div_id = mysql_escape_string($div_id);
+        $query = "SELECT d.* FROM divisions d WHERE d.id = $div_id";
+        $result = mysql_query($query);
+        $return = array();
+        $row = mysql_fetch_assoc($result);
+        return array(
+            'comp_id' => $row['comp_id'],
+            'name' => $row['name'],
+        );
+    }
+
+    /*
+     * Get all Divisions in a competition
+     */
+    public function getDivisions($comp_id) {
+        $comp_id = mysql_escape_string($comp_id);
+        $query = "SELECT d.* FROM divisions d WHERE d.comp_id = $comp_id";
+        $result = mysql_query($query);
+        $return = array();
+        while ($row = mysql_fetch_assoc($result)) {
+            $return[$row['id']] = $row['name'];
+        }
+        return $return;
+    }
+
     /**
      * Verify the validity of a uuid.
      * @param string $uuid
