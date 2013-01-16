@@ -37,7 +37,7 @@ if (count($homeps) > count($awayps)) {
 
 echo "<table class='table rosters'>";
 $link = empty($iframe);
-echo "<tr class='rosters-header'><th>#</th><th>Position</th><th>" . teamName($away_id, $link) . "</th><th class='frout'>FR</th><th>@</th><th>#</th><th>Position</th><th>" . teamName($home_id, $link) . "</th><th class='frout'>FR</th><th></tr>";
+echo "<tr class='rosters-header'><th></th><th>Position</th><th>" . teamName($away_id, $link) . "</th><th class='frout'>FR</th><th></th><th></th><th>Position</th><th>" . teamName($home_id, $link) . "</th><th class='frout'>FR</th><th></tr>";
 
 //0 element has been filtered above so start at 1
 //displaying number, name, FR capable
@@ -66,7 +66,7 @@ for ($i=1; $i<=$max; $i++) {
 }
 
 if (editCheck() && empty($iframe)) {
-    echo "<td colspan='4'><a href='game_roster.php?gid=$game_id&tid=$away_id'>Edit Roster</a></td>\n";
+    echo "<td colspan='4'><a class='left' href='game_roster.php?gid=$game_id&tid=$away_id'>Edit Roster</a></td>\n";
     echo "<td>&nbsp;</td>";
     echo "<td colspan='4'><a href='game_roster.php?gid=$game_id&tid=$home_id'>Edit Roster</a></td>\n";
 }

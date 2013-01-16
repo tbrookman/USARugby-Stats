@@ -6,7 +6,7 @@ if (!isset($game_id) || !$game_id) {$game_id=$_GET['id'];}
 echo "<h2>Acceptance of Results</h2>";
 
 echo "<form id='signform' name='signform' method='POST' action='' />";
-echo "<table class='table'>";
+echo "<table class='table signature'>";
 
 $query = "SELECT ref_sign,4_sign,away_sign,home_sign FROM `games` WHERE id = $game_id";
 $result = mysql_query($query);

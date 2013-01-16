@@ -105,12 +105,18 @@ class DataSource {
     }
 
     public function addupdateTeam($team_info) {
-        $columns = array('id', 'hidden', 'user_create', 'uuid', 'name', 'short', 'resources', 'logo_url', 'description', 'type');
+        $columns = array('id', 'hidden', 'user_create', 'uuid', 'name', 'short', 'resources', 'logo_url', 'description', 'type' ,'status');
         $values = '';
         $count = 1;
         $max_count = count($columns);
+        if (empty($team_info['id'])) {
+            $team_info['id'] = 'NULL';
+        }
         if (!empty($team_info['resources']) && is_array($team_info['resources'])) {
             $team_info['resources'] = serialize($team_info['resources']);
+        }
+        else {
+            $team_info['resources'] = 'NULL';
         }
         foreach ($columns as $col) {
             $values .= is_null($team_info[$col]) ? 'NULL' : "'" . $team_info[$col] . "'";
@@ -146,7 +152,7 @@ class DataSource {
     }
 
     public function getTeamGames($team_id) {
-        $query = "SELECT * FROM `games` WHERE home_id = $team_id OR away_id = $team_id ORDER BY kickoff";
+        $query = "SELECT g.*, c.league_type FROM games g JOIN comps c ON g.comp_id=c.id WHERE home_id = $team_id OR away_id = $team_id ORDER BY kickoff";
         $result = mysql_query($query);
         $team_games = array();
         if (!empty($result)) {
@@ -392,8 +398,8 @@ class DataSource {
     }
 
     // Add a competition.
-    public function addCompetition($comp_info) {
-        $columns = array('id', 'user_create', 'name', 'start_date', 'end_date', 'type', 'max_event', 'max_game', 'hidden');
+    public function addupdateCompetition($comp_info) {
+        $columns = array('id', 'user_create', 'name', 'start_date', 'end_date', 'type', 'league_type', 'max_event', 'max_game', 'hidden');
         $values = '';
         $count = 1;
         $max_count = count($columns);
@@ -404,14 +410,28 @@ class DataSource {
             }
             $count++;
         }
-        $query = "INSERT INTO `comps` (" . implode(',', $columns) . ") VALUES ($values)";
+        $query = "REPLACE INTO `comps` (" . implode(',', $columns) . ") VALUES ($values)";
         $result = mysql_query($query);
         $comp_id = mysql_insert_id();
+
+        // Remove associated "top level groups" and update with the latest.
+        $query = "DELETE FROM comp_top_group WHERE id={$comp_info['id']};";
+        $result = mysql_query($query);
         foreach ($comp_info['top_groups'] as $top_group) {
             $query = "INSERT INTO `comp_top_group` (id, team_id) VALUES ($comp_id, $top_group)";
             $result = mysql_query($query);
         }
         return $result;
+    }
+
+    public function getCompetitionTopGroups($comp_id) {
+        $query = "SELECT * FROM comp_top_group WHERE id = $comp_id";
+        $result = mysql_query($query);
+        $teams = array();
+        while ($row = mysql_fetch_assoc($result)) {
+            $teams[] = $row['team_id'];
+        }
+        return $teams;
     }
 
     public function getCompetitionTeams($comp_id) {
@@ -667,6 +687,35 @@ class DataSource {
         $query .= " WHERE id='{$original_resource['id']}'";
         $result = mysql_query($query);
         return $result;
+    }
+
+    /*
+     * Get a specific Division by id
+    */
+    public function getDivision($div_id) {
+        $div_id = mysql_escape_string($div_id);
+        $query = "SELECT d.* FROM divisions d WHERE d.id = $div_id";
+        $result = mysql_query($query);
+        $return = array();
+        $row = mysql_fetch_assoc($result);
+        return array(
+            'comp_id' => $row['comp_id'],
+            'name' => $row['name'],
+        );
+    }
+
+    /*
+     * Get all Divisions in a competition
+     */
+    public function getDivisions($comp_id) {
+        $comp_id = mysql_escape_string($comp_id);
+        $query = "SELECT d.* FROM divisions d WHERE d.comp_id = $comp_id";
+        $result = mysql_query($query);
+        $return = array();
+        while ($row = mysql_fetch_assoc($result)) {
+            $return[$row['id']] = $row['name'];
+        }
+        return $return;
     }
 
     /**

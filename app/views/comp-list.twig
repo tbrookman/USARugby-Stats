@@ -9,8 +9,9 @@
                     </a>
                     <ul class="dropdown-menu">
                       <!-- dropdown menu links -->
-                      <li><a href="comp.php?id={{competition.id}}"><i class="icon-pencil"></i> Edit</a></li>
+                      <li><a href="add_comp.php?id={{competition.id}}"><i class="icon-pencil"></i> Edit</a></li>
                       <li><a href='#' class='hidec' id='hComp{{competition.id}}' data-hide-comp-id='{{competition.id}}'> <i class='icon-remove'></i> Hide</a></li>
+                      <li><a href="add_division.php?id={{competition.id}}"><i class="icon-list"></i> Divisions</a></li>
                       <li class="divider"></li>
                       <li class="nav-header">iframes</li>
                       <li><a href="#standings-{{competition.id}}-modal" data-toggle="modal" data-comp-id="{{competition.id}}">Standings</a></li>

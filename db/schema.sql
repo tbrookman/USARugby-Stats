@@ -14,6 +14,7 @@ CREATE TABLE `comps` (
   `max_event` int(2) NOT NULL,
   `max_game` int(2) NOT NULL,
   `hidden` int(1) NOT NULL,
+  `league_type` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -24,6 +25,15 @@ CREATE TABLE `ct_pairs` (
   `comp_id` int(6) NOT NULL,
   `team_id` int(6) NOT NULL,
   `division_id` int(6) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `divisions` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `comp_id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -155,6 +165,7 @@ CREATE TABLE `teams` (
   `logo_url` varchar(1024) DEFAULT NULL,
   `description` varchar(1024) DEFAULT NULL,
   `type` varchar(64) DEFAULT NULL,
+  `status` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

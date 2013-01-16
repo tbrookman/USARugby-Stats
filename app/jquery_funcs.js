@@ -372,20 +372,14 @@ $(document).ready(function() {
         return true;
       }
     });
-
-
-    //hiding a competition
-    $(".hidec").live('click', function() {
-        if(!confirm('Are you sure you want to hide this competition?')){return false;}
-        var comprefresh = $("#comprefresh").val();
-        hId = $(this).data('hide-comp-id');
-
-        $.post('/hide_comp_process.php',
-        {id: hId},
-        function(){
-          reloadData('#comps', comprefresh);
+      
+    //Select All checkboxes
+    $(document).ready(function(){
+    $('input#active, input#sync_all').bind('click', function(){
+        var status = $(this).is(':checked');
+        $('input[type="checkbox"]', $(this).parent('')).attr('checked', status);
         });
-        return false;
+        
     });
 
     var resourceSync = {
@@ -945,6 +939,4 @@ $(document).ready(function() {
     return false;
     });
 
- });
-
-
+});

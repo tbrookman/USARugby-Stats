@@ -75,7 +75,6 @@ $app->get('/', function() use ($app) {
             // @TODO: Change this to use a twig template.
             // Originally "index.php"
             include_once './include.php';
-            echo "<h1>Welcome to USA Rugby's National Championship Series!</h1>";
 
             $qh = new QueueHelper();
             $queuecount = $qh->Queue()->count();
@@ -359,7 +358,9 @@ function get_player_stat_data($player_id, $comp_id = NULL, $iframe = FALSE) {
             }
             $competing_team = ($game_event['home_id'] == $player_team['id']) ? $game_event['away_id'] : $game_event['home_id'];
             $kickoff = new DateTime($game_event['kickoff']);
-            $game_data['date'] = $kickoff->format('m-d-Y');
+            $kickoff_year = new DateTime($game_event['kickoff']);
+            $kickoff_year->add(new DateInterval('P365D'));
+            $game_data['date'] = $kickoff->format('Y') . ' - ' . $kickoff_year->format('Y');
             $game_data['comp'] = teamName($competing_team, empty($iframe));
             $game_data['pts'] = empty($game_data['pts']) ? $game_event['value'] : $game_data['pts'] + $game_event['value'];
 
@@ -441,7 +442,7 @@ function get_standings($comp_id, $db, $domain) {
     foreach ($teams as $uuid => $team) {
         $record = $team_records[$uuid];
         if (isset($team['division_id']) && $team['division_id'] != 0 && !array_key_exists($team['division_id'], $divisions)) {
-            $divisions[$team['division_id']] = $db->getTeam($team['division_id']);
+            $divisions[$team['division_id']] = $db->getDivision($team['division_id']);
             $standing = $root->appendChild($doc->createElement('standing'));
             $standing->setAttribute('content-label', $divisions[$team['division_id']]['name']);
         }
