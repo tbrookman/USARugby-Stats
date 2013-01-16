@@ -103,7 +103,7 @@ if (!empty($id)) {
                     echo '<option selected value="' . $i . '">' . $i . '</option>';
                 }
                 else {
-                    echo '<option selected value="' . $i . '">' . $i . '</option>';
+                    echo '<option value="' . $i . '">' . $i . '</option>';
                 }
             }
             ?>
