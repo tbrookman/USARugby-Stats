@@ -254,7 +254,7 @@
 	<xsl:param name="oneteam"/>
 	<tr class="td-stats" valign="bottom">
 		<!--one row for each team-->
-		<td nowrap="nowrap">
+		<td>
 		<b>
 			<xsl:for-each select="$oneteam/team-metadata/name"> <!--Build the name in the second field-->
 			<xsl:if test="@language">
